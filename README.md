@@ -39,3 +39,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 1. nodeJS : v18.18.0
 2. Npm : 9.8.1
+3. Next.js 13.5.4
+4. React 18
