@@ -3,9 +3,8 @@ import Button from "@mui/material/Button";
 
 export default function Home() {
   return (
-    <div style={{display: "flex"}}>
-      <div className="left-container"
-        style={{padding: "20px"}}>
+    <div style={{ display: "flex" }}>
+      <div className="left-container" style={{ padding: "20px" }}>
         <h1>
           운동은 <br />
           함께할 때 <br />더 즐거우니까
@@ -16,8 +15,7 @@ export default function Home() {
           </Button>
         </>
       </div>
-      <div className="right-container"
-        style={{padding: "20px"}}>
+      <div className="right-container" style={{ padding: "20px" }}>
         <Image
           src="/main-page.png"
           width={914}
