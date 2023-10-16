@@ -11,7 +11,10 @@ export default function Header() {
         borderBottom: "1px solid black",
       }}
     >
-      <h2 style={{ color: "#66EBEB", padding: "10px" }}>With Sports</h2>
+      <Link href="/" style={{ textDecoration: "none" }}>
+        <h2 style={{ color: "#66EBEB", padding: "10px" }}>With Sports</h2>
+      </Link>
+
       <Link href="/user/login" style={{ textDecoration: "none" }}>
         <Button
           variant="contained"
