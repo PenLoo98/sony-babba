@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function signup() {
   return (
     <div>
-      <h1>소셜 종류: 카카오</h1>
+      <h1>소셜 종류: 네이버</h1>
       <div style={{ display: "flex" }}>
         <TextField
           id="outlined-basic"
