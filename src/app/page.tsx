@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Button from "@mui/material/Button";
-import Link from "next/link";
+import MainMenu from "@/components/Main/MainMenu";
 
 // TODO: 로그인시 비로그인시 헤더 컴포넌트 다르게 보여주기
 export default function Home() {
@@ -12,11 +11,7 @@ export default function Home() {
             운동은 <br />
             함께할 때 <br />더 즐거우니까
           </h1>
-          <Link href="/user/login" style={{ textDecoration: "none" }}>
-            <Button variant="contained" color="success">
-              지금 시작하기
-            </Button>
-          </Link>
+          <MainMenu/>
         </div>
         <div className="right-container" style={{ padding: "20px" }}>
           <Image
