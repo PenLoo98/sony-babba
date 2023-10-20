@@ -1,14 +1,11 @@
 import Image from "next/image";
 import Button from "@mui/material/Button";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 // TODO: 로그인시 비로그인시 헤더 컴포넌트 다르게 보여주기
 export default function Home() {
   return (
     <div>
-      <Header />
       <div style={{ display: "flex" }}>
         <div className="left-container" style={{ padding: "20px" }}>
           <h1>
@@ -30,7 +27,6 @@ export default function Home() {
           />
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
