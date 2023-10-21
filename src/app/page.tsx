@@ -1,8 +1,14 @@
 import Image from "next/image";
 import MainMenu from "@/components/Main/MainMenu";
+import {cookies} from 'next/headers'
 
-// TODO: 로그인시 비로그인시 헤더 컴포넌트 다르게 보여주기
 export default function Home() {
+  const cookieStore = cookies()
+  const sessionToken = cookieStore.get('next-auth.session-token')
+  const csrfToken = cookieStore.get('next-auth.session-token')
+  // console.log(sessionToken);
+  // console.log(csrfToken);
+
   return (
     <div>
       <div style={{ display: "flex" }}>
