@@ -1,24 +1,50 @@
-// 로그인 시도 시 리다이렉트 처리
 "use client";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import ParsingQuery from "@/components/Auth/ParsingQuery";
+import SelectArea from "@/components/Auth/SelectArea";
+import { TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import Link from "next/link";
+import { useState } from "react";
 
-export default function ParsingQuery() {
-  const router = useRouter();
-  const accessToken = router.query.accessToken;
+export default function SignUp() {
+    // 닉네임 중복 확인 API
+    const nameCheckAPI = "http://localhost:3000/api/user/nickname";
 
-  useEffect(() => {
-    const accessToken = router.query.accessToken;
-    const expiredTime = router.query.expiredTime;
+    // 닉네임 입력 상태관리
+    const [nickname, setNickname] = useState("");
+    const handleNameChange = (event: any) => {
+        setNickname(event.target.value);
+    };
 
-    console.log("Access Token:", accessToken);
+    // 지역 입력 상태관리
+    const [area, setArea] = useState("");
+    const handleAreaChange = (event: string) => {
+        setArea(event);
+    };
 
-    // 로컬스토리지에 토큰 저장
-    localStorage.setItem(
-      "accessToken",
-      JSON.stringify([accessToken, expiredTime])
-    );
-  }, [router.query.accessToken, router.query.expiredTime]);
+    // 회원정보 제출
+    function sendForm(){
+        // TODO: 회원정보 제출 fetch 구현하기
+        console.log(nickname);
+        console.log(area);
 
-  return console.log("Access Token:", accessToken);
+    }
+
+  return (
+    <div style = {{padding: "20px"}}>
+      <ParsingQuery />
+      <br />
+      
+      <div className="nickname" style={{ display: "flex" }}>
+        <TextField label="닉네임" variant="outlined" value={nickname} onChange={handleNameChange}/>
+        <Link href={nameCheckAPI} style={{ textDecoration: "none" }}>
+        <Button variant="contained" style={{margin:"10px"}}>중복 확인</Button>
+        </Link>
+      </div>
+      <br />
+      <SelectArea area={area} onAreaChange={handleAreaChange}/>
+      <br />
+      <Button onClick={sendForm} variant="contained">회원 정보 제출</Button>
+    </div>
+  );
 }

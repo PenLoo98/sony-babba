@@ -1,7 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import LogInOutNaver from "./LogInOutNaver";
-import LoginTest from "./LoginTest";
+import LoginTest from "../Auth/LoginTest";
 import HomeButton from "./HomeButton";
 import MenuBar from "./MenuBar";
 // TODO: 로그인 href를 /user/login이 아닌 /user/login?redirect=... 로 바꾸기
