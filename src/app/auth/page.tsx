@@ -25,8 +25,7 @@ export default function SignUp() {
     // 회원정보 제출
     function sendForm(){
         // TODO: 회원정보 제출 fetch 구현하기
-        console.log(nickname);
-        console.log(area);
+        console.log(JSON.stringify({nickname, area}));
 
     }
 
