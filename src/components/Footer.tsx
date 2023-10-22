@@ -1,17 +1,22 @@
 export default function Footer() {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        borderTop: "1px solid black",
-      }}
-    >
+    // <div
+    //   style={{
+    //     display: "flex",
+    //     justifyContent: "space-between",
+    //     borderTop: "1px solid black",
+    //   }}
+    // >
+    <div className="footer" style={{ display: "flex", backgroundColor: "#F5F5F5", justifyContent: "center"}}>
+
+      <div className="logo" style={{marginRight: "70px"}}>
       <h2 style={{ padding: "10px" }}>
         같이 운동하고 싶을 때 <br />
         <br />
         With Sports
       </h2>
+      </div>
+      <div className="info">
       <h3 style={{ padding: "15px" }}>
         이용약관 | 개인정보 처리방침 | 사업자 정보 확인
         <br />
@@ -21,6 +26,7 @@ export default function Footer() {
         <br />
         Copyright 손이바빠 All Rights Reserved.
       </h3>
+      </div>
     </div>
   );
 }

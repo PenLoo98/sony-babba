@@ -8,16 +8,18 @@ import LogoutBtn from "./LogoutBtn";
 // TODO: 로그인 href를 /user/login이 아닌 /user/login?redirect=... 로 바꾸기
 export default function Header() {
   const { data: session, status } = useSession();
+  const homeButtonStyle = {
+    display: "flex",
+        justifyContent: "space-between",
+        backgroundColor: "#85f3ef"
+  };
+
   if (status === "authenticated") {
     return (
       // 로그아웃 버튼
       <div
         className="header"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          borderBottom: "1px solid black",
-        }}
+        style={homeButtonStyle}
       >
         <HomeButton />
         <div style={{ display: "flex" }}>
@@ -31,11 +33,7 @@ export default function Header() {
     // 로그인 버튼
     <div
       className="header"
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        borderBottom: "1px solid black",
-      }}
+      style={homeButtonStyle}
     >
       <HomeButton />
       <LoginTest/>

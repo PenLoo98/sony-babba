@@ -29,7 +29,7 @@ export default function LoginTest() {
         style={{
           background: "#27D34A",
           color: "black",
-          marginBottom: "10px",
+          margin: "20px",
         }}
       >
         네이버 로그인 테스트
