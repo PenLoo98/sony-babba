@@ -6,7 +6,7 @@ import SelectArea from "@/components/Auth/SelectArea";
 import { TextField } from "@mui/material";
 import { useState } from "react";
 
-export default function SignUp() {
+export default function SignUpForm() {
         // 닉네임 입력 상태관리
     const [nickname, setNickname] = useState("");
     const handleNameChange = (event: any) => {
