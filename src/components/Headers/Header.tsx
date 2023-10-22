@@ -38,8 +38,8 @@ export default function Header() {
       }}
     >
       <HomeButton />
-      {/* <LoginTest/> */}
-      <LogInOutNaver />
+      <LoginTest/>
+      {/* <LogInOutNaver /> */}
       {/* <LogoutBtn /> */}
     </div>
   );
