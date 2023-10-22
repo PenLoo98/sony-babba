@@ -16,7 +16,7 @@ export default function ParsingQuery() {
       "accessToken",
       JSON.stringify([accessToken, expiredTime])
     );
-  }, [accessToken, expiredTime]);
+  }, []);
 
   // 아무 표시 하고 싶지 않다면 null;로 처리할 것.
   if (accessToken === null || expiredTime === null) {
