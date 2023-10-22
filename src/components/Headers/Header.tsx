@@ -39,8 +39,8 @@ export default function Header() {
     >
       <HomeButton />
       {/* <LoginTest/> */}
-      {/* <LogInOutNaver /> */}
-      <LogoutBtn />
+      <LogInOutNaver />
+      {/* <LogoutBtn /> */}
     </div>
   );
 }
