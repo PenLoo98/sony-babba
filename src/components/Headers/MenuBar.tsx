@@ -7,7 +7,7 @@ export default function MenuBar() {
         style={{display: "flex"}}>
             <Link href="/forum" style={{ textDecoration: "none" }}>
               <Image
-                src="/forum.png"
+                src="/forumBtn.png"
                 width={70}
                 height={70}
                 alt="forum-image"
@@ -16,7 +16,7 @@ export default function MenuBar() {
             </Link>
             <Link href="/team" style={{ textDecoration: "none" }}>
               <Image
-                src="/team.png"
+                src="/teamBtn.png"
                 width={70}
                 height={70}
                 alt="team-image"
@@ -25,7 +25,7 @@ export default function MenuBar() {
             </Link>
             <Link href="/chat" style={{ textDecoration: "none" }}>
               <Image
-                src="/chat.png"
+                src="/chatBtn.png"
                 width={70}
                 height={70}
                 alt="chat-image"
@@ -34,7 +34,7 @@ export default function MenuBar() {
             </Link>
             <Link href="/profile" style={{ textDecoration: "none" }}>
               <Image
-                src="/profile.png"
+                src="/profileBtn.png"
                 width={70}
                 height={70}
                 alt="profile-image"
