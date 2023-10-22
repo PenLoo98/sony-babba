@@ -13,7 +13,7 @@ export default function LogInOutNaver() {
           <Button
             onClick={() => {
               signOut();
-              <SuccessMsg msgText="로그아웃 되었습니다." />;
+              console.log("로그아웃 되었습니다.");
             }}
             component="label"
             variant="contained"
