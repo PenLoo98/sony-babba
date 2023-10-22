@@ -2,6 +2,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Button } from "@mui/material";
 import Image from "next/image";
+import SuccessMsg from "../Message/MsgButton";
 export default function LogInOutNaver() {
   const { data: session, status } = useSession();
 
@@ -10,7 +11,10 @@ export default function LogInOutNaver() {
     return (
       <div className="logout">
           <Button
-            onClick={() => signOut()}
+            onClick={() => {
+              signOut();
+              <SuccessMsg msgText="로그아웃 되었습니다." />;
+            }}
             component="label"
             variant="contained"
             startIcon={

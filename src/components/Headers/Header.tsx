@@ -1,9 +1,10 @@
 "use client";
 import { useSession } from "next-auth/react";
 import LogInOutNaver from "./LogInOutNaver";
-import LoginTest from "../Auth/LoginTest";
+import LoginTest from "./LoginTest";
 import HomeButton from "./HomeButton";
 import MenuBar from "./MenuBar";
+import LogoutBtn from "./LogoutBtn";
 // TODO: 로그인 href를 /user/login이 아닌 /user/login?redirect=... 로 바꾸기
 export default function Header() {
   const { data: session, status } = useSession();
@@ -37,8 +38,9 @@ export default function Header() {
       }}
     >
       <HomeButton />
-      <LoginTest/>
+      {/* <LoginTest/> */}
       {/* <LogInOutNaver /> */}
+      <LogoutBtn />
     </div>
   );
 }
