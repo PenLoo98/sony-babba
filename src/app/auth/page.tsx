@@ -7,31 +7,54 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 
 export default function SignUp() {
-        // 닉네임 입력 상태관리
-    const [nickname, setNickname] = useState("");
-    const handleNameChange = (event: any) => {
-        setNickname(event.target.value);
-    };
+  // 닉네임 입력 상태관리
+  const [nickname, setNickname] = useState("");
+  const handleNameChange = (event: any) => {
+    setNickname(event.target.value);
+  };
 
-    // 지역 입력 상태관리
-    const [area, setArea] = useState("");
-    const handleAreaChange = (event: string) => {
-        setArea(event);
-    };
+  // 지역 입력 상태관리
+  const [area, setArea] = useState("");
+  const handleAreaChange = (event: string) => {
+    setArea(event);
+  };
 
   return (
-    <div style = {{padding: "20px"}}>
-      <ParsingQuery />
-      <br />
-      
-      <div className="nickname" style={{ display: "flex" }}>
-        <TextField label="닉네임" variant="outlined" value={nickname} onChange={handleNameChange}/>
-        <CheckNickButton  nickname={nickname}/>
+    <div style={{ padding: "20px" }}>
+      <div
+        className="token"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <ParsingQuery />
       </div>
       <br />
-      <SelectArea area={area} onAreaChange={handleAreaChange}/>
+
+      <div
+        className="nickname"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <TextField
+          label="닉네임"
+          variant="outlined"
+          value={nickname}
+          onChange={handleNameChange}
+        />
+        <CheckNickButton nickname={nickname} />
+      </div>
       <br />
-      <ExportUserInfoButton nickname={nickname} area={area} />
+      <div
+        className="area"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <SelectArea area={area} onAreaChange={handleAreaChange} />
+      </div>
+      <br />
+      <div
+        className="exportUserBtn"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <ExportUserInfoButton nickname={nickname} area={area} />
+      </div>
     </div>
   );
 }
