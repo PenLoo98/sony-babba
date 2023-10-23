@@ -6,7 +6,7 @@ export default function LoginTest() {
   function requestLogin() {
     // const ip = process.env.SERVER_IP;
     // const url = `http://54.180.109.176:8000/user-service/oauth2/authorization/naver`;
-    const url = `http://211.110.223.59//user-service/oauth2/authorization/naver`;
+    const url = `http://3.37.203.5:8000/user-service/oauth2/authorization/naver`;
     const authPopup = window.open(url, "authPopup", "width=800, height=600");
     
     // 쿼리 응답을 받음
