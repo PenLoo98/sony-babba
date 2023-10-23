@@ -3,9 +3,10 @@ import { Button } from "@mui/material"
 
 type CheckNickButtonProps = {
     nickname: string;
+    setValidName: (event: boolean) => void;
 }
 
-export default function CheckNickButton({nickname}: CheckNickButtonProps) {
+export default function CheckNickButton({nickname, setValidName}: CheckNickButtonProps) {
     // 닉네임 중복 확인 API
     // TODO: API 주소 변경하기
     const nameCheckAPI = "http://localhost:3000/api/user/nickname";
@@ -21,8 +22,11 @@ export default function CheckNickButton({nickname}: CheckNickButtonProps) {
         }).then((res) => {
           if(res.status === 200){
             alert("사용 가능한 닉네임입니다.");
+            setValidName(true);
+
           } else {
             alert("이미 사용중인 닉네임입니다.");
+            setValidName(false);
           }
         })
       }

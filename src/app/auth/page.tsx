@@ -14,6 +14,9 @@ export default function SignUp() {
     setNickname(event.target.value);
   };
 
+  // 닉네임 중복 상태관리
+  const [validName, setValidName] = useState(false);
+
   // 지역 입력 상태관리
   const [area, setArea] = useState("");
   const handleAreaChange = (event: string) => {
@@ -45,7 +48,7 @@ export default function SignUp() {
               value={nickname}
               onChange={handleNameChange}
             />
-            <CheckNickButton nickname={nickname} />
+            <CheckNickButton nickname={nickname} setValidName={setValidName}/>
             <br />
             <br />
             <div className="area">
@@ -58,7 +61,7 @@ export default function SignUp() {
           className="exportUserBtn"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <ExportUserInfoButton nickname={nickname} area={area} />
+          <ExportUserInfoButton nickname={nickname} validName={validName} area={area} />
         </div>
       </div>
       <Image
