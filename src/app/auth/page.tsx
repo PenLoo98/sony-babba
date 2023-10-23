@@ -1,8 +1,8 @@
 "use client";
-import CheckNickButton from "@/components/Auth/CheckNickButton";
-import ExportUserInfoButton from "@/components/Auth/ExportUserInfoButton";
-import ParsingQuery from "@/components/Auth/ParsingQuery";
-import SelectArea from "@/components/Auth/SelectArea";
+import CheckNickButton from "@/app/auth/authComponent/CheckNickButton";
+import ExportUserInfoButton from "@/app/auth/authComponent/ExportUserInfoButton";
+import ParsingQuery from "@/app/auth/authComponent/ParsingQuery";
+import SelectArea from "@/app/auth/authComponent/SelectArea";
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
