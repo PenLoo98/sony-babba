@@ -23,7 +23,7 @@ export default function Profile({ params }: { params: ProfileProps }) {
   return (
     <div
       className="profile"
-      style={{ justifyContent: "center", placeItems: "center" }}
+      style={{ justifyContent: "center", placeItems: "center", marginTop: 20 }}
     >
       <div
         className="profileImage"
