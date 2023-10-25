@@ -55,18 +55,8 @@ export default function ParsingQuery() {
     }
   }
 
-  // 아무 표시 하고 싶지 않다면 null;로 처리할 것.
-  if (accessToken === null || expiredTime === null) {
-    return <div>토큰이 없습니다.</div>;
-  }
-
   return (
     <div className="tokenInfo">
-      <p>Access Token: {accessToken}</p>
-      <p>Expired Time: {expiredTime}</p>
-      <Button onClick={postAccessToken} variant="contained" color="primary">
-        액세스 토큰 POST
-      </Button>
     </div>
   );
 }
