@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-export default nextConfig = {
+nextConfig = {
   async rewrites() {
     return [
       {
@@ -11,4 +11,4 @@ export default nextConfig = {
 
 }
 
-module.exports = nextConfig
+export default nextConfig;
