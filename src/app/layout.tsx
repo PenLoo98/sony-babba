@@ -51,7 +51,7 @@ export default function RootLayout({ children }: Props) {
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       </head>
       <body className={inter.className}>
-        <NextAuthProvider>
+        {/* <NextAuthProvider> */}
           <div className="wrapper" style={wrapper}>
             <Header />
             <div className="contentWrapper" style={contentWrapper}>
@@ -59,7 +59,7 @@ export default function RootLayout({ children }: Props) {
             </div>
             <Footer />
           </div>
-        </NextAuthProvider>
+        {/* </NextAuthProvider> */}
       </body>
     </html>
   );
