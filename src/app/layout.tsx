@@ -48,7 +48,7 @@ export default function RootLayout({ children }: Props) {
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
         />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       </head>
       <body className={inter.className}>
         <NextAuthProvider>
