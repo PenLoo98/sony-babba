@@ -1,20 +1,21 @@
-// 부모 컴포넌트에서 useState에 setToken으로 토큰값을 전달한다.
-// 근데 이렇게하면 모든 HTTP요청을 하는 페이지들이 이 컴포넌트를 import해야한다.
-// 그냥 액세스 토큰도 쿠키에 저장하는게 마음이 편할듯
-// export default function GetAccessToken({token, setToken}: {token: String, setToken: String}) {
-//   // 로컬스토리지에서 액세스 토큰 가져오기
-//   const localStorage: Storage = window.localStorage;
-//   const tokenInfo: string | null = localStorage.getItem("accessToken");
+// export default function setToken(){
+//     // 로컬스토리지 토큰 가져오기
+//     const localStorage: Storage = window.localStorage;
+//     const accessTokentoken = localStorage.getItem("accessToken");
+//     const expiredTime = localStorage.getItem("expiredTime");
 
-//   if (tokenInfo === null) {
-//     alert("저장된 토큰이 없습니다.");
-//     return;
-//   }
+//     // 토큰 유효성 검사
+//     if (accessTokentoken === null || expiredTime === null) {
+//         alert("저장된 토큰이 없습니다.");
+//     }
+//     // 토큰 만료시 재발급
+//     // 요청 팝업창을 띄웁니다.
+//     window.open(
+//         "/user-service/auth/reissue",
+//         "토큰 재발급",
+//         "width=500, height=500"
+//     )?.ontouchend();
 
-//   if (tokenInfo !== null) {
-//     const token: String = JSON.parse(tokenInfo);
-//     console.log(token);
-//     setToken({token});
-//   }
-//   return null;
+
+//     return token;
 // }

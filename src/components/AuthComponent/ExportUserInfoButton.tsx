@@ -15,7 +15,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     console.log(JSON.stringify({ nickname, area }));
 
     // 회원정보 제출 API
-    const url = "/user-service/signup/profile";
+    const url = "http://3.37.203.5:8000/user-service/signup/profile";
 
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
