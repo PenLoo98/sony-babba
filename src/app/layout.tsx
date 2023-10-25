@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/Headers/Header";
 import Footer from "@/components/Footer";
-import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,14 +43,13 @@ export default function RootLayout({ children }: Props) {
   return (
     <html>
       {/* https설정 */}
-      <Head>
+      <head>
         <meta
           httpEquiv="Content-Security-Policy"
           content="upgrade-insecure-requests"
         />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-      </Head>
-
+      </head>
       <body className={inter.className}>
         <NextAuthProvider>
           <div className="wrapper" style={wrapper}>
