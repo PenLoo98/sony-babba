@@ -22,7 +22,6 @@ export default function CheckNickButton({nickname, setValidName}: CheckNickButto
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
           },
-          body: JSON.stringify({nickname}),
         }).then((res) => {
           if(res.status === 200){
             alert("사용 가능한 닉네임입니다.");
