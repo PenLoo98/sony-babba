@@ -11,7 +11,7 @@ export default function CheckNickButton({
   setValidName,
 }: CheckNickButtonProps) {
   // 닉네임 중복 확인 API
-  const nameCheckAPI = `http://3.37.203.5:8000/user-service/signup/check/nickname?nickname=${nickname}`;
+  const nameCheckAPI = `http://3.37.203.5:8000/user-service/signup/check/nickname?nickname="${nickname}"`;
 
   // 액세스 토큰 가져오기
   const localStorage: Storage = window.localStorage;
