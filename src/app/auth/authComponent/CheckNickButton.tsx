@@ -8,8 +8,11 @@ type CheckNickButtonProps = {
 
 export default function CheckNickButton({nickname, setValidName}: CheckNickButtonProps) {
     // 닉네임 중복 확인 API
-    // TODO: API 주소 변경하기
     const nameCheckAPI = `http://3.37.203.5:8000/user-service/signup/check/nickname?nickname=${nickname}`;
+
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
 
     // 닉네임 중복 확인
     function checkName(){
@@ -17,6 +20,7 @@ export default function CheckNickButton({nickname, setValidName}: CheckNickButto
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify({nickname}),
         }).then((res) => {
