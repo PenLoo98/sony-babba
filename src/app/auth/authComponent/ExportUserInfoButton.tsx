@@ -13,6 +13,9 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
   function sendForm() {
     // TODO: 회원정보 제출 fetch 구현하기
     console.log(JSON.stringify({ nickname, area }));
+    // url 설정
+    const url = "http://3.37.203.5:8000/api/users/signup";
+    fetch
   }
   return (
     <div>

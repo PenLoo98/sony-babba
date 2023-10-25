@@ -2,25 +2,37 @@
 import { TextField } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SmsIcon from "@mui/icons-material/Sms";
 import HandshakeIcon from "@mui/icons-material/Handshake";
+import ReportIcon from "@mui/icons-material/Report";
 
-export default function ProfileMenu() {
-  // const router = useRouter();
+type PageParams = {
+  id: number;
+};
+
+export default function ProfileMenu({params}:{params:PageParams}) { 
+  // console.log(params.id);
+
   // 검색할 닉네임
-  const [name, setName] = useState("");
-  // 본인 프로필인지 확인
-  const [isYourProfile, setIsYourProfile] = useState();
-
-  const onType = (e: any) => {
-    setName(e.target.value);
+  const [nickname, setNickname] = useState("");
+  const typeName = (e: any) => {
+    setNickname(e.target.value);
   };
+
+  // 본인 프로필인지 확인
+  const [isYourProfile, setIsYourProfile] = useState(false);
+  const swithYours = () => {
+    setIsYourProfile(!isYourProfile);
+  }
+
+  //
+
   const searchName = () => {
     // 입력값 확인
-    console.log(name);
+    console.log(nickname);
     // const url = "http://localhost:8080/user/profile";
     // // TODO: POST - name에 맞는 id 가져오기
     // try {
@@ -42,6 +54,12 @@ export default function ProfileMenu() {
     // router.push("/user/profile/1");
   };
 
+  // 프로필 수정 페이지로 이동
+  const editProfile = () => {
+    const url = `/user/profile/${params.id}/edit`;
+    window.open(url, "authPopup", "width=800, height=600");
+  };
+
   return (
     <div className="profile-menu">
       <div className="profile-menu-search">
@@ -49,8 +67,8 @@ export default function ProfileMenu() {
           id="outlined-basic"
           label="사용자 닉네임 검색"
           variant="outlined"
-          value={name}
-          onChange={onType}
+          value={nickname}
+          onChange={typeName}
         />
         <Image
           onClick={searchName}
@@ -66,11 +84,22 @@ export default function ProfileMenu() {
         className="profile-3menu"
         style={{ flexDirection: "column", marginTop: "15px" }}
       >
+        {/* 본인, 타인 프로필 테스트 버튼 */}
+        <Button variant="outlined" onClick={swithYours}>
+                {isYourProfile ? "내 프로필" : "다른 프로필"}
+              </Button>
         {isYourProfile ? (
           <div className="your-profile">
-            <Button variant="outlined" startIcon={<EditIcon />}>
-              프로필 수정
-            </Button>
+            <div className="profile-edit" style={{ marginTop: "5px" }}>
+              <Button variant="outlined" startIcon={<EditIcon />} onClick={editProfile}>
+                프로필 수정
+              </Button>
+            </div>
+            <div className="delete-account" style={{ marginTop: "5px" }}>
+              <Button variant="outlined" startIcon={<DeleteForeverIcon />} style={{color:"red"}}>
+                회원 탈퇴
+              </Button>
+            </div>
           </div>
         ) : (
           <div className="another-profile">
@@ -82,6 +111,11 @@ export default function ProfileMenu() {
             <div className="invite-button" style={{ marginTop: "5px" }}>
               <Button variant="outlined" startIcon={<HandshakeIcon />}>
                 팀원 신청
+              </Button>
+            </div>
+            <div className="report-button" style={{ marginTop: "5px" }}>
+              <Button variant="outlined" startIcon={<ReportIcon />}>
+                사용자 신고
               </Button>
             </div>
           </div>

@@ -7,7 +7,6 @@ type ProfileProps = {
 
 export default function Profile({ params }: { params: ProfileProps }) {
   // 넘긴 params 확인
-  // console.log(params);
   // console.log(params.id);
 
   // TODO: GET - id에 맞는 사용자 정보 가져오기
@@ -19,6 +18,9 @@ export default function Profile({ params }: { params: ProfileProps }) {
   const userTeam = "손이바빠";
   const userTeamId: number = 7; // 숫자로 넘겨야 함
   const userActivity = "축구";
+
+  let userJSON = JSON.stringify({userId, userImage, userNickname, userConnect, userArea, userTeam, userTeamId, userActivity})
+  console.log(userJSON);
 
   return (
     <div
