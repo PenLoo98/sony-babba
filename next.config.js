@@ -5,7 +5,7 @@ nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
+        source: "http://api/:path*",
         destination: "http://3.37.203.5:8000/:path*",
       },
     ];
