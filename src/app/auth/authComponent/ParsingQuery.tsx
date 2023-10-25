@@ -15,11 +15,8 @@ export default function ParsingQuery() {
 
     // 쿼리파라미터가 있다면 로컬스토리지에 액세스 토큰 저장
     if (accessToken && expiredTime) {
-      const tokenInfo = {
-        accessToken: accessToken,
-        expiredTime: expiredTime,
-      };
-      localStorage.setItem("accessToken", JSON.stringify(tokenInfo));
+      localStorage.setItem("accessToken", JSON.stringify(accessToken));
+      localStorage.setItem("expiredTime", JSON.stringify(expiredTime));
     }
   }, []);
 

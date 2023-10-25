@@ -5,6 +5,8 @@ nextConfig = {
   async rewrites() {
     return [
       {
+        reactStrictMode: true,
+        swcMinify: true,
         source: "/:path*",
         destination: "http://3.37.203.5:8000/:path*",
       },
