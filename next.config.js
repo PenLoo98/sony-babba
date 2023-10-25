@@ -6,7 +6,7 @@ nextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "3.37.203.5:8000/:path*",
+        destination: "http://3.37.203.5:8000/:path*",
       },
     ];
   },
