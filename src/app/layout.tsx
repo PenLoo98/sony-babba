@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/Headers/Header";
 import Footer from "@/components/Footer";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,11 +14,11 @@ export const metadata: Metadata = {
 };
 
 // TypeScript는 CSS 프로퍼티를 엄격하게 체크한다.
-// flexDirection의 경우 'row', 'row-reverse', 'column', 'column-reverse'와 같은 특정한 문자열 값만을 가질 수 있습니다. 
+// flexDirection의 경우 'row', 'row-reverse', 'column', 'column-reverse'와 같은 특정한 문자열 값만을 가질 수 있습니다.
 interface Styles {
   display: string;
   justifyContent: string;
-  flexDirection?: "column"|undefined;
+  flexDirection?: "column" | undefined;
   height?: string;
   alignItems?: string;
 }
@@ -41,7 +42,16 @@ type Props = {
 };
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en">
+    <html>
+      {/* https설정 */}
+      <Head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests"
+        />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+      </Head>
+
       <body className={inter.className}>
         <NextAuthProvider>
           <div className="wrapper" style={wrapper}>
