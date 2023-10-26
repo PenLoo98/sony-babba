@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@mui/material";
 
 type CheckNickButtonProps = {
@@ -9,14 +10,20 @@ export default function CheckNickButton({
   nickname,
   setValidName,
 }: CheckNickButtonProps) {
-  console.log("nickname: " + nickname);
+  // console.log("nickname: " + nickname);
   // 닉네임 중복 확인 API
-  const nameCheckAPI = `http://3.37.203.5:8000/user-service/signup/check/nickname?nickname="${nickname}"`;
+  const nameCheckAPI = `/user-service/signup/check/nickname?nickname="${nickname}"`;
+  // const nameCheckAPI = `/api/user/checkNickname?nickname="${nickname}"`
 
   // 액세스 토큰 가져오기
   const localStorage: Storage = window.localStorage;
   const token = localStorage.getItem("accessToken");
-  const tokenJSON = { accessToken: token };
+
+  // TODO: JSON 형식확인하기 
+  const tokenJSON = {token};
+  // const tokenJSON = {accessToken: token };
+  // const tokenJSON = {"accessToken": token };
+
   // console.log(token);
   // console.log(tokenJSON);
 
@@ -34,11 +41,11 @@ export default function CheckNickButton({
 
   // 닉네임 중복 확인
   async function checkName() {
-    const res = await fetch(nameCheckAPI, {
+    let res = await fetch(nameCheckAPI, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${tokenJSON}`,
+        "Authorization": `Bearer ${tokenJSON}`,
       },
     });
     if (!res.ok) {
@@ -49,7 +56,7 @@ export default function CheckNickButton({
     }
     setValidName(true);
     alert("사용 가능한 닉네임입니다.");
-    return res.json();
+    console.log(res.json());
   }
 
   return (
