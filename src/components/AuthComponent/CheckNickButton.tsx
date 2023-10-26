@@ -11,7 +11,7 @@ export default function CheckNickButton({
   setValidName,
 }: CheckNickButtonProps) {
   // 닉네임 중복 확인 API
-  const nameCheckAPI: string = `http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname=${encodeURIComponent(nickname)}`;
+  const nameCheckAPI: string = `http://3.37.203.5:8000/user-service/signup/check/nickname/`;
   
   // 액세스 토큰 가져오기
   const localStorage: Storage = window.localStorage;
@@ -60,8 +60,7 @@ export default function CheckNickButton({
     // alert("사용 가능한 닉네임입니다.");
     // console.log(res.json());
 
-    // let res = await fetch(`${nameCheckAPI}?params=${encodeURIComponent(nickname)}`, {
-      let res = await fetch(nameCheckAPI, {
+    let res = await fetch(`${nameCheckAPI}?params=${encodeURIComponent(nickname)}`, {
       method: "GET",
       headers: {
         ContentType: "application/json",
