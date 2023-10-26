@@ -6,9 +6,10 @@ export async function GET(request: Request) {
   // URL에서 nickname 가져오기
   const { searchParams } = new URL(request.url)
   const nickname = searchParams.get('nickname')
+  console.log("nickname: " +nickname);
 
   // TODO: JSON 형식확인하기 
-  const nameCheckAPI = `http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname="${nickname}`;
+  const nameCheckAPI = `/user-service/signup/check/nickname/?nickname="${nickname}`;
 
   let res = await fetch(nameCheckAPI, {
     method: "GET",
