@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@mui/material";
+import { Url } from "next/dist/shared/lib/router/router";
 
 type CheckNickButtonProps = {
   nickname: string;
@@ -11,7 +12,7 @@ export default function CheckNickButton({
   setValidName,
 }: CheckNickButtonProps) {
   // 닉네임 중복 확인 API
-  const nameCheckAPI: string =
+  const nameCheckAPI: Url =
     `http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname=` +
     nickname;
 
