@@ -18,7 +18,7 @@ export default function CheckNickButton({
 
   // console.log("nickname: " + nickname);
   // 닉네임 중복 확인 API
-  const nameCheckAPI:string = `user-service/signup/check/nickname?nickname="${nickname}"`;
+  const nameCheckAPI:string = `/sony-babba.vercel.app/api/user/checkNickname/?nickname="${nickname}"`;
   // const nameCheckAPI = `/api/user/checkNickname?nickname="${nickname}"`
 
   // 액세스 토큰 가져오기
@@ -68,13 +68,12 @@ export default function CheckNickButton({
     }
     if (!res.ok) {
       alert("이미 사용중인 닉네임입니다.");
-      setValidName(false);
-      // This will activate the closest `error.js` Error Boundary
+      console.log(res.json());
       throw new Error("서버 요청 실패!");
     }
-    setValidName(true);
     alert("사용 가능한 닉네임입니다.");
     console.log(res.json());
+    
   }
 
   return (
