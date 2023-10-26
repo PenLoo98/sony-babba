@@ -66,8 +66,8 @@ export default function CheckNickButton({
     let res = await fetch(nameCheckAPI, {
       method: "GET",
       headers: {
-        ContentType: "application/json",
-        Authorization: JSON.stringify(`Bearer ${token}`),
+        "Content-Type": "application/json",
+        "Authorization": JSON.stringify(`Bearer ${token}`),
       },
     });
 
