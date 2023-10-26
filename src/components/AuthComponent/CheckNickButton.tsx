@@ -12,7 +12,7 @@ export default function CheckNickButton({
   setValidName,
 }: CheckNickButtonProps) {
   // 닉네임 중복 확인 API
-  const nameCheckAPI: Url =
+  const nameCheckAPI =
     `http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname=` +
     nickname;
 
