@@ -44,6 +44,7 @@ export default function CheckNickButton({
   //     "width=500, height=500"
   //   );
   // }
+  console.log(token);
   console.log(`Bearer ${token}`);
 
   // 닉네임 중복 확인
@@ -52,7 +53,7 @@ export default function CheckNickButton({
       method: "GET",
       headers: {
         ContentType: "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: "Bearer " + token,
       },
     });
     try {
