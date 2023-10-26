@@ -12,23 +12,23 @@ export default function Header() {
         justifyContent: "space-between",
         backgroundColor: "#85f3ef"
   };
-  // const { data: session, status } = useSession();
+  const { data: session, status } = useSession();
 
-  // if (status === "authenticated") {
-  //   return (
-  //     // 로그아웃 버튼
-  //     <div
-  //       className="header"
-  //       style={homeButtonStyle}
-  //     >
-  //       <HomeButton />
-  //       <div style={{ display: "flex" }}>
-  //         <MenuBar />
-  //         <LogInOutNaver />
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (status === "authenticated") {
+    return (
+      // 로그아웃 버튼
+      <div
+        className="header"
+        style={homeButtonStyle}
+      >
+        <HomeButton />
+        <div style={{ display: "flex" }}>
+          <MenuBar />
+          <LogInOutNaver />
+        </div>
+      </div>
+    );
+  }
   return (
     // 로그인 버튼
     <div
