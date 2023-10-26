@@ -11,10 +11,10 @@ export default function CheckNickButton({
   setValidName,
 }: CheckNickButtonProps) {
   // 테스트
-  const checkName = () => {
-    alert("사용가능한 닉네임입니다.");
-    setValidName(true);
-  }
+  // const checkName = () => {
+  //   alert("사용가능한 닉네임입니다.");
+  //   setValidName(true);
+  // }
 
   // console.log("nickname: " + nickname);
   // 닉네임 중복 확인 API
@@ -27,7 +27,7 @@ export default function CheckNickButton({
 
   // TODO: JSON 형식확인하기 
   // const tokenJSON = {token};
-  const tokenJSON = {accessToken: token };
+  // const tokenJSON = {accessToken: token };
   // const tokenJSON = {"accessToken": token };
 
   // console.log(token);
@@ -44,32 +44,33 @@ export default function CheckNickButton({
   //     "width=500, height=500"
   //   );
   // }
+  console.log(`Bearer ${token}`);
 
   // 닉네임 중복 확인
-  // async function checkName() {
-  //   let res = await fetch(nameCheckAPI, {
-  //     method: "GET",
-  //     headers: {
-  //       ContentType: "application/json",
-  //       Authorization: `Bearer ${tokenJSON}`,
-  //     },
-  //   });
-  //   try {
-  //     res = await res.json();
-  //   }
-  //   catch (error) {
-  //     console.log(error);
-  //   }
-  //   if (!res.ok) {
-  //     alert("이미 사용중인 닉네임입니다.");
-  //     setValidName(false);
-  //     // This will activate the closest `error.js` Error Boundary
-  //     throw new Error("서버 요청 실패!");
-  //   }
-  //   setValidName(true);
-  //   alert("사용 가능한 닉네임입니다.");
-  //   console.log(res.json());
-  // }
+  async function checkName() {
+    let res = await fetch(nameCheckAPI, {
+      method: "GET",
+      headers: {
+        ContentType: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try {
+      res = await res.json();
+    }
+    catch (error) {
+      console.log(error);
+    }
+    if (!res.ok) {
+      alert("이미 사용중인 닉네임입니다.");
+      setValidName(false);
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error("서버 요청 실패!");
+    }
+    setValidName(true);
+    alert("사용 가능한 닉네임입니다.");
+    console.log(res.json());
+  }
 
   return (
     <Button onClick={checkName} variant="contained" style={{ margin: "10px" }}>
