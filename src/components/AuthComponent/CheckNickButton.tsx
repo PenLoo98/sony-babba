@@ -12,7 +12,7 @@ export default function CheckNickButton({
 }: CheckNickButtonProps) {
   // console.log("nickname: " + nickname);
   // 닉네임 중복 확인 API
-  const nameCheckAPI = `/user-service/signup/check/nickname?nickname="${nickname}"`;
+  const nameCheckAPI = `'http://3.37.203.5:8000/user-service/signup/check/nickname?nickname="${nickname}"`;
   // const nameCheckAPI = `/api/user/checkNickname?nickname="${nickname}"`
 
   // 액세스 토큰 가져오기
