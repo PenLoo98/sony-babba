@@ -6,16 +6,16 @@ import { useEffect } from "react";
 export default function ParsingQuery() {
   const params = useSearchParams();
 
-  const accessToken: String | null = params.get("accessToken");
-  const expiredTime: String | null = params.get("expiredTime");
+  const accessToken: any | null = params.get("accessToken");
+  const expiredTime: any | null = params.get("expiredTime");
 
   useEffect(() => {
     const localStorage: Storage = window.localStorage;
 
     // 쿼리파라미터가 있다면 로컬스토리지에 액세스 토큰 저장
     if (accessToken && expiredTime) {
-      localStorage.setItem("accessToken", JSON.stringify(accessToken));
-      localStorage.setItem("expiredTime", JSON.stringify(expiredTime));
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("expiredTime", expiredTime);
     }
   }, []);
 
