@@ -36,8 +36,8 @@ export default function CheckNickButton({
   // console.log(JSON.stringify(token));
   // console.log(JSON.stringify("Bearer " + token));
   // console.log(JSON.stringify(`Bearer ${token}`));
-  console.log(`Bearer ${token}`); // Bearer {token}
-  console.log(JSON.stringify(`Bearer ${token}`)); // "Bearer {token}"
+  // console.log(`Bearer ${token}`); // Bearer {token}
+  // console.log(JSON.stringify(`Bearer ${token}`)); // "Bearer {token}"
 
   // 닉네임 중복 확인
   async function checkName() {
@@ -65,6 +65,8 @@ export default function CheckNickButton({
 
     let res = await fetch(nameCheckAPI, {
       method: "GET",
+      mode: "cors",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         "Authorization": JSON.stringify(`Bearer ${token}`),
