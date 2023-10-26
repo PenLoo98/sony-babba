@@ -44,11 +44,12 @@ export default function CheckNickButton({
   //     "width=500, height=500"
   //   );
   // }
-  console.log(JSON.stringify(token));
-  console.log("\n");
-  console.log(JSON.stringify("Bearer " + token));
-  console.log("\n");
-  console.log(JSON.stringify(`Bearer ${token}`));
+  // console.log(JSON.stringify(token));
+  // console.log(JSON.stringify("Bearer " + token));
+  // console.log(JSON.stringify(`Bearer ${token}`));
+  console.log("Bearer "+ JSON.parse(JSON.stringify(token)));
+  console.log(JSON.parse(JSON.stringify("Bearer "+token)));
+
 
   // 닉네임 중복 확인
   async function checkName() {
@@ -56,7 +57,7 @@ export default function CheckNickButton({
       method: "GET",
       headers: {
         ContentType: "application/json",
-        Authorization: JSON.stringify("Bearer "+token),
+        Authorization: JSON.parse(JSON.stringify("Bearer "+token)),
       },
     });
     try {
