@@ -6,8 +6,8 @@ nextConfig = {
       return [
         {
           // `/user-service/signup/check/nickname?nickname=${nickname}`
-          source: 'https://sony-babba.vercel.app/user-service/signup/check/nickname?:nickname*',
-          destination: 'http://3.37.203.5:8000/user-service/signup/check/nickname?nickname=:nickname*',
+          source: '/sony-babba.vercel.app/user-service/signup/check/nickname/:nickname*',
+          destination: 'http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname=:nickname*',
         },
       ]
     },
