@@ -26,8 +26,8 @@ export default function CheckNickButton({
   const token = localStorage.getItem("accessToken");
 
   // TODO: JSON 형식확인하기 
-  const tokenJSON = {token};
-  // const tokenJSON = {accessToken: token };
+  // const tokenJSON = {token};
+  const tokenJSON = {accessToken: token };
   // const tokenJSON = {"accessToken": token };
 
   // console.log(token);
