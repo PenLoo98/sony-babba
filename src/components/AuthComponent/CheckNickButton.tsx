@@ -2,7 +2,7 @@
 import { Button } from "@mui/material";
 
 type CheckNickButtonProps = {
-  nickname: string;
+  nickname: any;
   setValidName: (event: boolean) => void;
 };
 
