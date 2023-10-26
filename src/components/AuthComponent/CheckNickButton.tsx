@@ -65,13 +65,14 @@ export default function CheckNickButton({
       {
         method: "GET",
         headers: {
-          ContentType: "application/json",
-          Authorization: JSON.stringify(`Bearer ${token}`),
+          'Content-Type': "application/json",
+          'Authorization': JSON.stringify(`Bearer ${token}`),
         },
       }
     );
 
     try {
+      console.log(res);
       res = await res.json();
     } catch (error) {
       console.log(error);
