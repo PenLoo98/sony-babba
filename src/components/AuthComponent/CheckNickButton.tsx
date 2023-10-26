@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from "@mui/material";
 
 type CheckNickButtonProps = {
@@ -10,15 +10,14 @@ export default function CheckNickButton({
   nickname,
   setValidName,
 }: CheckNickButtonProps) {
-  
   // 닉네임 중복 확인 API
-  const nameCheckAPI:string = `http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname="${nickname}"`;
-
+  const nameCheckAPI: string = `http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname=${encodeURIComponent(nickname)}`;
+  
   // 액세스 토큰 가져오기
   const localStorage: Storage = window.localStorage;
   const token = localStorage.getItem("accessToken");
 
-  // TODO: JSON 형식확인하기 
+  // TODO: JSON 형식확인하기
 
   // 토큰 유효성 검사
   // if (token === null) {
@@ -37,20 +36,42 @@ export default function CheckNickButton({
   console.log(`Bearer ${token}`);
   console.log(JSON.stringify(`Bearer ${token}`));
 
-
   // 닉네임 중복 확인
   async function checkName() {
-    let res = await fetch(nameCheckAPI, {
+    // 찬호 작성
+    // let res = await fetch(nameCheckAPI, {
+    //   method: "GET",
+    //   headers: {
+    //     ContentType: "application/json",
+    //     Authorization: JSON.stringify(`Bearer ${token}`),
+    //   },
+    // });
+    // try {
+    //   res = await res.json();
+    // }
+    // catch (error) {
+    //   console.log(error);
+    // }
+    // if (!res.ok) {
+    //   alert("이미 사용중인 닉네임입니다.");
+    //   console.log(res.json());
+    //   throw new Error("서버 요청 실패!");
+    // }
+    // alert("사용 가능한 닉네임입니다.");
+    // console.log(res.json());
+
+    // let res = await fetch(`${nameCheckAPI}?params=${encodeURIComponent(nickname)}`, {
+      let res = await fetch(nameCheckAPI, {
       method: "GET",
       headers: {
         ContentType: "application/json",
         Authorization: JSON.stringify(`Bearer ${token}`),
       },
     });
+
     try {
       res = await res.json();
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
     if (!res.ok) {
@@ -60,7 +81,6 @@ export default function CheckNickButton({
     }
     alert("사용 가능한 닉네임입니다.");
     console.log(res.json());
-    
   }
 
   return (
