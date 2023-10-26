@@ -44,8 +44,9 @@ export default function CheckNickButton({
   //     "width=500, height=500"
   //   );
   // }
-  console.log(token);
-  console.log(`Bearer ${token}`);
+  console.log("token:"+token+"\n");
+  console.log("Bearer " + token+"\n");
+  console.log(`Bearer ${token}`+"\n");
 
   // 닉네임 중복 확인
   async function checkName() {
