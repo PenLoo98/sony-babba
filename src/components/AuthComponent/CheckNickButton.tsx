@@ -47,8 +47,8 @@ export default function CheckNickButton({
   // console.log(JSON.stringify(token));
   // console.log(JSON.stringify("Bearer " + token));
   // console.log(JSON.stringify(`Bearer ${token}`));
-  console.log("Bearer "+ JSON.parse(JSON.stringify(token)));
-  console.log(JSON.parse(JSON.stringify("Bearer "+token)));
+  console.log(`Bearer ${token}`);
+  console.log(JSON.stringify(`Bearer ${token}`));
 
 
   // 닉네임 중복 확인
@@ -57,7 +57,7 @@ export default function CheckNickButton({
       method: "GET",
       headers: {
         ContentType: "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: JSON.stringify(`Bearer ${token}`),
       },
     });
     try {
