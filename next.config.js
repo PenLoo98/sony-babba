@@ -6,7 +6,7 @@ nextConfig = {
     async redirects(){
       return [
         {
-          source: '/sony-babba.vercel.app/api/:path*',
+          source: '/sony-babba.vercel.app/sapi/:path*',
           destination: 'http://3.37.203.5:8000/:path*',
         }
       ]

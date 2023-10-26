@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   console.log("nickname: " +nickname);
 
   // TODO: JSON 형식확인하기 
-  const nameCheckAPI = `/user-service/signup/check/nickname/?nickname="${nickname}`;
+  const nameCheckAPI = `/sapi/user-service/signup/check/nickname/?nickname="${nickname}`;
 
   let res = await fetch(nameCheckAPI, {
     method: "GET",
