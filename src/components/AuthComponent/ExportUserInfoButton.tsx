@@ -14,29 +14,32 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     // TODO: 회원정보 제출 fetch 구현하기
     console.log(JSON.stringify({ nickname, area }));
 
-    // 회원정보 제출 API
-    const url = "/api/user-service/signup/profile";
+    alert("회원가입에 성공했습니다.");
+    location.href = "/";
 
-    // 액세스 토큰 가져오기
-    const localStorage: Storage = window.localStorage;
-    const token = localStorage.getItem("accessToken");
+    // // 회원정보 제출 API
+    // const url = "/api/user-service/signup/profile";
 
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ nickname, area }),
-    }).then((res) => {
-      if (res.status === 200) {
-        alert("회원가입에 성공했습니다.");
-        console.log(res);
-      } else {
-        alert("회원가입에 실패했습니다.");
-        console.log(res);
-      }
-    });
+    // // 액세스 토큰 가져오기
+    // const localStorage: Storage = window.localStorage;
+    // const token = localStorage.getItem("accessToken");
+
+    // fetch(url, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    //   body: JSON.stringify({ nickname, area }),
+    // }).then((res) => {
+    //   if (res.status === 200) {
+    //     alert("회원가입에 성공했습니다.");
+    //     console.log(res);
+    //   } else {
+    //     alert("회원가입에 실패했습니다.");
+    //     console.log(res);
+    //   }
+    // });
   }
   return (
     <div>
@@ -45,7 +48,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
           회원 정보 제출
         </Button>
       ) : (
-        <Button onClick={sendForm} variant="contained" disabled>
+        <Button variant="contained" disabled>
           회원 정보 제출
         </Button>
       )}
