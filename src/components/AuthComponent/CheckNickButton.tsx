@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@mui/material";
-import { Url } from "next/dist/shared/lib/router/router";
+import https from "https";
+import axios from "axios";
 
 type CheckNickButtonProps = {
   nickname: string;
@@ -12,8 +13,7 @@ export default function CheckNickButton({
   setValidName,
 }: CheckNickButtonProps) {
   // 닉네임 중복 확인 API
-  const nameCheckAPI = `http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname=${nickname}}`;
-  const params = {"nickname": nickname};
+  const nameCheckAPI = `http://3.37.203.5:8000/user-service/signup/check/nickname`;
 
   // 액세스 토큰 가져오기
   const localStorage: Storage = window.localStorage;
@@ -62,29 +62,55 @@ export default function CheckNickButton({
     // alert("사용 가능한 닉네임입니다.");
     // console.log(res.json());
 
-    let res = await fetch(nameCheckAPI, {
-      method: "GET",
-      mode: "cors",
-      credentials: "include",
-      headers: {
-        ContentType: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    // let res = await fetch(nameCheckAPI, {
+    //   method: "GET",
+    //   mode: "cors",
+    //   credentials: "include",
+    //   headers: {
+    //     ContentType: "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
 
-    try {
-      console.log(res);
-      res = await res.json();
-    } catch (error) {
-      console.log(error);
-    }
-    if (!res.ok) {
-      alert("이미 사용중인 닉네임입니다.");
-      console.log(res.json());
-      throw new Error("서버 요청 실패!");
-    }
-    alert("사용 가능한 닉네임입니다.");
-    console.log(res.json());
+    // });
+
+    // try {
+    //   console.log(res);
+    //   res = await res.json();
+    //   return res;
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // if (!res.ok) {
+    //   alert("이미 사용중인 닉네임입니다.");
+    //   console.log(res.json());
+    //   throw new Error("서버 요청 실패!");
+    // }
+    // alert("사용 가능한 닉네임입니다.");
+    // console.log(res.json());
+    // return res;
+
+    axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
+    axios
+      .get(nameCheckAPI, {
+        params: { nickname: nickname },
+        headers: {
+          ContentType: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data === true) {
+          alert("이미 사용중인 닉네임입니다.");
+          setValidName(false);
+        } else {
+          alert("사용 가능한 닉네임입니다.");
+          setValidName(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
