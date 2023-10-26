@@ -17,29 +17,29 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     alert("회원가입에 성공했습니다.");
     location.href = "/";
 
-    // // 회원정보 제출 API
-    // const url = "/api/user-service/signup/profile";
+    // 회원정보 제출 API
+    const url = "/api/user-service/signup/profile";
 
-    // // 액세스 토큰 가져오기
-    // const localStorage: Storage = window.localStorage;
-    // const token = localStorage.getItem("accessToken");
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
 
-    // fetch(url, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    //   body: JSON.stringify({ nickname, area }),
-    // }).then((res) => {
-    //   if (res.status === 200) {
-    //     alert("회원가입에 성공했습니다.");
-    //     console.log(res);
-    //   } else {
-    //     alert("회원가입에 실패했습니다.");
-    //     console.log(res);
-    //   }
-    // });
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        ContentType: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ nickname, area }),
+    }).then((res) => {
+      if (res.status === 200) {
+        alert("회원가입에 성공했습니다.");
+        console.log(res);
+      } else {
+        alert("회원가입에 실패했습니다.");
+        console.log(res);
+      }
+    });
   }
   return (
     <div>
