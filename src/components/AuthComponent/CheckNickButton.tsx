@@ -65,8 +65,8 @@ export default function CheckNickButton({
       {
         method: "GET",
         headers: {
-          'Content-Type': "application/json",
-          'Authorization': `Bearer ${token}`,
+          ContentType: "application/json",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
