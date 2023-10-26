@@ -2,7 +2,7 @@
 import { Button } from "@mui/material";
 
 type CheckNickButtonProps = {
-  nickname: any;
+  nickname: string;
   setValidName: (event: boolean) => void;
 };
 
@@ -10,28 +10,15 @@ export default function CheckNickButton({
   nickname,
   setValidName,
 }: CheckNickButtonProps) {
-  // 테스트
-  // const checkName = () => {
-  //   alert("사용가능한 닉네임입니다.");
-  //   setValidName(true);
-  // }
-
-  // console.log("nickname: " + nickname);
+  
   // 닉네임 중복 확인 API
   const nameCheckAPI:string = `http://3.37.203.5:8000/user-service/signup/check/nickname/?nickname=${nickname}`;
-  // const nameCheckAPI = `/api/user/checkNickname?nickname="${nickname}"`
 
   // 액세스 토큰 가져오기
   const localStorage: Storage = window.localStorage;
   const token = localStorage.getItem("accessToken");
 
   // TODO: JSON 형식확인하기 
-  // const tokenJSON = {token};
-  // const tokenJSON = {accessToken: token };
-  // const tokenJSON = {"accessToken": token };
-
-  // console.log(token);
-  // console.log(tokenJSON);
 
   // 토큰 유효성 검사
   // if (token === null) {
