@@ -1,45 +1,128 @@
 "use client";
-import { TextField } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import Image from "next/image";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SmsIcon from "@mui/icons-material/Sms";
 import HandshakeIcon from "@mui/icons-material/Handshake";
+import ReportIcon from "@mui/icons-material/Report";
+import ModalCustom from "@/components/ModalCustom";
+import CheckNickButton from "@/components/AuthComponent/CheckNickButton";
+import SelectArea from "@/components/AuthComponent/SelectArea";
 
-export default function ProfileMenu() {
-  // const router = useRouter();
+type UserJSON = {
+  userId: number;
+  userImage: string;
+  userNickname: string;
+  userConnect: boolean; // true면 접속 중, false면 미접속
+  userArea: string;
+  userTeam: string;
+  userTeamId: number;
+  userActivity: string;
+  userRating: number;
+  userRanking: number;
+  userMvp: number;
+  userPoint: number;
+};
+
+export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
+  // console.log(userJSON);
+  const userId = userJSON.userJSON.userId;
+  const userNickname = userJSON.userJSON.userNickname;
+
   // 검색할 닉네임
-  const [name, setName] = useState("");
-  // 본인 프로필인지 확인
-  const [isYourProfile, setIsYourProfile] = useState();
-
-  const onType = (e: any) => {
-    setName(e.target.value);
+  const [checkName, setCheckname] = useState("");
+  const typeName = (e: any) => {
+    setCheckname(e.target.value);
   };
-  const searchName = () => {
-    // 입력값 확인
-    console.log(name);
-    // const url = "http://localhost:8080/user/profile";
-    // // TODO: POST - name에 맞는 id 가져오기
-    // try {
-    //     const response = await fetch(url, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
 
-    //         },
-    //         body: JSON.stringify({ name: name }),
-    //         });
+  // 닉네임 입력 상태관리
+  const [nickname, setNickname] = useState("");
+  const handleNameChange = (event: any) => {
+    setNickname(event.target.value);
+  };
 
+  // 닉네임 중복 상태관리
+  const [validName, setValidName] = useState(false);
+
+  // 본인 프로필인지 확인
+  const [isYourProfile, setIsYourProfile] = useState(false);
+  const swithYours = () => {
+    setIsYourProfile(!isYourProfile);
+  };
+
+  // 프로필 수정 모달
+  const [show, setShow] = useState(false);
+  const editProfile = () => {
+    setShow(true);
+  };
+
+  // 지역 입력 상태관리
+  const [area, setArea] = useState("");
+  const handleAreaChange = (event: string) => {
+    setArea(event);
+  };
+
+  // 프로필 수정 제출
+  async function postEditProfile() {
+    console.log(nickname);
+    console.log(area);
+    alert("프로필 수정이 완료되었습니다.");
+    setShow(false);
+    setNickname("");
+    setValidName(false);
+    setArea("");
+    
+    // const editProfileAPI = `/user-service/user/${userId}`;
+    // const localStorage: Storage = window.localStorage;
+    // const token = localStorage.getItem("accessToken");
+    // const tokenJSON = {"accessToken": token };
+    // const body = {
+    //   "userNickname": nickname,
+    //   "userArea": area
     // }
+  }
 
-    // 없는 닉네임인 경우
-    // alert("존재하지 않는 닉네임입니다.");
+  // 회원 탈퇴 모달
+  const [showExit, setShowExit] = useState(false);
+  const deleteProfile = () => {
+    setShowExit(true);
+  };
+  // 회원 탈퇴 양식입력
+  const [checkType, setCheckType] = useState("");
+  const handleTypeChange = (event: any) => {
+    setCheckType(event.target.value);
+  };
+  // 회원 탈퇴 서버요청
+  const postDeleteProfile = () => {
+    alert("회원 탈퇴 신청이 완료되었습니다.");
+    setShowExit(false);
+    setCheckType("");
+  };
 
-    // 닉네임이 있는 경우 해당 닉네임의 id로 이동
-    // router.push("/user/profile/1");
+  // 회원 신고 모달 
+  const [showReport, setShowReport] = useState(false);
+  const reportProfile = () => {
+    setShowReport(true);
+  };
+  // 회원 신고 양식입력
+  const [checkReport, setCheckReport] = useState("");
+  const handleReportChange = (event: any) => {
+    setCheckReport(event.target.value);
+  };
+  // 회원 신고 서버요청
+  const postReportProfile = () => {
+    alert("회원 신고가 완료되었습니다.");
+    setShowReport(false);
+    setCheckReport("");
+  };
+
+  const searchName = (e: any) => {
+    e.preventDefault();
+    // 입력값 확인
+    alert("입력한 닉네임: " + checkName);
   };
 
   return (
@@ -49,8 +132,8 @@ export default function ProfileMenu() {
           id="outlined-basic"
           label="사용자 닉네임 검색"
           variant="outlined"
-          value={name}
-          onChange={onType}
+          value={checkName}
+          onChange={typeName}
         />
         <Image
           onClick={searchName}
@@ -66,11 +149,92 @@ export default function ProfileMenu() {
         className="profile-3menu"
         style={{ flexDirection: "column", marginTop: "15px" }}
       >
+        {/* 본인, 타인 프로필 테스트 버튼 */}
+        <Button variant="outlined" onClick={swithYours}>
+          {isYourProfile ? "내 프로필" : "다른 프로필"}
+        </Button>
         {isYourProfile ? (
           <div className="your-profile">
-            <Button variant="outlined" startIcon={<EditIcon />}>
-              프로필 수정
-            </Button>
+            {/* 프로필 수정 버튼*/}
+            <div className="profile-edit" style={{ marginTop: "5px" }}>
+              <Button
+                variant="outlined"
+                startIcon={<EditIcon />}
+                onClick={editProfile}
+              >
+                프로필 수정
+              </Button>
+              {/* 프로필 수정 모달 */}
+              <ModalCustom show={show} setShow={setShow}>
+                <h2 style={{ marginBottom: "30px" }}>프로필 수정</h2>
+                <TextField
+                  label="닉네임"
+                  variant="outlined"
+                  value={nickname}
+                  onChange={handleNameChange}
+                />
+                <CheckNickButton
+                  nickname={nickname}
+                  setValidName={setValidName}
+                />
+                <SelectArea area={area} onAreaChange={handleAreaChange} />
+                <Button variant="outlined" onClick={postEditProfile}>
+                  프로필 수정 제출
+                </Button>
+              </ModalCustom>
+            </div>
+
+            {/* 회원 탈퇴*/}
+
+            <div className="delete-account" style={{ marginTop: "5px" }}>
+              <Button
+                variant="outlined"
+                startIcon={<DeleteForeverIcon />}
+                style={{ color: "red" }}
+                onClick={deleteProfile}
+              >
+                회원 탈퇴
+              </Button>
+            </div>
+            <ModalCustom show={showExit} setShow={setShowExit}>
+              <Image
+                src="/warning.png"
+                alt="warning"
+                width={79}
+                height={79}
+                style={{ alignItems: "center" }}
+              />
+              <h3>
+                회원 탈퇴는 하는 경우
+                <br />
+                모든 회원 정보가 삭제되며
+                <br />
+                되돌릴 수 없습니다.
+                <br />
+                삭제하시겠습니까?
+                <br />
+                <br />
+                {userNickname}
+                {"/탈퇴한다"}를 입력해주세요
+              </h3>
+              <div className="delete-account">
+                <TextField
+                  label="닉네임/탈퇴한다"
+                  variant="outlined"
+                  value={checkType}
+                  onChange={handleTypeChange}
+                />
+                {(checkType === userNickname + "/탈퇴한다")?
+                (<Button variant="outlined" onClick={postDeleteProfile}>
+                회원탈퇴 
+              </Button>)
+
+                :(<Button variant="outlined" disabled>
+                회원탈퇴 
+              </Button>)}
+                
+              </div>
+            </ModalCustom>
           </div>
         ) : (
           <div className="another-profile">
@@ -83,6 +247,37 @@ export default function ProfileMenu() {
               <Button variant="outlined" startIcon={<HandshakeIcon />}>
                 팀원 신청
               </Button>
+            </div>
+            <div className="report-button" style={{ marginTop: "5px"}}>
+              <Button variant="outlined" startIcon={<ReportIcon />} style={{ color: "red"}} onClick={reportProfile}>
+                사용자 신고
+              </Button>
+              <ModalCustom show={showReport} setShow={setShowReport}>
+                <Image
+                  src="/warning.png"
+                  alt="warning"
+                  width={79}
+                  height={79}
+                  style={{ alignItems: "center" }}
+                />
+                <h3>
+                  신고 사용을 작성해주세요.
+                  <br />
+                  <br />
+              
+                </h3>
+                <div className="delete-account">
+                  <TextField
+                    label="신고사유"
+                    variant="outlined"
+                    value={checkReport}
+                    onChange={handleReportChange}
+                  />
+                </div>
+                <Button variant="outlined" onClick={postReportProfile}>
+                사용자 신고
+                </Button>
+                </ModalCustom>
             </div>
           </div>
         )}

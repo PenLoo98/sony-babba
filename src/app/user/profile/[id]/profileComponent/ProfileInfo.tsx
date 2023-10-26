@@ -1,24 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
 
-type ProfileProps = {
-  id: number;
+type UserJSON = {
+  userId: number;
+  userImage: string;
+  userNickname: string;
+  userConnect: boolean;// true면 접속 중, false면 미접속
+  userArea: string;
+  userTeam: string;
+  userTeamId: number;
+  userActivity: string;
+  userRating: number;
+  userRanking: number;
+  userMvp: number;
+  userPoint: number;
 };
 
-export default function Profile({ params }: { params: ProfileProps }) {
-  // 넘긴 params 확인
-  // console.log(params);
-  // console.log(params.id);
+export default function Profile(userJSON: {userJSON: UserJSON}) {
+  // console.log(userJSON);
+  const userId = userJSON.userJSON.userId;
+  const userImage = userJSON.userJSON.userImage;
+  const userNickname = userJSON.userJSON.userNickname;
+  const userConnect = userJSON.userJSON.userConnect;
+  const userArea = userJSON.userJSON.userArea;
+  const userTeam = userJSON.userJSON.userTeam;
+  const userTeamId = userJSON.userJSON.userTeamId;
+  const userActivity = userJSON.userJSON.userActivity;
+  // const userRating = userJSON.userJSON.userRating;
+  // const userRanking = userJSON.userJSON.userRanking;
+  // const userMvp = userJSON.userJSON.userMvp;
+  // const userPoint = userJSON.userJSON.userPoint;
 
-  // TODO: GET - id에 맞는 사용자 정보 가져오기
-  const userId: number = params.id;
-  const userImage = "/default-profile.png";
-  const userNickname = "위스";
-  const userConnect: boolean = true; // true면 접속 중, false면 미접속
-  const userArea = "서울";
-  const userTeam = "손이바빠";
-  const userTeamId: number = 7; // 숫자로 넘겨야 함
-  const userActivity = "축구";
 
   return (
     <div
