@@ -18,11 +18,14 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     location.href = "/";
 
     // 회원정보 제출 API
-    const url = "/api/user-service/signup/profile";
+    const url = "https://withsports.shop:8000/user-service/signup/profile";
 
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
+    console.log(token);
+    console.log(JSON.stringify(`Bearer ${token}`));
+    console.log(JSON.stringify({nickname: nickname, area: area }));
 
     fetch(url, {
       method: "PUT",
@@ -30,7 +33,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ nickname, area }),
+      body: JSON.stringify({nickname: nickname, area: area }),
     }).then((res) => {
       if (res.status === 200) {
         alert("회원가입에 성공했습니다.");

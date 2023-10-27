@@ -13,7 +13,7 @@ export default function CheckNickButton({
   setValidName,
 }: CheckNickButtonProps) {
   // 닉네임 중복 확인 API
-  const nameCheckAPI = `http://3.37.203.5:8000/user-service/signup/check/nickname`;
+  const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname`;
 
   // 액세스 토큰 가져오기
   const localStorage: Storage = window.localStorage;
@@ -89,11 +89,19 @@ export default function CheckNickButton({
     // console.log(res.json());
     // return res;
 
+    console.log({ nickname: nickname });
+    console.log({ nickname });
+
+    // 테스트할 것
+    // params: {nickname },
+    // params: { nickname: nickname },
+
     axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
     axios
       .get(nameCheckAPI, {
         params: { nickname: nickname },
         headers: {
+          Credentials: "include",
           ContentType: "application/json",
           Authorization: `Bearer ${token}`,
         },

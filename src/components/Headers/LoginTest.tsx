@@ -7,7 +7,7 @@ export default function LoginTest() {
   // const ip = process.env.SERVER_IP;
   // const port = process.env.SERVER_PORT;
   const url: string =
-    "http://3.37.203.5:8000/user-service/oauth2/authorization/naver";
+    "https://withsports.shop:8000/user-service/oauth2/authorization/naver";
     
   return (
     <div className="loginNaver">
