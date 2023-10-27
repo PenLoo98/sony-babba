@@ -32,95 +32,67 @@ export default function CheckNickButton({
   //     "width=500, height=500"
   //   );
   // }
-  // console.log(JSON.stringify(token));
-  // console.log(JSON.stringify("Bearer " + token));
-  // console.log(JSON.stringify(`Bearer ${token}`));
+
   // console.log(`Bearer ${token}`); // Bearer {token}
   // console.log(JSON.stringify(`Bearer ${token}`)); // "Bearer {token}"
 
   // 닉네임 중복 확인
   async function checkName() {
-    // 찬호 작성
-    // let res = await fetch(nameCheckAPI, {
-    //   method: "GET",
-    //   headers: {
-    //     ContentType: "application/json",
-    //     Authorization: JSON.stringify(`Bearer ${token}`),
-    //   },
-    // });
-    // try {
-    //   res = await res.json();
-    // }
-    // catch (error) {
-    //   console.log(error);
-    // }
-    // if (!res.ok) {
-    //   alert("이미 사용중인 닉네임입니다.");
-    //   console.log(res.json());
-    //   throw new Error("서버 요청 실패!");
-    // }
-    // alert("사용 가능한 닉네임입니다.");
-    // console.log(res.json());
-
-    // let res = await fetch(nameCheckAPI, {
-    //   method: "GET",
-    //   mode: "cors",
-    //   credentials: "include",
-    //   headers: {
-    //     ContentType: "application/json",
-    //     Authorization: `Bearer ${token}`,
-    //   },
-
-    // });
-
-    // try {
-    //   console.log(res);
-    //   res = await res.json();
-    //   return res;
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // if (!res.ok) {
-    //   alert("이미 사용중인 닉네임입니다.");
-    //   console.log(res.json());
-    //   throw new Error("서버 요청 실패!");
-    // }
-    // alert("사용 가능한 닉네임입니다.");
-    // console.log(res.json());
-    // return res;
-
-    console.log({ nickname: nickname });
-    console.log({ nickname });
-
-    // 테스트할 것
-    // params: {nickname },
-    // params: { nickname: nickname },
+    // 테스트 1: Authorization: `Bearer ${token}` 추가
+    // 테스트 2: encodeURI 추가
+    // 테스트 1: Credentials: "include" 추가
+    // 테스트 3: mode: "cors" 추가
 
     // const encodedURL = encodeURI(nameCheckAPI);
 
-    axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
-    axios
-      .get(nameCheckAPI, {
-        params: {nickname},
-        headers: {
-          Credentials: "include",
-          ContentType: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data === true) {
-          alert("이미 사용중인 닉네임입니다.");
-          setValidName(false);
-        } else {
-          alert("사용 가능한 닉네임입니다.");
-          setValidName(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    // fetch API
+    let res = await fetch(nameCheckAPI+`?nickname=${nickname}`, {
+      method: "GET",
+      headers: {
+        ContentType: "application/json",
+        Authorization: JSON.stringify(`Bearer ${token}`),
+      },
+    });
+    try {
+      res = await res.json();
+    }
+    catch (error) {
+      console.log(error);
+    }
+    if (!res.ok) {
+      alert("이미 사용중인 닉네임입니다.");
+      setValidName(false);
+      throw new Error("서버 요청 실패!");
+    }
+    alert("사용 가능한 닉네임입니다.");
+    setValidName(true);
+  
+    // axios API
+    // params: {nickname }, // 이게 맞는 표현
+
+    // axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
+    // axios
+    //   .get(nameCheckAPI, {
+    //     params: {nickname},
+    //     headers: {
+    //       Credentials: "include",
+    //       ContentType: "application/json",
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res.data === true) {
+    //       alert("이미 사용중인 닉네임입니다.");
+    //       setValidName(false);
+    //     } else {
+    //       alert("사용 가능한 닉네임입니다.");
+    //       setValidName(true);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
 
   return (
