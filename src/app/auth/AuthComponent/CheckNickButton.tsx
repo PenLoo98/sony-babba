@@ -2,6 +2,7 @@
 import { Button } from "@mui/material";
 import https from "https";
 import axios from "axios";
+import { error } from "console";
 
 type CheckNickButtonProps = {
   nickname: string;
@@ -47,22 +48,18 @@ export default function CheckNickButton({
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-    });
-    try {
-      res = await res.json();
-      if(res.status === 200){
+    }).then((res) => {
+      if (res.status === 200) {
         alert("사용 가능한 닉네임입니다.");
         setValidName(true);
-      }
-      else{
+      } else {
         alert("이미 사용중인 닉네임입니다.");
         setValidName(false);
       }
-    } catch (error) {
+    }).catch((error) => {
       console.log(error);
       throw new Error("서버 요청 실패!");
-    }
-    
+    });
 
     // axios API
     // params: {nickname }, // 이게 맞는 표현
