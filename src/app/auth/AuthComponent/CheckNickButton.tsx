@@ -1,8 +1,5 @@
 "use client";
 import { Button } from "@mui/material";
-import https from "https";
-import axios from "axios";
-import { error } from "console";
 
 type CheckNickButtonProps = {
   nickname: string;
@@ -13,6 +10,7 @@ export default function CheckNickButton({
   nickname,
   setValidName,
 }: CheckNickButtonProps) {
+  // FIXME: 토큰 유효성 검사할 타이밍 바꾸자. 
   // 액세스 토큰 가져오기
   const localStorage: Storage = window.localStorage;
   const token = localStorage.getItem("accessToken");
@@ -31,53 +29,20 @@ export default function CheckNickButton({
 
   // 닉네임 중복 확인
   async function checkName() {
-    // 테스트 1: Authorization: `Bearer ${token}` 추가
-    // 테스트 2: Credentials: "include" 추가
-    // 테스트 3: mode: "cors" 추가
-    // 테스트 4: encodeURI로 요청 URL변경
-
     // 닉네임 중복 확인 API
     const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname/`;
 
-    // // fetch API
-    // let res = await fetch(nameCheckAPI+`?nickname=${nickname}`, {
-    //   method: "GET",
-    //   headers: {
-    //     Credentials: "include",
-    //     ContentType: "application/json",
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // })
-    //   .then((res) => {
-    //     if (res.status === 200) {
-    //       alert("사용 가능한 닉네임입니다.");
-    //       setValidName(true);
-    //     } else {
-    //       alert("이미 사용중인 닉네임입니다.");
-    //       setValidName(false);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     throw new Error("서버 요청 실패!");
-    //   });
-
-    // axios API
-
-    axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
-    axios
-      .get(nameCheckAPI, {
-        params: {nickname: nickname},
-        headers: {
-          "mode": "cors",
-          "Credentials": "include",
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-      })
+    // fetch API
+    let res = await fetch(nameCheckAPI+`?nickname=${nickname}`, {
+      method: "GET",
+      headers: {
+        Credentials: "include",
+        ContentType: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => {
-        console.log(res);
-        if (res.status == 200) {
+        if (res.status === 200) {
           alert("사용 가능한 닉네임입니다.");
           setValidName(true);
         } else {
@@ -85,8 +50,9 @@ export default function CheckNickButton({
           setValidName(false);
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
+        throw new Error("서버 요청 실패!");
       });
   }
 
