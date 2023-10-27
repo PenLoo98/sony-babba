@@ -1,4 +1,3 @@
-import { NextAuthProvider } from "@/components/NextAuthProvider";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -50,8 +49,7 @@ export default function RootLayout({ children }: Props) {
         />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       </head>
-      <body className={inter.className}>
-        <NextAuthProvider>
+        <body className={inter.className}>
           <div className="wrapper" style={wrapper}>
             <Header />
             <div className="contentWrapper" style={contentWrapper}>
@@ -59,8 +57,7 @@ export default function RootLayout({ children }: Props) {
             </div>
             <Footer />
           </div>
-        </NextAuthProvider>
-      </body>
+        </body>
     </html>
   );
 }
