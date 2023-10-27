@@ -37,7 +37,7 @@ export default function CheckNickButton({
     // 테스트 4: encodeURI로 요청 URL변경
 
     // 닉네임 중복 확인 API
-    const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname/`;
+    const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname`;
     const encodedURL = encodeURI(nameCheckAPI + `?nickname=${nickname}`);
 
     // fetch API
