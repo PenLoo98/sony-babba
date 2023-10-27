@@ -102,8 +102,7 @@ export default function CheckNickButton({
         params: { nickname: nickname },
         headers: {
           Credentials: "include",
-          ContentType: "application/json; charset=UTF-8",
-          Authorization: `Bearer ${token}`,
+          ContentType: "application/json",
         },
       })
       .then((res) => {
