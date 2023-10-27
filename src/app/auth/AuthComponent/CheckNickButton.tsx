@@ -78,12 +78,12 @@ export default function CheckNickButton({
       })
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
-          alert("이미 사용중인 닉네임입니다.");
-          setValidName(false);
-        } else {
+        if (res.status == 200) {
           alert("사용 가능한 닉네임입니다.");
           setValidName(true);
+        } else {
+          alert("이미 사용중인 닉네임입니다.");
+          setValidName(false);
         }
       })
       .catch((err) => {
