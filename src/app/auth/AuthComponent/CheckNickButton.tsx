@@ -71,8 +71,8 @@ export default function CheckNickButton({
       .get(nameCheckAPI, {
         params: {nickname: nickname},
         headers: {
-          ContentType: "application/json",
-          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
       })
       .then((res) => {
