@@ -37,7 +37,6 @@ export default function CheckNickButton({
     // 테스트 4: encodeURI로 요청 URL변경
 
     // 닉네임 중복 확인 API
-    // const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname`;
     const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname/`;
 
     // // fetch API
@@ -64,13 +63,14 @@ export default function CheckNickButton({
     //   });
 
     // axios API
-    // params: {nickname }, // 이게 맞는 표현
 
     axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
     axios
       .get(nameCheckAPI, {
         params: {nickname: nickname},
         headers: {
+          "mode": "cors",
+          "Credentials": "include",
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
