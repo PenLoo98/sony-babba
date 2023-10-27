@@ -30,6 +30,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     fetch(url, {
       method: "PUT",
       headers: {
+        Credentials: "include",
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },

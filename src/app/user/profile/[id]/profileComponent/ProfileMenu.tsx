@@ -9,8 +9,8 @@ import SmsIcon from "@mui/icons-material/Sms";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import ReportIcon from "@mui/icons-material/Report";
 import ModalCustom from "@/components/ModalCustom";
-import CheckNickButton from "@/components/AuthComponent/CheckNickButton";
-import SelectArea from "@/components/AuthComponent/SelectArea";
+import CheckNickButton from "@/app/auth/AuthComponent/CheckNickButton";
+import SelectArea from "@/app/auth/AuthComponent/SelectArea";
 
 type UserJSON = {
   userId: number;
