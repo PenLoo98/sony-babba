@@ -1,5 +1,5 @@
 "use client";
-import validToken from "@/app/function/validToken";
+import ValidToken from "@/components/Auth/ValidToken";
 import { Button } from "@mui/material";
 
 type CheckNickButtonProps = {
@@ -11,13 +11,8 @@ export default function CheckNickButton({
   nickname,
   setValidName,
 }: CheckNickButtonProps) {
-  validToken();
- 
   // 닉네임 중복 확인
   async function checkName() {
-    // 토큰 유효성 검사 (토큰이 없으면 재발급)
-    
-
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
@@ -50,8 +45,15 @@ export default function CheckNickButton({
   }
 
   return (
-    <Button onClick={checkName} variant="contained" style={{ margin: "10px" }}>
-      중복 확인
-    </Button>
+    <div>
+      <ValidToken />
+      <Button
+        onClick={checkName}
+        variant="contained"
+        style={{ margin: "10px" }}
+      >
+        중복 확인
+      </Button>
+    </div>
   );
 }

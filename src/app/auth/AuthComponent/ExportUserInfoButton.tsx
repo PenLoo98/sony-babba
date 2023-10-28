@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@mui/material";
 
 type ExportUserInfoProps = {
@@ -25,7 +24,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     const token = localStorage.getItem("accessToken");
     console.log(token);
     console.log(JSON.stringify(`Bearer ${token}`));
-    console.log(JSON.stringify({nickname: nickname, area: area }));
+    console.log(JSON.stringify({ nickname: nickname, area: area }));
 
     fetch(url, {
       method: "PUT",
@@ -34,7 +33,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({nickname: nickname, area: area }),
+      body: JSON.stringify({ nickname: nickname, area: area }),
     }).then((res) => {
       if (res.status === 200) {
         alert("회원가입에 성공했습니다.");
