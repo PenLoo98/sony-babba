@@ -1,4 +1,5 @@
 "use client";
+import validToken from "@/app/function/validToken";
 import { Button } from "@mui/material";
 
 type CheckNickButtonProps = {
@@ -10,30 +11,22 @@ export default function CheckNickButton({
   nickname,
   setValidName,
 }: CheckNickButtonProps) {
-  // FIXME: 토큰 유효성 검사할 타이밍 바꾸자. 
-  // 액세스 토큰 가져오기
-  const localStorage: Storage = window.localStorage;
-  const token = localStorage.getItem("accessToken");
-
-  // TODO: 토큰 유효성 검사
-  // if (token === null) {
-  //   alert("저장된 토큰이 없습니다.");
-  //   // 토큰 만료시 재발급
-  //   // 요청 팝업창을 띄웁니다.
-  //   window.open(
-  //     "http://3.37.203.5:8000/user-service/auth/reissue",
-  //     "토큰 재발급",
-  //     "width=500, height=500"
-  //   );
-  // }
-
+  validToken();
+ 
   // 닉네임 중복 확인
   async function checkName() {
+    // 토큰 유효성 검사 (토큰이 없으면 재발급)
+    
+
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
     // 닉네임 중복 확인 API
     const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname/`;
 
     // fetch API
-    let res = await fetch(nameCheckAPI+`?nickname=${nickname}`, {
+    let res = await fetch(nameCheckAPI + `?nickname=${nickname}`, {
       method: "GET",
       headers: {
         Credentials: "include",

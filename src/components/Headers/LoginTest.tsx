@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function LoginTest() {
-  // const ip = process.env.SERVER_IP;
-  // const port = process.env.SERVER_PORT;
   const url: string =
     "https://withsports.shop:8000/user-service/oauth2/authorization/naver";
     
