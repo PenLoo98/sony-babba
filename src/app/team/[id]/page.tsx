@@ -22,6 +22,13 @@ export default function TeamSpecific() {
     setShow(true);
   };
 
+  // 팀 이름
+  const [teamName, setTeamName] = useState("");
+  const changeTeamName = (e: any) => {
+    setTeamName(e.target.value);
+    console.log(teamName);
+  };
+
   return (
     <div className="teamSpecific">
       <Image src="/team-main.png" alt="team" width={180} height={180} />
@@ -48,6 +55,8 @@ export default function TeamSpecific() {
       </Button>
       <ModalCustom show={show} setShow={setShow}>
         <h1>팀 생성</h1>
+        <Image src="/team-default-image.png" alt="team" width={200} height={200} />
+        <TextField id="outlined-basic" label="팀 이름" variant="outlined" value={teamName} onChange={changeTeamName}/>
       </ModalCustom>
       
       <h1>팀원 구인</h1>
