@@ -7,7 +7,7 @@ export default function Footer() {
     //     borderTop: "1px solid black",
     //   }}
     // >
-    <div className="footer" style={{ display: "flex", backgroundColor: "#F5F5F5", justifyContent: "center"}}>
+    <div className="footer" style={{ display: "flex", backgroundColor: "#F5F5F5",  justifyContent: "space-between"}}>
 
       <div className="logo" style={{marginRight: "70px"}}>
       <h2 style={{ padding: "10px" }}>
@@ -16,16 +16,14 @@ export default function Footer() {
         With Sports
       </h2>
       </div>
-      <div className="info">
-      <h3 style={{ padding: "15px" }}>
-        이용약관 | 개인정보 처리방침 | 사업자 정보 확인
+      <div className="info" style={{ textAlign : "right" }}>
+      <h5>
+        <br />
+        WithSports | 경기도 성남시 수정구 성남대로 1342
         <br />
         <br />
-        위스 | 경기도 성남시 수정구 성남대로 1342
-        <br />
-        <br />
-        Copyright 손이바빠 All Rights Reserved.
-      </h3>
+        Copyright 2023. 손이바빠 All Rights Reserved.
+      </h5>
       </div>
     </div>
   );
