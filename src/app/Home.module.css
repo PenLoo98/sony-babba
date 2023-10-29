@@ -1,0 +1,59 @@
+/*메인 페이지 글자 효과*/
+
+.fadeIn {
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    -ms-animation: fadeIn ease 2s;
+}
+
+.fadeIn2 {
+    animation: fadeIn ease 2s 2s both;
+    -webkit-animation: fadeIn ease 2s 2s both;
+    -moz-animation: fadeIn ease 2s 2s both;
+    -o-animation: fadeIn ease 2s 2s both;
+    -ms-animation: fadeIn ease 2s 2s both;
+}
+
+.fadeIn3 {
+    animation: fadeIn ease 2s 4s both;
+    -webkit-animation: fadeIn ease 2s 4s both;
+    -moz-animation: fadeIn ease 2s 4s both;
+    -o-animation: fadeIn ease 2s 4s both;
+    -ms-animation: fadeIn ease 2s 4s both;
+}
+
+.fadeIn4 {
+    animation: fadeIn ease 2s 6s both;
+    -webkit-animation: fadeIn ease 2s 6s both;
+    -moz-animation: fadeIn ease 2s 6s both;
+    -o-animation: fadeIn ease 2s 6s both;
+    -ms-animation: fadeIn ease 2s 6s both;
+}
+
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
