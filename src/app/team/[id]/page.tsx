@@ -14,7 +14,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
 
-    fetch(getTeamInfoURL, {
+    const response = await fetch(getTeamInfoURL, {
       method: "GET",
       headers: {
         Credentials: "include",
@@ -26,6 +26,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
         if (res.status === 200) {
           console.log("팀 정보 조회에 성공했습니다.");
           console.log(res);
+          console.log(res.json());      
           res.text().then((text) => {
             const data = JSON.parse(text);
             return (
