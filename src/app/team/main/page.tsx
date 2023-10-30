@@ -110,7 +110,7 @@ export default function TeamSpecific() {
       method: "POST",
       headers: {
         Credentials: "include",
-        ContentType: "application/json",
+        ContentType: "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
       body:formTeamData,

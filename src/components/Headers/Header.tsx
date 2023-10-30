@@ -1,5 +1,5 @@
-import LoginTest from "./LoginTest";
 import HomeButton from "./HomeButton";
+import LoginButton from "./LoginButton";
 export default function Header() {
   const homeButtonStyle = {
     display: "flex",
@@ -28,7 +28,7 @@ export default function Header() {
       style={homeButtonStyle}
     >
       <HomeButton />
-      <LoginTest/>
+      <LoginButton />
       {/* <LogInOutNaver /> */}
       {/* <LogoutBtn /> */}
     </div>

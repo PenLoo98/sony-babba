@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function LoginTest() {
+export default function LoginButton() {
   const url: string =
     "https://withsports.shop:8000/user-service/oauth2/authorization/naver";
     

@@ -20,9 +20,7 @@ export default function SelectSports({ sports: sports, onSportChange }: SelectSp
         <Select label="종목" value={sports} onChange={handleChange}>
           <MenuItem value="축구">축구</MenuItem>
           <MenuItem value="풋살">풋살</MenuItem>
-          <MenuItem value="볼링">볼링</MenuItem>
-          <MenuItem value="골프">골프</MenuItem>
-          <MenuItem value="배드민턴">배드민턴</MenuItem>
+          <MenuItem value="농구">농구</MenuItem>
         </Select>
       </FormControl>
     </div>
