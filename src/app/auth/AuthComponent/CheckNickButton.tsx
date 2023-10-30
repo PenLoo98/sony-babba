@@ -18,10 +18,10 @@ export default function CheckNickButton({
     const token = localStorage.getItem("accessToken");
 
     // 닉네임 중복 확인 API
-    const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname/`;
+    const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname/?nickname=${nickname}`;
 
     // fetch API
-    let res = await fetch(nameCheckAPI + `?nickname=${nickname}`, {
+    let res = await fetch(nameCheckAPI, {
       method: "GET",
       headers: {
         Credentials: "include",
