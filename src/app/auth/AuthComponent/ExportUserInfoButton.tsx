@@ -26,8 +26,8 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
 
     let res = await fetch(url, {
       method: "PUT",
+      credentials: "include",
       headers: {
-        Credentials: "include",
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
         'user-id': userId || "",
