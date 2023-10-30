@@ -2,15 +2,15 @@
 import ValidToken from "@/components/Auth/ValidToken";
 import { Button } from "@mui/material";
 
-type CheckTeamNameProps = {
-  teamname: string;
+type CheckSportProps = {
+  sports: string;
   setValidName: (event: boolean) => void;
 };
 
-export default function CheckTeamName({
-  teamname: teamname,
+export default function CheckSports({
+  sports: teamname,
   setValidName,
-}: CheckTeamNameProps) {
+}: CheckSportProps) {
   // 팀 이름 중복 확인
   async function checkName() {
     // 액세스 토큰 가져오기
@@ -18,7 +18,7 @@ export default function CheckTeamName({
     const token = localStorage.getItem("accessToken");
 
     // 팀 이름 중복 확인 API
-    const teamNameCheckAPI = `https://withsports.shop:8000/team-service/team/check/${teamname}`;
+    const teamNameCheckAPI = `https://withsports.shop:8000/team-service/team/validation/teamLeader/${sports}`;
 
     // fetch API
     let res = await fetch(teamNameCheckAPI, {

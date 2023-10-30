@@ -42,5 +42,5 @@ export default function ValidToken() {
     
     console.log("validToken");
   });
-  return <div className="validToken"></div>;
+  return null;
 }

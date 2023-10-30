@@ -46,7 +46,6 @@ export default function CheckNickButton({
 
   return (
     <div>
-      <ValidToken />
       <Button
         onClick={checkName}
         variant="contained"

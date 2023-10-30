@@ -103,7 +103,6 @@ export default function TeamSpecific() {
 
   return (
     <div className="teamSpecific">
-      <ValidToken />
       <Image src="/team-main.png" alt="team" width={180} height={180} />
 
       <div className="team-search">

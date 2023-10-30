@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Header from "@/components/Headers/Header";
 import Footer from "@/components/Footer";
+import ValidToken from "@/components/Auth/ValidToken";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: Props) {
       </head>
         <body className={inter.className}>
           <div className="wrapper" style={wrapper}>
+            <ValidToken />
             <Header />
             <div className="contentWrapper" style={contentWrapper}>
               {children}
