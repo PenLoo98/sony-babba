@@ -27,24 +27,24 @@ export default function ShowTeam({ params }: { params: PageParams }) {
           console.log("팀 정보 조회에 성공했습니다.");
           console.log(res);
           console.log(res.json());      
-          res.json().then((object) => {
-            const data = JSON.parse(object);
-            console.log(data);
+          res.json().then(responseData => {
+            console.log(responseData.data);
+            const input = responseData.data;
             return (
               <div>
                 <Image
-                  src={data.imageUrl}
+                  src={input.imageUrl}
                   alt="팀 이미지"
                   width={200}
                   height={200}
                 />
                 <h1>팀 페이지</h1>
-                <h2>팀 이름: {data.teamName}</h2>
-                <h2>팀 소개: {data.introduction}</h2>
-                <h2>팀 지역: {data.area}</h2>
-                <h2>팀 스포츠: {data.sports}</h2>
-                <h2>팀 이미지: {data.image}</h2>
-                <h2>팀 인원 수: {data.teamMemberCount}</h2>
+                <h2>팀 이름: {input.teamName}</h2>
+                <h2>팀 소개: {input.introduction}</h2>
+                <h2>팀 지역: {input.area}</h2>
+                <h2>팀 스포츠: {input.sports}</h2>
+                <h2>팀 이미지: {input.image}</h2>
+                <h2>팀 인원 수: {input.teamMemberCount}</h2>
               </div>
             );
           });
