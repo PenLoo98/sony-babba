@@ -24,6 +24,7 @@ export default function CheckTeamName({
     let res = await fetch(teamNameCheckAPI, {
       method: "GET",
       headers: {
+        Credentials: "include",
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
