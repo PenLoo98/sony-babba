@@ -88,14 +88,23 @@ export default function TeamSpecific() {
     const token = localStorage.getItem("accessToken");
 
     // FormTeamData 생성
-    const CreateTeamRequest = new FormData();
+    const TeamInfoFormData = new FormData();
+
+    let CreateTeamRequest = {
+      teamName: teamName,
+      sports: sports,
+      area: area,
+      introduction: teamIntro,
+    };
 
     // FormTeamData에 데이터 추가
-    CreateTeamRequest.append('image', teamImage);
-    CreateTeamRequest.append('teamName', teamName);
-    CreateTeamRequest.append('sports', sports);
-    CreateTeamRequest.append('area', area);
-    CreateTeamRequest.append('introduction', teamIntro);
+    TeamInfoFormData.append("image", teamImage);
+    TeamInfoFormData.append(
+      "CreateTeamRequest",
+      new Blob([JSON.stringify(CreateTeamRequest)], {
+        type: "application/json",
+      })
+    );
 
     // JSON 형식
     // JSON.stringify({
@@ -113,7 +122,7 @@ export default function TeamSpecific() {
         ContentType: "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
-      body:CreateTeamRequest,
+      body: TeamInfoFormData,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -142,7 +151,7 @@ export default function TeamSpecific() {
             variant="outlined"
             value={checkName}
             onChange={typeName}
-            style={{ margin: "10px 0 10px 0"}}
+            style={{ margin: "10px 0 10px 0" }}
           />
           <Image
             onClick={searchName}
@@ -180,9 +189,12 @@ export default function TeamSpecific() {
             <CheckTeamName teamname={teamName} setValidName={setValidName} />
           </div>
 
-          <div className="teamSports" style={{ display: "flex", alignItems: "center" }}>
-          <SelectSports sports={sports} onSportChange={onSportChange} />
-          <CheckSports sports={sports} setValidSports={setValidSports} />
+          <div
+            className="teamSports"
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <SelectSports sports={sports} onSportChange={onSportChange} />
+            <CheckSports sports={sports} setValidSports={setValidSports} />
           </div>
 
           <br />
@@ -217,7 +229,7 @@ export default function TeamSpecific() {
           )}
         </ModalCustom>
 
-        <div className="teamRanking" >
+        <div className="teamRanking">
           <TeamRanking />
         </div>
       </div>
