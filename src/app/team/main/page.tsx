@@ -72,7 +72,7 @@ export default function TeamSpecific() {
   };
 
   // 팀 이미지
-  const [teamImage, setTeamImage] = useState<File>(new File([], "team-default-image.png"));
+  const [teamImage, setTeamImage] = useState("/team-default-image.png");
 
   // 팀 생성 제출
   async function postTeamInfo() {
@@ -97,12 +97,15 @@ export default function TeamSpecific() {
       introduction: teamIntro,
     };
 
+    // 제출할 팀 이미지 
+  let teamImageFile: File = new File([teamImage], "teamImage.jpg");
+
     // FormTeamData에 데이터 추가
     TeamInfoFormData.append(
       "CreateTeamRequest",
       new Blob([JSON.stringify(CreateTeamRequest)], {type: "application/json"})
     );
-    TeamInfoFormData.append("image", teamImage);
+    TeamInfoFormData.append("image", teamImageFile);
     
 
     // JSON 형식
