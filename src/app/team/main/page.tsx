@@ -7,9 +7,9 @@ import ModalCustom from "@/components/ModalCustom";
 import SelectSports from "../teamComponent/SelectSports";
 import SelectArea from "@/app/auth/AuthComponent/SelectArea";
 import InsertTeamImage from "../teamComponent/InsertTeamImage";
-import ValidToken from "@/components/Auth/ValidToken";
 import CheckTeamName from "../teamComponent/CheckTeamName";
 import TeamRanking from "../teamComponent/TeamRanking";
+import CheckSports from "../teamComponent/CheckSports";
 export default function TeamSpecific() {
   // 팀 메인 페이지 그리드 스타일
   const teamMainStyle = {
@@ -56,6 +56,9 @@ export default function TeamSpecific() {
     setSport(selectedSports);
   };
 
+  // 팀 종목 확인
+  const [validSports, setValidSports] = useState(false);
+
   // 팀 지역
   const [area, setArea] = useState("");
   const onAreaChange = (selectedArea: string) => {
@@ -72,17 +75,36 @@ export default function TeamSpecific() {
   const [teamImage, setTeamImage] = useState("/team-default-image.png");
 
   // 팀 생성 제출
-  function postTeamInfo() {
+  async function postTeamInfo() {
     // TODO: 팀 생성 제출 fetch 구현하기
-    console.log(
-      JSON.stringify({ image: teamImage, teamName, sports, area, introduction: teamIntro })
-    );
+    // console.log(
+    //   JSON.stringify({ image: teamImage, teamName, sports, area, introduction: teamIntro })
+    // );
     // TODO: 팀 생성 API 정하기
     const createTeamURL = "https://withsports.shop:8000/team-service/team";
 
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
+
+    // FormTeamData 생성
+    const formTeamData = new FormData();
+
+    // FormTeamData에 데이터 추가
+    formTeamData.append('image', teamImage);
+    formTeamData.append('teamName', teamName);
+    formTeamData.append('sports', sports);
+    formTeamData.append('area', area);
+    formTeamData.append('introduction', teamIntro);
+
+    // JSON 형식
+    // JSON.stringify({
+    //   image: teamImage,
+    //   teamName: teamName,
+    //   sports: sports,
+    //   area: area,
+    //   introduction: teamIntro,
+    // })
 
     fetch(createTeamURL, {
       method: "POST",
@@ -91,13 +113,7 @@ export default function TeamSpecific() {
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        image: teamImage,
-        teamName: teamName,
-        sports: sports,
-        area: area,
-        introduction: teamIntro,
-      }),
+      body:formTeamData,
     })
       .then((res) => {
         if (res.status === 200) {
@@ -144,6 +160,8 @@ export default function TeamSpecific() {
         >
           팀 생성
         </Button>
+
+        {/* 팀 생성 모달 */}
         <ModalCustom show={showForm} setShow={setShowForm}>
           <h1>팀 생성</h1>
           <InsertTeamImage teamImage={teamImage} setTeamImage={setTeamImage} />
@@ -161,7 +179,12 @@ export default function TeamSpecific() {
             />
             <CheckTeamName teamname={teamName} setValidName={setValidName} />
           </div>
+
+          <div className="teamSports" style={{ display: "flex", alignItems: "center" }}>
           <SelectSports sports={sports} onSportChange={onSportChange} />
+          <CheckSports sports={sports} setValidSports={setValidSports} />
+          </div>
+
           <br />
           <SelectArea area={area} onAreaChange={onAreaChange} />
           <TextField
@@ -174,7 +197,7 @@ export default function TeamSpecific() {
             rows={4}
             style={{ margin: "10px 0 10px 0" }}
           />
-          {validName ? (
+          {validName && validSports ? (
             <Button
               variant="outlined"
               onClick={postTeamInfo}
