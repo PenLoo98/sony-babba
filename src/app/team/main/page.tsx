@@ -88,14 +88,14 @@ export default function TeamSpecific() {
     const token = localStorage.getItem("accessToken");
 
     // FormTeamData 생성
-    const formTeamData = new FormData();
+    const CreateTeamRequest = new FormData();
 
     // FormTeamData에 데이터 추가
-    formTeamData.append('image', teamImage);
-    formTeamData.append('teamName', teamName);
-    formTeamData.append('sports', sports);
-    formTeamData.append('area', area);
-    formTeamData.append('introduction', teamIntro);
+    CreateTeamRequest.append('image', teamImage);
+    CreateTeamRequest.append('teamName', teamName);
+    CreateTeamRequest.append('sports', sports);
+    CreateTeamRequest.append('area', area);
+    CreateTeamRequest.append('introduction', teamIntro);
 
     // JSON 형식
     // JSON.stringify({
@@ -113,7 +113,7 @@ export default function TeamSpecific() {
         ContentType: "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
-      body:formTeamData,
+      body:CreateTeamRequest,
     })
       .then((res) => {
         if (res.status === 200) {
