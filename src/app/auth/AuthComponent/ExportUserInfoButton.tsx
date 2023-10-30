@@ -28,8 +28,8 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
       method: "PUT",
       credentials: "include",
       headers: {
-        ContentType: "application/json",
-        Authorization: `Bearer ${token}`,
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${token}`,
         'user-id': userId || "",
       },
       body: JSON.stringify({ nickname: nickname, area: area }),
