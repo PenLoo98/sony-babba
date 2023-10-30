@@ -11,10 +11,9 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
   // 회원정보 제출
   function sendForm() {
     // TODO: 회원정보 제출 fetch 구현하기
-    
-    
+
     // 회원정보 제출 API
-    const url = "https://withsports.shop:8000/user-service/signup/profile";
+    const url = "https://withsports.shop:8000/user-service/signup/profile/";
 
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
@@ -22,8 +21,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     console.log(token);
     console.log(JSON.stringify(`Bearer ${token}`));
     console.log(JSON.stringify({ nickname, area }));
-    console.log(JSON.stringify({ nickname: nickname, area: area}));
-    console.log(JSON.stringify({ nickname: nickname.replace(/"/g, ''), area: area.replace(/"/g, '') }));
+    console.log(JSON.stringify({ nickname: nickname, area: area }));
 
     fetch(url, {
       method: "PUT",
@@ -32,7 +30,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ nickname: nickname.replace(/"/g, ''), area: area.replace(/"/g, '') }),
+      body: JSON.stringify({ nickname: nickname, area: area }),
     }).then((res) => {
       if (res.status === 200) {
         alert("회원가입에 성공했습니다.");
