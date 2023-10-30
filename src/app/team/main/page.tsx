@@ -162,7 +162,7 @@ export default function TeamSpecific() {
             />
             <CheckTeamName teamname={teamName} setValidName={setValidName} />
           </div>
-          <SelectSports sport={sports} onSportChange={onSportChange} />
+          <SelectSports sports={sports} onSportChange={onSportChange} />
           <br />
           <SelectArea area={area} onAreaChange={onAreaChange} />
           <TextField
