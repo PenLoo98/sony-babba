@@ -18,10 +18,10 @@ export default function CheckTeamName({
     const token = localStorage.getItem("accessToken");
 
     // 팀 이름 중복 확인 API
-    const nameCheckAPI = `https://withsports.shop:8000/user-service/signup/check/nickname/`;
+    const teamNameCheckAPI = `https://withsports.shop:8000/team-service/team/check/${teamname}`;
 
     // fetch API
-    let res = await fetch(nameCheckAPI + `?teamname=${teamname}`, {
+    let res = await fetch(teamNameCheckAPI, {
       method: "GET",
       headers: {
         ContentType: "application/json",
@@ -30,10 +30,10 @@ export default function CheckTeamName({
     })
       .then((res) => {
         if (res.status === 200) {
-          alert("사용 가능한 닉네임입니다.");
+          alert("사용 가능한 팀 이름입니다.");
           setValidName(true);
         } else {
-          alert("이미 사용중인 닉네임입니다.");
+          alert("이미 사용중인 팀 이름입니다.");
           setValidName(false);
         }
       })
