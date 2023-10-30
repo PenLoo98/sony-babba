@@ -13,7 +13,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     // TODO: 회원정보 제출 fetch 구현하기
 
     // 회원정보 제출 API
-    const url = "https://withsports.shop:8000/user-service/signup/profile/";
+    const url = "https://withsports.shop:8000/user-service/signup/profile";
 
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
@@ -29,6 +29,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
         Credentials: "include",
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
+        "user-id": localStorage.getItem("userId"),
       },
       body: JSON.stringify({ nickname: nickname, area: area }),
     }).then((res) => {

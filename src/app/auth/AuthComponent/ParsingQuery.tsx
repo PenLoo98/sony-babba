@@ -8,6 +8,7 @@ export default function ParsingQuery() {
 
   const accessToken: any | null = params.get("accessToken");
   const expiredTime: any | null = params.get("expiredTime");
+  const userId: any | null = params.get("userId");
 
   useEffect(() => {
     const localStorage: Storage = window.localStorage;
@@ -16,6 +17,7 @@ export default function ParsingQuery() {
     if (accessToken && expiredTime) {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("expiredTime", expiredTime);
+      localStorage.setItem("userId", userId);
     }
   }, []);
 
