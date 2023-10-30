@@ -23,13 +23,13 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     console.log(JSON.stringify({ nickname, area }));
     console.log(JSON.stringify({ nickname: nickname, area: area }));
 
-    fetch(url, {
+    let res = await fetch(url, {
       method: "PUT",
       headers: {
         Credentials: "include",
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
-        "user-id": localStorage.getItem("userId") || "",
+        // "user-id": localStorage.getItem("userId") || "",
       },
       body: JSON.stringify({ nickname: nickname, area: area }),
     }).then((res) => {
