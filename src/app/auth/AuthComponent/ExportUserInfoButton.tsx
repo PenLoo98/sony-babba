@@ -9,7 +9,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
   const { nickname, validName, area } = props;
 
   // 회원정보 제출
-  function sendForm() {
+  async function sendForm() {
     // TODO: 회원정보 제출 fetch 구현하기
 
     // 회원정보 제출 API
