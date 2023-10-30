@@ -127,7 +127,7 @@ export default function TeamSpecific() {
       body: TeamInfoFormData,
     })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 201) {
           alert("팀 생성에 성공했습니다.");
           console.log(res);
         } else {
