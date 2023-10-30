@@ -30,7 +30,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
         'Credentials': "include",
         'Content-Type': "application/json",
         'Authorization': `Bearer ${token}`,
-        'user-id': userId || "",
+        // 'user-id': userId || "",
       },
       body: JSON.stringify({ nickname: nickname, area: area }),
     }).then((res) => {
