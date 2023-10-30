@@ -27,8 +27,9 @@ export default function ShowTeam({ params }: { params: PageParams }) {
           console.log("팀 정보 조회에 성공했습니다.");
           console.log(res);
           console.log(res.json());      
-          res.text().then((text) => {
-            const data = JSON.parse(text);
+          res.json().then((object) => {
+            const data = JSON.parse(object);
+            console.log(data);
             return (
               <div>
                 <Image
