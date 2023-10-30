@@ -98,13 +98,14 @@ export default function TeamSpecific() {
     };
 
     // FormTeamData에 데이터 추가
-    TeamInfoFormData.append("image", teamImage);
     TeamInfoFormData.append(
       "CreateTeamRequest",
       new Blob([JSON.stringify(CreateTeamRequest)], {
         type: "application/json",
       })
     );
+    TeamInfoFormData.append("image", teamImage);
+    
 
     // JSON 형식
     // JSON.stringify({
