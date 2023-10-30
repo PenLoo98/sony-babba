@@ -28,8 +28,11 @@ export default function ShowTeam({ params }: { params: PageParams }) {
           console.log(res);
           console.log(res.json());      
           res.json().then(responseData => {
-            console.log(responseData.data);
-            const input = responseData.data;
+            console.log(responseData);
+            console.log(responseData.result);
+            console.log(responseData.result.data);
+            console.log(responseData.result.data.id);
+            const input = responseData.result.data;
             return (
               <div>
                 <Image
