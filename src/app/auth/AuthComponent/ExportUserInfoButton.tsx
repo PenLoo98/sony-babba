@@ -26,10 +26,10 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
 
     let res = await fetch(url, {
       method: "PUT",
-      credentials: "include",
       headers: {
-        'Content-Type': "application/json",
-        'Authorization': `Bearer ${token}`,
+        Credentials: "include",
+        ContentType: "application/json",
+        Authorization: `Bearer ${token}`,
         'user-id': userId || "",
       },
       body: JSON.stringify({ nickname: nickname, area: area }),
