@@ -12,10 +12,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
   function sendForm() {
     // TODO: 회원정보 제출 fetch 구현하기
     console.log(JSON.stringify({ nickname, area }));
-
-    alert("회원가입에 성공했습니다.");
-    location.href = "/";
-
+    
     // 회원정보 제출 API
     const url = "https://withsports.shop:8000/user-service/signup/profile";
 
@@ -37,6 +34,7 @@ export default function ExportUserInfoButton(props: ExportUserInfoProps) {
     }).then((res) => {
       if (res.status === 200) {
         alert("회원가입에 성공했습니다.");
+        location.href = "/";
         console.log(res);
       } else {
         alert("회원가입에 실패했습니다.");
