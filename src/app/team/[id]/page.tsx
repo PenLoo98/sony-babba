@@ -26,6 +26,15 @@ export default function ShowTeam({ params }: { params: PageParams }) {
         if (res.status === 200) {
           console.log("팀 정보 조회에 성공했습니다.");
           // TODO: 응답값에서 팀 정보 가져오기
+          res.body?.getReader().read().then(({ done, value }) => {
+            if(done) {
+              console.log(value);
+            }
+            value?.forEach((v) => {
+              console.log(v);
+            });
+          });
+
           console.log(res);
           console.log(res.body);      
           console.log(res.json());
