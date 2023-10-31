@@ -26,47 +26,45 @@ export default function ShowTeam({ params }: { params: PageParams }) {
         if (res.status === 200) {
           console.log("팀 정보 조회에 성공했습니다.");
           // TODO: 응답값에서 팀 정보 가져오기
-          res.body?.getReader().read().then(({ done, value }) => {
-            if(done) {
-              console.log(value);
-            }
-            value?.forEach((v) => {
-              console.log(v);
-            });
-          });
+
 
           console.log(res);
           console.log(res.body);      
           console.log(res.json());
+
           res.json().then((data) => {
             console.log(data);
-            console.log(data.data);
-            console.log(data.data.id);
-            console.log(data.data.teamName);
-            console.log(data.data.introduction);
-            console.log(data.data.area);
-            console.log(data.data.sports);
-            console.log(data.data.imageUrl);
-            console.log(data.data.teamMemberCount);
-            const input = data.data;
-            return (
-              <div>
-                <Image
-                  src={input.imageUrl}
-                  alt="팀 이미지"
-                  width={200}
-                  height={200}
-                />
-                <h1>팀 페이지</h1>
-                <h2>팀 이름: {input.teamName}</h2>
-                <h2>팀 소개: {input.introduction}</h2>
-                <h2>팀 지역: {input.area}</h2>
-                <h2>팀 스포츠: {input.sports}</h2>
-                <h2>팀 이미지: {input.image}</h2>
-                <h2>팀 인원 수: {input.teamMemberCount}</h2>
-              </div>
-            );
           });
+          
+          // res.json().then((data) => {
+          //   console.log(data);
+          //   console.log(data.data);
+          //   console.log(data.data.id);
+          //   console.log(data.data.teamName);
+          //   console.log(data.data.introduction);
+          //   console.log(data.data.area);
+          //   console.log(data.data.sports);
+          //   console.log(data.data.imageUrl);
+          //   console.log(data.data.teamMemberCount);
+          //   const input = data.data;
+          //   return (
+          //     <div>
+          //       <Image
+          //         src={input.imageUrl}
+          //         alt="팀 이미지"
+          //         width={200}
+          //         height={200}
+          //       />
+          //       <h1>팀 페이지</h1>
+          //       <h2>팀 이름: {input.teamName}</h2>
+          //       <h2>팀 소개: {input.introduction}</h2>
+          //       <h2>팀 지역: {input.area}</h2>
+          //       <h2>팀 스포츠: {input.sports}</h2>
+          //       <h2>팀 이미지: {input.image}</h2>
+          //       <h2>팀 인원 수: {input.teamMemberCount}</h2>
+          //     </div>
+          //   );
+          // });
         } else {
           console.log("팀 정보 조회에 실패했습니다.");
           console.log(res);
