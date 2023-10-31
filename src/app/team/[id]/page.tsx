@@ -24,15 +24,15 @@ export default function ShowTeam({ params }: { params: PageParams }) {
     })
       .then((res) => {
         // 응답이 성공적으로 왔을 때
-        const data = res.body?.getReader();
+        const data = res.body?.getReader().read();
         console.log(data);
         if (res.status === 200) {
           console.log("팀 정보 조회에 성공했습니다.");
           // TODO: 응답값에서 팀 정보 가져오기
-          console.log(res);
-          console.log(res.body);      
-          console.log(res.json());
-          console.log(res.text());
+          // console.log(res); // Response : ReadableStream { locked: true } 
+          // console.log(res.body); // ReadableStream { locked: true }      
+          // console.log(res.json()); // TypeError
+          // console.log(res.text()); // TypeError
           
           // res.json().then((data) => {
           //   console.log(data);
