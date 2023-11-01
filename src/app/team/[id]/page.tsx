@@ -30,23 +30,24 @@ export default function ShowTeam({ params }: { params: PageParams }) {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => {
-        // 응답이 성공적으로 왔을 때
-        console.log(res);
-        console.log(res.body);
-        console.log(JSON.stringify(res.body));
-        console.log(JSON.parse(JSON.stringify(res.body)));
+      .then(res => res.text())
+        // // 응답이 성공적으로 왔을 때
+        // console.log(res);
+        // console.log(res.body);
+        // console.log(JSON.stringify(res.body));
+        // console.log(JSON.parse(JSON.stringify(res.body)));
         
-        if (res.status === 200) {
-          console.log("팀 정보 조회에 성공했습니다.");
-          setShowTeamInfo(true);
-          return res;
-        } else {
-          console.log("팀 정보 조회에 실패했습니다.");
-          console.log(res);
-          setShowTeamInfo(false);
-        }
-      })
+        // if (res.status === 200) {
+        //   console.log("팀 정보 조회에 성공했습니다.");
+        //   setShowTeamInfo(true);
+        //   return res;
+        // } else {
+        //   console.log("팀 정보 조회에 실패했습니다.");
+        //   console.log(res);
+        //   setShowTeamInfo(false);
+        // }
+      // })
+      .then(data => {console.log(data); return data;})
       .catch((error) => {
         console.log(error);
         throw new Error("서버 요청 실패!");
@@ -54,7 +55,8 @@ export default function ShowTeam({ params }: { params: PageParams }) {
 
     let body;
     if (response) {
-      body = await response.json();
+      body = await JSON.parse(response);
+      console.log(body);
       return body;
     } else {
       return null;
