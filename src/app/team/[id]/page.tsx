@@ -28,7 +28,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
   const [showTeamInfo, setShowTeamInfo] = useState(false);
 
   // 팀 정보 저장할 useState
-  const initialData: TeamInfo = {
+  let initialData: TeamInfo = {
     id: 0,
     teamName: "",
     leaderNickname: "",
