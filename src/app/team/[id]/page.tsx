@@ -16,7 +16,9 @@ export default function ShowTeam({ params }: { params: PageParams }) {
   // TODO: 응답값에서 팀 정보 가져오기
   useEffect(() => {
     const data = getTeamInfo(getTeamInfoURL);
-    console.log(data);
+    // console.log(data);
+    // console.log(JSON.stringify(data));
+    // console.log(JSON.parse(JSON.stringify(data)));
   }, []);
 
   async function getTeamInfo(getTeamInfoURL: string) {
@@ -31,17 +33,10 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       .then((res) => {
         // 응답이 성공적으로 왔을 때
         console.log(res);
-        // console.log(res.headers);
-        // console.log(res.status);
-        // console.log(res.statusText);
-        // console.log(res.type);
-        // console.log(res.url);
         console.log(res.body);
-        // console.log(res.blob());
-        // console.log(res.json());
-        // console.log(res.text());
-        // console.log(res.formData());
-        // console.log(res.clone());
+        console.log(JSON.stringify(res.body));
+        console.log(JSON.parse(JSON.stringify(res.body)));
+        
         if (res.status === 200) {
           console.log("팀 정보 조회에 성공했습니다.");
           setShowTeamInfo(true);
