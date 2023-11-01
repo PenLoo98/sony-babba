@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from 'react';
 
-
 type Post = {
     id: number;
     subject: string;

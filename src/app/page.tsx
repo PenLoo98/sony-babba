@@ -10,6 +10,7 @@ export default function Home() {
   // console.log(sessionToken);
   // console.log(csrfToken);
 
+  
   return (
     <div>
       <div style={{ display: "flex" }}>
