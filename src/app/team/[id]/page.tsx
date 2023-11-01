@@ -6,7 +6,7 @@ type PageParams = {
   id: number;
 };
 
-interface TeamInfo {
+type TeamInfo = {
   id: number;
   teamName: string;
   leaderNickname: string;
@@ -26,22 +26,20 @@ export default function ShowTeam({ params }: { params: PageParams }) {
 
   // 팀 정보를 불러왔는지 여부
   const [showTeamInfo, setShowTeamInfo] = useState(false);
-  // 팀 정보
-  const [data, setData] = useState({});
 
-  // TODO: 응답값에서 팀 정보 가져오기
-  useEffect(() => {
-    async function fetchTeamData() {
-      let teamInfo = await getTeamInfo(getTeamInfoURL);
-      if (teamInfo) {
-        console.log("teamInfo.data:");
-        console.log(teamInfo);
-        setData(teamInfo);
-      }
-      console.log("teamInfo:");
-    }
-    fetchTeamData();
-  }, []);
+  // 팀 정보 저장할 useState
+  const initialData: TeamInfo = {
+    id: 0,
+    teamName: "",
+    leaderNickname: "",
+    introduction: "",
+    area: "",
+    sports: "",
+    teamMemberCount: 0,
+    pageable: [],
+    imageUrl: "",
+  };
+  const [data, setData] = useState<TeamInfo>(initialData);
 
   async function getTeamInfo(getTeamInfoURL: string) {
     const response = await fetch(getTeamInfoURL, {
@@ -52,8 +50,8 @@ export default function ShowTeam({ params }: { params: PageParams }) {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then(res => res.text())
-      .then((data) => {
+      .then(res => res.json())
+      .then((data: TeamInfo) => {
         console.log("data:");
         console.log(data);
         return data;
@@ -63,11 +61,14 @@ export default function ShowTeam({ params }: { params: PageParams }) {
         throw new Error("서버 요청 실패!");
       });
 
-    let body;
+    // 응답값 확인
+    let body: TeamInfo;
     if (response) {
-      body = await JSON.parse(response).data;
+      body = await response;
       console.log("body:");
       console.log(body);
+      console.log("body.imageUrl:");
+      console.log(body.imageUrl);
       return body;
     } else {
       console.log("응답이 없습니다.");
@@ -75,13 +76,29 @@ export default function ShowTeam({ params }: { params: PageParams }) {
     }
   }
 
+    // TODO: 응답값에서 팀 정보 가져오기
+    useEffect(() => {
+      async function fetchTeamData() {
+        let teamInfo = await getTeamInfo(getTeamInfoURL);
+        if (teamInfo) {
+          console.log("teamInfo.data:");
+          console.log(teamInfo);
+          setShowTeamInfo(true);
+          setData(teamInfo);
+          console.log("data.imageUrl:");
+          console.log(data.imageUrl);
+        }
+      }
+      fetchTeamData();
+    }, []);
+
   return (
     <div>
       {!showTeamInfo && <div>팀 정보를 불러오는 중입니다...</div>}
       {showTeamInfo && (
         <div>
           <h1>팀 정보를 불러오는데 성공했습니다.</h1>
-          {/* <Image src={data.imageUrl} alt="팀 이미지" width={200} height={200} />
+          <Image src={data.imageUrl} alt="팀 이미지" width={200} height={200} />
           <h1>팀 페이지</h1>
           <h2>팀 이름: {data.teamName}</h2>
           <h2>팀장 이름: {data.leaderNickname}</h2>
@@ -89,7 +106,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
           <h2>팀 지역: {data.area}</h2>
           <h2>팀 종목: {data.sports}</h2>
           <h2>팀 인원 수: {data.teamMemberCount}</h2>
-          <h2>팀원 목록: {data.pageable}</h2> */}
+          <h2>팀원 목록: {data.pageable}</h2>
         </div>
       )}
     </div>
