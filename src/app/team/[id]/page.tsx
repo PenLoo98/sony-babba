@@ -52,7 +52,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
         Authorization: `Bearer ${token}`,
       },
     })
-      .then((res) => {
+      .then(res => {
         // 응답이 성공적으로 왔을 때
         if (res.status === 200) {
           console.log("팀 정보 조회에 성공했습니다.");
