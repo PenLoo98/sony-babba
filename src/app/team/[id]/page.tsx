@@ -8,6 +8,9 @@ type PageParams = {
 
 export default function ShowTeam({ params }: { params: PageParams }) {
   const getTeamInfoURL: string = `https://withsports.shop:8000/team-service/team/${params.id}`;
+  // 로컬스토리지 토큰 가져오기
+  const localStorage: Storage = window.localStorage;
+  const token = localStorage.getItem("accessToken");
 
   const [showTeamInfo, setShowTeamInfo] = useState(false);
   // TODO: 응답값에서 팀 정보 가져오기
@@ -17,10 +20,6 @@ export default function ShowTeam({ params }: { params: PageParams }) {
   }, []);
 
   async function getTeamInfo(getTeamInfoURL: string) {
-    // 로컬스토리지 토큰 가져오기
-    const localStorage: Storage = window.localStorage;
-    const token = localStorage.getItem("accessToken");
-
     const response = await fetch(getTeamInfoURL, {
       method: "GET",
       headers: {
@@ -32,31 +31,39 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       .then((res) => {
         // 응답이 성공적으로 왔을 때
         console.log(res);
-        console.log(res.headers);
-        console.log(res.status);
-        console.log(res.statusText);
-        console.log(res.type);
-        console.log(res.url);
+        // console.log(res.headers);
+        // console.log(res.status);
+        // console.log(res.statusText);
+        // console.log(res.type);
+        // console.log(res.url);
         console.log(res.body);
-        console.log(res.blob());
-        console.log(res.json());
-        console.log(res.text());
-        console.log(res.formData());
-        console.log(res.clone());
+        // console.log(res.blob());
+        // console.log(res.json());
+        // console.log(res.text());
+        // console.log(res.formData());
+        // console.log(res.clone());
         if (res.status === 200) {
           console.log("팀 정보 조회에 성공했습니다.");
           setShowTeamInfo(true);
-          return res.json();
+          return res;
         } else {
           console.log("팀 정보 조회에 실패했습니다.");
           console.log(res);
-          return null;
+          setShowTeamInfo(false);
         }
       })
       .catch((error) => {
         console.log(error);
         throw new Error("서버 요청 실패!");
       });
+
+    let body;
+    if (response) {
+      body = await response.json();
+      return body;
+    } else {
+      return null;
+    }
   }
 
   return (
