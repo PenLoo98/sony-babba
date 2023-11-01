@@ -24,6 +24,7 @@ export default function LogoutButton() {
           // 액세스 토큰 삭제
           localStorage.removeItem("accessToken");
           localStorage.removeItem("expiredTime");
+          localStorage.removeItem("userId");
 
           alert("로그아웃 되었습니다.");
           window.location.href = "/";
