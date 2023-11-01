@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type PageParams = {
   id: number;
@@ -11,8 +11,10 @@ export default function ShowTeam({ params }: { params: PageParams }) {
 
   const [showTeamInfo, setShowTeamInfo] = useState(false);
   // TODO: 응답값에서 팀 정보 가져오기
-  const data = getTeamInfo(getTeamInfoURL);
-  console.log(data);
+  useEffect(() => {
+    const data = getTeamInfo(getTeamInfoURL);
+    console.log(data);
+  }, []);
 
   async function getTeamInfo(getTeamInfoURL: string) {
     // 로컬스토리지 토큰 가져오기
@@ -30,11 +32,17 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       .then((res) => {
         // 응답이 성공적으로 왔을 때
         console.log(res);
+        console.log(res.headers);
+        console.log(res.status);
+        console.log(res.statusText);
+        console.log(res.type);
+        console.log(res.url);
+        console.log(res.body);
         console.log(res.blob());
         console.log(res.json());
         console.log(res.text());
         console.log(res.formData());
-        console.log(data);
+        console.log(res.clone());
         if (res.status === 200) {
           console.log("팀 정보 조회에 성공했습니다.");
           setShowTeamInfo(true);
