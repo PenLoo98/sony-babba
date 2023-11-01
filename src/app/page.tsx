@@ -3,7 +3,6 @@ import MainMenu from "@/components/Main/MainMenu";
 import {cookies} from 'next/headers'
 import styles from"./Home.module.css";
 
-
 export default function Home() {
   const cookieStore = cookies()
   const sessionToken = cookieStore.get('next-auth.session-token')

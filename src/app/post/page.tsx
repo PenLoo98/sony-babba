@@ -10,7 +10,6 @@ export default function PostPage() {
         router.push('/post/list');
     }, []);
 
-
     return null;
 };
 
