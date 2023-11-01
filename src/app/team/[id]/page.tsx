@@ -34,9 +34,11 @@ export default function ShowTeam({ params }: { params: PageParams }) {
     async function fetchTeamData() {
       let teamInfo = await getTeamInfo(getTeamInfoURL);
       if (teamInfo) {
+        console.log("teamInfo.data:");
         console.log(teamInfo.data);
         setData(teamInfo.data);
       }
+      console.log("teamInfo:");
     }
     fetchTeamData();
   }, []);
@@ -61,9 +63,12 @@ export default function ShowTeam({ params }: { params: PageParams }) {
           setShowTeamInfo(false);
           return null;
         }
+        console.log("res.text():");
         res.text();
       })
       .then((data) => {
+        console.log("data:");
+        console.log(data);
         return data;
       })
       .catch((error) => {
@@ -74,9 +79,11 @@ export default function ShowTeam({ params }: { params: PageParams }) {
     let body;
     if (response) {
       body = await JSON.parse(response);
+      console.log("body:");
       console.log(body);
       return body;
     } else {
+      console.log("응답이 없습니다.");
       return null;
     }
   }
@@ -87,15 +94,15 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       {showTeamInfo && (
         <div>
           <h1>팀 정보를 불러오는데 성공했습니다.</h1>
-          {/* <Image src={data.data.imageUrl} alt="팀 이미지" width={200} height={200} />
+          {/* <Image src={data.imageUrl} alt="팀 이미지" width={200} height={200} />
           <h1>팀 페이지</h1>
-          <h2>팀 이름: {data.data.teamName}</h2>
-          <h2>팀장 이름: {data.data.leaderNickname}</h2>
-          <h2>팀 소개: {data.data.introduction}</h2>
-          <h2>팀 지역: {data.data.area}</h2>
-          <h2>팀 종목: {data.data.sports}</h2>
-          <h2>팀 인원 수: {data.data.teamMemberCount}</h2>
-          <h2>팀원 목록: {data.data.pageable}</h2> */}
+          <h2>팀 이름: {data.teamName}</h2>
+          <h2>팀장 이름: {data.leaderNickname}</h2>
+          <h2>팀 소개: {data.introduction}</h2>
+          <h2>팀 지역: {data.area}</h2>
+          <h2>팀 종목: {data.sports}</h2>
+          <h2>팀 인원 수: {data.teamMemberCount}</h2>
+          <h2>팀원 목록: {data.pageable}</h2> */}
         </div>
       )}
     </div>
