@@ -1,5 +1,4 @@
 "use client";
-import { get } from 'http';
 import { useEffect, useState } from 'react';
 
 type Post = {
@@ -46,7 +45,7 @@ type Voter = {
 
 
 
-export async function getData() {
+async function getData() {
     const response = await fetch('http://43.200.115.249:8080/post/detail/38')
     .then((res) => res.json())
     .then((data) => {return data});
