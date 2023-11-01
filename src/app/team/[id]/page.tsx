@@ -6,13 +6,27 @@ type PageParams = {
   id: number;
 };
 
+interface TeamInfo {
+  id: number;
+  teamName: string;
+  leaderNickname: string;
+  introduction: string;
+  area: string;
+  sports: string;
+  teamMemberCount: number;
+  pageable: string[];
+  imageUrl: string;
+}
+
 export default function ShowTeam({ params }: { params: PageParams }) {
   const getTeamInfoURL: string = `https://withsports.shop:8000/team-service/team/${params.id}`;
   // 로컬스토리지 토큰 가져오기
   const localStorage: Storage = window.localStorage;
   const token = localStorage.getItem("accessToken");
 
+  // 팀 정보를 불러왔는지 여부
   const [showTeamInfo, setShowTeamInfo] = useState(false);
+  // 팀 정보
   const [data, setData] = useState({});
 
   // TODO: 응답값에서 팀 정보 가져오기
@@ -52,7 +66,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
 
     let body;
     if (response) {
-      body = await JSON.parse(response);
+      body = await JSON.parse(response).data;
       console.log(body);
       setData(body);
       return body;
@@ -63,12 +77,11 @@ export default function ShowTeam({ params }: { params: PageParams }) {
 
   return (
     <div>
-      <h1>팀 정보를 불러오는 중입니다...</h1>
       {!showTeamInfo && <div>팀 정보를 불러오는 중입니다...</div>}
       {showTeamInfo && (
         <div>
           <h1>팀 정보를 불러오는데 성공했습니다.</h1>
-          <Image src={data.data.imageUrl} alt="팀 이미지" width={200} height={200} />
+          {/* <Image src={data.data.imageUrl} alt="팀 이미지" width={200} height={200} />
           <h1>팀 페이지</h1>
           <h2>팀 이름: {data.data.teamName}</h2>
           <h2>팀장 이름: {data.data.leaderNickname}</h2>
@@ -76,7 +89,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
           <h2>팀 지역: {data.data.area}</h2>
           <h2>팀 종목: {data.data.sports}</h2>
           <h2>팀 인원 수: {data.data.teamMemberCount}</h2>
-          <h2>팀원 목록: {data.data.pageable}</h2>
+          <h2>팀원 목록: {data.data.pageable}</h2> */}
         </div>
       )}
     </div>
