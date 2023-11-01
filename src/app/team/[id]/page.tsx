@@ -51,9 +51,15 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       },
     })
       .then(res => res.json())
-      .then((data: TeamInfo) => {
-        console.log("data:");
-        console.log(data);
+      .then((data) => {
+        // console.log("data:");
+        // console.log(data);
+        if(data.code === "SUCCESS"){
+          console.log("팀 정보를 불러오는데 성공했습니다.");
+        }
+        else{
+          console.log("팀 정보를 불러오는데 실패했습니다.");
+        }
         return data;
       })
       .catch((error) => {
@@ -64,11 +70,9 @@ export default function ShowTeam({ params }: { params: PageParams }) {
     // 응답값 확인
     let body: TeamInfo;
     if (response) {
-      body = await response;
+      body = await response.data;
       console.log("body:");
       console.log(body);
-      console.log("body.imageUrl:");
-      console.log(body.imageUrl);
       return body;
     } else {
       console.log("응답이 없습니다.");
@@ -81,7 +85,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       async function fetchTeamData() {
         let teamInfo = await getTeamInfo(getTeamInfoURL);
         if (teamInfo) {
-          console.log("teamInfo.data:");
+          console.log("teamInfo:");
           console.log(teamInfo);
           setShowTeamInfo(true);
           setData(teamInfo);
