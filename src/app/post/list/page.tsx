@@ -43,7 +43,13 @@ type Voter = {
     email: string;
 };
 
+
+    
+
+
 export default function PostList(){
+
+
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
