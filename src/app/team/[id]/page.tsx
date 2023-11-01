@@ -31,7 +31,14 @@ export default function ShowTeam({ params }: { params: PageParams }) {
 
   // TODO: 응답값에서 팀 정보 가져오기
   useEffect(() => {
-    getTeamInfo(getTeamInfoURL);
+    async function fetchTeamData() {
+      let teamInfo = await getTeamInfo(getTeamInfoURL);
+      if (teamInfo) {
+        console.log(teamInfo.data);
+        setData(teamInfo.data);
+      }
+    }
+    fetchTeamData();
   }, []);
 
   async function getTeamInfo(getTeamInfoURL: string) {
@@ -66,9 +73,8 @@ export default function ShowTeam({ params }: { params: PageParams }) {
 
     let body;
     if (response) {
-      body = await JSON.parse(response).data;
+      body = await JSON.parse(response);
       console.log(body);
-      setData(body);
       return body;
     } else {
       return null;
