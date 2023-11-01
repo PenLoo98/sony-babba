@@ -20,7 +20,7 @@ export default function LoginButton() {
             margin: "20px",
           }}
         >
-          네이버 로그인
+          로그인
         </Button>
       </Link>
     </div>
