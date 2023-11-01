@@ -2,21 +2,21 @@ import Image from "next/image";
 
 type UserJSON = {
   userId: number;
-  userImage: string;
-  userNickname: string;
-  userConnect: boolean;// true면 접속 중, false면 미접속
-  userArea: string;
-  userTeam: string;
-  userTeamId: number;
-  userActivity: string;
-  userRating: number;
-  userRanking: number;
-  userMvp: number;
-  userPoint: number;
+  nickname: string;
+  introduction: string;
+  area: string;
+  imageUrl: string;
+  tier: string;
+  win: number;
+  lose: number;
+  draw: number;
+  winRate: number;
+  mvpCount: number;
+  teamName?: string;
 };
 
 export default function PointInfo(userJSON: {userJSON: UserJSON}) {
-    const userPoint = userJSON.userJSON.userPoint;
+    const userPoint = 100;
   return (
     <div
       className="pointInfo"

@@ -11,26 +11,33 @@ import ReportIcon from "@mui/icons-material/Report";
 import ModalCustom from "@/components/ModalCustom";
 import CheckNickButton from "@/app/auth/AuthComponent/CheckNickButton";
 import SelectArea from "@/app/auth/AuthComponent/SelectArea";
+import InsertProfileImage from "./InsertProfileImage";
 
 type UserJSON = {
   userId: number;
-  userImage: string;
-  userNickname: string;
-  userConnect: boolean; // true면 접속 중, false면 미접속
-  userArea: string;
-  userTeam: string;
-  userTeamId: number;
-  userActivity: string;
-  userRating: number;
-  userRanking: number;
-  userMvp: number;
-  userPoint: number;
+  nickname: string;
+  introduction: string;
+  area: string;
+  imageUrl: string;
+  tier: string;
+  win: number;
+  lose: number;
+  draw: number;
+  winRate: number;
+  mvpCount: number;
+  teamName?: string;
 };
 
 export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
   // console.log(userJSON);
-  const userId = userJSON.userJSON.userId;
-  const userNickname = userJSON.userJSON.userNickname;
+  const userData = userJSON.userJSON;
+  const userNickname = userData.nickname;
+
+  // 본인 프로필인지 확인
+  const [isYourProfile, setIsYourProfile] = useState(false);
+  const swithYours = () => {
+    setIsYourProfile(!isYourProfile);
+  };
 
   // 검색할 닉네임
   const [checkName, setCheckname] = useState("");
@@ -38,20 +45,17 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
     setCheckname(e.target.value);
   };
 
+  // 프로필 이미지 상태관리
+  const [profileImage, setProfileImage] = useState(userData.imageUrl);
+
   // 닉네임 입력 상태관리
-  const [nickname, setNickname] = useState("");
+  const [typeNickname, setNickname] = useState("");
   const handleNameChange = (event: any) => {
     setNickname(event.target.value);
   };
 
   // 닉네임 중복 상태관리
   const [validName, setValidName] = useState(false);
-
-  // 본인 프로필인지 확인
-  const [isYourProfile, setIsYourProfile] = useState(false);
-  const swithYours = () => {
-    setIsYourProfile(!isYourProfile);
-  };
 
   // 프로필 수정 모달
   const [show, setShow] = useState(false);
@@ -67,22 +71,60 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
 
   // 프로필 수정 제출
   async function postEditProfile() {
-    console.log(nickname);
-    console.log(area);
-    alert("프로필 수정이 완료되었습니다.");
-    setShow(false);
-    setNickname("");
-    setValidName(false);
-    setArea("");
-    
-    // const editProfileAPI = `/user-service/user/${userId}`;
-    // const localStorage: Storage = window.localStorage;
-    // const token = localStorage.getItem("accessToken");
-    // const tokenJSON = {"accessToken": token };
-    // const body = {
-    //   "userNickname": nickname,
-    //   "userArea": area
-    // }
+    const editProfileURL = `https://withsports.shop:8000/user-service/user/profile`;
+
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
+    // FormEditData 생성
+    const UserEditFormData = new FormData();
+
+    let EditProfileRequest = {
+      nickname: typeNickname,
+      introduction: userData.introduction,
+      area: area,
+    };
+    let editImageFile: File = new File([profileImage], "profileImage.png");
+
+    // FormEditData에 데이터 추가
+    UserEditFormData.append(
+      "updateProfile",
+      new Blob([JSON.stringify(EditProfileRequest)], {
+        type: "application/json",
+      })
+    );
+    UserEditFormData.append("image", editImageFile);
+
+    // 프로필 수정 제출 fetch
+    fetch(editProfileURL, {
+      method: "PUT",
+      headers: {
+        Credentials: "include",
+        ContentType: "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      body: UserEditFormData,
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          alert("프로필 수정이 완료되었습니다.");
+          setShow(false);
+          setNickname("");
+          setValidName(false);
+          setArea("");
+          location.reload();
+        } else {
+          alert("프로필 수정에 실패하였습니다.");
+        }
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw new Error("서버 요청 실패!");
+      });
   }
 
   // 회원 탈퇴 모달
@@ -102,7 +144,7 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
     setCheckType("");
   };
 
-  // 회원 신고 모달 
+  // 회원 신고 모달
   const [showReport, setShowReport] = useState(false);
   const reportProfile = () => {
     setShowReport(true);
@@ -167,20 +209,34 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
               {/* 프로필 수정 모달 */}
               <ModalCustom show={show} setShow={setShow}>
                 <h2 style={{ marginBottom: "30px" }}>프로필 수정</h2>
+                <InsertProfileImage
+                  profileImage={profileImage}
+                  setProfileImage={setProfileImage}
+                />
                 <TextField
                   label="닉네임"
                   variant="outlined"
-                  value={nickname}
+                  value={typeNickname}
                   onChange={handleNameChange}
                 />
                 <CheckNickButton
-                  nickname={nickname}
+                  nickname={typeNickname}
                   setValidName={setValidName}
                 />
                 <SelectArea area={area} onAreaChange={handleAreaChange} />
-                <Button variant="outlined" onClick={postEditProfile}>
-                  프로필 수정 제출
-                </Button>
+                {validName ? (
+                  <Button
+                    variant="outlined"
+                    onClick={postEditProfile}
+                    style={{ marginTop: 10 }}
+                  >
+                    프로필 수정 제출
+                  </Button>
+                ) : (
+                  <Button variant="outlined" style={{ marginTop: 10 }} disabled>
+                    프로필 수정 제출
+                  </Button>
+                )}
               </ModalCustom>
             </div>
 
@@ -224,15 +280,15 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
                   value={checkType}
                   onChange={handleTypeChange}
                 />
-                {(checkType === userNickname + "/탈퇴한다")?
-                (<Button variant="outlined" onClick={postDeleteProfile}>
-                회원탈퇴 
-              </Button>)
-
-                :(<Button variant="outlined" disabled>
-                회원탈퇴 
-              </Button>)}
-                
+                {checkType === userNickname + "/탈퇴한다" ? (
+                  <Button variant="outlined" onClick={postDeleteProfile}>
+                    회원탈퇴
+                  </Button>
+                ) : (
+                  <Button variant="outlined" disabled>
+                    회원탈퇴
+                  </Button>
+                )}
               </div>
             </ModalCustom>
           </div>
@@ -248,8 +304,13 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
                 팀원 신청
               </Button>
             </div>
-            <div className="report-button" style={{ marginTop: "5px"}}>
-              <Button variant="outlined" startIcon={<ReportIcon />} style={{ color: "red"}} onClick={reportProfile}>
+            <div className="report-button" style={{ marginTop: "5px" }}>
+              <Button
+                variant="outlined"
+                startIcon={<ReportIcon />}
+                style={{ color: "red" }}
+                onClick={reportProfile}
+              >
                 사용자 신고
               </Button>
               <ModalCustom show={showReport} setShow={setShowReport}>
@@ -264,7 +325,6 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
                   신고 사용을 작성해주세요.
                   <br />
                   <br />
-              
                 </h3>
                 <div className="delete-account">
                   <TextField
@@ -275,9 +335,9 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
                   />
                 </div>
                 <Button variant="outlined" onClick={postReportProfile}>
-                사용자 신고
+                  사용자 신고
                 </Button>
-                </ModalCustom>
+              </ModalCustom>
             </div>
           </div>
         )}
