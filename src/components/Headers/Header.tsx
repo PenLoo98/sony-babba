@@ -26,12 +26,12 @@ export default function Header() {
     <div className="header" style={homeButtonStyle}>
       <HomeButton />
       {isLogin ? (
-        <div>
+          <div>
           <MenuBar />
-          <LoginButton />
+          <LogoutButton />
         </div>
-      ) : (
-        <LogoutButton />
+        ) : (
+          <LoginButton />
       )}
     </div>
   );
