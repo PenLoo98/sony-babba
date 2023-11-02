@@ -28,7 +28,7 @@ export default function Header() {
       {isLogin ? (
           <div style={{display:"flex"}}>
           <MenuBar />
-          <LogoutButton />
+          <LogoutButton isLogin={isLogin} setIsLogin={setIsLogin}/>
         </div>
         ) : (
           <LoginButton />

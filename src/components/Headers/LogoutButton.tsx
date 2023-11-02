@@ -2,7 +2,12 @@
 import { Button } from "@mui/material";
 import Image from "next/image";
 
-export default function LogoutButton() {
+type logoutParams = { 
+  isLogin: boolean;
+  setIsLogin: (isLogin: boolean) => void;
+}
+
+export default function LogoutButton({isLogin, setIsLogin} : logoutParams) {
   // TODO: 로그아웃 POST 요청 구현하기
   async function logout() {
     // 액세스 토큰 가져오기
@@ -28,7 +33,13 @@ export default function LogoutButton() {
 
           alert("로그아웃 되었습니다.");
           window.location.href = "/";
-        } else {
+        } 
+        else if(res.status === 401){
+            alert("다시 로그인 해주세요.")
+            setIsLogin(false);
+            location.reload();
+        }
+        else{
           alert("로그아웃에 실패하였습니다.");
         }
       })
