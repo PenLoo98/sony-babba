@@ -7,6 +7,7 @@ type Post1 = {
     paging: Array<{}>;
 }
 
+
 type Post = {
   id?: number;
   subject?: string;
