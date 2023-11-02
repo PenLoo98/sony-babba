@@ -104,8 +104,8 @@ export default function ProfilePage({ params }: { params: PageParams }) {
 
   return (
     <div>
-      {!showUserInfo && <div>유저 정보를 불러오는 중입니다...</div>}
-      {showUserInfo && (
+      {showUserInfo && <div>유저 정보를 불러오는 중입니다...</div>}
+      {!showUserInfo && (
         <div>
           <ProfileInfo userJSON={data}/>
           <ProfileMenu userJSON={data}/>
