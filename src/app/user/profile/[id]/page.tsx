@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import PointInfo from "./profileComponent/PointInfo";
 import ProfileInfo from "./profileComponent/ProfileInfo";
 import ProfileMenu from "./profileComponent/ProfileMenu";
 import RankingInfo from "./profileComponent/RankingInfo";
@@ -11,90 +10,108 @@ type PageParams = {
 
 type UserJSON = {
   userId: number;
-  userImage: string;
-  userNickname: string;
-  userConnect: boolean; // true면 접속 중, false면 미접속
-  userArea: string;
-  userTeam: string;
-  userTeamId: number;
-  userActivity: string;
-  userRating: number;
-  userRanking: number;
-  userMvp: number;
-  userPoint: number;
+  nickname: string;
+  introduction: string;
+  area: string;
+  imageUrl: string;
+  tier: string;
+  win: number;
+  lose: number;
+  draw: number;
+  winRate: number;
+  mvpCount: number;
+  teamName?: string;
 };
 export default function ProfilePage({ params }: { params: PageParams }) {
+  const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile`;
+
+  // 로컬스토리지 토큰 가져오기
+  const localStorage: Storage = window.localStorage;
+  const token = localStorage.getItem("accessToken");
+
+  // 팀 정보를 불러왔는지 여부
+  const [showUserInfo, setShowUserInfo] = useState(false);
+
   let userJSON: UserJSON = {
     userId: 0,
-    userImage: "",
-    userNickname: "",
-    userConnect: false,
-    userArea: "",
-    userTeam: "",
-    userTeamId: 0,
-    userActivity: "",
-    userRating: 0,
-    userRanking: 0,
-    userMvp: 0,
-    userPoint: 0,
+    nickname: "위스",
+    introduction: "반갑습니다",
+    area: "서울",
+    imageUrl: "/default-profile.png",
+    tier: "1",
+    win: 5,
+    lose: 5,
+    draw: 0,
+    winRate: 50,
+    mvpCount: 5,
+    teamName: "손이바빠",
   };
-  // 로컬스토리지 토큰 가져오기
-  // const localStorage: Storage = window.localStorage;
-  // const token = localStorage.getItem("accessToken");
-  // // console.log(token);
+  const [data, setData] = useState<UserJSON>(userJSON);
 
-  // // TODO: GET - id에 맞는 사용자 정보 가져오기
-  // useEffect(() => {
-  //   fetch(`http://localhost:8080/api/users/profile/${params.id}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   }).then((res) => {
-  //     if (res.ok) {
-  //       // 응답값에 따라 userJSON 업데이트
-  //       // userJSON.userId = 
-  //       // userJSON.userImage = 
-  //       // userJSON.userNickname = 
-  //       // userJSON.userConnect =  
-  //       // userJSON.userArea = 
-  //       // userJSON.userTeam = 
-  //       // userJSON.userTeamId = 
-  //       // userJSON.userActivity = 
-  //       // userJSON.userRating = 
-  //       // userJSON.userRanking = 
-  //       // userJSON.userMvp = 
-  //       // userJSON.userPoint = 
-  //     } else {
-  //       alert("사용자 정보를 가져오는데 실패했습니다.");
-  //       return <h1>존재하지 않는 사용자입니다.</h1>;
-  //     }
-  //   });
-  // }, []);
+  // TODO: GET - id에 맞는 사용자 정보 가져오기
+  async function getUserInfo(getUserInfoURL: string) {
+    const response = await fetch(getUserInfoURL, {
+      method: "GET",
+      headers: {
+        Credentials: "include",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.code === "SUCCESS") {
+          console.log("사용자 정보를 불러오는데 성공했습니다.");
+        } else {
+          console.log("사용자 정보를 불러오는데 실패했습니다.");
+        }
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+        throw new Error("서버 요청 실패!");
+      });
 
-  // TODO: 예시 데이터: 가져온 유저 정보를 userInfo에 저장하기
-  userJSON.userId = params.id;
-  userJSON.userImage = "/default-profile.png";
-  userJSON.userNickname = "위스";
-  userJSON.userConnect = true; // true면 접속 중, false면 미접속
-  userJSON.userArea = "서울";
-  userJSON.userTeam = "손이바빠";
-  userJSON.userTeamId = 7;
-  userJSON.userActivity = "축구";
-  userJSON.userRating = 3.5;
-  userJSON.userRanking = 1;
-  userJSON.userMvp = 2;
-  userJSON.userPoint = 100;
+      // 응답값 확인 
+      let body: UserJSON;
+      if(response){
+        body = await response.data;
+        console.log("body:");
+        console.log(body);
+        return body;
+      } else {
+        console.log("응답이 없습니다.");
+        return null;
+      }
+  }
 
-  // console.log(userJSON);
+  useEffect(() => {
+    async function fetchUserData() {
+      let userInfo = await getUserInfo(getUserInfoURL);
+      if (userInfo) {
+        console.log("userInfo:");
+        console.log(userInfo);
+        setShowUserInfo(true);
+        setData(userInfo);
+        console.log("data:");
+        console.log(data);
+        console.log("data.imageUrl:");
+        console.log(data.imageUrl);
+      }
+    }
+    fetchUserData();
+  },[]);
 
   return (
-    <div className="profile-page">
-      <ProfileInfo userJSON={userJSON} />
-      <ProfileMenu userJSON={userJSON} />
-      <RankingInfo userJSON={userJSON} />
-      <PointInfo userJSON={userJSON} />
+    <div>
+      {showUserInfo && <div>유저 정보를 불러오는 중입니다...</div>}
+      {!showUserInfo && (
+        <div>
+          <ProfileInfo userJSON={data}/>
+          <ProfileMenu userJSON={data}/>
+          <RankingInfo userJSON={data} />
+        </div>
+      )}
     </div>
   );
 }

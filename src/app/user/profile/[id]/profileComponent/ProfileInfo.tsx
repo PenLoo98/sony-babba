@@ -3,34 +3,22 @@ import Link from "next/link";
 
 type UserJSON = {
   userId: number;
-  userImage: string;
-  userNickname: string;
-  userConnect: boolean;// true면 접속 중, false면 미접속
-  userArea: string;
-  userTeam: string;
-  userTeamId: number;
-  userActivity: string;
-  userRating: number;
-  userRanking: number;
-  userMvp: number;
-  userPoint: number;
+  nickname: string;
+  introduction: string;
+  area: string;
+  imageUrl: string;
+  tier: string;
+  win: number;
+  lose: number;
+  draw: number;
+  winRate: number;
+  mvpCount: number;
+  teamName?: string;
 };
 
-export default function Profile(userJSON: {userJSON: UserJSON}) {
-  // console.log(userJSON);
-  const userId = userJSON.userJSON.userId;
-  const userImage = userJSON.userJSON.userImage;
-  const userNickname = userJSON.userJSON.userNickname;
-  const userConnect = userJSON.userJSON.userConnect;
-  const userArea = userJSON.userJSON.userArea;
-  const userTeam = userJSON.userJSON.userTeam;
-  const userTeamId = userJSON.userJSON.userTeamId;
-  const userActivity = userJSON.userJSON.userActivity;
-  // const userRating = userJSON.userJSON.userRating;
-  // const userRanking = userJSON.userJSON.userRanking;
-  // const userMvp = userJSON.userJSON.userMvp;
-  // const userPoint = userJSON.userJSON.userPoint;
-
+export default function Profile(userJSON: { userJSON: UserJSON }) {
+  console.log(userJSON);
+  const userData = userJSON.userJSON;
 
   return (
     <div
@@ -42,7 +30,7 @@ export default function Profile(userJSON: {userJSON: UserJSON}) {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <Image
-          src={userImage}
+          src={userData.imageUrl}
           alt="profile"
           width={190}
           height={190}
@@ -58,27 +46,26 @@ export default function Profile(userJSON: {userJSON: UserJSON}) {
             justifyContent: "space-around",
           }}
         >
-          <h1>{userNickname}</h1>
-          {/* userConnect 값에 따라 다르게 표시 */}
-          {userConnect ? (
-            <h2 style={{ color: "green" }}>접속 중</h2>
-          ) : (
-            <h2 style={{ color: "red" }}>미접속</h2>
-          )}
+          <h1>{userData.nickname}</h1>
         </div>
         <div
           className="teamInfo"
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <h3>{userArea}</h3>
+          <h3>{userData.area}</h3>
           <Link
-            href={`/team/${userTeamId}`}
+            href={`/team/${userData.teamName}`}
             style={{ textDecoration: "none" }}
-            target={`/team/${userTeamId}`}
+            target={`/team/${userData.teamName}`}
           >
-            <h3>{userTeam}</h3>
+            <h3>{userData.teamName}</h3>
           </Link>
-          <h3>{userActivity}</h3>
+        </div>
+        <div
+          className="userIntro"
+          style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}
+        >
+          {userData.introduction}
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ export default function MenuBar() {
     return(
         <div className="menuBar"
         style={{display: "flex"}}>
-            <Link href="/forum/main" style={{ textDecoration: "none" }}>
+            <Link href="/post" style={{ textDecoration: "none" }}>
               <Image
                 src="/forumBtn.png"
                 width={70}
@@ -32,7 +32,7 @@ export default function MenuBar() {
                 style={{ margin: "0 20px" }}
               />
             </Link>
-            <Link href="/profile/main" style={{ textDecoration: "none" }}>
+            <Link href="/user/profile/main" style={{ textDecoration: "none" }}>
               <Image
                 src="/profileBtn.png"
                 width={70}
