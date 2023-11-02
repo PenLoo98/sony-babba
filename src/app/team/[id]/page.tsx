@@ -64,10 +64,12 @@ export default function ShowTeam({ params }: { params: PageParams }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log("data:");
-        // console.log(data);
+        console.log("data:");
+        console.log(data);
         if (data.code === "SUCCESS") {
           console.log("팀 정보를 불러오는데 성공했습니다.");
+        } else if (data.code === "ERROR") {
+          console.log("없는 팀 정보입니다.");
         } else {
           console.log("팀 정보를 불러오는데 실패했습니다.");
         }
@@ -106,15 +108,12 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       }
     }
     fetchTeamData();
-
-    // // 테스트 코드
-    // setShowTeamInfo(true);
   }, []);
 
   return (
     <div>
-      {showTeamInfo && <div>팀 정보를 불러오는 중입니다...</div>}
-      {!showTeamInfo && (
+      {!showTeamInfo && <div>팀 정보를 불러오는 중입니다...</div>}
+      {showTeamInfo && (
         <div>
           <h1>팀 정보를 불러오는데 성공했습니다.</h1>
           <Image src={data.imageUrl} alt="팀 이미지" width={200} height={200} />
