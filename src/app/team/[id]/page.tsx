@@ -97,8 +97,8 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       if (teamInfo) {
         console.log("teamInfo:");
         console.log(teamInfo);
-        setData(teamInfo);
         setShowTeamInfo(true);
+        setData(teamInfo);
         console.log("data:");
         console.log(data);
         console.log("data.imageUrl:");
