@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
+import styles from "../../Home.module.css";
 
 type Post1 = {
-    keyword: string;
-    notices: Array<{}>;
-    paging: Array<{}>;
-}
-
+  keyword: string;
+  notices: Array<{}>;
+  paging: Array<{}>;
+};
 
 type Post = {
   id?: number;
@@ -51,11 +51,11 @@ type Voter = {
 };
 
 export default function PostList() {
-    let postData: Post1 = {
-        keyword: "",
-        notices: [{}],
-        paging: [{}]
-    }
+  let postData: Post1 = {
+    keyword: "",
+    notices: [{}],
+    paging: [{}],
+  };
   const [posts, setPosts] = useState<Post1>();
   const [loading, setLoading] = useState(true);
 
@@ -79,17 +79,6 @@ export default function PostList() {
         }
       })
       .catch((error) => console.log(error));
-
-    //     if (!response.ok) {
-    //         throw new Error('서버에서 데이터를 가져오는데 실패했습니다.');
-    //     }
-    //     const data: Post = await response;
-    //     setPosts(data);
-    //     setLoading(false);
-    // } catch (error) {
-    //     console.log(error);
-    //     setLoading(false);
-    // }
   }
 
   useEffect(() => {
@@ -101,28 +90,108 @@ export default function PostList() {
     console.log(result);
   }, []);
 
-  // if (loading) {
-  //     return <div>Now Loading...</div>
-  // }
+  // 공지글 테스트
+  const noticePost = [
+    {
+      id: 1,
+      subject: "첫 번째 공지글",
+      createDate: "2023-01-01",
+      isNotice: true,
+    },
+    {
+      id: 2,
+      subject: "두 번째 공지글",
+      createDate: "2023-01-02",
+      isNotice: true,
+    },
+    {
+      id: 3,
+      subject: "세 번째 공지글",
+      createDate: "2023-01-03",
+      isNotice: false,
+    },
+  ];
 
-  // if (error) {
-  //     return <div>{error}</div>;
-  // }
+  // 게시글 테스트
+  const commonPost = [
+    {
+      id: 1,
+      subject: "첫 번째 게시글",
+      author: "작성자1",
+      createDate: "2023-01-01",
+      isNotice: false,
+    },
+    {
+      id: 2,
+      subject: "두 번째 게시글",
+      author: "작성자2",
+      createDate: "2023-01-02",
+      isNotice: false,
+    },
+    {
+      id: 3,
+      subject: "세 번째 게시글",
+      author: "작성자3",
+      createDate: "2023-01-03",
+      isNotice: false,
+    },
+  ];
+
+  // isNotice가 true인 공지글만 필터
+  const notices = noticePost.filter((post) => post.isNotice);
+
+  // isNotice가 false인 일반 게시글 필터
+  const commons = commonPost.filter((post) => !post.isNotice);
 
   return (
     <div>
-      {!loading && <h1>로딩 중</h1>}
-      <div>
-      {loading && <h1>로딩 완료</h1>}
-</div>
-{/* {posts.keyword} */}
+      <br />
+      <div className={styles.boardContainer}>
+        <button className={styles.addButton}>게시글 등록하기</button>
+        <div>
+          <input
+            className={styles.searchBox}
+            type="text"
+            placeholder="검색어를 입력하세요"
+          />
+          <button>search</button>
+        </div>
+      </div>
+      {/** 공지글 출력 테스트 */}
+      <ul className={styles.noticeList}>
+        <a href="/post/notices">공지글</a>
+        {notices.map((notice) => (
+          <li className={styles.noticeItem} key={notice.id}>
+            <a>{notice.subject}</a>
+            <a>{notice.createDate}</a>
+          </li>
+        ))}
+      </ul>
 
-      {/* {loading && {posts.map((post) => (
-            <li key={post.id}>
-            <h2>{post.subject}</h2>
-            <p>{post.content}</p>
-            </li>
-        ))}} */}
+      <table className={styles.postTable}>
+        <thead>
+          <tr>
+            <th>글 번호</th>
+            <th>제목</th>
+            <th>글쓴이</th>
+            <th>작성일자</th>
+          </tr>
+        </thead>
+        <tbody>
+          {commons.map(common => (
+            <tr key={common.id}>
+              <td>{common.id}</td>
+              <td>{common.subject}</td>
+              <td>{common.author}</td>
+              <td>{common.createDate}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {/* {!loading && <h1>로딩 중</h1>}
+
+      {loading && <h1>로딩 완료</h1>} */}
     </div>
   );
 }
