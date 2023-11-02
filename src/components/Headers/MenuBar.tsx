@@ -32,7 +32,7 @@ export default function MenuBar() {
                 style={{ margin: "0 20px" }}
               />
             </Link>
-            <Link href="/profile/main" style={{ textDecoration: "none" }}>
+            <Link href="/user/profile/main" style={{ textDecoration: "none" }}>
               <Image
                 src="/profileBtn.png"
                 width={70}
