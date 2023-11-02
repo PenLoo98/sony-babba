@@ -8,7 +8,7 @@ export default function Header() {
   const homeButtonStyle = {
     display: "flex",
     justifyContent: "space-between",
-    backgroundColor: "#85f3ef",
+    backgroundColor: "black",
   };
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
@@ -33,6 +33,7 @@ export default function Header() {
         ) : (
           <LoginButton />
       )}
+      
     </div>
   );
 }

@@ -41,6 +41,7 @@ export default function MenuBar() {
                 style={{ margin: "0 20px" }}
               />
             </Link>
+            <hr />
         </div>
     );
 }
