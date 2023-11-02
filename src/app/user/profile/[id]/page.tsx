@@ -10,15 +10,15 @@ type PageParams = {
 
 type UserJSON = {
   userId: number;
-  nickname: string;
-  introduction: string;
-  area: string;
-  imageUrl: string;
-  tier: string;
+  nickname: string | null;
+  introduction: string | null;
+  area: string | null;
+  imageUrl: string | null;
+  tier: string | null;
   win: number;
   lose: number;
   draw: number;
-  winRate: number;
+  winRate: number | null;
   mvpCount: number;
   teamName?: string;
 };
