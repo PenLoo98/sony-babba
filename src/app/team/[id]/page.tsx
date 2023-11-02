@@ -66,14 +66,17 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       .then((data) => {
         console.log("data:");
         console.log(data);
+        // TODO: 없는 teamId 요청
+        // TODO: 잘못된 요청
         if (data.code === "SUCCESS") {
           console.log("팀 정보를 불러오는데 성공했습니다.");
+          return data;
         } else if (data.code === "ERROR") {
           console.log("없는 팀 정보입니다.");
         } else {
           console.log("팀 정보를 불러오는데 실패했습니다.");
         }
-        return data;
+        
       })
       .catch((error) => {
         console.log(error);
@@ -99,8 +102,8 @@ export default function ShowTeam({ params }: { params: PageParams }) {
       if (teamInfo) {
         console.log("teamInfo:");
         console.log(teamInfo);
-        setShowTeamInfo(true);
         setData(teamInfo);
+        setShowTeamInfo(true);
         console.log("data:");
         console.log(data);
         console.log("data.imageUrl:");
