@@ -8,7 +8,8 @@ export default function Header() {
   const homeButtonStyle = {
     display: "flex",
     justifyContent: "space-between",
-    backgroundColor: "black",
+    backgroundColor: "white",
+    boxShadow: "0 2px 2px 0 rgba(0, 0, 0, 0.4)",
   };
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {

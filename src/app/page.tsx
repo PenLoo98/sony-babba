@@ -13,7 +13,7 @@ export default function Home() {
             <br />
             <div className={styles.fadeIn3}>더 즐거우니까</div>
             <br />
-            <div className={styles.fadeIn4}>With Sports</div>
+            <div className={styles.fadeIn4} style = {{ color: "#85f3ef",textShadow: "-1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000"}}>With Sports</div>
           </h1>
           <br />
           <br />
