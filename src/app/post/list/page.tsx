@@ -137,10 +137,12 @@ export default function PostList() {
     },
   ];
 
-  // isNotice가 true인 공지글만 필터
+  // 공지글 필터
   const notices = noticePost.filter((post) => post.isNotice);
 
-  // isNotice가 false인 일반 게시글 필터
+  // TODO : voter가 5 이상인 게시글만 필터 ... 인기글 만들기
+
+  // 일반 게시글 필터
   const commons = commonPost.filter((post) => !post.isNotice);
 
   return (
@@ -154,7 +156,7 @@ export default function PostList() {
             type="text"
             placeholder="검색어를 입력하세요"
           />
-          <button>search</button>
+          <button className={styles.searchButton}>search</button>
         </div>
       </div>
       {/** 공지글 출력 테스트 */}
