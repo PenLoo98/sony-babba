@@ -140,6 +140,7 @@ export default function PostList() {
   // 공지글 필터
   const notices = noticePost.filter((post) => post.isNotice);
 
+  
   // TODO : voter가 5 이상인 게시글만 필터 ... 인기글 만들기
 
   // 일반 게시글 필터

@@ -45,14 +45,14 @@ type Voter = {
 
 
 
-async function getData() {
-    const response = await fetch('http://43.200.115.249:8080/post/detail/38')
-    .then((res) => res.json())
-    .then((data) => {return data});
+// async function getData() {
+//     const response = fetch('http://43.200.115.249:8080/post/detail/38')
+//     .then((res) => res.json())
+//     .then((data) => {return data});
 
-    const data = await response.post;
-    return data;  // post 데이터만 반환
-};
+//     const data = response.post;
+//     return data;  // post 데이터만 반환
+// };
 
 export default function PostDetail() {
     // fetch로 불러오기 전 초기 데이터
@@ -74,6 +74,7 @@ export default function PostDetail() {
     voter: []
     }
 
+    
     // 게시물 상세 화면
     const [post, setPost] = useState<Post>(initialData);
 
