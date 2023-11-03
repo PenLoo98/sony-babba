@@ -1,35 +1,35 @@
 /* 메인 페이지 */
 
 .fadeIn {
-    animation: fadeIn ease 2s;
-    -webkit-animation: fadeIn ease 2s;
-    -moz-animation: fadeIn ease 2s;
-    -o-animation: fadeIn ease 2s;
-    -ms-animation: fadeIn ease 2s;
+    animation: fadeIn ease 1s;
+    -webkit-animation: fadeIn ease 1s;
+    -moz-animation: fadeIn ease 1s;
+    -o-animation: fadeIn ease 1s;
+    -ms-animation: fadeIn ease 1s;
 }
 
 .fadeIn2 {
-    animation: fadeIn ease 2s 2s both;
-    -webkit-animation: fadeIn ease 2s 2s both;
-    -moz-animation: fadeIn ease 2s 2s both;
-    -o-animation: fadeIn ease 2s 2s both;
-    -ms-animation: fadeIn ease 2s 2s both;
+    animation: fadeIn ease 1s 1s both;
+    -webkit-animation: fadeIn ease 1s 1s both;
+    -moz-animation: fadeIn ease 1s 1s both;
+    -o-animation: fadeIn ease 1s 1s both;
+    -ms-animation: fadeIn ease 1s 1s both;
 }
 
 .fadeIn3 {
-    animation: fadeIn ease 2s 4s both;
-    -webkit-animation: fadeIn ease 2s 4s both;
-    -moz-animation: fadeIn ease 2s 4s both;
-    -o-animation: fadeIn ease 2s 4s both;
-    -ms-animation: fadeIn ease 2s 4s both;
+    animation: fadeIn ease 1s 2s both;
+    -webkit-animation: fadeIn ease 1s 2s both;
+    -moz-animation: fadeIn ease 1s 2s both;
+    -o-animation: fadeIn ease 1s 2s both;
+    -ms-animation: fadeIn ease 1s 2s both;
 }
 
 .fadeIn4 {
-    animation: fadeIn ease 2s 6s both;
-    -webkit-animation: fadeIn ease 2s 6s both;
-    -moz-animation: fadeIn ease 2s 6s both;
-    -o-animation: fadeIn ease 2s 6s both;
-    -ms-animation: fadeIn ease 2s 6s both;
+    animation: fadeIn ease 1s 3s both;
+    -webkit-animation: fadeIn ease 1s 3s both;
+    -moz-animation: fadeIn ease 1s 3s both;
+    -o-animation: fadeIn ease 1s 3s both;
+    -ms-animation: fadeIn ease 1s 3s both;
 }
 
 
