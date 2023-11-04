@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import styles from "../../../Home.module.css";
 
-
 type Post = {
   id?: number;
   subject?: string;
@@ -91,7 +90,7 @@ export default function PostDetail(props: ReadProps) {
 
   return (
     <div>
-      <h3 style={{ marginBottom: "1px" }}>제목 : {post.subject}</h3>
+      <h3 style={{ marginBottom: "1px" }}>{post.subject}</h3>
       {/* TODO : 수정/삭제 버튼은 권한에 따라서 활성화/비활성화 되어야 함.*/}
       <span style={{ display: "flex", justifyContent: "flex-end" }}>
         <button
@@ -182,10 +181,10 @@ export default function PostDetail(props: ReadProps) {
           }}
         >
           <button onClick={handleGoBack} className={styles.backbutton}>
-            뒤로가기
+            게시글 목록
           </button>
           <button type="submit" className={styles.addButton}>
-            게시글 목록
+            댓글 등록
           </button>
         </div>
       </form>
