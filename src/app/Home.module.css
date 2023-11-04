@@ -1,119 +1,166 @@
 /* 메인 페이지 */
 
 .fadeIn {
-    animation: fadeIn ease 1s;
-    -webkit-animation: fadeIn ease 1s;
-    -moz-animation: fadeIn ease 1s;
-    -o-animation: fadeIn ease 1s;
-    -ms-animation: fadeIn ease 1s;
+  animation: fadeIn ease 1s;
+  -webkit-animation: fadeIn ease 1s;
+  -moz-animation: fadeIn ease 1s;
+  -o-animation: fadeIn ease 1s;
+  -ms-animation: fadeIn ease 1s;
 }
 
 .fadeIn2 {
-    animation: fadeIn ease 1s 1s both;
-    -webkit-animation: fadeIn ease 1s 1s both;
-    -moz-animation: fadeIn ease 1s 1s both;
-    -o-animation: fadeIn ease 1s 1s both;
-    -ms-animation: fadeIn ease 1s 1s both;
+  animation: fadeIn ease 1s 1s both;
+  -webkit-animation: fadeIn ease 1s 1s both;
+  -moz-animation: fadeIn ease 1s 1s both;
+  -o-animation: fadeIn ease 1s 1s both;
+  -ms-animation: fadeIn ease 1s 1s both;
 }
 
 .fadeIn3 {
-    animation: fadeIn ease 1s 2s both;
-    -webkit-animation: fadeIn ease 1s 2s both;
-    -moz-animation: fadeIn ease 1s 2s both;
-    -o-animation: fadeIn ease 1s 2s both;
-    -ms-animation: fadeIn ease 1s 2s both;
+  animation: fadeIn ease 1s 2s both;
+  -webkit-animation: fadeIn ease 1s 2s both;
+  -moz-animation: fadeIn ease 1s 2s both;
+  -o-animation: fadeIn ease 1s 2s both;
+  -ms-animation: fadeIn ease 1s 2s both;
 }
 
 .fadeIn4 {
-    animation: fadeIn ease 1s 3s both;
-    -webkit-animation: fadeIn ease 1s 3s both;
-    -moz-animation: fadeIn ease 1s 3s both;
-    -o-animation: fadeIn ease 1s 3s both;
-    -ms-animation: fadeIn ease 1s 3s both;
+  animation: fadeIn ease 1s 3s both;
+  -webkit-animation: fadeIn ease 1s 3s both;
+  -moz-animation: fadeIn ease 1s 3s both;
+  -o-animation: fadeIn ease 1s 3s both;
+  -ms-animation: fadeIn ease 1s 3s both;
 }
 
-
 @keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-moz-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-o-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-ms-keyframes fadeIn {
-    0% {opacity:0;}
-    100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-
 
 /* 게시판 */
 
 .boardContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .searchBox {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 200px;
-    margin-left: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 200px;
+  margin-left: 10px;
 }
 
 .searchButton {
   border: 1px solid #ccc;
   background-color: grey;
-  color : black;
-  border : none;
-  padding : 10px;
-  cursor : pointer;
+  color: black;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
   border-radius: 10px;
 }
- 
+
 .addButton {
-    background-color: #85f3ef;
-    color: black;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 10px;
-  }
-  
-  .addButton:hover {
-    background-color: grey;
-  }
+  background-color: #85f3ef;
+  color: black;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.addButton:hover {
+  background-color: grey;
+}
+
+.modifybutton {
+  background-color: aliceblue;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+.deletebutton {
+  background-color: #e40c0c;
+  color : white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.likebutton{
+  background-color : green;
+  color : white;
+  padding : 10px;
+  border-radius : 10px;
+}
+
+.backbutton {
+  background-color: #cccccc;
+  color: black;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+}
 
 /* 공지글 목록 */
-  .noticeList {
-    width: 100%;
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .noticeItem {
-    list-style-type: none;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .noticeItem:last-child {
-    border-bottom: none;
-  }
+.noticeList {
+  width: 100%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.noticeItem {
+  list-style-type: none;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.noticeItem:last-child {
+  border-bottom: none;
+}
 
 /* 게시글 목록 */
 .postTable {
@@ -122,7 +169,8 @@
   margin-top: 20px;
 }
 
-.postTable th, .postTable td {
+.postTable th,
+.postTable td {
   border-bottom: 1px solid #ddd;
   padding: 8px;
 }
