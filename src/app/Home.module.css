@@ -85,8 +85,8 @@
 }
  
 .addButton {
-    background-color: black;
-    color: white;
+    background-color: #85f3ef;
+    color: black;
     border: none;
     padding: 10px;
     cursor: pointer;
@@ -94,7 +94,7 @@
   }
   
   .addButton:hover {
-    background-color: darkblue;
+    background-color: grey;
   }
 
 /* 공지글 목록 */
