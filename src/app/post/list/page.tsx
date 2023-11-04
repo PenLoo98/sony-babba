@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import styles from "../../Home.module.css";
 
 // 게시글 정보를 담는 타입 정의
@@ -15,12 +15,15 @@ type Post = {
 export default function PostList() {
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [totalPages, setTotalPages] = useState(0);
+  //const [currentPage, setCurrentPage] = useState(0);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('http://43.200.115.249:8080/post/list');
+      const response = await fetch("http://43.200.115.249:8080/post/list");
       const data = await response.json();
-      
+
       // 공지 게시글 정보만을 추출하여 가공
       const fetchedNotices: Post[] = data.data.notices.map((notice: any) => ({
         id: notice.id,
@@ -31,56 +34,90 @@ export default function PostList() {
       }));
 
       // 일반 게시글 정보만을 추출하여 가공
-      const fetchedPosts: Post[] = data.data.paging.content.map((post: any) => ({
-        id: post.id,
-        subject: post.subject,
-        isNotice: post.isNotice,
-        author: post.author.username,
-        createDate: new Date(post.createDate).toLocaleString(),
-      }));
+      const fetchedPosts: Post[] = data.data.paging.content.map(
+        (post: any) => ({
+          id: post.id,
+          subject: post.subject,
+          isNotice: post.isNotice,
+          author: post.author.username,
+          createDate: new Date(post.createDate).toLocaleString(),
+        })
+      );
 
       // 가공한 데이터를 상태에 저장
       setNotices(fetchedNotices);
       setPosts(fetchedPosts);
+      setTotalPages(data.data.paging.totalPages);
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   return (
     <div>
-      <h3>공지사항</h3>
-      {notices.map(notice => (
-        <div key={notice.id}>
-          <h5>
-            <Link href={`http://localhost:3000/post/detail/${notice.id}`}>
-              {notice.subject}
-            </Link>
-          </h5>
-          <p>작성자: {notice.author}</p>
-          <p>작성일자: {notice.createDate}</p>
-          <hr/>
+      <br />
+      <div className={styles.boardContainer}>
+        <button className={styles.addButton}>게시글 등록하기</button>
+        <div>
+          <input
+            className={styles.searchBox}
+            type="text"
+            placeholder="검색어를 입력하세요"
+          />
+          <button className={styles.searchButton}>search</button>
         </div>
-      ))}
+      </div>
+      <ul className={styles.noticeList}>
+        <Link href="/post/notices">공지사항</Link>
+        {notices.map((notice) => (
+          <div key={notice.id}>
+            <h5>
+              <Link href={`http://localhost:3000/post/detail/${notice.id}`}>
+                {notice.subject}
+              </Link>
+            </h5>
+            <p>작성자: {notice.author}</p>
+            <p>작성일자: {notice.createDate}</p>
+            <hr />
+          </div>
+        ))}
+      </ul>
       <h3>일반 게시글</h3>
-      {posts.map(post => (
-        <div key={post.id}>
-          <h5>
-            <Link href={`http://localhost:3000/post/detail/${post.id}`}>
-              {post.subject}
-            </Link>
-          </h5>
-          <p>작성자: {post.author}</p>
-          <p>작성일자: {post.createDate}</p>
-          <hr/>
-        </div>
-
-      ))}
+      <table className={styles.postTable}>
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일자</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.map((post) => (
+            <tr key={post.id}>
+              <td>
+                <h5>
+                  <Link href={`http://localhost:3000/post/detail/${post.id}`}>
+                    {post.subject}
+                  </Link>
+                </h5>
+              </td>
+              <td>{post.author}</td>
+              <td>{post.createDate}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/* 페이지네이션 */}
+      <div>
+        {[...Array(totalPages)].map((_, i) => (
+          <button key={i} onClick={() => setPage(i)}>
+            {i + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
-
-
 
 // type Post1 = {
 //   keyword: string;
@@ -220,7 +257,6 @@ export default function PostList() {
 //   // 공지글 필터
 //   const notices = noticePost.filter((post) => post.isNotice);
 
-  
 //   // TODO : voter가 5 이상인 게시글만 필터 ... 인기글 만들기
 
 //   // 일반 게시글 필터
@@ -228,17 +264,17 @@ export default function PostList() {
 
 //   return (
 //     <div>
-//       <br />
-//       <div className={styles.boardContainer}>
-//         <button className={styles.addButton}>게시글 등록하기</button>
-//         <div>
-//           <input
-//             className={styles.searchBox}
-//             type="text"
-//             placeholder="검색어를 입력하세요"
-//           />
-//           <button className={styles.searchButton}>search</button>
-//         </div>
+// <br />
+// <div className={styles.boardContainer}>
+//   <button className={styles.addButton}>게시글 등록하기</button>
+//   <div>
+//     <input
+//       className={styles.searchBox}
+//       type="text"
+//       placeholder="검색어를 입력하세요"
+//     />
+//     <button className={styles.searchButton}>search</button>
+//   </div>
 //       </div>
 //       {/** 공지글 출력 테스트 */}
 //       <ul className={styles.noticeList}>
