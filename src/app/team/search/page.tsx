@@ -2,21 +2,40 @@
 import { useState } from "react";
 import Image from "next/image";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
-import ModalCustom from "@/components/ModalCustom";
+import { Button, ButtonGroup } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import GroupsIcon from "@mui/icons-material/Groups";
-import SelectSports from "../teamComponent/SelectSports";
-import SelectArea from "@/app/auth/AuthComponent/SelectArea";
-import InsertTeamImage from "../teamComponent/InsertTeamImage";
-import CheckTeamName from "../teamComponent/CheckTeamName";
-import TeamRanking from "../teamComponent/TeamRanking";
-import CheckSports from "../teamComponent/CheckSports";
+
+type TeamSpecificProps = {
+  id: number;
+  teamName: string;
+  leaderNickname: string;
+  introduction: string;
+  area: string;
+  sports: string;
+  imageUrl: string;
+  pageable: Array<any>;
+  teamMemberCount: number;
+};
+
+type MemberSpecificProps = {
+  teamId: number;
+  userId: number;
+  nickname: string;
+  introduction: string;
+  role: string;
+  profileImage: string;
+  area: string;
+  winRate: number;
+  tier: string;
+  mvpCount: number;
+};
+
 export default function TeamSpecific() {
   // 팀 메인 페이지 그리드 스타일
   const teamMainStyle = {
     display: "grid",
-    gridTemplateColumns: "1fr 2fr 0.5fr",
+    gridTemplateColumns: "1fr 1fr 1fr",
     gridTemplateRows: "1fr 0.5fr",
     gap: "10px 10px",
     gridTemplateAreas: `
@@ -25,123 +44,160 @@ export default function TeamSpecific() {
       `,
   };
 
-  // 검색할 팀/팀원 명
-  const [checkName, setCheckname] = useState("");
-  const typeName = (e: any) => {
-    setCheckname(e.target.value);
-  };
-  const searchName = (e: any) => {
+  // 1. 검색할 팀원명
+  const [searchMember, setSearchMember] = useState("");
+  const typeMemberName = (e: any) => {
     e.preventDefault();
-    // 입력값 확인
-    alert("입력한 닉네임: " + checkName);
+    setSearchMember(e.target.value);
   };
 
-  // 팀 생성 모달
-  const [showForm, setShowForm] = useState(false);
-  const createTeam = () => {
-    setShowForm(true);
+  // 1-1. 팀원 검색
+  // 초기 데이터
+  let initialMemberResult: MemberSpecificProps = {
+    teamId: 0,
+    userId: 0,
+    nickname: "위스",
+    introduction: "손이바빠요",
+    role: "팀장",
+    profileImage: "/default-profile.png",
+    area: "서울",
+    winRate: 70,
+    tier: "1",
+    mvpCount: 1,
+  };
+  // 1-2. 팀원 검색 결과 저장
+  const [searchMemberResult, setSearchMemberResult] =
+    useState<MemberSpecificProps>(initialMemberResult);
+  // 1-3. 팀원 검색 결과 보여주기
+  const [showMemberResult, setShowMemberResult] = useState(false);
+  // 1-4. 팀원 배너만 보여주기
+  const [showMemberBanner, setShowMemberBanner] = useState(false);
+  const showMember = () => {
+    if (showMemberBanner === false) {
+      setShowMemberBanner(true);
+      setShowTeamBanner(false);
+      setShowTeamResult(false);
+    }
   };
 
-  // 팀 이름
-  const [teamName, setTeamName] = useState("");
-  const changeTeamName = (e: any) => {
-    setTeamName(e.target.value);
-    console.log(teamName);
+  // 2. 검색할 팀명
+  const [searchTeam, setSearchTeam] = useState("");
+  const typeTeamName = (e: any) => {
+    e.preventDefault();
+    setSearchTeam(e.target.value);
   };
 
-  // 팀 이름 확인
-  const [validName, setValidName] = useState(false);
-
-  // 팀 종목
-  const [sports, setSport] = useState("");
-  const onSportChange = (selectedSports: string) => {
-    setSport(selectedSports);
+  // 2-1. 검색한 팀 결과
+  // 초기 데이터
+  let initialTeamResult: TeamSpecificProps = {
+    id: 0,
+    teamName: "손이바빠",
+    leaderNickname: "위스",
+    introduction: "반갑습니다",
+    area: "지역",
+    sports: "종목",
+    imageUrl:
+      "/team-default-image.png",
+    pageable: [initialMemberResult],
+    teamMemberCount: 0,
   };
+  // 2-2. 팀 검색 결과 저장
+  const [searchTeamResult, setSearchTeamResult] =
+    useState<TeamSpecificProps>(initialTeamResult);
+  // 2-3. 팀 검색 결과 보여주기
+  const [showTeamResult, setShowTeamResult] = useState(false);
 
-  // 팀 종목 확인
-  const [validSports, setValidSports] = useState(false);
-
-  // 팀 지역
-  const [area, setArea] = useState("");
-  const onAreaChange = (selectedArea: string) => {
-    setArea(selectedArea);
+  // 2-4. 팀 배너만 보여주기
+  const [showTeamBanner, setShowTeamBanner] = useState(false);
+  const showTeam = () => {
+    if (showTeamBanner === false) {
+      setShowTeamBanner(true);
+      setShowMemberBanner(false);
+      setShowMemberResult(false);
+    }
   };
+  
 
-  // 팀 소개
-  const [teamIntro, setTeamIntro] = useState("");
-  const changeTeamIntro = (e: any) => {
-    setTeamIntro(e.target.value);
-  };
-
-  // 팀 이미지
-  const [teamImage, setTeamImage] = useState("/team-default-image.png");
-
-  // 팀 생성 제출
-  async function postTeamInfo() {
-    // TODO: 팀 생성 제출 fetch 구현하기
-    // console.log(
-    //   JSON.stringify({ image: teamImage, teamName, sports, area, introduction: teamIntro })
-    // );
-    // TODO: 팀 생성 API 정하기
-    const createTeamURL = "https://withsports.shop:8000/team-service/team";
+  // 팀 검색 fetch
+  async function searchTeamName() {
+    // TODO: 팀 검색 fetch 구현하기
+    // 팀 검색 API
+    const searchTeamURL = `http://localhost:8000/team/search/${searchTeam}`;
 
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
 
-    // FormTeamData 생성
-    const TeamInfoFormData = new FormData();
+    // 테스트 코드
+    console.log("팀 검색: " + searchTeam);
+    setShowTeamResult(true);
 
-    let CreateTeamRequest = {
-      teamName: teamName,
-      sports: sports,
-      area: area,
-      introduction: teamIntro,
-    };
-
-    // 제출할 팀 이미지
-    let teamImageFile: File = new File([teamImage], "teamImage.jpg");
-
-    // FormTeamData에 데이터 추가
-    TeamInfoFormData.append(
-      "CreateTeamRequest",
-      new Blob([JSON.stringify(CreateTeamRequest)], {
-        type: "application/json",
-      })
-    );
-    TeamInfoFormData.append("image", teamImageFile);
-
-    // JSON 형식
-    // JSON.stringify({
-    //   image: teamImage,
-    //   teamName: teamName,
-    //   sports: sports,
-    //   area: area,
-    //   introduction: teamIntro,
+    // // 팀 검색 fetch
+    // fetch(searchTeamURL, {
+    //   method: "GET",
+    //   headers: {
+    //     Credentials: "include",
+    //     ContentType: "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
     // })
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       alert("팀 검색에 성공했습니다.");
+    //       console.log(res);
+    //     } else {
+    //       alert("팀 검색에 실패했습니다.");
+    //       console.log(res);
+    //     }
+    //   })
+    //   .then((res) => res.json())
+    //   .then((data) => setSearchTeamResult(data))
+    //   .catch((error) => {
+    //     console.log(error);
+    //     throw new Error("서버 요청 실패!");
+    //   });
 
-    fetch(createTeamURL, {
-      method: "POST",
-      headers: {
-        Credentials: "include",
-        ContentType: "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-      body: TeamInfoFormData,
-    })
-      .then((res) => {
-        if (res.status === 201) {
-          alert("팀 생성에 성공했습니다.");
-          console.log(res);
-        } else {
-          alert("팀 생성에 실패했습니다.");
-          console.log(res);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        throw new Error("서버 요청 실패!");
-      });
+    // 팀 검색결과 더미데이터
+  }
+
+  // 팀원 검색 fetch
+  async function searchMemberName() {
+    // TODO: 팀원 검색 fetch 구현하기
+    // 팀원 검색 API
+    const searchMemberURL = `http://localhost:8000/team/search/${searchMember}`;
+
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
+    // 테스트 코드
+    console.log("팀원 검색: " + searchMember);
+    setShowMemberResult(true);
+
+    // // 팀원 검색 fetch
+    // fetch(searchMemberURL, {
+    //   method: "GET",
+    //   headers: {
+    //     Credentials: "include",
+    //     ContentType: "application/json",
+    //     Authorization: `Bearer ${token}`,
+    //   },
+    // })
+    //   .then((res) => {
+    //     if (res.ok) {
+    //       alert("팀원 검색에 성공했습니다.");
+    //       console.log(res);
+    //     } else {
+    //       alert("팀원 검색에 실패했습니다.");
+    //       console.log(res);
+    //     }
+    //   })
+    //   .then((res) => res.json())
+    //   .then((data) => setSearchMemberResult(data))
+    //   .catch((error) => {
+    //     console.log(error);
+    //     throw new Error("서버 요청 실패!");
+    //   });
   }
 
   return (
@@ -149,25 +205,118 @@ export default function TeamSpecific() {
       <div className="teamMain" style={teamMainStyle}>
         <Image src="/team-main.png" alt="team" width={180} height={180} />
 
-        {/* 팀 팀원 검색 */}
-        <div className="team-search">
-          <TextField
-            id="outlined-basic"
-            label="팀/팀원 검색"
-            variant="outlined"
-            value={checkName}
-            onChange={typeName}
-            style={{ margin: "10px 0 10px 0" }}
-          />
-          <Image
-            onClick={searchName}
-            src="/search.png"
-            alt="search"
-            width={40}
-            height={40}
-            style={{ margin: "10px 0 0 10px" }}
-          />
-        </div>
+        <ButtonGroup
+          variant="contained"
+          aria-label="outlined primary button group"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Button startIcon={<PersonIcon />} onClick={showTeam}>
+            팀
+          </Button>
+          <Button startIcon={<GroupsIcon />} onClick={showMember}>
+            팀원
+          </Button>
+        </ButtonGroup>
+
+        {/* 팀 검색 결과 */}
+        {showTeamBanner && (
+          <div
+            className="team-search"
+            style={{ display: "flex", alignContent: "center" }}
+          >
+            <TextField
+              id="outlined-basic"
+              label="팀 검색"
+              variant="outlined"
+              value={searchTeam}
+              onChange={typeTeamName}
+              style={{ margin: "10px 0 10px 0" }}
+              rows={10}
+            />
+            <Image
+              onClick={searchTeamName}
+              src="/search.png"
+              alt="search"
+              width={40}
+              height={40}
+              style={{
+                justifyContent: "center",
+                alignContent: "center",
+                margin: "10px 0 0 10px",
+              }}
+            />
+          </div>
+        )}
+        {/* 팀 검색 결과 보여주기 */}
+        {showTeamResult && (
+          <div>
+            {
+              <div>
+                <h1>{searchTeamResult.teamName}</h1>
+                <h2>{searchTeamResult.leaderNickname}</h2>
+                <p>{searchTeamResult.introduction}</p>
+                <Image
+                  src={searchTeamResult.imageUrl}
+                  alt={searchTeamResult.teamName}
+                  width={100}
+                  height={100}
+                />
+                <p>Area: {searchTeamResult.area}</p>
+                <p>Sports: {searchTeamResult.sports}</p>
+                <p>Team Members: {searchTeamResult.teamMemberCount}</p>
+              </div>
+            }
+          </div>
+        )}
+
+        {/* 팀원 검색 결과 */}
+        {showMemberBanner && (
+          <div className="member-search" style={{ display: "flex" }}>
+            <TextField
+              id="outlined-basic"
+              label="팀원 검색"
+              variant="outlined"
+              value={searchMember}
+              onChange={typeMemberName}
+              style={{ margin: "10px 0 10px 0" }}
+              fullWidth
+            />
+            <Image
+              onClick={searchMemberName}
+              src="/search.png"
+              alt="search"
+              width={40}
+              height={40}
+              style={{ margin: "10px 0 0 10px" }}
+            />
+          </div>
+        )}
+
+        {/* 팀원 검색 결과 보여주기 */}
+        {showMemberResult && (
+          <div>
+            {
+              <div>
+                <h1>{searchMemberResult.nickname}</h1>
+                <p>{searchMemberResult.introduction}</p>
+                <Image
+                  src={searchMemberResult.profileImage}
+                  alt={searchMemberResult.nickname}
+                  width={100}
+                  height={100}
+                />
+                <p>Area: {searchMemberResult.area}</p>
+                <p>Win Rate: {searchMemberResult.winRate}</p>
+                <p>Tier: {searchMemberResult.tier}</p>
+                <p>MVP Count: {searchMemberResult.mvpCount}</p>
+              </div>
+            }
+          </div>
+        )}
       </div>
     </div>
   );
