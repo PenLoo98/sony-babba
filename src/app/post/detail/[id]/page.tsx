@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import styles from "../../../Home.module.css";
 
+
 type Post = {
   id?: number;
   subject?: string;

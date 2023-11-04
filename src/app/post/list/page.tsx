@@ -13,7 +13,6 @@ type Post = {
 };
 
 export default function PostList() {
-  // 게시글 목록을 상태로 선언
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
 
@@ -45,7 +44,6 @@ export default function PostList() {
       setPosts(fetchedPosts);
     };
 
-    // 데이터를 가져오는 함수 실행
     fetchData();
   }, []);
 

@@ -78,7 +78,6 @@
 }
 
 /* 게시판 */
-
 .boardContainer {
   display: flex;
   justify-content: space-between;
