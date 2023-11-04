@@ -4,8 +4,9 @@ import Image from "next/image";
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import ModalCustom from "@/components/ModalCustom";
-import PersonIcon from '@mui/icons-material/Person';
-import GroupsIcon from '@mui/icons-material/Groups';
+import PersonIcon from "@mui/icons-material/Person";
+import GroupsIcon from "@mui/icons-material/Groups";
+import SearchIcon from "@mui/icons-material/Search";
 import SelectSports from "../teamComponent/SelectSports";
 import SelectArea from "@/app/auth/AuthComponent/SelectArea";
 import InsertTeamImage from "../teamComponent/InsertTeamImage";
@@ -23,17 +24,6 @@ export default function TeamSpecific() {
       ". . . ."
       ". . . ."
       `,
-  };
-
-  // 검색할 팀/팀원 명
-  const [checkName, setCheckname] = useState("");
-  const typeName = (e: any) => {
-    setCheckname(e.target.value);
-  };
-  const searchName = (e: any) => {
-    e.preventDefault();
-    // 입력값 확인
-    alert("입력한 닉네임: " + checkName);
   };
 
   // 팀 생성 모달
@@ -111,15 +101,6 @@ export default function TeamSpecific() {
     );
     TeamInfoFormData.append("image", teamImageFile);
 
-    // JSON 형식
-    // JSON.stringify({
-    //   image: teamImage,
-    //   teamName: teamName,
-    //   sports: sports,
-    //   area: area,
-    //   introduction: teamIntro,
-    // })
-
     fetch(createTeamURL, {
       method: "POST",
       headers: {
@@ -150,114 +131,104 @@ export default function TeamSpecific() {
         <Image src="/team-main.png" alt="team" width={180} height={180} />
 
         {/* 팀 팀원 검색 */}
-        <div className="team-search">
-          <TextField
-            id="outlined-basic"
-            label="팀/팀원 검색"
-            variant="outlined"
-            value={checkName}
-            onChange={typeName}
-            style={{ margin: "10px 0 10px 0" }}
-          />
-          <Image
-            onClick={searchName}
-            src="/search.png"
-            alt="search"
-            width={40}
-            height={40}
-            style={{ margin: "10px 0 0 10px" }}
-          />
-        </div>
         <Button
+          className="teamMemberSearch"
           variant="outlined"
-          onClick={createTeam}
-          style={{ margin: "10px 0 10px 0", gridColumnStart: "2" }}
+          startIcon={<SearchIcon />}
+          href="/team/search"
         >
-          팀 생성
+          팀/ 팀원 검색
         </Button>
+      </div>
+      <Button
+        variant="outlined"
+        onClick={createTeam}
+        style={{ margin: "10px 0 10px 0", gridColumnStart: "2" }}
+      >
+        팀 생성
+      </Button>
 
-        {/* 팀 생성 모달 */}
-        <ModalCustom show={showForm} setShow={setShowForm}>
-          <h1>팀 생성</h1>
-          <InsertTeamImage teamImage={teamImage} setTeamImage={setTeamImage} />
-          <div
-            className="teamNameVaild"
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <TextField
-              id="outlined-basic"
-              label="팀 이름"
-              variant="outlined"
-              value={teamName}
-              onChange={changeTeamName}
-              style={{ margin: "10px 0 10px 0" }}
-            />
-            <CheckTeamName teamname={teamName} setValidName={setValidName} />
-          </div>
-
-          <div
-            className="teamSports"
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <SelectSports sports={sports} onSportChange={onSportChange} />
-            <CheckSports sports={sports} setValidSports={setValidSports} />
-          </div>
-
-          <br />
-          <SelectArea area={area} onAreaChange={onAreaChange} />
+      {/* 팀 생성 모달 */}
+      <ModalCustom show={showForm} setShow={setShowForm}>
+        <h1>팀 생성</h1>
+        <InsertTeamImage teamImage={teamImage} setTeamImage={setTeamImage} />
+        <div
+          className="teamNameVaild"
+          style={{ display: "flex", alignItems: "center" }}
+        >
           <TextField
             id="outlined-basic"
-            label="팀 소개"
+            label="팀 이름"
             variant="outlined"
-            value={teamIntro}
-            onChange={changeTeamIntro}
-            multiline
-            rows={4}
+            value={teamName}
+            onChange={changeTeamName}
             style={{ margin: "10px 0 10px 0" }}
           />
-          {validName && validSports ? (
-            <Button
-              variant="outlined"
-              onClick={postTeamInfo}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              팀 생성하기
-            </Button>
-          ) : (
-            <Button
-              variant="outlined"
-              onClick={postTeamInfo}
-              style={{ display: "flex", alignItems: "center" }}
-              disabled
-            >
-              팀 생성하기
-            </Button>
-          )}
-        </ModalCustom>
-
-        {/* 소속팀  */}
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<PersonIcon />}
-          style={{backgroundColor: "orange"}}
-        >
-          소속팀
-        </Button>
-
-        {/* 팀 관리 */}
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<GroupsIcon />}
-          style={{backgroundColor: "green"}}
-        >
-          팀 관리
-        </Button>
-
-        <div className="teamRanking">
-          <TeamRanking />
+          <CheckTeamName teamname={teamName} setValidName={setValidName} />
         </div>
+
+        <div
+          className="teamSports"
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <SelectSports sports={sports} onSportChange={onSportChange} />
+          <CheckSports sports={sports} setValidSports={setValidSports} />
+        </div>
+
+        <br />
+        <SelectArea area={area} onAreaChange={onAreaChange} />
+        <TextField
+          id="outlined-basic"
+          label="팀 소개"
+          variant="outlined"
+          value={teamIntro}
+          onChange={changeTeamIntro}
+          multiline
+          rows={4}
+          style={{ margin: "10px 0 10px 0" }}
+        />
+        {validName && validSports ? (
+          <Button
+            variant="outlined"
+            onClick={postTeamInfo}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            팀 생성하기
+          </Button>
+        ) : (
+          <Button
+            variant="outlined"
+            onClick={postTeamInfo}
+            style={{ display: "flex", alignItems: "center" }}
+            disabled
+          >
+            팀 생성하기
+          </Button>
+        )}
+      </ModalCustom>
+
+      {/* 소속팀  */}
+      <Button
+        component="label"
+        variant="contained"
+        startIcon={<PersonIcon />}
+        style={{ backgroundColor: "orange" }}
+      >
+        소속팀
+      </Button>
+
+      {/* 팀 관리 */}
+      <Button
+        component="label"
+        variant="contained"
+        startIcon={<GroupsIcon />}
+        style={{ backgroundColor: "green" }}
+      >
+        팀 관리
+      </Button>
+
+      <div className="teamRanking">
+        <TeamRanking />
       </div>
     </div>
   );
