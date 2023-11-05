@@ -13,13 +13,11 @@ type Post = {
 };
 
 export default function PostList() {
+
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  //const [currentPage, setCurrentPage] = useState(0);
-  const [page, setPage] = useState(1);
-  const [popularPosts, setPopularPosts] = useState<Post[]>([]); 
-
+  
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://43.200.115.249:8080/post/list");
@@ -44,23 +42,24 @@ export default function PostList() {
           createDate: new Date(post.createDate).toLocaleString(),
         })
       );
-
-    
+      
       setNotices(fetchedNotices);
       setPosts(fetchedPosts);
       setTotalPages(data.data.paging.totalPages);
 
-      setPopularPosts(popularPosts);
+      //  setPopularPosts(popularPosts);
     };
 
     fetchData();
-  }, [page]);
+  }, []);
 
   return (
     <div>
       <br />
       <div className={styles.boardContainer}>
-        <button className={styles.addButton}>게시글 등록하기</button>
+        <Link href="/post/create">
+          <button className={styles.addButton} >게시글 등록하기</button>
+        </Link>
         <div>
           <input
             className={styles.searchBox}
@@ -71,21 +70,23 @@ export default function PostList() {
         </div>
       </div>
       <ul className={styles.noticeList}>
-        <Link href="/post/notices">공지사항</Link>
+      <Link href="/post/notices" style={{ color: 'black', textDecoration: 'none', fontSize : 'Large'}}>
+        공지사항
+      </Link>
         {notices.map((notice) => (
           <div key={notice.id}>
             <h5>
-              <Link href={`http://localhost:3000/post/detail/${notice.id}`}>
-                {notice.subject}
-              </Link>
+            <style jsx>{`a { color: inherit; text-decoration: none; }`}</style>
+              <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
             </h5>
-            <p>작성자: {notice.author}</p>
-            <p>작성일자: {notice.createDate}</p>
+            <div style={{ textAlign: 'right' }}>
+              <p>작성자: {notice.author} &nbsp;&nbsp; 작성일자: {notice.createDate}</p>
+            </div>
             <hr />
           </div>
         ))}
       </ul>
-      <h3>일반 게시글</h3>
+      <h3>일반 게시물</h3>
       <table className={styles.postTable}>
         <thead>
           <tr>
@@ -99,9 +100,8 @@ export default function PostList() {
             <tr key={post.id}>
               <td>
                 <h5>
-                  <Link href={`http://localhost:3000/post/detail/${post.id}`}>
-                    {post.subject}
-                  </Link>
+                  <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
+                  <a href={`/post/detail/${post.id}`}>{post.subject}</a>
                 </h5>
               </td>
               <td>{post.author}</td>
@@ -112,10 +112,10 @@ export default function PostList() {
       </table>
       {/* 페이지네이션 */}
       <div>
-        {[...Array(totalPages)].map((_, i) => (
-          <button key={i} onClick={() => setPage(i)}>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <Link key={i} href={`/post/list?page=${i}`}>
             {i + 1}
-          </button>
+          </Link>
         ))}
       </div>
     </div>
