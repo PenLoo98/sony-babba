@@ -21,6 +21,7 @@ export default function ParsingQuery() {
       localStorage.setItem("userId", userId);
     }
 
+    // 브라우저에서 쿼리파라미터 안 보이게 한다.
     router.replace('/auth', undefined);
 
     // 데이터를 저장한 후 "/"로 리다이렉트합니다.
