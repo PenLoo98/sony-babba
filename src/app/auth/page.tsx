@@ -7,7 +7,30 @@ import { TextField } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
 
-export default function SignUp() {
+export async function getServerSideProps(context: any) {
+  const { query } = context;
+
+  // 쿼리 파라미터를 처리하는 로직
+  const accessToken: any | null = query.get("accessToken");
+  const expiredTime: any | null = query.get("expiredTime");
+  const userId: any | null = query.get("userId");
+
+  // 브라우저로 전달되는 props에는 처리된 데이터만 포함
+  return { props: { data: {accessToken,expiredTime,userId} } };
+}
+
+export default function SignUp(props: any) {
+  // 쿼리 파라미터를 처리하는 로직
+  const accessToken: any | null = props.data.accessToken;
+  const expiredTime: any | null = props.data.expiredTime;
+  const userId: any | null = props.data.userId;
+
+  // 로컬스토리지에 저장
+  const localStorage: Storage = window.localStorage;
+  localStorage.setItem("accessToken", accessToken);
+  localStorage.setItem("expiredTime", expiredTime);
+  localStorage.setItem("userId", userId);
+
   // 닉네임 입력 상태관리
   const [nickname, setNickname] = useState("");
   const handleNameChange = (event: any) => {
@@ -34,7 +57,7 @@ export default function SignUp() {
           className="token"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <ParsingQuery />
+          {/* <ParsingQuery /> */}
         </div>
         <br />
         <div
