@@ -21,9 +21,11 @@ export default function ParsingQuery() {
       localStorage.setItem("userId", userId);
     }
 
+    router.replace('/auth', undefined);
+
     // 데이터를 저장한 후 "/"로 리다이렉트합니다.
     // 여기서 새로고침해야 재렌더링되며 로그인 상태가 반영됩니다.
-    window.location.href = "/";
+    // window.location.href = "/";
 
     // 이거 쓰면 새로고침이 아니라서 로그인 상태로 안 바뀜
     // router.push('/');
