@@ -18,14 +18,14 @@ export default function PostList() {
   const [totalPages, setTotalPages] = useState(0);
   //const [currentPage, setCurrentPage] = useState(0);
   const [page, setPage] = useState(1);
+  
   const handleGoBack = () => {
-    // 임시
-    window.location.href = "http://localhost:3000/post/list";
+    window.location.href = "/post/list";
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://43.200.115.249:8080/post/list");
+      const response = await fetch("http://43.200.115.249:8080/post/notices");
       const data = await response.json();
 
       // 공지 게시글 정보만을 추출하여 가공
@@ -50,18 +50,30 @@ export default function PostList() {
     <div>
       <br/>
       <h3>공지사항</h3>
-      {notices.map((notice) => (
-        <div key={notice.id}>
-          <h5>
-            <Link href={`http://localhost:3000/post/detail/${notice.id}`}>
-              {notice.subject}
-            </Link>
-          </h5>
-          <p>작성자: {notice.author}</p>
-          <p>작성일자: {notice.createDate}</p>
-          <hr />
-        </div>
-      ))}
+      <table className={styles.postTable}>
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일자</th>
+          </tr>
+        </thead>
+        <tbody>
+          {notices.map((notice) => (
+            <tr key={notice.id}>
+              <td>
+                <h5>
+                  <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
+                  <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
+                </h5>
+              </td>
+            <td>{notice.author}</td>
+            <td>{notice.createDate}</td>
+            <hr />
+          </tr>
+        ))}
+        </tbody>
+      </table>
       {/* 페이지네이션 */}
       <div>
         {[...Array(totalPages)].map((_, i) =>  (

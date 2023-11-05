@@ -76,7 +76,7 @@ export default function PostDetail(props: ReadProps) {
 
   const handleGoBack = () => {
     // 임시
-    window.location.href = "http://localhost:3000/post/list";
+    window.location.href = "/post/list";
   };
 
   useEffect(() => {
