@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import styles from "../../Home.module.css";
+import styles from "../../../Home.module.css";
 
 // 게시글 정보 타입
 type Post = {
@@ -57,8 +57,8 @@ export default function PostList() {
     <div>
       <br />
       <div className={styles.boardContainer}>
-        <Link href="/post/create">
-          <button className={styles.addButton} >게시글 등록하기</button>
+        <Link href="/admin/post/create">
+          <button className={styles.addButton}>게시글 등록하기</button>
         </Link>
         <div>
           <input
@@ -77,7 +77,7 @@ export default function PostList() {
           <div key={notice.id}>
             <h5>
             <style jsx>{`a { color: inherit; text-decoration: none; }`}</style>
-              <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
+              <a href={`/admin/post/detail/${notice.id}`}>{notice.subject}</a>
             </h5>
             <div style={{ textAlign: 'right' }}>
               <p>작성자: {notice.author} &nbsp;&nbsp; 작성일자: {notice.createDate}</p>
@@ -101,7 +101,7 @@ export default function PostList() {
               <td>
                 <h5>
                   <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
-                  <a href={`/post/detail/${post.id}`}>{post.subject}</a>
+                  <a href={`/admin/post/detail/${post.id}`}>{post.subject}</a>
                 </h5>
               </td>
               <td>{post.author}</td>

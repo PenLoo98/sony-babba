@@ -41,7 +41,7 @@ export default function CreatePost() {
     const encodedAuthString = btoa(authString);
     
     try {
-      const response = await fetch("http://43.200.115.249:8080/post/create", {
+      const response = await fetch("https://withsports.site/post/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

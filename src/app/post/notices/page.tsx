@@ -25,7 +25,7 @@ export default function PostList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("http://43.200.115.249:8080/post/notices");
+      const response = await fetch("https://withsports.site/post/notices");
       const data = await response.json();
 
       // 공지 게시글 정보만을 추출하여 가공
