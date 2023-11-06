@@ -60,6 +60,13 @@ export default function CreatePost() {
     } catch (error) {
       console.error(error);
     }
+
+  };
+
+  // 뒤로 가기 버튼
+  const handleGoBack = (e: React.MouseEvent) => {
+    e.preventDefault(); // 댓글 폼 제출 막기
+    window.location.href = "/post/list";
   };
 
   return (
@@ -91,7 +98,8 @@ export default function CreatePost() {
         style={{width: '100%', height: '200px', fontSize: '16px', padding: '5px', borderRadius:'10px'}} 
       />
       <br />
-      <button type="submit">등록</button>
+      <button type="submit" className={styles.addButton} style={{ marginRight: "10px" }}>등록하기</button>
+      <button onClick={handleGoBack} className={styles.backbutton}> 뒤로 가기 </button>
     </form>
   );
 }
