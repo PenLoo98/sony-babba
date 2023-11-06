@@ -13,6 +13,7 @@ type Post = {
   createDate: string;
 };
 
+
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [isNotice, setIsNotice] = useState(false);
@@ -27,13 +28,13 @@ export default function CreatePost() {
         return;
       }
   
-      if (content.trim() === '') {
+    if (content.trim() === '') {
         alert('내용은 필수입력입니다.');
         return;
       }
   
     // 사용자 인증 정보
-    const username = 'testid';
+    const username = 'testid2';
     const password = '1111';
 
     // Basic Authentication 헤더 생성
@@ -48,13 +49,16 @@ export default function CreatePost() {
           'Authorization': `Basic ${encodedAuthString}`, // 인증 헤더 추가
         },
         body: JSON.stringify({
-          title,
-          isNotice,
-          content,
+          subject: title,
+          isNotice: isNotice,
+          content: content,
+          name: username,
         }),
       });
 
-      if (response.ok) {
+      const responseData = await response.json();
+
+      if (responseData.code === '0') {
         alert("게시글이 성공적으로 등록되었습니다.");
         router.push("/post/list");
       } else {
