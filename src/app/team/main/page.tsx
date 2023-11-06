@@ -13,6 +13,7 @@ import InsertTeamImage from "../teamComponent/InsertTeamImage";
 import CheckTeamName from "../teamComponent/CheckTeamName";
 import TeamRanking from "../teamComponent/TeamRanking";
 import CheckSports from "../teamComponent/CheckSports";
+import IsLeader from "../teamComponent/IsLeader";
 export default function TeamSpecific() {
   // 팀 메인 페이지 그리드 스타일
   const teamMainStyle = {
@@ -25,6 +26,9 @@ export default function TeamSpecific() {
       ". . . ."
       `,
   };
+
+  // 팀장인지 아닌지 확인
+  const [isLeader, setIsLeader] = useState(false);
 
   // 팀 생성 모달
   const [showForm, setShowForm] = useState(false);
@@ -126,7 +130,7 @@ export default function TeamSpecific() {
   }
 
   return (
-    <div className="teamSpecific">
+    <IsLeader isLeader={isLeader} setIsLeader={setIsLeader}>
       <div className="teamMain" style={teamMainStyle}>
         <Image src="/team-main.png" alt="team" width={180} height={180} />
 
@@ -206,30 +210,34 @@ export default function TeamSpecific() {
           </Button>
         )}
       </ModalCustom>
-
+      
       {/* 소속팀  */}
-      <Button
-        component="label"
-        variant="contained"
-        startIcon={<PersonIcon />}
-        style={{ backgroundColor: "orange" }}
-      >
-        소속팀
-      </Button>
+      {!isLeader && (
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<PersonIcon />}
+          style={{ backgroundColor: "orange" }}
+        >
+          소속팀
+        </Button>
+      )}
 
       {/* 팀 관리 */}
-      <Button
-        component="label"
-        variant="contained"
-        startIcon={<GroupsIcon />}
-        style={{ backgroundColor: "green" }}
-      >
-        팀 관리
-      </Button>
+      {isLeader && (
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<GroupsIcon />}
+          style={{ backgroundColor: "green" }}
+        >
+          팀 관리
+        </Button>
+      )}
 
       <div className="teamRanking">
         <TeamRanking />
       </div>
-    </div>
+    </IsLeader>
   );
 }
