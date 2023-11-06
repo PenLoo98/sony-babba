@@ -48,7 +48,7 @@ export default function Login() {
       // 로그인 성공 시, 게시글 목록 페이지로 이동
       if (responseText.includes("successfully")) {
         localStorage.setItem('isLoggedIn', 'true');
-        
+        localStorage.setItem('username', username);
         alert("로그인이 완료되었습니다.");
         router.push("/post/list");
       } else {

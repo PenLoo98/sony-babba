@@ -53,19 +53,41 @@ type ReadProps = {
 export default function PostDetail(props: ReadProps) {
   const [post, setPost] = useState<Post | null>(null);
   const [comment, setComment] = useState<string>("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
   };
 
-  const handleEditPost = () => {
-    // 게시글 수정 로직
-    console.log("Edit Post");
+   // 로그인한 사용자의 이름 가져오기
+   const loggedInUsername = localStorage.getItem("username");
+
+
+   const handleModifyPost = () => {
+    // 수정 페이지로 이동
+    window.location.href = `http://localhost:3000/post/modify/${props.params.id}`;
   };
 
+  // 게시글 삭제 로직
   const handleDeletePost = () => {
-    // 게시글 삭제 로직
-    console.log("Delete Post");
+    const confirmDelete = window.confirm('정말 삭제하시겠습니까?');
+
+    if (confirmDelete) {
+      // "예"를 선택한 경우, 서버에 삭제 요청 보내기
+      fetch(`https://withsports.site/post/delete/${props.params.id}`, {
+        method: 'GET',
+      })
+      .then((response) => {
+        if (response.ok) {
+          alert('게시글이 성공적으로 삭제되었습니다.');
+          // 삭제 후 게시글 목록 페이지로 이동
+          window.location.href = "/post/list";
+        } else {
+          throw new Error('게시글 삭제 실패');
+        }
+      })
+      .catch((error) => console.error('Error:', error));
+    }
   };
 
   const handleCommentSubmit = (event: React.FormEvent) => {
@@ -75,7 +97,6 @@ export default function PostDetail(props: ReadProps) {
   };
 
   const handleGoBack = () => {
-    // 임시
     window.location.href = "/post/list";
   };
 
@@ -88,22 +109,26 @@ export default function PostDetail(props: ReadProps) {
 
   if (!post) return <div>Loading...</div>;
 
+ 
+
   return (
     <div>
       <h3 style={{ marginBottom: "1px" }}>{post.subject}</h3>
       {/* TODO : 수정/삭제 버튼은 권한에 따라서 활성화/비활성화 되어야 함.*/}
-      <span style={{ display: "flex", justifyContent: "flex-end" }}>
-        <button
-          onClick={handleEditPost}
-          className={styles.modifybutton}
-          style={{ marginRight: "10px" }}
-        >
-          수정
-        </button>
-        <button onClick={handleDeletePost} className={styles.deletebutton}>
-          삭제
-        </button>
-      </span>
+      {loggedInUsername === post.author!.username && (
+        <span style={{ display: "flex", justifyContent: "flex-end" }}>
+          <button
+            onClick={handleModifyPost}
+            className={styles.modifybutton}
+            style={{ marginRight: "10px" }}
+          >
+            수정
+          </button>
+          <button onClick={handleDeletePost} className={styles.deletebutton}>
+            삭제
+          </button>
+        </span>
+      )}
       <div style={{ textAlign: "right" }}>
         <span style={{ fontSize: "0.8em" }}>
           작성자 : {post.author!.username} &nbsp;&nbsp;&nbsp;&nbsp;

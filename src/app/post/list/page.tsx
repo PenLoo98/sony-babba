@@ -57,7 +57,9 @@ export default function PostList() {
 
   // 로그아웃 함수
   const handleLogout = () => {
+    alert("로그아웃 되었습니다.")
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
     setIsLoggedIn(false);
   };
 

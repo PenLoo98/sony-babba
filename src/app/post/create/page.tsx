@@ -33,26 +33,20 @@ export default function CreatePost() {
         return;
       }
   
-    // 사용자 인증 정보
-    const username = 'testid2';
-    const password = '1111';
 
-    // Basic Authentication 헤더 생성
-    const authString = `${username}:${password}`;
-    const encodedAuthString = btoa(authString);
+    const loggedInUsername = localStorage.getItem("username");
     
     try {
       const response = await fetch("https://withsports.site/post/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'Authorization': `Basic ${encodedAuthString}`, // 인증 헤더 추가
         },
         body: JSON.stringify({
           subject: title,
           isNotice: isNotice,
           content: content,
-          name: username,
+          name: loggedInUsername,
         }),
       });
 
