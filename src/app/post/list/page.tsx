@@ -16,6 +16,7 @@ export default function PostList() {
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,23 +47,46 @@ export default function PostList() {
       setPosts(fetchedPosts);
       setTotalPages(data.data.paging.totalPages);
 
-      //setPopularPosts(popularPosts);
+      // 로그인 여부 확인
+      const savedLoginState = localStorage.getItem("isLoggedIn");
+      setIsLoggedIn(savedLoginState === "true");
     };
 
     fetchData();
   }, []);
 
+  // 로그아웃 함수
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
+
   return (
     <div>
       <br />
-      <Link href="/post/login">
-        <button className={styles.loginButton} style={{ marginRight: "10px" }}>
-          login
+      {isLoggedIn ? (
+        <button
+          onClick={handleLogout}
+          className={styles.loginButton}
+          style={{ marginRight: "10px" }}
+        >
+          logout
         </button>
-      </Link>
-      <Link href="/post/signup">
-        <button className={styles.signupButton}>signup</button>
-      </Link>
+      ) : (
+        <>
+          <Link href="/post/login">
+            <button
+              className={styles.loginButton}
+              style={{ marginRight: "10px" }}
+            >
+              login
+            </button>
+          </Link>
+          <Link href="/post/signup">
+            <button className={styles.signupButton}>signup</button>
+          </Link>
+        </>
+      )}
       <div className={styles.boardContainer}>
         <Link href="/post/create">
           <button className={styles.addButton}>게시글 등록하기</button>
