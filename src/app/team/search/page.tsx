@@ -328,8 +328,8 @@ export default function TeamSpecific() {
           <div>
             {
               <div>
-                <h1>{searchTeamResult.teamName}</h1>
-                <h2>{searchTeamResult.leaderNickname}</h2>
+                <h1>{searchTeamResult.teamName} 팀</h1>
+                <h2>팀장: {searchTeamResult.leaderNickname}</h2>
                 <p>{searchTeamResult.introduction}</p>
                 <Image
                   src={searchTeamResult.imageUrl}

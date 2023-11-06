@@ -29,7 +29,7 @@ export default function ParsingQuery() {
     // window.location.href = "/";
 
     // 이거 쓰면 새로고침이 아니라서 로그인 상태로 안 바뀜
-    // router.push('/');
+    router.push('/');
   }, []);
 
   return (
