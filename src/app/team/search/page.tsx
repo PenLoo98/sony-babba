@@ -245,9 +245,9 @@ export default function TeamSpecific() {
     fetch(joinTeamURL, {
       method: "POST",
       headers: {
-        Credentials: "include",
-        ContentType: "application/json",
-        Authorization: `Bearer ${token}`,
+        'Credentials': "include",
+        'Content-Type': "application/json",
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(joinTeamUserRequest),
     })
