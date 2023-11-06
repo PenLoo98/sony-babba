@@ -35,7 +35,7 @@ type MemberSpecificProps = {
 export default function TeamSpecific() {
   // TODO: 팀원 검색 API 테스트 (API 미구현)
   // TODO: 팀 가입 API 테스트 (API 미구현)
-  // TODO: 팀 가입 API 테스트
+  // TODO: 팀 가입 API 테스트 (성공 응답 테스트만 하기))
 
   // 팀 메인 페이지 그리드 스타일
   const teamMainStyle = {
@@ -219,7 +219,6 @@ export default function TeamSpecific() {
   };
 
   // 3-3. 팀 가입 API
-  // TODO: 팀 가입 fetch 구현하기
   async function joinTeam() {
     const joinTeamURL = `https://withsports.shop:8000/team-service/teamuser`;
 
@@ -241,7 +240,6 @@ export default function TeamSpecific() {
     };
 
     // 팀 가입 fetch
-    // TODO: 응답 처리 구현하기
     fetch(joinTeamURL, {
       method: "POST",
       headers: {
@@ -251,16 +249,22 @@ export default function TeamSpecific() {
       },
       body: JSON.stringify(joinTeamUserRequest),
     })
-      .then((res) => {
-        if (res.ok) {
-          alert("팀 가입 신청에 성공했습니다.");
-          setTypeIntro("");
-          console.log(res);
-        } else {
-          alert("팀 가입 신청에 실패했습니다.");
-          console.log(res);
-        }
-      })
+    .then((res) => {
+      // TODO: 응답 status에 맞춰서 처리하는지 확인하기
+      if(res.status == 200){
+        alert("팀 가입 신청에 성공했습니다.");
+        setTypeIntro("");
+        console.log(res);
+      }
+      else if(res.status == 409){
+        alert("없는 팀입니다.")
+        console.log(res);
+      }
+      else{
+        alert("팀 가입 신청에 실패했습니다.");
+        console.log(res);
+      }
+    })
       .catch((error) => {
         console.log(error);
         throw new Error("서버 요청 실패!");

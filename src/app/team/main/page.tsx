@@ -14,6 +14,8 @@ import CheckTeamName from "../teamComponent/CheckTeamName";
 import TeamRanking from "../teamComponent/TeamRanking";
 import CheckSports from "../teamComponent/CheckSports";
 import IsLeader from "../teamComponent/IsLeader";
+import Link from "next/link";
+
 export default function TeamSpecific() {
   // 팀 메인 페이지 그리드 스타일
   const teamMainStyle = {
@@ -135,14 +137,15 @@ export default function TeamSpecific() {
         <Image src="/team-main.png" alt="team" width={180} height={180} />
 
         {/* 팀 팀원 검색 */}
-        <Button
-          className="teamMemberSearch"
-          variant="outlined"
-          startIcon={<SearchIcon />}
-          href="/team/search"
-        >
-          팀/ 팀원 검색
-        </Button>
+        <Link href="/team/search">
+          <Button
+            className="teamMemberSearch"
+            variant="outlined"
+            startIcon={<SearchIcon />}
+          >
+            팀/ 팀원 검색
+          </Button>
+        </Link>
       </div>
       <Button
         variant="outlined"
@@ -210,7 +213,7 @@ export default function TeamSpecific() {
           </Button>
         )}
       </ModalCustom>
-      
+
       {/* 소속팀  */}
       {!isLeader && (
         <Button
