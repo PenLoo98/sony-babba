@@ -13,11 +13,10 @@ type Post = {
 };
 
 export default function PostList() {
-
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("https://withsports.site/post/list");
@@ -42,12 +41,12 @@ export default function PostList() {
           createDate: new Date(post.createDate).toLocaleString(),
         })
       );
-      
+
       setNotices(fetchedNotices);
       setPosts(fetchedPosts);
       setTotalPages(data.data.paging.totalPages);
 
-      //  setPopularPosts(popularPosts);
+      //setPopularPosts(popularPosts);
     };
 
     fetchData();
@@ -56,9 +55,17 @@ export default function PostList() {
   return (
     <div>
       <br />
+      <Link href="/post/login">
+        <button className={styles.loginButton} style={{ marginRight: "10px" }}>
+          login
+        </button>
+      </Link>
+      <Link href="/post/signup">
+        <button className={styles.signupButton}>signup</button>
+      </Link>
       <div className={styles.boardContainer}>
         <Link href="/post/create">
-          <button className={styles.addButton} >게시글 등록하기</button>
+          <button className={styles.addButton}>게시글 등록하기</button>
         </Link>
         <div>
           <input
@@ -70,18 +77,26 @@ export default function PostList() {
         </div>
       </div>
       <ul className={styles.noticeList}>
-      <Link href="/post/notices" style={{ color: 'black', textDecoration: 'none', fontSize : 'Large'}}>
-        공지사항
-      </Link>
+        <Link
+          href="/post/notices"
+          style={{ color: "black", textDecoration: "none", fontSize: "Large" }}
+        >
+          공지사항
+        </Link>
         {notices.map((notice) => (
           <div key={notice.id}>
             <h5>
-            <style jsx>{`a { color: inherit; text-decoration: none; }`}</style>
+              <style jsx>{`
+                a {
+                  color: inherit;
+                  text-decoration: none;
+                }
+              `}</style>
               <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
             </h5>
-            <div style={{ textAlign: 'right' }}>
-              <p>작성자: {notice.author} &nbsp;&nbsp; 작성일자: {notice.createDate}</p>
-            </div>
+            <small style={{ textAlign: "right" }}>
+              작성일자: {notice.createDate}
+            </small>
             <hr />
           </div>
         ))}
@@ -100,7 +115,12 @@ export default function PostList() {
             <tr key={post.id}>
               <td>
                 <h5>
-                  <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
+                  <style jsx>{`
+                    a {
+                      color: inherit;
+                      text-decoration: none;
+                    }
+                  `}</style>
                   <a href={`/post/detail/${post.id}`}>{post.subject}</a>
                 </h5>
               </td>

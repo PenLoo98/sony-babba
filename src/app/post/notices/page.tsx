@@ -12,7 +12,7 @@ type Post = {
   createDate: string;
 };
 
-export default function PostList() {
+export default function PostNotice() {
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPages, setTotalPages] = useState(0);
