@@ -62,10 +62,9 @@ export default function PostDetail(props: ReadProps) {
    // 로그인한 사용자의 이름 가져오기
    const loggedInUsername = localStorage.getItem("username");
 
-
+// 수정 페이지로 이동
    const handleModifyPost = () => {
-    // 수정 페이지로 이동
-    window.location.href = `http://localhost:3000/post/modify/${props.params.id}`;
+    window.location.href = `/post/modify/${props.params.id}`;
   };
 
   // 게시글 삭제 로직
@@ -89,6 +88,28 @@ export default function PostDetail(props: ReadProps) {
       .catch((error) => console.error('Error:', error));
     }
   };
+
+// 추천 버튼
+const handleVote = () => {
+
+  if (loggedInUsername) {
+    // 추천 요청 보내기
+    fetch(`https://withsports.site/post/vote/${props.params.id}?name=${loggedInUsername}`, {
+      method: 'GET',
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.code === '0') {
+        // 요청이 성공한 경우, 페이지 다시 불러와서 추천수 증가
+        setPost(data.data.post);
+        window.location.href=`/post/detail/${props.params.id}`;
+      } else {
+        throw new Error('추천 실패');
+      }
+    })
+    .catch((error) => console.error('Error:', error));
+  }
+};
 
   const handleCommentSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -148,7 +169,7 @@ export default function PostDetail(props: ReadProps) {
         <br />
         <br />
         <div style={{ textAlign: "center" }}>
-          <button className={styles.likebutton}>
+          <button onClick={handleVote} className={styles.likebutton}>
             추천 {post.voter?.length}
           </button>
         </div>

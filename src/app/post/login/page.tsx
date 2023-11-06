@@ -61,6 +61,7 @@ export default function Login() {
 
   return (
     <div>
+      <h2>게시판 로그인</h2>
       <form onSubmit={handleSubmit}>
         Username:{" "}
         <input
