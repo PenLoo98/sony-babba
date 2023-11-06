@@ -69,7 +69,7 @@ export default function PostDetail(props: ReadProps) {
   // 로그인한 사용자의 이름 가져오기
   const loggedInUsername = localStorage.getItem("username");
 
-  // 수정 페이지로 이동
+  // 게시글 수정 페이지로 이동
   const handleModifyPost = () => {
     window.location.href = `/post/modify/${props.params.id}`;
   };
@@ -203,6 +203,7 @@ export default function PostDetail(props: ReadProps) {
     }
   };
 
+  // 게시글 목록으로 이동
   const handleGoBack = (e: React.MouseEvent) => {
     e.preventDefault(); // 댓글 폼 제출 막기
     window.location.href = "/post/list";

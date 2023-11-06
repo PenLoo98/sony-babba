@@ -12,12 +12,13 @@ type Post = {
   createDate: string;
 };
 
-export default function PostList() {
 
+export default function PostList() {
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("https://withsports.site/post/list");
@@ -42,22 +43,32 @@ export default function PostList() {
           createDate: new Date(post.createDate).toLocaleString(),
         })
       );
-      
+
       setNotices(fetchedNotices);
       setPosts(fetchedPosts);
       setTotalPages(data.data.paging.totalPages);
 
-      //  setPopularPosts(popularPosts);
+      // 로그인 여부 확인
+      const savedLoginState = localStorage.getItem("isLoggedIn");
+      setIsLoggedIn(savedLoginState === "true");
     };
 
     fetchData();
   }, []);
 
+  // 로그아웃 함수
+  const handleLogout = () => {
+    alert("로그아웃 되었습니다.")
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
+    setIsLoggedIn(false);
+  };
+
   return (
     <div>
       <br />
       <div className={styles.boardContainer}>
-        <Link href="/admin/post/create">
+        <Link href="/post/create">
           <button className={styles.addButton}>게시글 등록하기</button>
         </Link>
         <div>
@@ -70,18 +81,26 @@ export default function PostList() {
         </div>
       </div>
       <ul className={styles.noticeList}>
-      <Link href="/post/notices" style={{ color: 'black', textDecoration: 'none', fontSize : 'Large'}}>
-        공지사항
-      </Link>
+        <Link
+          href="/post/notices"
+          style={{ color: "black", textDecoration: "none", fontSize: "Large" }}
+        >
+          공지사항
+        </Link>
         {notices.map((notice) => (
           <div key={notice.id}>
             <h5>
-            <style jsx>{`a { color: inherit; text-decoration: none; }`}</style>
-              <a href={`/admin/post/detail/${notice.id}`}>{notice.subject}</a>
+              <style jsx>{`
+                a {
+                  color: inherit;
+                  text-decoration: none;
+                }
+              `}</style>
+              <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
             </h5>
-            <div style={{ textAlign: 'right' }}>
-              <p>작성자: {notice.author} &nbsp;&nbsp; 작성일자: {notice.createDate}</p>
-            </div>
+            <small style={{ textAlign: "right" }}>
+              작성일자: {notice.createDate}
+            </small>
             <hr />
           </div>
         ))}
@@ -100,8 +119,13 @@ export default function PostList() {
             <tr key={post.id}>
               <td>
                 <h5>
-                  <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
-                  <a href={`/admin/post/detail/${post.id}`}>{post.subject}</a>
+                  <style jsx>{`
+                    a {
+                      color: inherit;
+                      text-decoration: none;
+                    }
+                  `}</style>
+                  <a href={`/post/detail/${post.id}`}>{post.subject}</a>
                 </h5>
               </td>
               <td>{post.author}</td>
@@ -110,6 +134,7 @@ export default function PostList() {
           ))}
         </tbody>
       </table>
+      
       {/* 페이지네이션 */}
       <div>
         {Array.from({ length: totalPages }, (_, i) => (
@@ -121,3 +146,4 @@ export default function PostList() {
     </div>
   );
 }
+

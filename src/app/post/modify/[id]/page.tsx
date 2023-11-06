@@ -108,10 +108,11 @@ export default function ModifyPost(props: ReadProps) {
         }}
       />
       <br />
-      <button type="submit">게시글 수정</button>
+      <button type="submit" className={styles.addButton} style={{ marginRight: "10px" }}>게시글 수정</button>
       <button
         type="button"
         onClick={() => router.push(`/post/detail/${props.params.id}`)}
+        className={styles.backbutton}
       >
         수정 취소
       </button>
