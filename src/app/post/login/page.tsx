@@ -41,7 +41,6 @@ export default function Login() {
         throw new Error("Login request failed");
       }
 
-      // 서버에서 보내는 응답을 텍스트 형태로 출력
       const responseText = await response.text();
       console.log(responseText);
 

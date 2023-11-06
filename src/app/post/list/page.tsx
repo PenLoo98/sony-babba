@@ -156,6 +156,7 @@ export default function PostList() {
           ))}
         </tbody>
       </table>
+      
       {/* 페이지네이션 */}
       <div>
         {Array.from({ length: totalPages }, (_, i) => (

@@ -33,7 +33,6 @@ export default function CreatePost() {
         return;
       }
   
-
     const loggedInUsername = localStorage.getItem("username");
     
     try {

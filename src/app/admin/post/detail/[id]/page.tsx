@@ -75,7 +75,6 @@ export default function PostDetail(props: ReadProps) {
   };
 
   const handleGoBack = () => {
-    // 임시
     window.location.href = "/post/list";
   };
 

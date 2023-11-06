@@ -28,7 +28,6 @@ export default function ModifyPost(props: ReadProps) {
     const postId = path.split('/')[3]; // 페이지 경로에서 게시글 ID 가져오기
   
     if (postId) {
-      // 게시글 데이터 가져오기
       fetch(`https://withsports.site/post/detail/${props.params.id}`)
         .then(response => response.json())
         .then(data => {
@@ -70,37 +69,6 @@ export default function ModifyPost(props: ReadProps) {
       }
     }
   };
-
-
-//   const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
-//     e.preventDefault();
-
-//     // 서버에 수정 내용 전송
-//     const response = await fetch(
-//       `https://withsports.site/post/modify/${props.params.id}`,
-//       {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           subject: title,
-//           isNotice: isNotice,
-//           content: content,
-//           name: "testid2",
-//         }),
-//       }
-//     );
-
-//     const responseData = await response.json();
-
-//     if (responseData.code === "0") {
-//       alert("게시글이 성공적으로 수정되었습니다.");
-//       router.push(`/post/view/${props.params.id}`);
-//     } else {
-//       alert("게시글 수정에 실패하였습니다.");
-//     }
-//   };
 
   return (
     <form onSubmit={handleSubmit}>

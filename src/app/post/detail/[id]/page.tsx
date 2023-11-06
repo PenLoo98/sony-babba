@@ -109,12 +109,9 @@ export default function PostDetail(props: ReadProps) {
 
   if (!post) return <div>Loading...</div>;
 
- 
-
   return (
     <div>
       <h3 style={{ marginBottom: "1px" }}>{post.subject}</h3>
-      {/* TODO : 수정/삭제 버튼은 권한에 따라서 활성화/비활성화 되어야 함.*/}
       {loggedInUsername === post.author!.username && (
         <span style={{ display: "flex", justifyContent: "flex-end" }}>
           <button
