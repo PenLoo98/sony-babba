@@ -33,8 +33,8 @@ type MemberSpecificProps = {
 };
 
 export default function TeamSpecific() {
-  // TODO: 팀원 검색 API 테스트
-  // TODO: 팀 가입 API 테스트
+  // TODO: 팀원 검색 API 테스트 (API 미구현)
+  // TODO: 팀 가입 API 테스트 (API 미구현)
   // TODO: 팀 가입 API 테스트
 
   // 팀 메인 페이지 그리드 스타일
@@ -232,8 +232,13 @@ export default function TeamSpecific() {
     console.log("팀 가입 introduction: " + typeIntro);
 
     // BODY에 담을 정보
-    let teamId = searchTeamResult.id;
-    let introduction = typeIntro;
+    let teamId: number = searchTeamResult.id;
+    let introduction: string = typeIntro;
+    
+    const joinTeamUserRequest = {
+      teamId,
+      introduction,
+    };
 
     // 팀 가입 fetch
     // TODO: 응답 처리 구현하기
@@ -244,7 +249,7 @@ export default function TeamSpecific() {
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ teamId, introduction }),
+      body: JSON.stringify(joinTeamUserRequest),
     })
       .then((res) => {
         if (res.ok) {
@@ -260,7 +265,10 @@ export default function TeamSpecific() {
         console.log(error);
         throw new Error("서버 요청 실패!");
       });
+
   }
+
+
   return (
     <div className="teamSpecific">
       <div className="teamMain" style={teamMainStyle}>
