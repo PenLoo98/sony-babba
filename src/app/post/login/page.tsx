@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import styles from "../../../Home.module.css";
+import styles from "../../Home.module.css";
 
 type User = {
   username: string;
@@ -14,6 +14,11 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+
+  const handleGoBack = () => {
+    window.location.href = "/post/list";
+  };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +32,7 @@ export default function Login() {
       username: username,
       password: password,
     };
+
 
     try {
       const response = await fetch("https://withsports.site/user/login", {
@@ -61,17 +67,17 @@ export default function Login() {
 
   return (
     <div>
+      <div className={styles.loginForm}>
       <h2>게시판 로그인</h2>
-      <form onSubmit={handleSubmit}>
-        Username:{" "}
+      <form onSubmit={handleSubmit} className={styles.formFields}>
+        게시판 닉네임 {" "}
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="username"
         />
-        <br />
-        Password:{" "}
+        비밀번호 {" "}
         <input
           type="password"
           value={password}
@@ -79,8 +85,10 @@ export default function Login() {
           placeholder="password"
         />
         <br />
-        <button type="submit">Login</button>
+        <button type="submit" className={styles.addButton}>Login</button>
+        <button type="button" onClick={handleGoBack} className={styles.goBackButton}>뒤로가기</button>
       </form>
+      </div>
     </div>
   );
 }

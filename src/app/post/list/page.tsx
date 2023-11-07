@@ -10,6 +10,7 @@ type Post = {
   isNotice: boolean;
   author: string;
   createDate: string;
+  voter: string[];
 };
 
 export default function PostList() {
@@ -18,6 +19,7 @@ export default function PostList() {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 관리
   const [keyword, setKeyword] = useState(""); // 검색 엔진
+  const [popularPosts, setPopularPosts] = useState<Post[]>([]); // 인기 게시글
 
   // 페이지 번호를 관리
   const [page, setPage] = useState(0);
@@ -55,28 +57,58 @@ export default function PostList() {
     setTotalPages(data.data.paging.totalPages);
   };
 
-  
-
   // 페이지 이동 처리 함수
   const handlePageChange = (pageNumber: number) => {
     setPage(pageNumber);
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`https://withsports.site/post/list?page=${page}`);
+    const fetchPopularPosts = async () => {
+      let response = await fetch(`https://withsports.site/post/list?page=0`);
+      let data = await response.json();
+
+      let allPosts = [...data.data.paging.content]; // 첫 페이지 게시글 저장
+      let totalPages = data.data.paging.totalPages; // 전체 페이지 수
+
+      // 2번째 페이지부터 마지막 페이지까지 순회
+      for (let i = 1; i < totalPages; i++) {
+        response = await fetch(`https://withsports.site/post/list?page=${i}`);
+        data = await response.json();
+        allPosts = [...allPosts, ...data.data.paging.content]; // 각 페이지의 게시글을 allPosts에 추가
+      }
+
+      // 인기 게시글 정보 가공
+      const fetchedPopularPosts: Post[] = allPosts
+        .filter((post: any) => post.voter.length >= 2) // 추천 수가 5 이상인 게시글만 선택
+        .map((post: any) => ({
+          id: post.id,
+          subject: post.subject,
+          isNotice: post.isNotice,
+          author: post.author.username,
+          createDate: new Date(post.createDate).toLocaleString(),
+          voter: post.voter,
+        })).slice(0, 3);
+
+      setPopularPosts(fetchedPopularPosts);
+    };
+
+    const fetchPosts = async () => {
+      const response = await fetch(
+        `https://withsports.site/post/list?page=${page}`
+      );
       const data = await response.json();
 
-      console.log(data);  // API 요청 후의 데이터를 콘솔에 출력
-
       // 공지 게시글 정보 가공
-      const fetchedNotices: Post[] = data.data.notices.map((notice: any) => ({
-        id: notice.id,
-        subject: notice.subject,
-        isNotice: notice.isNotice,
-        author: notice.author.username,
-        createDate: new Date(notice.createDate).toLocaleString(),
-      }));
+      const fetchedNotices: Post[] = data.data.notices
+        .map((notice: any) => ({
+          id: notice.id,
+          subject: notice.subject,
+          isNotice: notice.isNotice,
+          author: notice.author.username,
+          createDate: new Date(notice.createDate).toLocaleString(),
+        }))
+        .sort((a: Post, b: Post) => b.createDate.localeCompare(a.createDate))
+        .slice(0, 3);
 
       // 일반 게시글 정보 가공
       const fetchedPosts: Post[] = data.data.paging.content.map(
@@ -98,7 +130,8 @@ export default function PostList() {
       setIsLoggedIn(savedLoginState === "true");
     };
 
-    fetchData();
+    fetchPopularPosts();
+    fetchPosts();
   }, [page]);
 
   // 로그아웃 함수
@@ -113,28 +146,21 @@ export default function PostList() {
     <div>
       <br />
       {isLoggedIn ? (
-        <button
-          onClick={handleLogout}
-          className={styles.loginButton}
-          style={{ marginRight: "10px" }}
-        >
+        <button onClick={handleLogout} className={styles.loginButton} style={{ marginRight: "10px" }}>
           logout
         </button>
       ) : (
         <>
           <Link href="/post/login">
-            <button
-              className={styles.loginButton}
-              style={{ marginRight: "10px" }}
-            >
-              login
-            </button>
+            <button className={styles.loginButton} style={{ marginRight: "10px" }}>Login</button>
           </Link>
           <Link href="/post/signup">
-            <button className={styles.signupButton}>signup</button>
+            <button className={styles.signupButton}>Signup</button>
           </Link>
         </>
       )}
+      <br />
+      <br />
       <div className={styles.boardContainer}>
         <Link href="/post/create">
           <button className={styles.addButton}>게시글 등록하기</button>
@@ -177,6 +203,17 @@ export default function PostList() {
           </div>
         ))}
       </ul>
+
+      <h3>인기 게시물</h3>
+      <ul className={styles.popularList}>
+        {popularPosts.map((post) => (
+          <li key={post.id}>
+            <a href={`/post/detail/${post.id}`}>{post.subject}</a>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;추천 수: {post.voter.length}</span>
+          </li>
+        ))}
+      </ul>
+
       <h3>일반 게시물</h3>
       <table className={styles.postTable}>
         <thead>
@@ -208,11 +245,11 @@ export default function PostList() {
       </table>
 
       <div>
-      {Array.from({ length: totalPages }, (_, i) => (
-        <button key={i} onClick={() => handlePageChange(i)}>
-          {i + 1}
-        </button>
-      ))}
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button key={i} onClick={() => handlePageChange(i)}>
+            {i + 1}
+          </button>
+        ))}
       </div>
     </div>
   );

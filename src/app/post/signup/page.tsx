@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from "../../Home.module.css";
 
 type User = {
     username : string;  // id 입력 
@@ -16,6 +17,10 @@ export default function SignUp() {
     const [password2, setPassword2] = useState("");
     const [email, setEmail] = useState("");
     const router = useRouter();
+
+    const handleGoBack = () => {
+      window.location.href = "/post/list";
+    };
   
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -64,37 +69,38 @@ export default function SignUp() {
   
     return (
       <div>
-        <form onSubmit={handleSubmit}>
-          username : <input
+        <div className={styles.signupForm}>
+        <h2> 게시판 회원가입 </h2>
+        <form onSubmit={handleSubmit} className={styles.formFields}>
+          게시판 닉네임 : <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="username"
           />
-          <br/>
-          password : <input
+          비밀번호 : <input
             type="password"
             value={password1}
             onChange={(e) => setPassword1(e.target.value)}
             placeholder="password1"
           />
-          <br />
-          password check :<input
+          비밀번호 확인 :<input
             type="password"
             value={password2}
             onChange={(e) => setPassword2(e.target.value)}
             placeholder="password2"
           />
-          <br />
+
           Email : <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email"
           />
-          <br />
-          <button type="submit">Submit</button>
+          <button type="submit" className={styles.addButton}>Submit</button>
+          <button type="button" onClick={handleGoBack} className={styles.goBackButton}>뒤로가기</button>
         </form>
+        </div>
       </div>
     );
   }

@@ -104,6 +104,49 @@
   border-radius: 10px;
 }
 
+.loginForm {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px gray;
+}
+
+.loginForm h2 {
+  text-align: center;
+}
+
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formFields input {
+  margin: 5px 0;
+}
+
+.goBackButton {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px;
+  color: white;
+  background-color: #3c3c3c;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.signupForm {
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px gray;
+}
+
+.signupForm h2 {
+  text-align: center;
+}
+
 .searchBox {
   border: 1px solid #ccc;
   padding: 10px;
@@ -180,6 +223,16 @@
 .noticeItem:last-child {
   border-bottom: none;
 }
+
+/* 인기글 목록 */
+.popularBox {
+  border: 1px solid #000;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0px 0px 10px #888888;
+  border-radius: 5px;
+}
+
 
 /* 게시글 목록 */
 .postTable {

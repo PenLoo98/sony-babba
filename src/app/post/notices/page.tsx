@@ -74,17 +74,9 @@ export default function PostNotice() {
         ))}
         </tbody>
       </table>
-      {/* 페이지네이션 */}
-      <div>
-        {[...Array(totalPages)].map((_, i) =>  (
-          <button key={i} onClick={() => setPage(i)}>
-            {i + 1}
-          </button>
-        ))}
-      </div>
       <button onClick={handleGoBack} className={styles.backbutton}>
             뒤로가기
-          </button>
+      </button>
     </div>
   );
 }
