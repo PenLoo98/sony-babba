@@ -6,12 +6,12 @@ import { MenuItem } from "@mui/material";
 
 interface SelectSportsProps {
   sports: string;
-    onSportChange: (selectedSports: string) => void;
+  setSports: (sports: string) => void;
   }
 
-export default function SelectSports({ sports: sports, onSportChange }: SelectSportsProps) {
+export default function SelectSports({ sports, setSports }: SelectSportsProps) {
   const handleChange = (event: any) => {
-    onSportChange(event.target.value as string);
+    setSports(event.target.value as string);
   };
   return (
     <div className="selectSport" style={{ width: "300px" }}>

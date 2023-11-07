@@ -4,7 +4,7 @@ import { useDropzone } from "react-dropzone";
 
 type InsertProfileImage = {
     profileImage: string;
-    setProfileImage: (teamImage: string) => void;
+    setProfileImage: (profileImage: string) => void;
 }
 
 export default function InsertProfileImage({profileImage, setProfileImage}: InsertProfileImage) {
