@@ -310,6 +310,7 @@ export default function PostDetail(props: ReadProps) {
           placeholder="댓글을 작성하세요."
           style={{ width: "100%", height: "100px", borderRadius: "10px" }}
         />
+        <br/>
         <div
           style={{
             width: "100%",
@@ -325,6 +326,7 @@ export default function PostDetail(props: ReadProps) {
             댓글 등록
           </button>
         </div>
+        <br/>
       </form>
     </div>
   );

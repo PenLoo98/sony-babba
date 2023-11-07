@@ -243,13 +243,23 @@ export default function PostList() {
           ))}
         </tbody>
       </table>
-
-      <div>
+      
+      <div className={styles.paginationContainer}>
+        <button
+          onClick={() => handlePageChange(page - 1)}
+          disabled={page === 0}
+        >이전
+        </button>
         {Array.from({ length: totalPages }, (_, i) => (
-          <button key={i} onClick={() => handlePageChange(i)}>
+          <button key={i} onClick={() => handlePageChange(i)} className={styles.pageButton}>
             {i + 1}
           </button>
         ))}
+        <button
+          onClick={() => handlePageChange(page + 1)}
+          disabled={page === totalPages - 1}
+        >다음
+        </button>
       </div>
     </div>
   );

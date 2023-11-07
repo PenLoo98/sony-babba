@@ -251,3 +251,26 @@
   background-color: black;
   color: white;
 }
+
+/* 페이지네이션 */
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pageButton {
+  margin: 0 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #85f3ef;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pageButton:hover {
+  background-color: #5c5c5c;
+}
