@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "../../Home.module.css";
+import Web3 from 'web3';
 
 // 게시글 정보 타입
 type Post = {
@@ -173,7 +174,7 @@ export default function PostList() {
             value={keyword}
             onChange={handleKeywordChange}
           />
-          <button className={styles.searchButton} onClick={handleSearch}>
+          <button className={styles.searchButton} onClick={handleSearch} style={{ marginLeft: "10px" }}>
             search
           </button>
         </div>
