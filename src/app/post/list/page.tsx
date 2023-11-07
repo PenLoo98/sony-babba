@@ -16,12 +16,58 @@ export default function PostList() {
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 관리
+  const [keyword, setKeyword] = useState(""); // 검색 엔진
+
+  // 페이지 번호를 관리
+  const [page, setPage] = useState(0);
+
+  // 검색어 입력 처리
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+  };
+
+  // 검색 처리
+  const handleSearch = async () => {
+    const response = await fetch(
+      `https://withsports.site/post/list?keyword=${keyword}`
+    );
+    const data = await response.json();
+
+    const fetchedNotices: Post[] = data.data.notices.map((notice: any) => ({
+      id: notice.id,
+      subject: notice.subject,
+      isNotice: notice.isNotice,
+      author: notice.author.username,
+      createDate: new Date(notice.createDate).toLocaleString(),
+    }));
+
+    const fetchedPosts: Post[] = data.data.paging.content.map((post: any) => ({
+      id: post.id,
+      subject: post.subject,
+      isNotice: post.isNotice,
+      author: post.author.username,
+      createDate: new Date(post.createDate).toLocaleString(),
+    }));
+
+    setNotices(fetchedNotices);
+    setPosts(fetchedPosts);
+    setTotalPages(data.data.paging.totalPages);
+  };
+
+  
+
+  // 페이지 이동 처리 함수
+  const handlePageChange = (pageNumber: number) => {
+    setPage(pageNumber);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("https://withsports.site/post/list");
+      const response = await fetch(`https://withsports.site/post/list?page=${page}`);
       const data = await response.json();
+
+      console.log(data);  // API 요청 후의 데이터를 콘솔에 출력
 
       // 공지 게시글 정보 가공
       const fetchedNotices: Post[] = data.data.notices.map((notice: any) => ({
@@ -53,11 +99,11 @@ export default function PostList() {
     };
 
     fetchData();
-  }, []);
+  }, [page]);
 
   // 로그아웃 함수
   const handleLogout = () => {
-    alert("로그아웃 되었습니다.")
+    alert("로그아웃 되었습니다.");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("username");
     setIsLoggedIn(false);
@@ -98,8 +144,12 @@ export default function PostList() {
             className={styles.searchBox}
             type="text"
             placeholder="검색어를 입력하세요"
+            value={keyword}
+            onChange={handleKeywordChange}
           />
-          <button className={styles.searchButton}>search</button>
+          <button className={styles.searchButton} onClick={handleSearch}>
+            search
+          </button>
         </div>
       </div>
       <ul className={styles.noticeList}>
@@ -156,14 +206,13 @@ export default function PostList() {
           ))}
         </tbody>
       </table>
-      
-      {/* 페이지네이션 */}
+
       <div>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <Link key={i} href={`/post/list?page=${i}`}>
-            {i + 1}
-          </Link>
-        ))}
+      {Array.from({ length: totalPages }, (_, i) => (
+        <button key={i} onClick={() => handlePageChange(i)}>
+          {i + 1}
+        </button>
+      ))}
       </div>
     </div>
   );
