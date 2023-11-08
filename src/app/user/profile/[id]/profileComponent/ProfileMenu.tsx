@@ -1,19 +1,18 @@
 "use client";
-import { TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SmsIcon from "@mui/icons-material/Sms";
-import SearchIcon from "@mui/icons-material/Search";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import ReportIcon from "@mui/icons-material/Report";
 import ModalCustom from "@/components/ModalCustom";
 import CheckNickButton from "@/app/auth/AuthComponent/CheckNickButton";
 import SelectArea from "@/app/auth/AuthComponent/SelectArea";
 import InsertProfileImage from "./InsertProfileImage";
-import ShowSearchList from "./showSearchList";
+import ShowSearchList from "./ShowSearchList";
 
 type UserJSON = {
   userId: number;
