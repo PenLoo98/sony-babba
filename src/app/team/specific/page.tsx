@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import IsLeader from "../teamComponent/IsLeader";
 
 // TODO: 접속한 유저의 teamId를 가져오기
@@ -11,9 +11,11 @@ import IsLeader from "../teamComponent/IsLeader";
 export default function SpecificTeam() {
   const [isLeader, setIsLeader] = useState(false);
 
-  // // 액세스 토큰 가져오기
-  // const localStorage: Storage = window.localStorage;
-  // const token = localStorage.getItem("accessToken");
+  useEffect(() => {
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+  }, []);
 
   return (
     <IsLeader isLeader={isLeader} setIsLeader={setIsLeader}>
