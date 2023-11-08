@@ -9,17 +9,17 @@ type PageParams = {
 };
 
 type UserJSON = {
-  userId: number;
-  nickname: string;
-  introduction: string | null;
   area: string;
-  imageUrl: string | null;
-  tier: string;
-  win: number;
-  lose: number;
   draw: number;
-  winRate: number| undefined | null;
+  imageUrl: string | null;
+  introduction: string | null;
+  lose: number;
   mvpCount: number;
+  nickname: string;
+  tier: string;
+  userId: number;
+  win: number;
+  winRate: number| undefined | null;
   teamName?: string;
 };
 export default function ProfilePage({ params }: { params: PageParams }) {
