@@ -30,7 +30,7 @@ export default function Profile(userJSON: { userJSON: UserJSON }) {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <Image
-          src={userData.imageUrl}
+          src={userData.imageUrl? userData.imageUrl : "/default-profile.png"}
           alt="profile"
           width={190}
           height={190}
