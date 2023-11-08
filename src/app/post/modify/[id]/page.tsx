@@ -38,7 +38,7 @@ export default function ModifyPost(props: ReadProps) {
     }
   }, []);
 
-  const handleSubmit = async (e : React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e : any) => {
     e.preventDefault();
   
     const path = window.location.pathname; // 페이지 경로 가져오기
@@ -71,7 +71,7 @@ export default function ModifyPost(props: ReadProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e: any) => handleSubmit(e)}>
       <h4>
         <input
           type="text"
