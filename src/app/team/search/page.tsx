@@ -7,6 +7,23 @@ import PersonIcon from "@mui/icons-material/Person";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ModalCustom from "@/components/ModalCustom";
 
+type SearchMemberSpec = {
+  id: number;
+  nickname: string;
+  area: string;
+  introduction: string;
+  profileImage: string;
+};
+
+type SearchMemberList = {
+  data: Array<SearchMemberSpec>;
+};
+
+type SearchTeamSpec = {
+  
+}
+
+
 type TeamSpecificProps = {
   id: number;
   teamName: string;
@@ -19,21 +36,7 @@ type TeamSpecificProps = {
   teamMemberCount: number;
 };
 
-type MemberSpecificProps = {
-  teamId: number;
-  userId: number;
-  nickname: string;
-  introduction: string;
-  role: string;
-  profileImage: string;
-  area: string;
-  winRate: number;
-  tier: string;
-  mvpCount: number;
-};
-
 export default function TeamSpecific() {
-  // TODO: 팀원 검색 API 테스트 (API 미구현)
   // TODO: 팀 가입 API 테스트 (API 미구현)
   // TODO: 팀 가입 API 테스트 (성공 응답 테스트만 하기))
 
@@ -58,21 +61,21 @@ export default function TeamSpecific() {
 
   // 1-1. 팀원 검색
   // 초기 데이터
-  let initialMemberResult: MemberSpecificProps = {
-    teamId: 0,
-    userId: 0,
-    nickname: "위스",
-    introduction: "손이바빠요",
-    role: "팀장",
-    profileImage: "/default-profile.png",
-    area: "서울",
-    winRate: 70,
-    tier: "1",
-    mvpCount: 1,
+  let initialSearchMember: SearchMemberList = {
+    data: [
+      {
+        id: 0,
+        nickname: "위스",
+        area: "서울",
+        introduction: "손이바빠요",
+        profileImage: "/default-profile.png",
+      },
+    ],
   };
+
   // 1-2. 팀원 검색 결과 저장
   const [searchMemberResult, setSearchMemberResult] =
-    useState<MemberSpecificProps>(initialMemberResult);
+    useState<SearchMemberList>(initialSearchMember);
   // 1-3. 팀원 검색 결과 보여주기
   const [showMemberResult, setShowMemberResult] = useState(false);
   // 1-4. 팀원 배너만 보여주기
@@ -85,7 +88,86 @@ export default function TeamSpecific() {
     }
   };
 
-  // 1-5. 팀 검색 fetch
+  // 1-5. 팀원 검색 fetch
+
+  async function searchMemberName() {
+    // TODO: 팀원 검색 fetch 구현하기
+    // TODO: 팀원 검색 API 수정하기
+    const nickname = searchMember;
+    const searchMemberURL = `http://withsports.shop:8000//user-service/user/nickname/${nickname}`;
+
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
+    // 테스트 코드
+    console.log("팀원 검색: " + searchMember);
+    setShowMemberResult(true);
+
+    // 팀원 검색 fetch
+    fetch(searchMemberURL, {
+      method: "GET",
+      headers: {
+        Credentials: "include",
+        ContentType: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.length === 0) {
+          // TODO: 분기조건 수정하기
+          alert("검색 결과가 없습니다.");
+          setShowMemberResult(false);
+        } else {
+          alert("팀원 검색에 성공했습니다.");
+          setSearchMemberResult(data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        throw new Error("서버 요청 실패!");
+      });
+  }
+
+  // 2. 검색할 팀명
+  const [searchTeam, setSearchTeam] = useState("");
+  const typeTeamName = (e: any) => {
+    e.preventDefault();
+    setSearchTeam(e.target.value);
+  };
+
+  // 2-1. 검색한 팀 결과
+  // 초기 데이터
+  let initialTeamResult: TeamSpecificProps = {
+    id: 0,
+    teamName: "손이바빠",
+    leaderNickname: "위스",
+    introduction: "반갑습니다",
+    area: "지역",
+    sports: "종목",
+    imageUrl: "/team-default-image.png",
+    pageable: [initialSearchMember],
+    teamMemberCount: 0,
+  };
+  // 2-2. 팀 검색 결과 저장
+  const [searchTeamResult, setSearchTeamResult] =
+    useState<TeamSpecificProps>(initialTeamResult);
+  // 2-3. 팀 검색 결과 보여주기
+  const [showTeamResult, setShowTeamResult] = useState(false);
+
+  // 2-4. 팀 배너만 보여주기
+  const [showTeamBanner, setShowTeamBanner] = useState(false);
+  const showTeam = () => {
+    if (showTeamBanner === false) {
+      setShowTeamBanner(true);
+      setShowMemberBanner(false);
+      setShowMemberResult(false);
+    }
+  };
+
+  // 2-5. 팀 검색 fetch
   async function searchTeamName() {
     // TODO: 팀 검색 fetch 구현하기
     // 팀 검색 API
@@ -128,82 +210,6 @@ export default function TeamSpecific() {
     // 팀 검색결과 더미데이터
   }
 
-  // 2. 검색할 팀명
-  const [searchTeam, setSearchTeam] = useState("");
-  const typeTeamName = (e: any) => {
-    e.preventDefault();
-    setSearchTeam(e.target.value);
-  };
-
-  // 2-1. 검색한 팀 결과
-  // 초기 데이터
-  let initialTeamResult: TeamSpecificProps = {
-    id: 0,
-    teamName: "손이바빠",
-    leaderNickname: "위스",
-    introduction: "반갑습니다",
-    area: "지역",
-    sports: "종목",
-    imageUrl: "/team-default-image.png",
-    pageable: [initialMemberResult],
-    teamMemberCount: 0,
-  };
-  // 2-2. 팀 검색 결과 저장
-  const [searchTeamResult, setSearchTeamResult] =
-    useState<TeamSpecificProps>(initialTeamResult);
-  // 2-3. 팀 검색 결과 보여주기
-  const [showTeamResult, setShowTeamResult] = useState(false);
-
-  // 2-4. 팀 배너만 보여주기
-  const [showTeamBanner, setShowTeamBanner] = useState(false);
-  const showTeam = () => {
-    if (showTeamBanner === false) {
-      setShowTeamBanner(true);
-      setShowMemberBanner(false);
-      setShowMemberResult(false);
-    }
-  };
-  // 2-5. 팀원 검색 fetch
-  async function searchMemberName() {
-    // TODO: 팀원 검색 fetch 구현하기
-    // TODO: 팀원 검색 API 수정하기
-    const searchMemberURL = `http://withsports.shop:8000/team-service/team/search/${searchMember}`;
-
-    // 액세스 토큰 가져오기
-    const localStorage: Storage = window.localStorage;
-    const token = localStorage.getItem("accessToken");
-
-    // 테스트 코드
-    console.log("팀원 검색: " + searchMember);
-    setShowMemberResult(true);
-
-    // // 팀원 검색 fetch
-    // fetch(searchMemberURL, {
-    //   method: "GET",
-    //   headers: {
-    //     Credentials: "include",
-    //     ContentType: "application/json",
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.length === 0) {
-    //       // TODO: 분기조건 수정하기
-    //       alert("검색 결과가 없습니다.");
-    //       setShowMemberResult(false);
-    //     } else {
-    //       alert("팀원 검색에 성공했습니다.");
-    //       setSearchMemberResult(data);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     throw new Error("서버 요청 실패!");
-    //   });
-  }
-
   // 3. 팀 가입 신청
   // 3-1. 팀 가입 모달창 보여주기
   const [showJoinModal, setShowJoinModal] = useState(false);
@@ -233,7 +239,7 @@ export default function TeamSpecific() {
     // BODY에 담을 정보
     let teamId: number = searchTeamResult.id;
     let introduction: string = typeIntro;
-    
+
     const joinTeamUserRequest = {
       teamId,
       introduction,
@@ -243,35 +249,31 @@ export default function TeamSpecific() {
     fetch(joinTeamURL, {
       method: "POST",
       headers: {
-        'Credentials': "include",
-        'Content-Type': "application/json",
-        'Authorization': `Bearer ${token}`,
+        Credentials: "include",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(joinTeamUserRequest),
     })
-    .then((res) => {
-      // TODO: 응답 status에 맞춰서 처리하는지 확인하기
-      if(res.status == 200){
-        alert("팀 가입 신청에 성공했습니다.");
-        setTypeIntro("");
-        console.log(res);
-      }
-      else if(res.status == 409){
-        alert("없는 팀입니다.")
-        console.log(res);
-      }
-      else{
-        alert("팀 가입 신청에 실패했습니다.");
-        console.log(res);
-      }
-    })
+      .then((res) => {
+        // TODO: 응답 status에 맞춰서 처리하는지 확인하기
+        if (res.status == 200) {
+          alert("팀 가입 신청에 성공했습니다.");
+          setTypeIntro("");
+          console.log(res);
+        } else if (res.status == 409) {
+          alert("없는 팀입니다.");
+          console.log(res);
+        } else {
+          alert("팀 가입 신청에 실패했습니다.");
+          console.log(res);
+        }
+      })
       .catch((error) => {
         console.log(error);
         throw new Error("서버 요청 실패!");
       });
-
   }
-
 
   return (
     <div className="teamSpecific">

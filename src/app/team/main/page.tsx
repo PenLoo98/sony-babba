@@ -49,10 +49,7 @@ export default function TeamSpecific() {
   const [validName, setValidName] = useState(false);
 
   // 팀 종목
-  const [sports, setSport] = useState("");
-  const onSportChange = (selectedSports: string) => {
-    setSport(selectedSports);
-  };
+  const [sports, setSports] = useState("");
 
   // 팀 종목 확인
   const [validSports, setValidSports] = useState(false);
@@ -74,11 +71,6 @@ export default function TeamSpecific() {
 
   // 팀 생성 제출
   async function postTeamInfo() {
-    // TODO: 팀 생성 제출 fetch 구현하기
-    // console.log(
-    //   JSON.stringify({ image: teamImage, teamName, sports, area, introduction: teamIntro })
-    // );
-    // TODO: 팀 생성 API 정하기
     const createTeamURL = "https://withsports.shop:8000/team-service/team";
 
     // 액세스 토큰 가져오기
@@ -178,7 +170,7 @@ export default function TeamSpecific() {
           className="teamSports"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <SelectSports sports={sports} onSportChange={onSportChange} />
+          <SelectSports sports={sports} setSports={setSports} />
           <CheckSports sports={sports} setValidSports={setValidSports} />
         </div>
 
@@ -216,6 +208,7 @@ export default function TeamSpecific() {
 
       {/* 소속팀  */}
       {!isLeader && (
+        <Link href="/team/specific">
         <Button
           component="label"
           variant="contained"
@@ -224,10 +217,12 @@ export default function TeamSpecific() {
         >
           소속팀
         </Button>
+        </Link>
       )}
 
       {/* 팀 관리 */}
       {isLeader && (
+        <Link href="/team/specific">
         <Button
           component="label"
           variant="contained"
@@ -236,6 +231,7 @@ export default function TeamSpecific() {
         >
           팀 관리
         </Button>
+        </Link>
       )}
 
       <div className="teamRanking">
