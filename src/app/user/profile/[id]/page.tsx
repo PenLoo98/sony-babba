@@ -78,6 +78,7 @@ export default function ProfilePage({ params }: { params: PageParams }) {
         body = await response.data;
         console.log("body:");
         console.log(body);
+        setData(body);
         return body;
       } else {
         console.log("응답이 없습니다.");
@@ -86,21 +87,22 @@ export default function ProfilePage({ params }: { params: PageParams }) {
   }
 
   useEffect(() => {
-    async function fetchUserData() {
-      let userInfo = await getUserInfo(getUserInfoURL);
-      if (userInfo) {
-        console.log("userInfo:");
-        console.log(userInfo);
-        setShowUserInfo(true);
-        setData(userInfo);
-        console.log("data:");
-        console.log(data);
-        console.log("data.imageUrl:");
-        console.log(data.imageUrl);
-      }
+    // async function fetchUserData() {
+    //   let userInfo = await getUserInfo(getUserInfoURL);
+    //   if (userInfo) {
+    //     console.log("userInfo:");
+    //     console.log(userInfo);
+    //     setShowUserInfo(true);
+    //     setData(userInfo);
+    //     console.log("data:");
+    //     console.log(data);
+    //     console.log("data.imageUrl:");
+    //     console.log(data.imageUrl);
+    //   }
       
-    }
-    fetchUserData();
+    // }
+    // fetchUserData();
+    getUserInfo(getUserInfoURL);
     setShowUserInfo(true);
   },[]);
 
