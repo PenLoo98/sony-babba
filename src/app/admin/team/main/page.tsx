@@ -178,7 +178,7 @@ export default function AdminTeamSpecific() {
           className="teamSports"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <SelectSports sports={sports} onSportChange={onSportChange} />
+          <SelectSports sports={sports} setSports={onSportChange} />
           <CheckSports sports={sports} setValidSports={setValidSports} />
         </div>
 
