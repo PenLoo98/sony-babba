@@ -14,6 +14,15 @@ export default function MenuBar() {
                 style={{ margin: "0 20px" }}
               />
             </Link>
+            <Link href="/matching/main" style={{ textDecoration: "none" }}>
+              <Image
+                src="/versus.png"
+                width={70}
+                height={70}
+                alt="team-image"
+                style={{ margin: "0 20px" }}
+              />
+            </Link>
             <Link href="/team/main" style={{ textDecoration: "none" }}>
               <Image
                 src="/teamBtn.png"
@@ -26,6 +35,15 @@ export default function MenuBar() {
             <Link href="/chat/main" style={{ textDecoration: "none" }}>
               <Image
                 src="/chatBtn.png"
+                width={70}
+                height={70}
+                alt="chat-image"
+                style={{ margin: "0 20px" }}
+              />
+            </Link>
+            <Link href="/alarm/main" style={{ textDecoration: "none" }}>
+              <Image
+                src="/bell.png"
                 width={70}
                 height={70}
                 alt="chat-image"

@@ -79,6 +79,7 @@ export default function ProfilePage({ params }: { params: PageParams }) {
         console.log("body:");
         console.log(body);
         setData(body);
+        setShowUserInfo(true);
         return body;
       } else {
         console.log("응답이 없습니다.");
@@ -103,7 +104,6 @@ export default function ProfilePage({ params }: { params: PageParams }) {
     // }
     // fetchUserData();
     getUserInfo(getUserInfoURL);
-    setShowUserInfo(true);
   },[]);
 
   return (

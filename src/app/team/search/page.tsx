@@ -2,9 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import TextField from "@mui/material/TextField";
-import { Button, ButtonGroup } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import GroupsIcon from "@mui/icons-material/Groups";
+import { Button } from "@mui/material";
 import ModalCustom from "@/components/ModalCustom";
 
 type SearchTeamInfo = {

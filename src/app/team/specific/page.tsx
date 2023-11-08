@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import IsLeader from "../teamComponent/IsLeader";
 
 // TODO: 접속한 유저의 teamId를 가져오기
+// TODO: 종목별로 페이지 나눠야한다.
 // 다른방법으로 teamId를 가져오는 방법이 있을까?
 // 사용자 프로필 조회 API 호출
 // const getUserProfileURL: string = "https://withsports.shop:8000/user-service/user/profile";
