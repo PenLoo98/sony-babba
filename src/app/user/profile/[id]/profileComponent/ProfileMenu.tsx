@@ -1,17 +1,19 @@
 "use client";
 import { TextField, Typography } from "@mui/material";
 import Image from "next/image";
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SmsIcon from "@mui/icons-material/Sms";
+import SearchIcon from "@mui/icons-material/Search";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import ReportIcon from "@mui/icons-material/Report";
 import ModalCustom from "@/components/ModalCustom";
 import CheckNickButton from "@/app/auth/AuthComponent/CheckNickButton";
 import SelectArea from "@/app/auth/AuthComponent/SelectArea";
 import InsertProfileImage from "./InsertProfileImage";
+import ShowSearchList from "./showSearchList";
 
 type UserJSON = {
   userId: number;
@@ -29,13 +31,12 @@ type UserJSON = {
 };
 
 export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
-  // console.log(userJSON);
   const userData = userJSON.userJSON;
   const userNickname = userData.nickname;
 
   // 본인 프로필인지 확인
   const [isYourProfile, setIsYourProfile] = useState(false);
-  const swithYours = () => {
+  const switchYours = () => {
     setIsYourProfile(!isYourProfile);
   };
 
@@ -161,11 +162,63 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
     setCheckReport("");
   };
 
-  const searchName = (e: any) => {
-    e.preventDefault();
-    // 입력값 확인
-    alert("입력한 닉네임: " + checkName);
+  // 사용자 닉네임 검색
+  // 사용자 닉네임 검색결과 저장
+  type SearchNameUser = {
+    id: number;
+    nickname: string;
+    area: string;
+    introduction: string;
+    profileImage: string;
   };
+
+  type SearchNameList = {
+    data: SearchNameUser[];
+  };
+
+  const [searchNameResult, setSearchNameResult] = useState<SearchNameList>({
+    data: [
+      {
+        id: 0,
+        nickname: "",
+        area: "",
+        introduction: "",
+        profileImage: "",
+      },
+    ],
+  });
+  // 사용자 닉네임 검색결과 모달
+  const [showSearchNameModal, setShowSearchNameModal] = useState(false);
+
+  // 사용자 닉네임 검색 fetch
+  async function searchNameFetch() {
+    const nickname = checkName;
+    console.log("nickname: " + nickname);
+
+    // 사용자 닉네임 검색 API
+    const searchNameURL = `https://withsports.shop:8000/user-service/user/nickname/${nickname}`;
+
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
+    const response = await fetch(searchNameURL, {
+      headers: {
+        Credentials: "include",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data: SearchNameList) => {
+        if (data) {
+          setSearchNameResult(data);
+          alert("검색에 성공하였습니다.");
+        } else if (data === null) {
+          alert("없는 닉네임입니다.");
+        }
+      });
+  }
 
   return (
     <div className="profile-menu">
@@ -178,13 +231,21 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
           onChange={typeName}
         />
         <Image
-          onClick={searchName}
+          onClick={searchNameFetch}
           src="/search.png"
           alt="search"
           width={40}
           height={40}
           style={{ margin: "10px 0 0 10px" }}
         />
+        <ModalCustom
+          show={showSearchNameModal}
+          setShow={setShowSearchNameModal}
+        >
+          <div>
+            <ShowSearchList searchNameResult={searchNameResult} />
+          </div>
+        </ModalCustom>
       </div>
 
       <div
@@ -192,7 +253,7 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
         style={{ flexDirection: "column", marginTop: "15px" }}
       >
         {/* 본인, 타인 프로필 테스트 버튼 */}
-        <Button variant="outlined" onClick={swithYours}>
+        <Button variant="outlined" onClick={switchYours}>
           {isYourProfile ? "내 프로필" : "다른 프로필"}
         </Button>
         {isYourProfile ? (
