@@ -7,6 +7,9 @@ type TypeValidProps = {
   onClick: () => void;
 };
 
+/** buttonText: 버튼 글자, 
+ * validText: 입력해야하는 글자, 
+ * onClick: 활성화된 버튼 클릭시 호출할 함수 */
 export default function TypeValid(props: TypeValidProps) {
   // 입력한 내용 저장
   const [input, setInput] = useState("");
@@ -26,7 +29,7 @@ export default function TypeValid(props: TypeValidProps) {
         onChange={handleTypeChange}
       />
       {input === (props.validText) ? (
-        <Button variant="outlined" onClick={props.onClick}>
+        <Button variant="outlined" onClick={props.onClick} style={{color:"red"}}>
           {props.buttonText}
         </Button>
       ) : (

@@ -11,9 +11,9 @@ import IsLeader from "../teamComponent/IsLeader";
 export default function SpecificTeam() {
   const [isLeader, setIsLeader] = useState(false);
 
-  // 액세스 토큰 가져오기
-  const localStorage: Storage = window.localStorage;
-  const token = localStorage.getItem("accessToken");
+  // // 액세스 토큰 가져오기
+  // const localStorage: Storage = window.localStorage;
+  // const token = localStorage.getItem("accessToken");
 
   return (
     <IsLeader isLeader={isLeader} setIsLeader={setIsLeader}>
