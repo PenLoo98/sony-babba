@@ -25,7 +25,7 @@ type UserJSON = {
   tier: string;
   userId: number;
   win: number;
-  winRate: number| undefined | null;
+  winRate: number | undefined | null;
   teamName?: string;
 };
 
@@ -85,7 +85,15 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
       introduction: userData.introduction,
       area: area,
     };
-    let editImageFile: File = new File([profileImage], "profileImage.png");
+
+    // 프로필 이미지 파일 생성
+    // let editImageFile: File = new File([profileImage], "profileImage.png");
+    let editImageFile: File;
+    if (profileImage !== null) {
+      editImageFile = new File([profileImage as BlobPart], "profileImage.png");
+    } else {
+      editImageFile = new File([""], "profileImage.png");
+    }
 
     // FormEditData에 데이터 추가
     UserEditFormData.append(
@@ -168,7 +176,7 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
     nickname: string;
     area: string;
     introduction: string;
-    profileImage: string;
+    profileImage: string | "/default-profile.png";
   };
 
   type SearchNameList = {
