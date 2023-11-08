@@ -128,14 +128,14 @@ export default function TeamSpecific() {
       <div className="teamMain" style={teamMainStyle}>
         <Image src="/team-main.png" alt="team" width={180} height={180} />
 
-        {/* 팀 팀원 검색 */}
+        {/* 팀 검색 */}
         <Link href="/team/search">
           <Button
             className="teamMemberSearch"
             variant="outlined"
             startIcon={<SearchIcon />}
           >
-            팀/ 팀원 검색
+            팀 검색
           </Button>
         </Link>
       </div>

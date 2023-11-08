@@ -82,7 +82,7 @@ export default function TeamSpecific() {
     setShowTeamResult(true);
 
     // 팀 검색 fetch
-    fetch(searchTeamURL, {
+    let response = await fetch(searchTeamURL, {
       method: "GET",
       headers: {
         Credentials: "include",
@@ -93,13 +93,14 @@ export default function TeamSpecific() {
     .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.length === 0) {
+        if (data.status == 404) {
           // TODO: 분기조건 수정하기
           alert("검색 결과가 없습니다.");
-        } else {
+          return null;
+        } else if(data.status == 200){
           alert("팀 검색에 성공했습니다.");
-          setSearchTeamResult(data);
         }
+        setSearchTeamResult(data);
       })
       .catch((error) => {
         console.log(error);
