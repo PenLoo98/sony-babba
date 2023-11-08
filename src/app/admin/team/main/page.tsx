@@ -1,4 +1,3 @@
-
 "use client";
 import { useState } from "react";
 import Image from "next/image";
@@ -17,7 +16,7 @@ import CheckSports from "../teamComponent/CheckSports";
 import IsLeader from "../teamComponent/IsLeader";
 import Link from "next/link";
 
-export default function adminTeamSpecific() {
+export default function AdminTeamSpecific() {
   // 팀 메인 페이지 그리드 스타일
   const teamMainStyle = {
     display: "grid",

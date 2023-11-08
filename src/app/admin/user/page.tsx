@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 
 
 // admin/user으로 접속 시, admin/user/profile/main 으로 자동 이동
-export default function adminUserPage() {
+export default function AdminUserPage() {
     const router = useRouter();
 
     useEffect(() => {
