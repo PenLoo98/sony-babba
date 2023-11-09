@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 
 type InsertProfileImage = {
-    profileImage: string;
+    profileImage: string | null;
     setProfileImage: (profileImage: string) => void;
 }
 
@@ -34,7 +34,7 @@ export default function InsertProfileImage({profileImage, setProfileImage}: Inse
 
     return(
         <div className="img_wrap" {...getRootProps()}>
-            <Image src={profileImage} alt="팀 이미지" width={width} height={height}/>
+            <Image src={profileImage? profileImage : "/default-profile.png"} alt="팀 이미지" width={width} height={height}/>
             <input {...getInputProps()} multiple={false} name="imageURL"/>
         </div>
     )

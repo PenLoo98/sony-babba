@@ -2,17 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 
 type UserJSON = {
-  userId: number;
-  nickname: string;
-  introduction: string;
   area: string;
-  imageUrl: string;
-  tier: string;
-  win: number;
-  lose: number;
   draw: number;
-  winRate: number;
+  imageUrl: string | null;
+  introduction: string | null;
+  lose: number;
   mvpCount: number;
+  nickname: string;
+  tier: string;
+  userId: number;
+  win: number;
+  winRate: number| undefined | null;
   teamName?: string;
 };
 
@@ -30,7 +30,7 @@ export default function Profile(userJSON: { userJSON: UserJSON }) {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <Image
-          src={userData.imageUrl}
+          src={userData.imageUrl? userData.imageUrl : "/default-profile.png"}
           alt="profile"
           width={190}
           height={190}

@@ -9,17 +9,17 @@ type PageParams = {
 };
 
 type UserJSON = {
-  userId: number;
-  nickname: string;
-  introduction: string;
   area: string;
-  imageUrl: string;
-  tier: string;
-  win: number;
-  lose: number;
   draw: number;
-  winRate: number;
+  imageUrl: string | null;
+  introduction: string | null;
+  lose: number;
   mvpCount: number;
+  nickname: string;
+  tier: string;
+  userId: number;
+  win: number;
+  winRate: number| undefined | null;
   teamName?: string;
 };
 export default function ProfilePage({ params }: { params: PageParams }) {
@@ -62,46 +62,25 @@ export default function ProfilePage({ params }: { params: PageParams }) {
       .then((data) => {
         if (data.code === "SUCCESS") {
           console.log("사용자 정보를 불러오는데 성공했습니다.");
+          console.log("data: ", data);
+          console.log("data.data: ", data.data);
+          setData(data.data);
+          setShowUserInfo(true);
         } else {
           console.log("사용자 정보를 불러오는데 실패했습니다.");
         }
-        return data;
       })
       .catch((error) => {
         console.log(error);
         throw new Error("서버 요청 실패!");
       });
-
-      // 응답값 확인 
-      let body: UserJSON;
-      if(response){
-        body = await response.data;
-        console.log("body:");
-        console.log(body);
-        return body;
-      } else {
-        console.log("응답이 없습니다.");
-        return null;
-      }
   }
 
   useEffect(() => {
     async function fetchUserData() {
-      let userInfo = await getUserInfo(getUserInfoURL);
-      if (userInfo) {
-        console.log("userInfo:");
-        console.log(userInfo);
-        setShowUserInfo(true);
-        setData(userInfo);
-        console.log("data:");
-        console.log(data);
-        console.log("data.imageUrl:");
-        console.log(data.imageUrl);
-      }
-      
+      await getUserInfo(getUserInfoURL)
     }
     fetchUserData();
-    setShowUserInfo(true);
   },[]);
 
   return (

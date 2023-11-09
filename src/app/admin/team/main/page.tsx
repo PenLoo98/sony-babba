@@ -1,4 +1,3 @@
-
 "use client";
 import { useState } from "react";
 import Image from "next/image";
@@ -17,7 +16,7 @@ import CheckSports from "../teamComponent/CheckSports";
 import IsLeader from "../teamComponent/IsLeader";
 import Link from "next/link";
 
-export default function adminTeamSpecific() {
+export default function AdminTeamSpecific() {
   // 팀 메인 페이지 그리드 스타일
   const teamMainStyle = {
     display: "grid",
@@ -137,14 +136,14 @@ export default function adminTeamSpecific() {
       <div className="teamMain" style={teamMainStyle}>
         <Image src="/team-main.png" alt="team" width={180} height={180} />
 
-        {/* 팀 팀원 검색 */}
+        {/* 팀 검색 */}
         <Link href="/team/search">
           <Button
             className="teamMemberSearch"
             variant="outlined"
             startIcon={<SearchIcon />}
           >
-            팀/ 팀원 검색
+            팀 검색
           </Button>
         </Link>
       </div>
@@ -179,7 +178,7 @@ export default function adminTeamSpecific() {
           className="teamSports"
           style={{ display: "flex", alignItems: "center" }}
         >
-          <SelectSports sports={sports} onSportChange={onSportChange} />
+          <SelectSports sports={sports} setSports={onSportChange} />
           <CheckSports sports={sports} setValidSports={setValidSports} />
         </div>
 

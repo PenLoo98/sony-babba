@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Web3 from 'web3';
+import { useEffect, useState } from "react";
+import Web3 from "web3";
 
 declare global {
   interface Window {
@@ -10,33 +10,34 @@ declare global {
 }
 
 type ABIDefinition = {
-    constant?: boolean;
-    inputs?: Array<{ name: string; type: string; indexed?: boolean }>;
-    name?: string;
-    outputs?: Array<{ name: string; type: string }>;
-    payable?: boolean;
-    stateMutability?: "nonpayable" | "payable" | "pure" | "view";
-    type?: "function" | "constructor" | "event" | "fallback";
-    anonymous?: boolean;
-  };
+  constant?: boolean;
+  inputs?: Array<{ name: string; type: string; indexed?: boolean }>;
+  name?: string;
+  outputs?: Array<{ name: string; type: string }>;
+  payable?: boolean;
+  stateMutability?: "nonpayable" | "payable" | "pure" | "view";
+  type?: "function" | "constructor" | "event" | "fallback";
+  anonymous?: boolean;
+};
 
 export default function MvpPage() {
   const [contract, setContract] = useState<any>(null);
 
   useEffect(() => {
-    if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== "undefined") {
       const web3 = new Web3(window.ethereum);
 
       // ABI와 컨트랙트 주소
-      const ABI : ABIDefinition[] = []; // 실제 ABI 값
+
+      const ABI: ABIDefinition[] = []; // 실제 ABI 값
       const contractAddress = ""; // 실제 컨트랙트 주소
 
       // 컨트랙트 인스턴스 생성
-      const contractInstance = new web3.eth.Contract(ABI, contractAddress);
+      // const contractInstance = new web3.eth.Contract(ABI, contractAddress);
 
-      setContract(contractInstance);
+      // setContract(contractInstance);
     } else {
-      alert('Please install MetaMask!');
+      alert("Please install MetaMask!");
     }
   }, []);
 
@@ -45,7 +46,9 @@ export default function MvpPage() {
     if (contract) {
       const fromAddress = ""; // 실제 from 주소
       try {
-        const balance = await contract.methods.getBalance().call({ from: fromAddress });
+        const balance = await contract.methods
+          .getBalance()
+          .call({ from: fromAddress });
         console.log(balance);
       } catch (error) {
         console.error(`Failed to call getBalance: ${error}`);
