@@ -8,8 +8,6 @@ type UserJSON = {
   introduction: string | null;
   lose: number;
   mvpCount: number;
-  name : string;
-  email : string;
   nickname: string;
   tier: string;
   userId: number;
@@ -49,8 +47,6 @@ export default function Profile(userJSON: { userJSON: UserJSON }) {
           }}
         >
           <h1>{userData.nickname}</h1>
-          <h1>{userData.name}</h1>
-          <h1>{userData.email}</h1>
         </div>
         <div
           className="teamInfo"
