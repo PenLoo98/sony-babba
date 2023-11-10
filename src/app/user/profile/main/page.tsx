@@ -12,7 +12,9 @@ type UserData = {
 
 export default function ProfilePage() {
   const localStorage: Storage = window.localStorage;
-  const token = localStorage.getItem("accessToken");
+  //const token = localStorage.getItem('accessToken');
+
+  const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyIiwicm9sZXMiOlsiVXNlciJdLCJleHAiOjE2OTk2MDA0NzIsImlhdCI6MTY5OTU5MzI3MiwiaXNzIjoiL2xvZ2luL29hdXRoMi9jb2RlL25hdmVyIn0.fZXuyFILmrt5FX5YvZeCATb1aKRCC3uwD8S-_BKXf93riBbH9eedLKITj3ZwFDIVfOI-DKQcZc17VMRM3yveBgw";
 
   const [showUserInfo, setShowUserInfo] = useState(false);
   const [data, setData] = useState<UserData | null>(null);
