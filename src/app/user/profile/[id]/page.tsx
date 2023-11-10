@@ -22,8 +22,20 @@ type UserJSON = {
   winRate: number| undefined | null;
   teamName?: string;
 };
+
+type UserInfo = {
+  userId: number;
+  email: string;
+  name: string;
+  nickname: string | null;
+  address: string | null;
+};
+
+
+
 export default function ProfilePage({ params }: { params: PageParams }) {
-  const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile`;
+  const getUserJSONURL: string = `https://withsports.shop:8000/user-service/user/profile`;
+  const getUserINFOURL: string = `https://withsports.shop:8000/user-service/user`;
 
   // 로컬스토리지 토큰 가져오기
   const localStorage: Storage = window.localStorage;
@@ -47,8 +59,11 @@ export default function ProfilePage({ params }: { params: PageParams }) {
     teamName: "손이바빠",
   };
   const [data, setData] = useState<UserJSON>(userJSON);
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null); 
 
-  // TODO: GET - id에 맞는 사용자 정보 가져오기
+
+
+  // GET - id에 맞는 사용자 정보 가져오기
   async function getUserInfo(getUserInfoURL: string) {
     const response = await fetch(getUserInfoURL, {
       method: "GET",
@@ -62,10 +77,7 @@ export default function ProfilePage({ params }: { params: PageParams }) {
       .then((data) => {
         if (data.code === "SUCCESS") {
           console.log("사용자 정보를 불러오는데 성공했습니다.");
-          console.log("data: ", data);
-          console.log("data.data: ", data.data);
-          setData(data.data);
-          setShowUserInfo(true);
+          setUserInfo(data.data as UserInfo);
         } else {
           console.log("사용자 정보를 불러오는데 실패했습니다.");
         }
@@ -76,9 +88,39 @@ export default function ProfilePage({ params }: { params: PageParams }) {
       });
   }
 
+
+  // TODO: GET - id에 맞는 USERJSON 가져오기
+  async function getUserJSON(getUserJSONURL: string) {
+    const response = await fetch(getUserJSONURL, {
+      method: "GET",
+      headers: {
+        Credentials: "include",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.code === "SUCCESS") {
+          console.log("USER JSON 정보를 불러오는데 성공했습니다.");
+          console.log("data: ", data);
+          console.log("data.data: ", data.data);
+          setData(data.data);
+          setShowUserInfo(true);
+        } else {
+          console.log("USER JSON 정보를 불러오는데 실패했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        throw new Error("서버 요청 실패!");
+      });
+  }
+
   useEffect(() => {
     async function fetchUserData() {
-      await getUserInfo(getUserInfoURL)
+      await getUserInfo(getUserINFOURL)
+      await getUserJSON(getUserJSONURL)
     }
     fetchUserData();
   },[]);
@@ -88,6 +130,16 @@ export default function ProfilePage({ params }: { params: PageParams }) {
       {!showUserInfo && <div>유저 정보를 불러오는 중입니다...</div>}
       {showUserInfo && (
         <div>
+          {userInfo && (
+            <div>
+              <h2>유저 정보</h2>
+              <p>아이디: {userInfo.userId}</p>
+              <p>이메일: {userInfo.email}</p>
+              <p>이름: {userInfo.name}</p>
+              <p>별명: {userInfo.nickname ? userInfo.nickname : "없음"}</p>
+              <p>주소: {userInfo.address ? userInfo.address : "없음"}</p>
+            </div>
+          )}
           <ProfileInfo userJSON={data}/>
           <ProfileMenu userJSON={data}/>
           <RankingInfo userJSON={data} />
