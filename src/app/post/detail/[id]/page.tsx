@@ -156,7 +156,7 @@ export default function PostDetail(props: ReadProps) {
     }
   };
 
-  // TODO : 댓글 수정
+  // TODO : 댓글 수정 <= 모달 창 방식
 
   const handleEditContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEditContent(event.target.value);
@@ -391,12 +391,12 @@ export default function PostDetail(props: ReadProps) {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',  // 배경색
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',  
           padding: '20px',
-          width: '300px',  // 너비
-          height: '200px',  // 높이
-          borderRadius: '10px',  // 테두리 둥글게
-          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)'  // 그림자 효과
+          width: '300px',  
+          height: '200px', 
+          borderRadius: '10px',  
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' 
           }}>
             
           <form onSubmit={handleCommentUpdate}  style={{ width: '100%', marginBottom: '20px' }}>
