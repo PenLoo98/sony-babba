@@ -22,7 +22,7 @@ export default function GifticonPage() {
       description: "순살이라 더 맛있음",
       price: 18000,
       amount: 30,
-    }
+    },
   ];
 
   // 기프티콘 등록 관리 페이지
@@ -101,104 +101,134 @@ export default function GifticonPage() {
   }, []);
 
   return (
-    <div style={{ display: "block" }}>
-      <img src="/gift.png" />
-      <br/>
-      <button onClick={() => setModalOpen(true)} className={styles.addButton}>
-        기프티콘 등록
-      </button>
-      {modalOpen && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "fixed",
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <form
-            onSubmit={handleSubmit}
-            className={styles["modal-form"]}
+    <div style={{ display: "flex", height: "100vh" }}>
+      <div
+        style={{
+          flex: "1",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img src="/gift.png" />
+      </div>
+      <div
+        style={{
+          flex: "1",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          paddingTop: "20px",
+        }}
+      >
+        <button onClick={() => setModalOpen(true)} className={styles.addButton}>
+          기프티콘 등록
+        </button>
+        {modalOpen && (
+          <div
             style={{
               display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "white",
-              borderRadius: "10px",
-              padding: "20px",
-              width: "300px",
+              alignItems: "center",
+              position: "fixed",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              left: 0,
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
             }}
           >
-            <label>
-              Category
-              <input type="text" name="categoryName" onChange={handleChange} />
-            </label>
-            <label>
-              Gifticon
-              <input type="text" name="gifticonName" onChange={handleChange} />
-            </label>
-            <label>
-              Description
-              <input type="text" name="description" onChange={handleChange} />
-            </label>
-            <label>
-              Price
-              <input type="number" name="price" onChange={handleChange} />
-            </label>
-            <label>
-              Amount
-              <input type="number" name="amount" onChange={handleChange} />
-            </label>
-            <button type="submit" className={styles.addButton}>
-              등록
-            </button>
-            <button
-              type="button"
-              onClick={() => setModalOpen(false)}
-              className={styles.deletebutton}
+            <form
+              onSubmit={handleSubmit}
+              className={styles["modal-form"]}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "white",
+                borderRadius: "10px",
+                padding: "20px",
+                width: "300px",
+              }}
             >
-              취소
-            </button>
-          </form>
-        </div>
-      )}
-      <br />
-      <br />
-      {/* 등록된 상품 목록 렌더링 */}
-      <table>
-        <thead>
-          <tr style={{ backgroundColor: "black" }}>
-            <th style={{ color: "white", padding: "10px" }}>카테고리</th>
-            <th style={{ color: "white", padding: "10px" }}>상품명</th>
-            <th style={{ color: "white", padding: "10px" }}>설명</th>
-            <th style={{ color: "white", padding: "10px" }}>가격</th>
-            <th style={{ color: "white", padding: "10px" }}>수량</th>
-          </tr>
-        </thead>
-        <tbody>
-          {gifts.length === 0 ? (
-            <tr>
-              <td colSpan={5}>상품을 등록해주세요!</td>
+              <label>
+                Category
+                <input
+                  type="text"
+                  name="categoryName"
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Gifticon
+                <input
+                  type="text"
+                  name="gifticonName"
+                  onChange={handleChange}
+                />
+              </label>
+              <label>
+                Description
+                <input type="text" name="description" onChange={handleChange} />
+              </label>
+              <label>
+                Price
+                <input type="number" name="price" onChange={handleChange} />
+              </label>
+              <label>
+                Amount
+                <input type="number" name="amount" onChange={handleChange} />
+              </label>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <button
+                  type="submit"
+                  className={styles.addButton}
+                  style={{ marginRight: "10px" }}
+                >
+                  등록
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(false)}
+                  className={styles.deletebutton}
+                >
+                  취소
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+        <table style={{ marginTop: "40px" }}>
+          <thead>
+            <tr style={{ backgroundColor: "black" }}>
+              <th style={{ color: "white", padding: "10px" }}>카테고리</th>
+              <th style={{ color: "white", padding: "10px" }}>상품명</th>
+              <th style={{ color: "white", padding: "10px" }}>설명</th>
+              <th style={{ color: "white", padding: "10px" }}>가격</th>
+              <th style={{ color: "white", padding: "10px" }}>수량</th>
             </tr>
-          ) : (
-            gifts.map((gift, index) => (
-              <tr key={index}>
-                <td>{gift.categoryName}</td>
-                <td>{gift.gifticonName}</td>
-                <td>{gift.description}</td>
-                <td>{gift.price}</td>
-                <td>{gift.amount}</td>
+          </thead>
+          <tbody>
+            {gifts.length === 0 ? (
+              <tr>
+                <td colSpan={5}>상품을 등록해주세요!</td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              gifts.map((gift, index) => (
+                <tr key={index}>
+                  <td>{gift.categoryName}</td>
+                  <td>{gift.gifticonName}</td>
+                  <td>{gift.description}</td>
+                  <td>{gift.price}</td>
+                  <td>{gift.amount}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
