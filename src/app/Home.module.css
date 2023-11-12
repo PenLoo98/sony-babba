@@ -274,3 +274,26 @@
 .pageButton:hover {
   background-color: #5c5c5c;
 }
+
+
+
+/* 기프티콘 등록 */
+
+
+.modal-form label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.modal-form input {
+  margin-top: .5rem;
+  border: 1px solid #ddd;
+  padding: .5rem;
+  width: 100%;
+}
+
+.modal-form button {
+  margin-top: 1rem;
+}
