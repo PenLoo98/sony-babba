@@ -49,6 +49,14 @@ export default function MenuBar() {
           style={{ margin: "0 20px" }}
         />
       </Link>
+      {/* 알람이 있을 경우, /alarmBell.png 로 변경해야함 */}
+        {/* <Image 
+          src="/alarmBell.png"
+          width={70}
+          height={70}
+          alt="chat-image"
+          style={{ margin: "0 20px" }}> */}
+
       <Link href="/alarm/main" style={{ textDecoration: "none" }}>
         <Image
           src="/bell.png"
