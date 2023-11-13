@@ -47,7 +47,9 @@ export default function SignUp() {
         >
           회원정보 입력 건너뛰기
         </Button>
-
+        
+        <br />
+        <br />
         <div
           className="inputUserInfo"
           style={{ display: "flex", flexDirection: "column" }}
