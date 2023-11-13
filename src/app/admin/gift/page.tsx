@@ -6,7 +6,7 @@ import styles from "../../Home.module.css";
 import Image from "next/image";
 
 type GiftInfo = {
-  // TODO :  기프티콘 이미지 추가 
+  imageUrl: string | null; // 기프티콘 이미지 추가 
   categoryName: string; // 카테고리 이름
   gifticonName: string; // 상품명
   description: string; // 설명
@@ -14,6 +14,8 @@ type GiftInfo = {
   amount: number; // 수량
 };
 
+  // 목록 조회 ... (GET) /gifticon-service/gifticon/{categoryName}
+  // PathVariable로 어떤 카테고리 이름인지 보냄 (ex. 음식 등)
   // 표에 있는 상품 선택하면 모달창으로 상품 정보, 수정, 삭제 버튼 생성됨?
   // 수정 ... (PUT) /gifticon-service/gifticon/{gifticonId}
   // => 기프티콘 등록과 동일한 방식으로 모달창으로 정보 수정
@@ -24,7 +26,7 @@ export default function GifticonPage() {
   // 더미 데이터
   const dummyGifts = [
     {
-
+      imageUrl : null,
       categoryName: "음식",
       gifticonName: "치킨",
       description: "순살이라 더 맛있음",
@@ -39,6 +41,7 @@ export default function GifticonPage() {
   const router = useRouter();
 
   const [form, setForm] = useState({
+    imageUrl : "",
     categoryName: "",
     gifticonName: "",
     description: "",
@@ -65,7 +68,7 @@ export default function GifticonPage() {
       return;
     }
     try {
-      const response = await fetch("/gifticon-service/gifticon", {
+      const response = await fetch("https://withsports.shop:8000/gifticon-service/gifticon", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +99,7 @@ export default function GifticonPage() {
 
   const fetchGifts = async () => {
     try {
-      const response = await fetch("/gifticon-service/gifticon");
+      const response = await fetch("https://withsports.shop:8000/gifticon-service/gifticon");
       const data = await response.json();
       setGifts(data);
     } catch (error) {
