@@ -44,11 +44,14 @@ export default function ProfilePage({ params }: { params: PageParams }) {
 
   // TODO: GET - id에 맞는 사용자 정보 가져오기
   async function getUserInfo() {
-    const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile`;
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
-
+    const userId = localStorage.getItem("userId");
+    
+    const getUserInfoURL: string = `http://localhost:8000/user-service/user/profile/${userId}`;
+    // const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile`;
+    
     const response = await fetch(getUserInfoURL, {
       method: "GET",
       headers: {
