@@ -55,6 +55,7 @@ export default function GifticonPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -64,6 +65,7 @@ export default function GifticonPage() {
 
     // 토큰이 없으면 홈페이지로 리디렉션
     if (!token) {
+      alert("권한이 없습니다.");
       router.push("/admin");
       return;
     }
