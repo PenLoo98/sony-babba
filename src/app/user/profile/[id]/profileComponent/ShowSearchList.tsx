@@ -20,9 +20,9 @@ export default function ShowSearchList(searchNameResult : SearchNameProps) {
   return (
     <div>
       {searchNameResult.searchNameResult.data.map((user) => (
-        <div hidden key={user.id}>
+        <div key={user.id}>
           <div style={{display: "flex"}}>
-          <Image src={user.profileImage ?? "/default-profile.png"} alt="profileImage" width={40} height={40}/>
+          <Image src={user.profileImage || "/default-profile.png"} alt="profileImage" width={40} height={40}/>
           <h3>{user.nickname}</h3>
           <p>{user.area}</p>
           </div>
