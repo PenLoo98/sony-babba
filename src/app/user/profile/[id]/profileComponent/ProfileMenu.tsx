@@ -220,7 +220,8 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
       .then((data: SearchNameList) => {
         if (data.data !== null) {
           setSearchNameResult(data);
-          console.log("search data: "+data);
+          console.log("search data: ")
+          console.log(data);
           alert("검색에 성공하였습니다.");
           setShowSearchNameModal(true);
         } else if (data.data === null) {
