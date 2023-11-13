@@ -4,8 +4,8 @@ type SearchNameUser = {
   id: number;
   nickname: string;
   area: string;
-  introduction: string;
-  profileImage: string;
+  introduction: string | null;
+  profileImage: string | null;
 };
 
 type SearchNameList = {

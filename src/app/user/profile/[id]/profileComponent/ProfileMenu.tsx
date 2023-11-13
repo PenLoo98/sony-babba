@@ -175,7 +175,7 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
     id: number;
     nickname: string;
     area: string;
-    introduction: string;
+    introduction: string | null;
     profileImage: string | "/default-profile.png";
   };
 
@@ -249,6 +249,10 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
           height={40}
           style={{ margin: "10px 0 0 10px" }}
         />
+        {/* TODO: 테스트용 검색결과 모달창 */}
+        <Button variant="outlined" onClick={() => {
+          setShowSearchNameModal(true);
+        }}>검색결과 모달창보기</Button>
         <ModalCustom
           show={showSearchNameModal}
           setShow={setShowSearchNameModal}
