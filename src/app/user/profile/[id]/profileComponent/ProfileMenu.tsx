@@ -15,18 +15,17 @@ import InsertProfileImage from "./InsertProfileImage";
 import ShowSearchList from "./ShowSearchList";
 
 type UserJSON = {
-  area: string;
-  draw: number;
-  imageUrl: string | null;
-  introduction: string | null;
-  lose: number;
-  mvpCount: number;
-  nickname: string;
-  tier: string;
   userId: number;
+  nickname: string;
+  introduction: string | null;
+  area: string;
+  imageUrl: string | null;
+  tier?: string;
+  rating?: number;
   win: number;
-  winRate: number | undefined | null;
-  teamName?: string;
+  lose: number;
+  draw: number;
+  winRate: number| undefined | null;
 };
 
 export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {

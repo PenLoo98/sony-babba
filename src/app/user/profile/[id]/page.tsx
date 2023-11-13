@@ -11,16 +11,15 @@ type PageParams = {
 type UserJSON = {
   userId: number;
   nickname: string;
-  introduction: string;
+  introduction: string | null;
   area: string;
-  imageUrl: string;
-  tier: string;
+  imageUrl: string | null;
+  tier?: string;
+  rating?: number;
   win: number;
   lose: number;
   draw: number;
-  winRate: number;
-  mvpCount: number;
-  teamName?: string;
+  winRate: number| undefined | null;
 };
 export default function ProfilePage({ params }: { params: PageParams }) {
   // 팀 정보를 불러왔는지 여부
@@ -33,12 +32,11 @@ export default function ProfilePage({ params }: { params: PageParams }) {
     area: "서울",
     imageUrl: "/default-profile.png",
     tier: "1",
+    rating: 1000,
     win: 5,
     lose: 5,
     draw: 0,
     winRate: 50,
-    mvpCount: 5,
-    teamName: "손이바빠",
   };
   const [data, setData] = useState<UserJSON>(userJSON);
 
