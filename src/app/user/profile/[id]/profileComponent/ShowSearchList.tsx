@@ -5,7 +5,7 @@ type SearchNameUser = {
   nickname: string;
   area: string;
   introduction: string | null;
-  profileImage: string | null;
+  profileImage: string | "/default-profile.png";
 };
 
 type SearchNameList = {
