@@ -3,7 +3,7 @@ import CheckNickButton from "@/app/auth/AuthComponent/CheckNickButton";
 import ExportUserInfoButton from "@/app/auth/AuthComponent/ExportUserInfoButton";
 import ParsingQuery from "@/app/auth/AuthComponent/ParsingQuery";
 import SelectArea from "@/app/auth/AuthComponent/SelectArea";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -37,10 +37,22 @@ export default function SignUp() {
           <ParsingQuery />
         </div>
         <br />
+        <h1>이미 가입한 회원인 경우</h1>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            location.href = "/";
+          }}
+        >
+          회원정보 입력 건너뛰기
+        </Button>
+
         <div
           className="inputUserInfo"
           style={{ display: "flex", flexDirection: "column" }}
         >
+          <h1>새로 가입한 회원인 경우</h1>
           <div className="nickname">
             <TextField
               label="닉네임"
@@ -48,7 +60,7 @@ export default function SignUp() {
               value={nickname}
               onChange={handleNameChange}
             />
-            <CheckNickButton nickname={nickname} setValidName={setValidName}/>
+            <CheckNickButton nickname={nickname} setValidName={setValidName} />
             <br />
             <br />
             <div className="area">
@@ -61,7 +73,11 @@ export default function SignUp() {
           className="exportUserBtn"
           style={{ display: "flex", justifyContent: "center" }}
         >
-          <ExportUserInfoButton nickname={nickname} validName={validName} area={area} />
+          <ExportUserInfoButton
+            nickname={nickname}
+            validName={validName}
+            area={area}
+          />
         </div>
       </div>
       <Image
