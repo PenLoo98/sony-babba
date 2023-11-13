@@ -36,8 +36,9 @@ export default function GifticonPage() {
   ];
 
   // 기프티콘 등록 관리 페이지
-  const [gifts, setGifts] = useState(dummyGifts);
-  //const [gifts, setGifts] = useState<GiftInfo[]>([]);
+  const [gifts, setGifts] = useState<GiftInfo[]>([]);
+  //const [gifts, setGifts] = useState(dummyGifts);
+  
   // 기프티콘 상세
   const [selectedGift, setSelectedGift] = useState<GiftInfo | null>(null);
   // 기프티콘 수정 
@@ -94,8 +95,15 @@ export default function GifticonPage() {
 
       if (data.code === "SUCCESS") {
         alert(data.message);
-        // 성공적으로 등록 후, 데이터 다시 불러오기
         fetchGifts();
+        setForm({
+          imageUrl: "",
+          categoryName: "",
+          gifticonName: "",
+          description: "",
+          price: 0,
+          amount: 0,
+        });
       } else {
         alert("등록에 실패하였습니다.");
       }
