@@ -5,7 +5,7 @@ type SearchNameUser = {
   nickname: string;
   area: string;
   introduction: string | null;
-  profileImage: string | "/default-profile.png";
+  profileImage: string | null;
 };
 
 type SearchNameList = {
@@ -21,10 +21,10 @@ export default function ShowSearchList({ searchNameResult }: SearchNameProps) {
     <>
       {searchNameResult.data.map((user) => (
         <div hidden key={user.id}>
-          <Image src={user.profileImage} alt="profileImage" />
+          <Image src={user.profileImage ?? "/default-profile.png"} alt="profileImage" />
           <div>{user.nickname}</div>
           <div>{user.area}</div>
-          <p>{user.introduction}</p>
+          <p>{user.introduction ?? "Hello"}</p>
         </div>
       ))}
     </>

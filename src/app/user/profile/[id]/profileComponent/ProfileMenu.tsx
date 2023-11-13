@@ -176,7 +176,7 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
     nickname: string;
     area: string;
     introduction: string | null;
-    profileImage: string | "/default-profile.png";
+    profileImage: string | null;
   };
 
   type SearchNameList = {
