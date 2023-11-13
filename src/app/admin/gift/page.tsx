@@ -6,6 +6,7 @@ import styles from "../../Home.module.css";
 import Image from "next/image";
 
 type GiftInfo = {
+  // TODO :  기프티콘 이미지 추가 
   categoryName: string; // 카테고리 이름
   gifticonName: string; // 상품명
   description: string; // 설명
@@ -13,10 +14,17 @@ type GiftInfo = {
   amount: number; // 수량
 };
 
+  // 표에 있는 상품 선택하면 모달창으로 상품 정보, 수정, 삭제 버튼 생성됨?
+  // 수정 ... (PUT) /gifticon-service/gifticon/{gifticonId}
+  // => 기프티콘 등록과 동일한 방식으로 모달창으로 정보 수정
+  // 삭제 ... (DELETE) /gifticon-service/gifticon/{gifticonId}
+  // => 삭제하시겠습니까? 알림 이후 진행
+
 export default function GifticonPage() {
   // 더미 데이터
   const dummyGifts = [
     {
+
       categoryName: "음식",
       gifticonName: "치킨",
       description: "순살이라 더 맛있음",
