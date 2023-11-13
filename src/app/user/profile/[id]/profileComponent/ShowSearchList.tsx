@@ -12,21 +12,18 @@ type SearchNameList = {
   data: SearchNameUser[];
 };
 
-type SearchNameProps = {
-  searchNameResult: SearchNameList;
-};
-
-export default function ShowSearchList({ searchNameResult }: SearchNameProps) {
+export default function ShowSearchList(searchNameResult : SearchNameList) {
   return (
-    <>
+    <div>
       {searchNameResult.data.map((user) => (
         <div hidden key={user.id}>
-          <Image src={user.profileImage ?? "/default-profile.png"} alt="profileImage" />
-          <div>{user.nickname}</div>
-          <div>{user.area}</div>
-          <p>{user.introduction ?? "Hello"}</p>
+          <div style={{display: "flex"}}>
+          <Image src={user.profileImage ?? "/default-profile.png"} alt="profileImage" width={40} height={40}/>
+          <h3>{user.nickname}</h3>
+          <p>{user.area}</p>
+          </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }
