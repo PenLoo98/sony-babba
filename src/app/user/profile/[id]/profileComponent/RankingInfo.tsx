@@ -11,7 +11,7 @@ type UserJSON = {
   win: number;
   lose: number;
   draw: number;
-  winRate: number| undefined | null;
+  winRate: number | undefined | null;
 };
 
 export default function RankingInfo(userJSON: { userJSON: UserJSON }) {
@@ -33,11 +33,11 @@ export default function RankingInfo(userJSON: { userJSON: UserJSON }) {
         }}
       >
         <h2 style={{ margin: "0 0 10px 0" }}>티어: {userData.tier}</h2>
+        <h2 style={{ margin: "0 0 10px 0" }}>레이팅: {userData.rating}</h2>
         <h2 style={{ margin: "0 0 10px 0" }}>
           승무패: {userData.win}/{userData.draw}/{userData.lose}
         </h2>
         <h2 style={{ margin: "0 0 10px 0" }}>승률: {userData.winRate}%</h2>
-        <h2 style={{ margin: "0 0 10px 0" }}>MVP: {userData.mvpCount}회</h2>
       </div>
     </div>
   );

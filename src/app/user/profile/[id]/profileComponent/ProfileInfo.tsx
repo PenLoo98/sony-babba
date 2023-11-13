@@ -52,13 +52,13 @@ export default function Profile(userJSON: { userJSON: UserJSON }) {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <h3>{userData.area}</h3>
-          <Link
+          {/* <Link
             href={`/team/${userData.teamName}`}
             style={{ textDecoration: "none" }}
             target={`/team/${userData.teamName}`}
           >
             <h3>{userData.teamName}</h3>
-          </Link>
+          </Link> */}
         </div>
         <div
           className="userIntro"
