@@ -54,7 +54,7 @@ export default function MenuBar() {
           src="/alarmBell.png"
           width={70}
           height={70}
-          alt="chat-image"
+          alt="bell-image"
           style={{ margin: "0 20px" }}> */}
 
       <Link href="/alarm/main" style={{ textDecoration: "none" }}>
@@ -62,7 +62,7 @@ export default function MenuBar() {
           src="/bell.png"
           width={70}
           height={70}
-          alt="chat-image"
+          alt="bell-image"
           style={{ margin: "0 20px" }}
         />
       </Link>
