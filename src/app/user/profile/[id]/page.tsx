@@ -25,9 +25,7 @@ type UserJSON = {
 export default function ProfilePage({ params }: { params: PageParams }) {
   const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile`;
 
-  // 로컬스토리지 토큰 가져오기
-  const localStorage: Storage = window.localStorage;
-  const token = localStorage.getItem("accessToken");
+  
 
   // 팀 정보를 불러왔는지 여부
   const [showUserInfo, setShowUserInfo] = useState(false);
@@ -50,6 +48,10 @@ export default function ProfilePage({ params }: { params: PageParams }) {
 
   // TODO: GET - id에 맞는 사용자 정보 가져오기
   async function getUserInfo(getUserInfoURL: string) {
+    // 로컬스토리지 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
     const response = await fetch(getUserInfoURL, {
       method: "GET",
       headers: {
