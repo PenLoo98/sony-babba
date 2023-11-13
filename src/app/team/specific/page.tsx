@@ -16,6 +16,8 @@ export default function SpecificTeam() {
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
+    // TODO: GET - id에 맞는 사용자 정보 가져오기
+    
   }, []);
 
   return (
