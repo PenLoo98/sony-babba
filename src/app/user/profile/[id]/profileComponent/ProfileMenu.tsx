@@ -219,11 +219,11 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
       .then((res) => res.json())
       .then((data: SearchNameList) => {
         if (data.data !== null) {
-          // FIXME: data가 null일 경우, data.data가 null일 경우 처리하기
           setSearchNameResult(data);
           alert("검색에 성공하였습니다.");
         } else if (data.data === null) {
           alert("없는 닉네임입니다.");
+          setCheckname("");
         }
       });
   }
