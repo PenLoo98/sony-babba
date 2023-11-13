@@ -13,7 +13,7 @@ export default function Admin() {
         { name: 'Post', imgSrc:'/post.png'},
         { name: 'Gift', imgSrc:'/gift.png'},
         { name: 'Report', imgSrc:'/report.png'},
-        { name: 'MVP', imgSrc: '/mvp.png'}
+        { name: 'MVP', imgSrc: '/mvp_.png'}
     ];
 
     return (
