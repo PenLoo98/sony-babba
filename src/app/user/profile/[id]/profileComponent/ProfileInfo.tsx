@@ -2,18 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 
 type UserJSON = {
-  area: string;
-  draw: number;
-  imageUrl: string | null;
-  introduction: string | null;
-  lose: number;
-  mvpCount: number;
-  nickname: string;
-  tier: string;
   userId: number;
+  nickname: string;
+  introduction: string | null;
+  area: string;
+  imageUrl: string | null;
+  tier?: string;
+  rating?: number;
   win: number;
+  lose: number;
+  draw: number;
   winRate: number| undefined | null;
-  teamName?: string;
 };
 
 export default function Profile(userJSON: { userJSON: UserJSON }) {
