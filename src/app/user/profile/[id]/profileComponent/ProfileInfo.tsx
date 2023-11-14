@@ -39,6 +39,10 @@ export default function Profile({ userJSON }: ProfileProps) {
           height={190}
           defaultValue={"/default-profile.png"}
         />
+        <img src={userData.imageUrl ? userData.imageUrl : "/default-profile.png"}
+          alt="profile"/>
+          <Image src="https://with-sports-s3.s3.ap-northeast-2.amazonaws.com/static/bae53540-5cd1-4457-a42d-03449ca7a0a0basic.jpeg" alt="profile" width={190} height={190} defaultValue={"/default-profile.png"}/>
+          <img src="https://with-sports-s3.s3.ap-northeast-2.amazonaws.com/static/bae53540-5cd1-4457-a42d-03449ca7a0a0basic.jpeg" alt="profile"/>
       </div>
       <div className="userInfo">
         <div
