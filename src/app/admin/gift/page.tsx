@@ -24,10 +24,6 @@ type GiftInfo = {
 
 export default function GifticonPage() {
 
-  // 로컬스토리지 토큰 가져오기
-  const localStorage: Storage = window.localStorage;
-  const token = localStorage.getItem("accessToken");
-
   // 기프티콘 등록
   const [gifts, setGifts] = useState<GiftInfo[]>([]);
   
@@ -122,6 +118,9 @@ export default function GifticonPage() {
   };
 
   const fetchGifts = async () => {
+      // 로컬스토리지 토큰 가져오기
+      const localStorage: Storage = window.localStorage;
+      const token = localStorage.getItem("accessToken");
     try {
       // food의 목록 보여줌(임시)
       const response = await fetch( "https://withsports.shop:8000/gifticon-service/gifticon/category/food",{
