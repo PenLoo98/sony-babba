@@ -26,7 +26,7 @@ export default function GifticonPage() {
   // 더미 데이터
   const dummyGifts = [
     {
-      imageUrl: null,
+      imageUrl: "",
       categoryName: "음식",
       gifticonName: "치킨",
       description: "순살이라 더 맛있음",
@@ -45,7 +45,7 @@ export default function GifticonPage() {
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<GiftInfo>({
     imageUrl: "",
     categoryName: "",
     gifticonName: "",
@@ -155,7 +155,7 @@ export default function GifticonPage() {
           alignItems: "center",
         }}
       >
-        <img src="/gift.png" />
+        <img src="/gift.png" alt="gift-image"/>
       </div>
       <div
         style={{
