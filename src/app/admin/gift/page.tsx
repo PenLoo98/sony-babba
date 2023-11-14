@@ -23,13 +23,11 @@ type GiftInfo = {
 // => 삭제하시겠습니까? 알림 이후 진행
 
 export default function GifticonPage() {
-
   // 기프티콘 등록
   const [gifts, setGifts] = useState<GiftInfo[]>([]);
-  
   // 기프티콘 상세
   const [selectedGift, setSelectedGift] = useState<GiftInfo | null>(null);
-  // 기프티콘 수정 
+  // 기프티콘 수정
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
 
@@ -63,31 +61,26 @@ export default function GifticonPage() {
       return;
     }
     try {
-
-      const formData = new FormData();
-    formData.append(
-      "registerGifticonRequest",
-      JSON.stringify({
-        categoryName: form.categoryName,
-        gifticonName: form.gifticonName,
-        description: form.description,
-        price: form.price,
-        amount: form.amount,
-      })
-    );
-
-    formData.append("image", "image.png");
-
       const response = await fetch(
         "https://withsports.shop:8000/gifticon-service/gifticon",
         {
           method: "POST",
           headers: {
+            Credentials: "include",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: formData,
+          body: JSON.stringify({
+            categoryName: form.categoryName,
+            gifticonName: form.gifticonName,
+            description: form.description,
+            price: form.price,
+            amount: form.amount,
+          }),
         }
       );
+
+     
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -118,12 +111,14 @@ export default function GifticonPage() {
   };
 
   const fetchGifts = async () => {
-      // 로컬스토리지 토큰 가져오기
-      const localStorage: Storage = window.localStorage;
-      const token = localStorage.getItem("accessToken");
+    // 로컬스토리지 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
     try {
       // food의 목록 보여줌(임시)
-      const response = await fetch( "https://withsports.shop:8000/gifticon-service/gifticon/category/food",{
+      const response = await fetch(
+        "https://withsports.shop:8000/gifticon-service/gifticon/category/food",
+        {
           method: "GET",
           headers: {
             Credentials: "include",
@@ -175,7 +170,7 @@ export default function GifticonPage() {
           alignItems: "center",
         }}
       >
-        <img src="/gift.png" alt="gift-image"/>
+        <img src="/gift.png" alt="gift-image" />
       </div>
       <div
         style={{
@@ -187,7 +182,10 @@ export default function GifticonPage() {
           paddingTop: "20px",
         }}
       >
-        <button onClick={() => setAddModalOpen(true)} className={styles.addButton}>
+        <button
+          onClick={() => setAddModalOpen(true)}
+          className={styles.addButton}
+        >
           기프티콘 등록
         </button>
         {addModalOpen && (
