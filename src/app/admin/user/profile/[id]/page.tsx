@@ -23,7 +23,7 @@ type UserJSON = {
   teamName?: string;
 };
 export default function ProfilePage({ params }: { params: PageParams }) {
-  const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile`;
+  const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile/${params.id}`;
 
   // 로컬스토리지 토큰 가져오기
   const localStorage: Storage = window.localStorage;
@@ -65,7 +65,7 @@ export default function ProfilePage({ params }: { params: PageParams }) {
         } else {
           console.log("사용자 정보를 불러오는데 실패했습니다.");
         }
-        return data;
+        return data.data;
       })
       .catch((error) => {
         console.log(error);
