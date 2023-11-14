@@ -15,20 +15,17 @@ import InsertProfileImage from "./InsertProfileImage";
 import ShowSearchList from "./ShowSearchList";
 
 type UserJSON = {
-  code: string
-  data: {
-    userId: number;
-    nickname: string;
-    introduction: string | null;
-    area: string;
-    imageUrl: string | null;
-    tier?: string;
-    rating?: number;
-    win: number;
-    lose: number;
-    draw: number;
-    winRate: number | undefined | null;
-  }
+  userId: number;
+  nickname: string;
+  introduction: string | null;
+  area: string;
+  imageUrl: string | null;
+  tier?: string;
+  rating?: number;
+  win: number;
+  lose: number;
+  draw: number;
+  winRate: number | undefined | null;
 };
 
 type ProfileProps = {
@@ -36,8 +33,7 @@ type ProfileProps = {
 };
 
 export default function ProfileMenu({ userJSON }: ProfileProps) {
-  const userData = userJSON;
-  const userNickname = userData.data.nickname;
+  let userData = userJSON;
 
   // 본인 프로필인지 확인
   const [isYourProfile, setIsYourProfile] = useState(false);
@@ -357,7 +353,7 @@ export default function ProfileMenu({ userJSON }: ProfileProps) {
                 삭제하시겠습니까?
                 <br />
                 <br />
-                {userNickname}
+                {userData.nickname}
                 {"/탈퇴한다"}를 입력해주세요
               </h3>
               <div className="delete-account">
@@ -367,7 +363,7 @@ export default function ProfileMenu({ userJSON }: ProfileProps) {
                   value={checkType}
                   onChange={handleTypeChange}
                 />
-                {checkType === userNickname + "/탈퇴한다" ? (
+                {checkType === userData.nickname + "/탈퇴한다" ? (
                   <Button variant="outlined" onClick={postDeleteProfile}>
                     회원탈퇴
                   </Button>
