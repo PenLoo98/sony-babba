@@ -123,7 +123,7 @@ export default function GifticonPage() {
 
   const fetchGifts = async () => {
     try {
-      // food의 목록 보여줌
+      // food의 목록 보여줌(임시)
       const response = await fetch( "https://withsports.shop:8000/gifticon-service/gifticon/category/food",{
           method: "GET",
           headers: {
