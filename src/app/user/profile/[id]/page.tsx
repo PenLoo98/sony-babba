@@ -46,7 +46,8 @@ export default function ProfilePage({ params }: { params: PageParams }) {
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
 
-    const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile/${params.id}`;
+    // 요청 URL - PathVariable 없습니다
+    const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile`;
 
     const response = await fetch(getUserInfoURL, {
       method: "GET",
@@ -65,7 +66,7 @@ export default function ProfilePage({ params }: { params: PageParams }) {
         } else {
           console.log("사용자 정보를 불러오는데 실패했습니다.");
         }
-        return data.data;
+        return data;
       })
       .catch((error) => {
         console.log(error);
@@ -75,6 +76,7 @@ export default function ProfilePage({ params }: { params: PageParams }) {
     // 응답값 확인
     let body: UserJSON;
     if (response) {
+      // data부분만 가져오기
       body = await response.data;
       console.log("body:");
       console.log(body);
