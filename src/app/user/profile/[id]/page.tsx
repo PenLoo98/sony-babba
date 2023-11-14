@@ -19,7 +19,7 @@ type UserJSON = {
   win: number;
   lose: number;
   draw: number;
-  winRate: number| undefined | null;
+  winRate: number | undefined | null;
 };
 export default function ProfilePage({ params }: { params: PageParams }) {
   // 팀 정보를 불러왔는지 여부
@@ -45,15 +45,15 @@ export default function ProfilePage({ params }: { params: PageParams }) {
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
-    
+
     const getUserInfoURL: string = `https://withsports.shop:8000/user-service/user/profile`;
-    
+
     const response = await fetch(getUserInfoURL, {
       method: "GET",
       headers: {
-        "Credentials": "include",
+        Credentials: "include",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())

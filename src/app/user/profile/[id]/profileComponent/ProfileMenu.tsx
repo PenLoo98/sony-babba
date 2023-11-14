@@ -25,11 +25,15 @@ type UserJSON = {
   win: number;
   lose: number;
   draw: number;
-  winRate: number| undefined | null;
+  winRate: number | undefined | null;
 };
 
-export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
-  const userData = userJSON.userJSON;
+type ProfileProps = {
+  userJSON: UserJSON;
+};
+
+export default function ProfileMenu({ userJSON }: ProfileProps) {
+  const userData = userJSON;
   const userNickname = userData.nickname;
 
   // 본인 프로필인지 확인
@@ -219,7 +223,7 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
       .then((data: SearchNameList) => {
         if (data.data !== null) {
           setSearchNameResult(data);
-          console.log("search data: ")
+          console.log("search data: ");
           console.log(data);
           alert("검색에 성공하였습니다.");
           setShowSearchNameModal(true);
@@ -249,9 +253,14 @@ export default function ProfileMenu(userJSON: { userJSON: UserJSON }) {
           style={{ margin: "10px 0 0 10px" }}
         />
         {/* TODO: 테스트용 검색결과 모달창 */}
-        <Button variant="outlined" onClick={() => {
-          setShowSearchNameModal(true);
-        }}>검색결과 모달창보기</Button>
+        <Button
+          variant="outlined"
+          onClick={() => {
+            setShowSearchNameModal(true);
+          }}
+        >
+          검색결과 모달창보기
+        </Button>
         <ModalCustom
           show={showSearchNameModal}
           setShow={setShowSearchNameModal}

@@ -14,8 +14,12 @@ type UserJSON = {
   winRate: number | undefined | null;
 };
 
-export default function RankingInfo(userJSON: { userJSON: UserJSON }) {
-  const userData = userJSON.userJSON;
+type ProfileProps = {
+  userJSON: UserJSON;
+};
+
+export default function RankingInfo({ userJSON }: ProfileProps) {
+  const userData = userJSON;
 
   return (
     <div

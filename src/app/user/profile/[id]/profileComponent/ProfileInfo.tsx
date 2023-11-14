@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 type UserJSON = {
   userId: number;
@@ -12,12 +11,17 @@ type UserJSON = {
   win: number;
   lose: number;
   draw: number;
-  winRate: number| undefined | null;
+  winRate: number | undefined | null;
 };
 
-export default function Profile(userJSON: { userJSON: UserJSON }) {
+type ProfileProps = {
+  userJSON: UserJSON;
+};
+
+export default function Profile({ userJSON }: ProfileProps) {
+  console.log("userJSON:");
   console.log(userJSON);
-  const userData = userJSON.userJSON;
+  const userData = userJSON;
 
   return (
     <div
@@ -29,7 +33,7 @@ export default function Profile(userJSON: { userJSON: UserJSON }) {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <Image
-          src={userData.imageUrl? userData.imageUrl : "/default-profile.png"}
+          src={userData.imageUrl ? userData.imageUrl : "/default-profile.png"}
           alt="profile"
           width={190}
           height={190}
@@ -62,7 +66,11 @@ export default function Profile(userJSON: { userJSON: UserJSON }) {
         </div>
         <div
           className="userIntro"
-          style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: 20,
+          }}
         >
           {userData.introduction}
         </div>
