@@ -52,9 +52,9 @@ export default function GifticonPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // // 로컬스토리지 토큰 가져오기
-    // const localStorage: Storage = window.localStorage;
-    // const token = localStorage.getItem("accessToken");
+    // 로컬스토리지 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
 
     // 토큰이 없으면 홈페이지로 리디렉션
     if (!token) {
