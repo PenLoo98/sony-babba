@@ -23,21 +23,10 @@ type GiftInfo = {
 // => 삭제하시겠습니까? 알림 이후 진행
 
 export default function GifticonPage() {
-  // 더미 데이터
-  const dummyGifts = [
-    {
-      imageUrl: "",
-      categoryName: "음식",
-      gifticonName: "치킨",
-      description: "순살이라 더 맛있음",
-      price: 18000,
-      amount: 3,
-    },
-  ];
+  
 
-  // 기프티콘 등록 관리 페이지
+  // 기프티콘 등록
   const [gifts, setGifts] = useState<GiftInfo[]>([]);
-  //const [gifts, setGifts] = useState(dummyGifts);
   
   // 기프티콘 상세
   const [selectedGift, setSelectedGift] = useState<GiftInfo | null>(null);
@@ -75,15 +64,29 @@ export default function GifticonPage() {
       return;
     }
     try {
+
+      const formData = new FormData();
+    formData.append(
+      "registerGifticonRequest",
+      JSON.stringify({
+        categoryName: form.categoryName,
+        gifticonName: form.gifticonName,
+        description: form.description,
+        price: form.price,
+        amount: form.amount,
+      })
+    );
+
+    formData.append("image", "image.png");
+
       const response = await fetch(
         "https://withsports.shop:8000/gifticon-service/gifticon",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(form),
+          body: formData,
         }
       );
 
@@ -118,10 +121,15 @@ export default function GifticonPage() {
   const fetchGifts = async () => {
     try {
       const response = await fetch(
-        "https://withsports.shop:8000/gifticon-service/gifticon"
+        // food의 목록 보여줌
+        "https://withsports.shop:8000/gifticon-service/gifticon/category/food"
       );
       const data = await response.json();
-      setGifts(data);
+      if (data.code === "SUCCESS") {
+        setGifts(data.data.gifticonList);
+      } else {
+        console.error("Error: Failed to fetch gifticons");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
