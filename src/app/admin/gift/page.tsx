@@ -23,7 +23,10 @@ type GiftInfo = {
 // => 삭제하시겠습니까? 알림 이후 진행
 
 export default function GifticonPage() {
-  
+
+  // 로컬스토리지 토큰 가져오기
+  const localStorage: Storage = window.localStorage;
+  const token = localStorage.getItem("accessToken");
 
   // 기프티콘 등록
   const [gifts, setGifts] = useState<GiftInfo[]>([]);
@@ -53,9 +56,9 @@ export default function GifticonPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 로컬스토리지 토큰 가져오기
-    const localStorage: Storage = window.localStorage;
-    const token = localStorage.getItem("accessToken");
+    // // 로컬스토리지 토큰 가져오기
+    // const localStorage: Storage = window.localStorage;
+    // const token = localStorage.getItem("accessToken");
 
     // 토큰이 없으면 홈페이지로 리디렉션
     if (!token) {
@@ -120,10 +123,20 @@ export default function GifticonPage() {
 
   const fetchGifts = async () => {
     try {
-      const response = await fetch(
-        // food의 목록 보여줌
-        "https://withsports.shop:8000/gifticon-service/gifticon/category/food"
+      // food의 목록 보여줌
+      const response = await fetch( "https://withsports.shop:8000/gifticon-service/gifticon/category/food",{
+          method: "GET",
+          headers: {
+            Credentials: "include",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message);
+      }
       const data = await response.json();
       if (data.code === "SUCCESS") {
         setGifts(data.data.gifticonList);
