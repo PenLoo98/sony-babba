@@ -13,6 +13,7 @@ import CheckNickButton from "@/app/auth/AuthComponent/CheckNickButton";
 import SelectArea from "@/app/auth/AuthComponent/SelectArea";
 import InsertProfileImage from "./InsertProfileImage";
 import ShowSearchList from "./ShowSearchList";
+import IsYours from "./IsYours";
 
 type UserJSON = {
   userId: number;
@@ -30,9 +31,10 @@ type UserJSON = {
 
 type ProfileProps = {
   userJSON: UserJSON;
+  pageId: number;
 };
 
-export default function ProfileMenu({ userJSON }: ProfileProps) {
+export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
   let userData = userJSON;
 
   // 본인 프로필인지 확인
@@ -269,6 +271,11 @@ export default function ProfileMenu({ userJSON }: ProfileProps) {
         <Button variant="outlined" onClick={switchYours}>
           {isYourProfile ? "내 프로필" : "다른 프로필"}
         </Button>
+        <IsYours
+          pageId={pageId}
+          isYou={isYourProfile}
+          setIsYou={setIsYourProfile}
+        />
         {isYourProfile ? (
           <div className="your-profile">
             {/* 프로필 수정 버튼*/}

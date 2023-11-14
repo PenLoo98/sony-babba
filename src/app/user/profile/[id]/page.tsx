@@ -108,7 +108,7 @@ export default function ProfilePage({ params }: { params: PageParams }) {
       {showUserInfo && (
         <div>
           <ProfileInfo userJSON={data} />
-          <ProfileMenu userJSON={data} />
+          <ProfileMenu pageId={params.id} userJSON={data} />
           <RankingInfo userJSON={data} />
         </div>
       )}
