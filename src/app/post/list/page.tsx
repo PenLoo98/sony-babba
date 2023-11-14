@@ -188,12 +188,7 @@ export default function PostList() {
         {notices.map((notice) => (
           <div key={notice.id}>
             <h5>
-              <style jsx>{`
-                a {
-                  color: inherit;
-                  text-decoration: none;
-                }
-              `}</style>
+              <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
               <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
             </h5>
             <small style={{ textAlign: "right" }}>
@@ -205,14 +200,16 @@ export default function PostList() {
       </ul>
 
       <h3>인기 게시물</h3>
-      <ul className={styles.popularList}>
+      <div className={styles.popularList}>
         {popularPosts.map((post) => (
-          <li key={post.id}>
-            <a href={`/post/detail/${post.id}`}>{post.subject}</a>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;추천 수: {post.voter.length}</span>
-          </li>
+          <div key={post.id} className={styles.popularPostItem}>
+            <style jsx>{`a{ color : black; text-decoration:none; flex-grow: 1;}`}</style>
+            <a href={`/post/detail/${post.id}`} className={styles.popularPostLink}>{post.subject}</a>
+            <span>추천 수: {post.voter.length}</span>
+          </div>
+          
         ))}
-      </ul>
+      </div>
 
       <h3>일반 게시물</h3>
       <table className={styles.postTable}>
