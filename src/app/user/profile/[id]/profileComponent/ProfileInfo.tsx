@@ -1,17 +1,20 @@
 import Image from "next/image";
 
 type UserJSON = {
-  userId: number;
-  nickname: string;
-  introduction: string | null;
-  area: string;
-  imageUrl: string | null;
-  tier?: string;
-  rating?: number;
-  win: number;
-  lose: number;
-  draw: number;
-  winRate: number | undefined | null;
+  code: string
+  data: {
+    userId: number;
+    nickname: string;
+    introduction: string | null;
+    area: string;
+    imageUrl: string | null;
+    tier?: string;
+    rating?: number;
+    win: number;
+    lose: number;
+    draw: number;
+    winRate: number | undefined | null;
+  }
 };
 
 type ProfileProps = {
@@ -21,7 +24,7 @@ type ProfileProps = {
 export default function Profile({ userJSON }: ProfileProps) {
   console.log("userJSON:");
   console.log(userJSON);
-  const userData = userJSON;
+  const userData = userJSON.data;
 
   return (
     <div

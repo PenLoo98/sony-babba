@@ -9,34 +9,40 @@ type PageParams = {
 };
 
 type UserJSON = {
-  userId: number;
-  nickname: string;
-  introduction: string | null;
-  area: string;
-  imageUrl: string | null;
-  tier?: string;
-  rating?: number;
-  win: number;
-  lose: number;
-  draw: number;
-  winRate: number | undefined | null;
+  code: string;
+  data: {
+    userId: number;
+    nickname: string;
+    introduction: string | null;
+    area: string;
+    imageUrl: string | null;
+    tier?: string;
+    rating?: number;
+    win: number;
+    lose: number;
+    draw: number;
+    winRate: number | undefined | null;
+  };
 };
 export default function ProfilePage({ params }: { params: PageParams }) {
   // 팀 정보를 불러왔는지 여부
   const [showUserInfo, setShowUserInfo] = useState(false);
 
   let userJSON: UserJSON = {
-    userId: 0,
-    nickname: "위스",
-    introduction: "반갑습니다",
-    area: "서울",
-    imageUrl: "/default-profile.png",
-    tier: "1",
-    rating: 1000,
-    win: 5,
-    lose: 5,
-    draw: 0,
-    winRate: 50,
+    code: "",
+    data: {
+      userId: 0,
+      nickname: "위스",
+      introduction: "반갑습니다",
+      area: "서울",
+      imageUrl: "/default-profile.png",
+      tier: "1",
+      rating: 1000,
+      win: 5,
+      lose: 5,
+      draw: 0,
+      winRate: 50,
+    },
   };
   const [data, setData] = useState<UserJSON>(userJSON);
 
@@ -98,7 +104,7 @@ export default function ProfilePage({ params }: { params: PageParams }) {
         console.log("data:");
         console.log(data);
         console.log("data.imageUrl:");
-        console.log(data.imageUrl);
+        console.log(data.data.imageUrl);
       }
     }
     fetchUserData();
