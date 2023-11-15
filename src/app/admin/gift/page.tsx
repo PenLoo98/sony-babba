@@ -75,10 +75,6 @@ export default function GifticonPage() {
       // 이미지 추가 
       const formData = new FormData();
 
-      if(image){
-        formData.append('image', image);
-      }
-
       formData.append('registerGifticonRequest', JSON.stringify({
         categoryName : form.categoryName,
         gifticonName : form.gifticonName,
@@ -87,13 +83,23 @@ export default function GifticonPage() {
         amount : form.amount
       }));
 
+      if(image){
+        formData.append('image', image);
+      }
+      // 데이터 확인 
+
+      console.log(formData);
+      Array.from(formData.entries()).forEach(([key, value]) => {
+        console.log(key, value);
+      }); 
+
       const response = await fetch(
         "https://withsports.shop:8000/gifticon-service/gifticon",
         {
           method: "POST",
           headers: {
             Credentials: "include",
-            // "Content-Type": "application/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: formData,
