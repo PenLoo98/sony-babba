@@ -37,7 +37,23 @@ export default function GetBelongTeam() {
         if (data.code === "SUCCESS") {
           console.log("data:");
           console.log(data);
-          return data.data;
+          // return data.data;
+          for (let i = 0; i < data.data.length; i++) {
+            console.log("data.data[i].sports: ");
+            console.log(data.data[i].sports);
+            if (data.data[i].sports == "축구") {
+              setBelongSoccerTeam(true);
+              setBelongSoccerTeamId(data.data[i].teamId);
+            }
+            if (data.data[i].sports == "풋살") {
+              setBelongFutsalTeam(true);
+              setBelongFutsalTeamId(data.data[i].teamId);
+            }
+            if (data.data[i].sports == "농구") {
+              setBelongBasketballTeam(true);
+              setBelongBasketballTeamId(data.data[i].teamId);
+            }
+          }
         } else {
           console.log("소속팀 정보를 가져오는데 실패했습니다.");
           return null;
@@ -58,27 +74,7 @@ export default function GetBelongTeam() {
     useState<number>();
 
   useEffect(() => {
-    let belongList: belongInfo[] | Promise<void> = fetchUserBelongTeam();
-    console.log("belongList:");
-    console.log(belongList);
-    if (Array.isArray(belongList)) {
-      for (let i = 0; belongList.length; i++) {
-        console.log("belongList[i].sports: ");
-        console.log(belongList[i].sports);
-        if (belongList[i].sports == "축구") {
-          setBelongSoccerTeam(true);
-          setBelongSoccerTeamId(belongList[i].teamId);
-        }
-        if (belongList[i].sports == "풋살") {
-          setBelongFutsalTeam(true);
-          setBelongFutsalTeamId(belongList[i].teamId);
-        }
-        if (belongList[i].sports == "농구") {
-          setBelongBasketballTeam(true);
-          setBelongBasketballTeamId(belongList[i].teamId);
-        }
-      }
-    }
+    fetchUserBelongTeam();
   }, []);
 
   return (
