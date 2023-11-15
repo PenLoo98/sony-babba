@@ -26,7 +26,7 @@ export default function IsLeader({teamId, isLeader, setIsLeader, children}: Prop
       method: "GET",
       headers: {
         Credentials: "include",
-        "Content-Type": "application/json",
+        ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
