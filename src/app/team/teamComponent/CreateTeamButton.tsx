@@ -20,6 +20,7 @@ export default function CreateTeamButton() {
   const [teamName, setTeamName] = useState("");
   const typeTeamName = (e: any) => {
     setTeamName(e.target.value);
+
   };
 
   // 팀 이름 중복 확인
@@ -39,7 +40,7 @@ export default function CreateTeamButton() {
 
   // 팀 소개
   const [teamIntro, setTeamIntro] = useState("");
-  const changeTeamIntro = (e: any) => {
+  const typeTeamIntro = (e: any) => {
     setTeamIntro(e.target.value);
   };
 
@@ -149,7 +150,7 @@ export default function CreateTeamButton() {
           label="팀 소개"
           variant="outlined"
           value={teamIntro}
-          onChange={changeTeamIntro}
+          onChange={typeTeamIntro}
           multiline
           rows={4}
           style={{ margin: "10px 0 10px 0" }}

@@ -1,8 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import styles from "../../Home.module.css";
-import Image from "next/image";
 
 
 type MatchingList = {
@@ -93,36 +90,7 @@ export default function MatchingPage(){
         <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
             <button onClick={createMatchingRoom}>매칭방 생성</button>
         </div>
-        <table style={{ marginTop : "40px" }}>
-                <thead>
-                    <tr style={{ backgroundColor: "black" }}>
-                        <th style={{ color: "white", padding: "10px" }}>팀 이름</th>
-                        <th style={{ color: "white", padding: "10px" }}>방장 닉네임</th>
-                        <th style={{ color: "white", padding: "10px" }}>종목</th>
-                        <th style={{ color: "white", padding: "10px" }}>지역</th>
-                        <th style={{ color: "white", padding: "10px" }}>정원</th>
-                        <th style={{ color: "white", padding: "10px" }}>현재 인원</th>
-                        <th style={{ color: "white", padding: "10px" }}>평점</th>
-                        <th style={{ color: "white", padding: "10px" }}>참석 상태</th>
-                        <th style={{ color: "white", padding: "10px" }}>매칭방 상태</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {matchingRooms.map(room => (
-                        <tr key={room.matchingRoomId}>
-                            <td>{room.teamName}</td>
-                            <td>{room.roomLeaderNickname}</td>
-                            <td>{room.sports}</td>
-                            <td>{room.area}</td>
-                            <td>{room.capacity}</td>
-                            <td>{room.userCount}</td>
-                            <td>{room.sumRating}</td>
-                            <td>{room.participateStatus ? "참여 중" : "참여하기"}</td>
-                            <td>{room.status}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        
     </>
     );
 }
