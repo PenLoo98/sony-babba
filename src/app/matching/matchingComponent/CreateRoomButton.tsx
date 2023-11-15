@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, TextField } from "@mui/material";
 import ModalCustom from "@/components/ModalCustom";
 import SelectSports from "@/app/team/teamComponent/SelectSports";
@@ -13,6 +13,9 @@ type createRoomInfo = {
 };
 
 export default function CreateRoomButton() {
+  // 토큰 상태 저장
+  const [token, setToken] = useState<any>();
+
   // 매칭방 생성 모달
   const [showForm, setShowForm] = useState(false);
 
@@ -36,31 +39,44 @@ export default function CreateRoomButton() {
 
   // 매칭방 생성 fetch
   async function requestCreateRoom() {
-    // 액세스 토큰 가져오기
-    const localStorage: Storage = window.localStorage;
-    const token = localStorage.getItem("accessToken");
-
     // 매칭방 생성 API
     const createRoomURL =
       "https://withsports.shop:8000/matching-service/matching/room";
 
     // 요청 body
     const bodyJSON: createRoomInfo = {
-        title: title,
-        sports: sports,
-        area: area,
-        capacity: capacity,
+      title: title,
+      sports: sports,
+      area: area,
+      capacity: capacity,
     };
 
     const response = await fetch(createRoomURL, {
       headers: {
-        "Credentials": "include",
+        Credentials: "include",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(bodyJSON),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data:");
+        console.log(data);
+        if (data.code === "SUCCESS") {
+          console.log("매칭방 생성에 성공했습니다.");
+        } else {
+          console.log("매칭방 생성에 실패했습니다.");
+        }
+      });
   }
+
+  useEffect(() => {
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const tokenValue = localStorage.getItem("accessToken");
+    setToken(tokenValue);
+  }, []);
 
   return (
     <div>
