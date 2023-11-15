@@ -374,7 +374,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                       value={editIntroduction}
                       onChange={handleEditIntroductionChange}
                     />
-                    <SelectArea area={editArea} onAreaChange={setEditArea} />
+                    <SelectArea area={editArea} setArea={setEditArea} />
                     <SelectSports
                       sports={editSports}
                       setSports={setEditSports}
