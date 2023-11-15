@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
 import GetRoomList from "../matchingComponent/GetRoomList";
+import CreateRoomButton from "../matchingComponent/CreateRoomButton";
 
 type MatchingList = {
   matchingRoomId: number; // 매칭방 id
@@ -92,7 +92,7 @@ export default function MatchingPage() {
       <div
         style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}
       >
-        <button onClick={createMatchingRoom}>매칭방 생성</button>
+        <CreateRoomButton/>
       </div>
       <GetRoomList />
     </>

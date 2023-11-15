@@ -8,7 +8,7 @@ import GetBelongTeam from "../teamComponent/GetBelongTeam";
 import TextField from "@mui/material/TextField";
 import ModalCustom from "@/components/ModalCustom";
 import SelectSports from "../teamComponent/SelectSports";
-import SelectArea from "@/app/auth/AuthComponent/SelectArea";
+import SelectArea from "../teamComponent/SelectArea";
 import InsertTeamImage from "../teamComponent/InsertTeamImage";
 import CheckTeamName from "../teamComponent/CheckTeamName";
 import CheckSports from "../teamComponent/CheckSports";
@@ -47,9 +47,6 @@ export default function TeamSpecific() {
   const [validSports, setValidSports] = useState(false);
   // 팀 지역
   const [area, setArea] = useState("");
-  const onAreaChange = (selectedArea: string) => {
-    setArea(selectedArea);
-  };
   // 팀 소개
   const [teamIntro, setTeamIntro] = useState("");
   const changeTeamIntro = (e: any) => {
@@ -169,7 +166,7 @@ export default function TeamSpecific() {
         <CheckSports sports={sports} setValidSports={setValidSports} />
       </div>
       <br />
-      <SelectArea area={area} onAreaChange={onAreaChange} />
+      <SelectArea area={area} setArea={setArea} />
       <TextField
         id="outlined-basic"
         label="팀 소개"
