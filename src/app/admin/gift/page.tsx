@@ -217,6 +217,7 @@ export default function GifticonPage() {
         >
           기프티콘 등록
         </button>
+        {/* 상품 등록 모달창 */}
         {addModalOpen && (
           <div
             style={{
@@ -245,7 +246,7 @@ export default function GifticonPage() {
                 width: "300px",
               }}
             >
-              {/* 이미지 */}
+              {/* 이미지 등록 폼 */}
               <label>
                 Image
                 <input
@@ -331,7 +332,7 @@ export default function GifticonPage() {
           </tbody>
         </table>
 
-        {/* 상품 상세 화면 */}
+        {/* 상품 상세 화면 모달창 */}
         {modalOpen && selectedGift && (
           <div
             style={{
@@ -346,7 +347,7 @@ export default function GifticonPage() {
               backgroundColor: "rgba(0, 0, 0, 0.5)",
             }}
           >
-            {/* // 수정폼 */}
+            {/*  수정폼 */}
 
             <form
               onSubmit={handleSubmit}
@@ -362,7 +363,18 @@ export default function GifticonPage() {
                 width: "300px",
               }}
             >
-              {/* 이미지 */}
+              {/* 이미지 표시*/}
+              {selectedGift.imageUrl && (
+                <Image
+                  src={selectedGift.imageUrl}
+                  alt={selectedGift.gifticonName}
+                  width={200}
+                  height={200}
+                />
+              )}
+
+              {/* 이미지 등록 폼*/}
+
               <label>
                 Image
                 <input
@@ -434,7 +446,8 @@ export default function GifticonPage() {
                 <button
                   type="button"
                   onClick={handleDelete}
-                  className={styles.deleteButton}
+                  className={styles.deletebutton}
+                  style={{ marginRight: "10px" }}
                 >
                   삭제
                 </button>
@@ -444,7 +457,7 @@ export default function GifticonPage() {
                     setModalOpen(false);
                     setIsEditing(false);
                   }}
-                  className={styles.cancelButton}
+                  className={styles.backbutton}
                 >
                   취소
                 </button>
