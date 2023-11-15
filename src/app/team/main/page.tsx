@@ -99,6 +99,8 @@ export default function TeamSpecific() {
         if (res.status === 201) {
           alert("팀 생성에 성공했습니다.");
           console.log(res);
+          setShowForm(false);
+          window.location.reload();
         } else {
           alert("팀 생성에 실패했습니다.");
           console.log(res);

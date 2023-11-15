@@ -17,8 +17,10 @@ export default function IsLeader({teamId, isLeader, setIsLeader, children}: Prop
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
+    
+    let addTeamId: number = teamId+1;
 
-    const getIsLeaderAPI: string = `https://withsports.shop:8000/team-service/check/validation/teamLeader/${teamId+1}`
+    const getIsLeaderAPI: string = `https://withsports.shop:8000/team-service/check/validation/teamLeader/${addTeamId}`
 
     const response = await fetch(getIsLeaderAPI, {
       method: "GET",

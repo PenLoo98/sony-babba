@@ -4,6 +4,7 @@ import Link from "next/link";
 import Button from "@mui/material/Button";
 import GroupsIcon from "@mui/icons-material/Groups";
 import CreateTeamButton from "./CreateTeamButton";
+import { lightGreen } from "@mui/material/colors";
 
 type belongInfo = {
   teamId: number;
@@ -87,7 +88,7 @@ export default function GetBelongTeam() {
             component="label"
             variant="contained"
             startIcon={<GroupsIcon />}
-            style={{ backgroundColor: "green", color: "black" }}
+            style={{ backgroundColor: "lightGreen", color: "black" }}
           >
             팀 조회
           </Button>
@@ -97,7 +98,7 @@ export default function GetBelongTeam() {
           component="label"
           variant="contained"
           startIcon={<GroupsIcon />}
-          style={{ backgroundColor: "green", color: "black" }}
+          style={{ backgroundColor: "grey", color: "black" }}
         >
           소속없음
         </Button>
@@ -120,7 +121,7 @@ export default function GetBelongTeam() {
           component="label"
           variant="contained"
           startIcon={<GroupsIcon />}
-          style={{ backgroundColor: "green", color: "black" }}
+          style={{ backgroundColor: "grey", color: "black" }}
         >
           소속없음
         </Button>
@@ -143,7 +144,7 @@ export default function GetBelongTeam() {
           component="label"
           variant="contained"
           startIcon={<GroupsIcon />}
-          style={{ backgroundColor: "green", color: "black" }}
+          style={{ backgroundColor: "grey", color: "black" }}
         >
           소속없음
         </Button>
