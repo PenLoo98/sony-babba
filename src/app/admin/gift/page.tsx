@@ -7,7 +7,7 @@ import Image from "next/image";
 
 type GiftInfo = {
   gifticonId ?: number;
-  imageUrl: string | null; // 기프티콘 이미지 추가
+  image: string | null; // 기프티콘 이미지 추가
   categoryName: string; // 카테고리 이름
   gifticonName: string; // 상품명
   description: string; // 설명
@@ -36,7 +36,7 @@ export default function GifticonPage() {
   const router = useRouter();
 
   const [form, setForm] = useState<GiftInfo>({
-    imageUrl: "",
+    image: "",
     categoryName: "",
     gifticonName: "",
     description: "",
@@ -121,7 +121,7 @@ export default function GifticonPage() {
       if (data.code === "SUCCESS") {
         alert(data.message);
         setForm({
-          imageUrl: "",
+          image: "",
           categoryName: "",
           gifticonName: "",
           description: "",
@@ -181,7 +181,7 @@ export default function GifticonPage() {
     setForm(gift);
     setAddModalOpen(false);
     setModalOpen(true);
-    console.log('Image URL:', gift.imageUrl);
+    console.log('Image URL:', gift.image);
   };
 
   const handleUpdate = async () => {
@@ -257,7 +257,7 @@ export default function GifticonPage() {
                 Image
                 <input
                   type="file"
-                  name="imageUrl"
+                  name="image"
                   onChange={handleImageChange}
                 />
               </label>
@@ -372,9 +372,9 @@ export default function GifticonPage() {
               }}
             >
               {/* 이미지 표시*/}
-              {selectedGift.imageUrl && (
+              {selectedGift.image && (
                 <Image
-                  src={selectedGift.imageUrl}
+                  src={selectedGift.image}
                   alt={selectedGift.gifticonName}
                   width={200}
                   height={200}
@@ -387,7 +387,7 @@ export default function GifticonPage() {
                 Image
                 <input
                   type="file"
-                  name="imageUrl"
+                  name="image"
                   onChange={handleImageChange}
                 />
               </label>
