@@ -4,6 +4,15 @@ import Image from "next/image";
 export default function MenuBar() {
   return (
     <div className="menuBar" style={{ display: "flex" }}>
+      <Link href="/admin" style={{ textDecoration: "none"}}>
+        <Image
+          src="/admin.png"
+          width={70}
+          height={70}
+          alt="admin-image"
+          style={{margin: "0 20px"}}
+        />
+      </Link>
       <Link href="http://3.37.181.58:3000/" style={{ textDecoration: "none" }}>
         <Image
           src="/vote.png"
