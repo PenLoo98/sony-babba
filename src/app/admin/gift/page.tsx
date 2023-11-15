@@ -120,7 +120,6 @@ export default function GifticonPage() {
 
       if (data.code === "SUCCESS") {
         alert(data.message);
-        fetchGifts();
         setForm({
           imageUrl: "",
           categoryName: "",
