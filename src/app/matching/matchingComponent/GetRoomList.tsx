@@ -51,7 +51,7 @@ export default function GetRoomList() {
     ],
   };
   // 매칭방 정보
-  const [data, setData] = useState<MatchingRoomList.data>(initialRoomList);
+  const [data, setData] = useState<MatchingRoomList>(initialRoomList);
 
   // TODO: GET - id에 맞는 사용자 정보 가져오기
   async function getRoomInfo(getRoomInfoURL: string) {
@@ -71,7 +71,7 @@ export default function GetRoomList() {
           console.log(data);
           console.log("data.data: ");
           console.log(data.data);
-          setData(data.data);
+          setData(data);
           setShowRoomInfo(true);
         } else {
           console.log("매칭방 정보를 불러오는데 실패했습니다.");
