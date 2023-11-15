@@ -59,8 +59,12 @@ export default function GetBelongTeam() {
 
   useEffect(() => {
     let belongList: belongInfo[] | Promise<void> = fetchUserBelongTeam();
+    console.log("belongList:");
+    console.log(belongList);
     if (Array.isArray(belongList)) {
       for (let i = 0; belongList.length; i++) {
+        console.log("belongList[i].sports: ");
+        console.log(belongList[i].sports);
         if (belongList[i].sports == "축구") {
           setBelongSoccerTeam(true);
           setBelongSoccerTeamId(belongList[i].teamId);
