@@ -29,6 +29,9 @@ export default function GifticonPage() {
   const [selectedGift, setSelectedGift] = useState<GiftInfo | null>(null);
   // 기프티콘 수정
   const [isEditing, setIsEditing] = useState(false);
+  // 이미지
+  const [image, setImage] = useState<File | null>(null);
+  
   const router = useRouter();
 
   const [form, setForm] = useState<GiftInfo>({
@@ -47,6 +50,14 @@ export default function GifticonPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // 이미지
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -61,6 +72,21 @@ export default function GifticonPage() {
       return;
     }
     try {
+      // 이미지 추가 
+      const formData = new FormData();
+
+      if(image){
+        formData.append('image', image);
+      }
+
+      formData.append('registerGifticonRequest', JSON.stringify({
+        categoryName : form.categoryName,
+        gifticonName : form.gifticonName,
+        description : form.description,
+        price : form.price,
+        amount : form.amount
+      }));
+
       const response = await fetch(
         "https://withsports.shop:8000/gifticon-service/gifticon",
         {
@@ -70,17 +96,11 @@ export default function GifticonPage() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({
-            categoryName: form.categoryName,
-            gifticonName: form.gifticonName,
-            description: form.description,
-            price: form.price,
-            amount: form.amount,
-          }),
+          body: formData,
         }
       );
 
-     
+    
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -216,6 +236,12 @@ export default function GifticonPage() {
                 width: "300px",
               }}
             >
+              {/* 이미지 */}
+              <label>
+                Image
+                <input type="file" name="imageUrl" onChange={handleImageChange} />
+              </label>
+
               <label>
                 Category
                 <input
@@ -323,6 +349,13 @@ export default function GifticonPage() {
                 width: "300px",
               }}
             >
+
+              {/* 이미지 */}
+              <label>
+                Image
+                <input type="file" name="imageUrl" onChange={handleImageChange} />
+              </label>
+
               <input
                 type="text"
                 name="categoryName"
