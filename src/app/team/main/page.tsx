@@ -1,9 +1,7 @@
 "use client";
-import { useState } from "react";
 import Image from "next/image";
 import { Button } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import TeamRanking from "../teamComponent/TeamRanking";
 import Link from "next/link";
 import GetBelongTeam from "../teamComponent/GetBelongTeam";
 
@@ -38,11 +36,7 @@ export default function TeamSpecific() {
       </div>
 
       {/* 소속 팀 */}
-      <GetBelongTeam/>
-      
-      {/* <div className="teamRanking">
-        <TeamRanking />
-      </div> */}
+      <GetBelongTeam/>  
     </div>
   );
 }

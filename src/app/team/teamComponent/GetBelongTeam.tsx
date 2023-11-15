@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Button from "@mui/material/Button";
@@ -86,7 +87,7 @@ export default function GetBelongTeam() {
             component="label"
             variant="contained"
             startIcon={<GroupsIcon />}
-            style={{ backgroundColor: "green", color: "black"  }}
+            style={{ backgroundColor: "green", color: "black" }}
           >
             팀 조회
           </Button>
@@ -102,7 +103,7 @@ export default function GetBelongTeam() {
             component="label"
             variant="contained"
             startIcon={<GroupsIcon />}
-            style={{ backgroundColor: "#2196f3", color: "black"  }}
+            style={{ backgroundColor: "#2196f3", color: "black" }}
           >
             팀 조회
           </Button>

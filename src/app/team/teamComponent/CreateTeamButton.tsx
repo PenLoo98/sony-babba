@@ -22,13 +22,13 @@ export default function CreateTeamButton() {
     setTeamName(e.target.value);
   };
 
-  // 팀 이름 확인
+  // 팀 이름 중복 확인
   const [validName, setValidName] = useState(false);
 
   // 팀 종목
   const [sports, setSports] = useState("");
 
-  // 팀 종목 확인
+  // 팀 종목 중복 확인
   const [validSports, setValidSports] = useState(false);
 
   // 팀 지역
@@ -79,9 +79,9 @@ export default function CreateTeamButton() {
     fetch(createTeamURL, {
       method: "POST",
       headers: {
-        Credentials: "include",
+        "Credentials": "include",
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: TeamInfoFormData,
     })
