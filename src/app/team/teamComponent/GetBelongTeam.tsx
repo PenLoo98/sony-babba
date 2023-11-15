@@ -80,7 +80,7 @@ export default function GetBelongTeam() {
   return (
     <div>
       <p>축구</p>
-      {belongSoccerTeam ? (
+      {belongSoccerTeam && (
         <Link href={`/team/${belongSoccerTeamId}`}>
           <Button
             component="label"
@@ -91,12 +91,10 @@ export default function GetBelongTeam() {
             팀 조회
           </Button>
         </Link>
-      ) : (
-        <CreateTeamButton />
       )}
 
       <p>풋살</p>
-      {belongFutsalTeam ? (
+      {belongFutsalTeam && (
         <Link href={`/team/${belongFutsalTeamId}`}>
           <Button
             component="label"
@@ -107,12 +105,10 @@ export default function GetBelongTeam() {
             팀 조회
           </Button>
         </Link>
-      ) : (
-        <CreateTeamButton />
       )}
 
       <p>농구</p>
-      {belongBasketballTeam ? (
+      {belongBasketballTeam && (
         <Link href={`/team/${belongBasketballTeamId}`}>
           <Button
             component="label"
@@ -123,8 +119,6 @@ export default function GetBelongTeam() {
             팀 조회
           </Button>
         </Link>
-      ) : (
-        <CreateTeamButton />
       )}
     </div>
   );
