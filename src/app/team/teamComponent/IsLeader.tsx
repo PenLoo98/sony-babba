@@ -18,16 +18,16 @@ export default function IsLeader({teamId, isLeader, setIsLeader, children}: Prop
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
     
-    let addTeamId: number = teamId+1;
+    let addTeamId: number = Number(teamId)+Number(1);
 
     const getIsLeaderAPI: string = `https://withsports.shop:8000/team-service/check/validation/teamLeader/${addTeamId}`
 
     const response = await fetch(getIsLeaderAPI, {
       method: "GET",
       headers: {
-        "Credentials": "include",
+        Credentials: "include",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())

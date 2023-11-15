@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import GroupsIcon from "@mui/icons-material/Groups";
-import CreateTeamButton from "./CreateTeamButton";
-import { lightGreen } from "@mui/material/colors";
+
 
 type belongInfo = {
   teamId: number;
