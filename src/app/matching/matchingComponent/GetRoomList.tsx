@@ -54,7 +54,7 @@ export default function GetRoomList() {
   const [data, setData] = useState<MatchingRoomList>(initialRoomList);
 
   // TODO: GET - id에 맞는 사용자 정보 가져오기
-  async function getRoomInfo(getRoomInfoURL: string) {
+  async function getRoomInfo() {
     const response = await fetch(getRoomInfoURL, {
       method: "GET",
       headers: {
@@ -84,10 +84,7 @@ export default function GetRoomList() {
   }
 
   useEffect(() => {
-    async function fetchRoomData() {
-      await getRoomInfo(getRoomInfoURL);
-    }
-    fetchRoomData();
+    getRoomInfo();
   }, []);
 
   return (
