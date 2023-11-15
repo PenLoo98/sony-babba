@@ -128,6 +128,7 @@ export default function GifticonPage() {
           price: 0,
           amount: 0,
         });
+        window.location.reload();
       } else {
         alert("등록에 실패하였습니다.");
       }
