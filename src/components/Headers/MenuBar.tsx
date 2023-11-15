@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function MenuBar() {
   return (
     <div className="menuBar" style={{ display: "flex" }}>
-      <Link href="http://3.39.154.148:3000/" style={{ textDecoration: "none" }}>
+      <Link href="http://3.37.181.58:3000/" style={{ textDecoration: "none" }}>
         <Image
           src="/vote.png"
           width={70}
