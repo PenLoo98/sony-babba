@@ -6,6 +6,7 @@ import styles from "../../Home.module.css";
 import Image from "next/image";
 
 type GiftInfo = {
+  gifticonId ?: number;
   imageUrl: string | null; // 기프티콘 이미지 추가
   categoryName: string; // 카테고리 이름
   gifticonName: string; // 상품명
@@ -16,19 +17,15 @@ type GiftInfo = {
 
 // 목록 조회 ... (GET) /gifticon-service/gifticon/{categoryName}
 // PathVariable로 어떤 카테고리 이름인지 보냄 (ex. 음식 등)
-// 표에 있는 상품 선택하면 모달창으로 상품 정보, 수정, 삭제 버튼 생성됨?
-// 수정 ... (PUT) /gifticon-service/gifticon/{gifticonId}
-// => 기프티콘 등록과 동일한 방식으로 모달창으로 정보 수정
+// 목록의 상품을 선택하면 상품 상세화면으로 이동함.
+// 수정 ... (PUT) /gifticon-service/gifticon/{gifticonId} 
 // 삭제 ... (DELETE) /gifticon-service/gifticon/{gifticonId}
 // => 삭제하시겠습니까? 알림 이후 진행
 
 export default function GifticonPage() {
   // 기프티콘 등록
   const [gifts, setGifts] = useState<GiftInfo[]>([]);
-  // 기프티콘 상세
-  const [selectedGift, setSelectedGift] = useState<GiftInfo | null>(null);
-  // 기프티콘 수정
-  const [isEditing, setIsEditing] = useState(false);
+
   // 이미지
   const [image, setImage] = useState<File | null>(null);
 
@@ -43,7 +40,6 @@ export default function GifticonPage() {
     amount: 0,
   });
 
-  const [modalOpen, setModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -136,7 +132,6 @@ export default function GifticonPage() {
     }
 
     setAddModalOpen(false);
-    setIsEditing(false);
   };
 
   const fetchGifts = async () => {
@@ -174,20 +169,6 @@ export default function GifticonPage() {
   useEffect(() => {
     fetchGifts();
   }, []);
-
-  // 상세 정보
-  const openDetailModal = (gift: GiftInfo) => {
-    setSelectedGift(gift);
-    setForm(gift);
-    setAddModalOpen(false);
-    setModalOpen(true);
-  };
-
-  const handleUpdate = async () => {
-    setIsEditing(true);
-  };
-
-  const handleDelete = async () => {};
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
@@ -319,8 +300,8 @@ export default function GifticonPage() {
                 <td colSpan={5}>상품을 등록해주세요!</td>
               </tr>
             ) : (
-              gifts.map((gift, index) => (
-                <tr key={index} onClick={() => openDetailModal(gift)}>
+              gifts.map((gift) => (
+                <tr key={gift.gifticonId}>
                   <td>{gift.categoryName}</td>
                   <td>{gift.gifticonName}</td>
                   <td>{gift.description}</td>
@@ -331,140 +312,6 @@ export default function GifticonPage() {
             )}
           </tbody>
         </table>
-
-        {/* 상품 상세 화면 모달창 */}
-        {modalOpen && selectedGift && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "fixed",
-              top: 0,
-              right: 0,
-              bottom: 0,
-              left: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-            }}
-          >
-            {/*  수정폼 */}
-
-            <form
-              onSubmit={handleSubmit}
-              className={styles["modal-form"]}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "white",
-                borderRadius: "10px",
-                padding: "20px",
-                width: "300px",
-              }}
-            >
-              {/* 이미지 표시*/}
-              {selectedGift.imageUrl && (
-                <Image
-                  src={selectedGift.imageUrl}
-                  alt={selectedGift.gifticonName}
-                  width={200}
-                  height={200}
-                />
-              )}
-
-              {/* 이미지 등록 폼*/}
-
-              <label>
-                Image
-                <input
-                  type="file"
-                  name="imageUrl"
-                  onChange={handleImageChange}
-                />
-              </label>
-
-              <input
-                type="text"
-                name="categoryName"
-                value={form.categoryName}
-                onChange={handleChange}
-                placeholder="카테고리"
-                required
-                className={styles["input-box"]}
-                readOnly={!isEditing}
-              />
-              <input
-                type="text"
-                name="gifticonName"
-                value={form.gifticonName}
-                onChange={handleChange}
-                placeholder="상품명"
-                required
-                className={styles["input-box"]}
-                readOnly={!isEditing}
-              />
-              <input
-                type="text"
-                name="description"
-                value={form.description}
-                onChange={handleChange}
-                placeholder="설명"
-                required
-                className={styles["input-box"]}
-                readOnly={!isEditing}
-              />
-              <input
-                type="number"
-                name="price"
-                value={form.price}
-                onChange={handleChange}
-                placeholder="가격"
-                required
-                className={styles["input-box"]}
-                readOnly={!isEditing}
-              />
-              <input
-                type="number"
-                name="amount"
-                value={form.amount}
-                onChange={handleChange}
-                placeholder="수량"
-                required
-                className={styles["input-box"]}
-                readOnly={!isEditing}
-              />
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <button
-                  type="button"
-                  onClick={handleUpdate}
-                  className={styles.addButton}
-                  style={{ marginRight: "10px" }}
-                >
-                  정보 수정
-                </button>
-                <button
-                  type="button"
-                  onClick={handleDelete}
-                  className={styles.deletebutton}
-                  style={{ marginRight: "10px" }}
-                >
-                  삭제
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setModalOpen(false);
-                    setIsEditing(false);
-                  }}
-                  className={styles.backbutton}
-                >
-                  취소
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
       </div>
     </div>
   );
