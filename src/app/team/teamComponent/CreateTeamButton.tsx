@@ -79,9 +79,9 @@ export default function CreateTeamButton() {
     fetch(createTeamURL, {
       method: "POST",
       headers: {
-        "Credentials": "include",
+        Credentials: "include",
         "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: TeamInfoFormData,
     })
