@@ -7,7 +7,7 @@ type InsertTeamImageProps = {
     setTeamImageFile: (teamImageFile: File) => void;
 }
 
-export default function InsertTeamImage({teamImage, setTeamImage, setTeamImageFile}: InsertTeamImageProps) {
+export default function InsertTeamImage({teamImage, setTeamImage, teamImageFile, setTeamImageFile}: InsertTeamImageProps) {
     let width = 200;
     let height = 200;
 

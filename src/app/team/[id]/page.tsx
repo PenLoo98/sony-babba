@@ -260,6 +260,9 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   const [editTeamImage, setEditTeamImage] = useState<string>(
     "/team-default-image.png"
   );
+  const [editTeamImageFile, setEditTeamImageFile] = useState<File>();
+
+
   const [editTeamName, setEditTeamName] = useState<string>("");
   const [editIntroduction, setEditIntroduction] = useState<string>("");
   const [editArea, setEditArea] = useState<string>("");
@@ -372,6 +375,8 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                     <InsertTeamImage
                       teamImage={editTeamImage}
                       setTeamImage={setEditTeamImage}
+                      teamImageFile={editTeamImageFile}
+                      setTeamImageFile={setEditTeamImageFile}
                     />
                     <TextField
                       id="outlined-basic"
