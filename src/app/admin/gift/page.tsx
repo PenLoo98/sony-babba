@@ -46,6 +46,10 @@ export default function GifticonPage() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
   // 이미지
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -134,14 +138,13 @@ export default function GifticonPage() {
     setAddModalOpen(false);
   };
 
-  const fetchGifts = async () => {
+  const fetchGifts = async (categoryName: string) => {
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
     try {
-      // food의 목록 보여줌(임시)
       const response = await fetch(
-        "https://withsports.shop:8000/gifticon-service/gifticon/category/food",
+        "https://withsports.shop:8000/gifticon-service/gifticon/category/${categoryName}",
         {
           method: "GET",
           headers: {
@@ -166,8 +169,52 @@ export default function GifticonPage() {
     }
   };
 
+  // 카테고리 분류
+  const fetchCategoryGifts = async (category: string) => {
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+  
+    if (!token) {
+      alert("권한이 없습니다.");
+      router.push("/admin");
+      return;
+    }
+  
+    try {
+      const response = await fetch(
+        `https://withsports.shop:8000/gifticon-service/gifticon/category/${category}`,
+        {
+          method: "GET",
+          headers: {
+            Credentials: "include",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message);
+      }
+  
+      const data = await response.json();
+  
+      if (data.code === "SUCCESS") {
+        setGifts(data.data.gifticonList);
+      } else {
+        console.error("Error: Failed to fetch gifticons");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+
+
   useEffect(() => {
-    fetchGifts();
+    fetchGifts('food');
   }, []);
 
   return (
@@ -198,6 +245,9 @@ export default function GifticonPage() {
         >
           기프티콘 등록
         </button>
+        <button onClick={() => fetchCategoryGifts('food')}>Food</button>
+        <button onClick={() => fetchCategoryGifts('sportequipment')}>Sport Equipment</button>
+        
         {/* 상품 등록 모달창 */}
         {addModalOpen && (
           <div
@@ -239,11 +289,10 @@ export default function GifticonPage() {
 
               <label>
                 Category
-                <input
-                  type="text"
-                  name="categoryName"
-                  onChange={handleChange}
-                />
+                <select name="categoryName" onChange={handleSelectChange}>
+                  <option value="food">Food</option>
+                  <option value="sportequipment">Sport Equipment</option>
+                </select>
               </label>
               <label>
                 Gifticon
