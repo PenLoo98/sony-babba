@@ -62,7 +62,7 @@ export default function InsertTeamImage({teamImage, setTeamImage, teamImageFile,
 
     return(
         <div className="img_wrap" {...getRootProps()}>
-            <ImageTag src={teamImage} alt="팀 이미지" width={200} height={200}/>
+            <ImageTag src={teamImage} alt="팀 이미지" width={width} height={height}/>
             <input {...getInputProps()} multiple={false} name="imageURL"/>
         </div>
     )
