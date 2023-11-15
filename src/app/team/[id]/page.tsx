@@ -184,9 +184,9 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
     const response = await fetch(teamDisbandAPI, {
       method: "DELETE",
       headers: {
-        Credentials: "include",
+        "Credentials": "include",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     })
       .then((res) => {
@@ -339,7 +339,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
 
   return (
     <div>
-      <IsLeader isLeader={isLeader} setIsLeader={setIsLeader}>
+      <IsLeader teamId={params.id} isLeader={isLeader} setIsLeader={setIsLeader}>
         {!showTeamInfo && <div>팀 정보를 불러오는 중입니다...</div>}
         {showTeamInfo && (
           <div>
