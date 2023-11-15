@@ -12,15 +12,14 @@ import CheckSports from "../teamComponent/CheckSports";
 export default function CreateTeamButton() {
   // 팀 생성 모달
   const [showForm, setShowForm] = useState(false);
-  const createTeam = () => {
+  const createTeamForm = () => {
     setShowForm(true);
   };
 
   // 팀 이름
   const [teamName, setTeamName] = useState("");
-  const changeTeamName = (e: any) => {
+  const typeTeamName = (e: any) => {
     setTeamName(e.target.value);
-    console.log(teamName);
   };
 
   // 팀 이름 확인
@@ -66,11 +65,6 @@ export default function CreateTeamButton() {
       introduction: teamIntro,
     };
 
-    // 제출할 팀 이미지
-    // TODO: 그림 형식 인식해서 각각 할당하기
-    // TODO: 팀 이미지 용량이 크면 다운스케일링 하기
-    // let teamImageFile: File = new File([teamImage], "teamImage.jpg");
-
     // FormTeamData에 데이터 추가
     TeamInfoFormData.append(
       "CreateTeamRequest",
@@ -85,9 +79,9 @@ export default function CreateTeamButton() {
     fetch(createTeamURL, {
       method: "POST",
       headers: {
-        Credentials: "include",
+        "Credentials": "include",
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: TeamInfoFormData,
     })
@@ -110,7 +104,7 @@ export default function CreateTeamButton() {
     <div>
       <Button
         variant="outlined"
-        onClick={createTeam}
+        onClick={createTeamForm}
         style={{ margin: "10px 0 10px 0", gridColumnStart: "2" }}
       >
         팀 생성
@@ -134,7 +128,7 @@ export default function CreateTeamButton() {
             label="팀 이름"
             variant="outlined"
             value={teamName}
-            onChange={changeTeamName}
+            onChange={typeTeamName}
             style={{ margin: "10px 0 10px 0" }}
           />
           <CheckTeamName teamname={teamName} setValidName={setValidName} />

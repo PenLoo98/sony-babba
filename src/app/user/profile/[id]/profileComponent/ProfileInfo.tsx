@@ -1,11 +1,9 @@
-import Image from "next/image";
-
 type UserJSON = {
   userId: number;
   nickname: string;
   introduction: string | null;
   area: string;
-  imageUrl: string | null;
+  imageUrl: string | null | undefined;
   tier?: string;
   rating?: number;
   win: number;
@@ -33,7 +31,7 @@ export default function Profile({ userJSON }: ProfileProps) {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <img
-          src={userData.imageUrl ? userData.imageUrl : "/default-profile.png"}
+          src={userData?.imageUrl}
           alt="profile"
         />
       </div>

@@ -39,8 +39,8 @@ export default function GetBelongTeam() {
           console.log(data);
           // return data.data;
           for (let i = 0; i < data.data.length; i++) {
-            console.log("data.data[i].sports: ");
-            console.log(data.data[i].sports);
+            console.log("data.data[i]: ");
+            console.log(data.data[i]);
             if (data.data[i].sports == "축구") {
               setBelongSoccerTeam(true);
               setBelongSoccerTeamId(data.data[i].teamId);
@@ -86,7 +86,7 @@ export default function GetBelongTeam() {
             component="label"
             variant="contained"
             startIcon={<GroupsIcon />}
-            style={{ backgroundColor: "green" }}
+            style={{ backgroundColor: "green", color: "black"  }}
           >
             팀 조회
           </Button>
@@ -102,7 +102,7 @@ export default function GetBelongTeam() {
             component="label"
             variant="contained"
             startIcon={<GroupsIcon />}
-            style={{ backgroundColor: "#2196f3" }}
+            style={{ backgroundColor: "#2196f3", color: "black"  }}
           >
             팀 조회
           </Button>
@@ -118,7 +118,7 @@ export default function GetBelongTeam() {
             component="label"
             variant="contained"
             startIcon={<GroupsIcon />}
-            style={{ backgroundColor: "yellow" }}
+            style={{ backgroundColor: "orange", color: "black" }}
           >
             팀 조회
           </Button>

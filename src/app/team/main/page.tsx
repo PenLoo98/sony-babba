@@ -40,9 +40,9 @@ export default function TeamSpecific() {
       {/* 소속 팀 */}
       <GetBelongTeam/>
       
-      <div className="teamRanking">
+      {/* <div className="teamRanking">
         <TeamRanking />
-      </div>
+      </div> */}
     </div>
   );
 }

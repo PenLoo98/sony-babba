@@ -56,9 +56,9 @@ export default function ProfilePage({ params }: { params: PageParams }) {
     const response = await fetch(getUserInfoURL, {
       method: "GET",
       headers: {
-        Credentials: "include",
+        "Credentials": "include",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
