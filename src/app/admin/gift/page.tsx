@@ -75,14 +75,12 @@ export default function GifticonPage() {
       // 이미지 추가 
       const formData = new FormData();
 
-      formData.append('registerGifticonRequest', new Blob([JSON.stringify({
+      formData.append('registerGifticonRequest', JSON.stringify({
         categoryName : form.categoryName,
         gifticonName : form.gifticonName,
         description : form.description,
         price : form.price,
         amount : form.amount
-      })], {
-        type : "application/json"
       }));
 
       if(image){
