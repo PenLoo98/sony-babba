@@ -15,6 +15,7 @@ type GiftInfo = {
   amount: number; // 수량
 };
 
+
 // 목록 조회 ... (GET) /gifticon-service/gifticon/{categoryName}
 // PathVariable로 어떤 카테고리 이름인지 보냄 (ex. 음식 등)
 // 표에 있는 상품 선택하면 모달창으로 상품 정보, 수정, 삭제 버튼 생성됨?
