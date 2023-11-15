@@ -19,6 +19,7 @@ type UserJSON = {
   winRate: number | undefined | null;
 };
 
+
 type PageParams = {
   id: number;
 };
