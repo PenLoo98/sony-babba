@@ -48,7 +48,7 @@ export default function InsertTeamImage({teamImage, setTeamImage, teamImageFile,
     
                     ctx.canvas.toBlob((blob) => {
                         if (blob !== null) {
-                        const resizedFile = new File([blob], 'filename', {type: type, lastModified: Date.now()});
+                        const resizedFile = new File([blob], `${file.name}`+`.${ext}`, {type: type, lastModified: Date.now()});
                         // save the file...
                         console.log("resizedFile: ");
                         console.log(resizedFile);
