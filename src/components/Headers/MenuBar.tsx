@@ -13,6 +13,15 @@ export default function MenuBar() {
           style={{margin: "0 20px"}}
         />
       </Link>
+      <Link href="/gift" style={{ textDecoration: "none"}}>
+        <Image
+          src="/gift.png"
+          width={70}
+          height={70}
+          alt="gift-image"
+          style={{margin: "0 20px"}}
+        />
+      </Link>
       <Link href="http://3.37.181.58:3000/" style={{ textDecoration: "none" }}>
         <Image
           src="/vote.png"
