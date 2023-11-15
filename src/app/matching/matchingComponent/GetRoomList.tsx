@@ -24,11 +24,10 @@ type MatchingRoomList = {
 };
 
 export default function GetRoomList() {
-  const getRoomInfoURL: string = `https://withsports.shop:8000/matching-service/matchingrooms`;
+  // 토큰 상태 저장
+  const [token, setToken] = useState<any>();
 
-  // 로컬스토리지 토큰 가져오기
-  const localStorage: Storage = window.localStorage;
-  const token = localStorage.getItem("accessToken");
+  const getRoomInfoURL: string = `https://withsports.shop:8000/matching-service/matchingrooms`;
 
   // 매칭방 정보를 불러왔는지 여부
   const [showRoomInfo, setShowRoomInfo] = useState(true);
@@ -84,6 +83,11 @@ export default function GetRoomList() {
   }
 
   useEffect(() => {
+    // 로컬스토리지 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const tokenValue = localStorage.getItem("accessToken");
+    setToken(tokenValue);
+
     getRoomInfo();
   }, []);
 
