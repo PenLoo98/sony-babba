@@ -93,7 +93,7 @@ export default function GifticonPage() {
           method: "POST",
           headers: {
             Credentials: "include",
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: formData,
