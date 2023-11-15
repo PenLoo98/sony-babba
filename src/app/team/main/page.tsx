@@ -68,6 +68,7 @@ export default function TeamSpecific() {
 
   // 팀 이미지
   const [teamImage, setTeamImage] = useState("/team-default-image.png");
+  const [teamImageFile, setTeamImageFile] = useState<File>();
 
   // 팀 생성 제출
   async function postTeamInfo() {
@@ -88,7 +89,9 @@ export default function TeamSpecific() {
     };
 
     // 제출할 팀 이미지
-    let teamImageFile: File = new File([teamImage], "teamImage.jpg");
+    // TODO: 그림 형식 인식해서 각각 할당하기
+    // TODO: 팀 이미지 용량이 크면 다운스케일링 하기
+    // let teamImageFile: File = new File([teamImage], "teamImage.jpg");
 
     // FormTeamData에 데이터 추가
     TeamInfoFormData.append(
@@ -97,7 +100,9 @@ export default function TeamSpecific() {
         type: "application/json",
       })
     );
-    TeamInfoFormData.append("image", teamImageFile);
+    if (teamImageFile) {
+      TeamInfoFormData.append("image", teamImageFile);
+    }
 
     fetch(createTeamURL, {
       method: "POST",
@@ -150,7 +155,12 @@ export default function TeamSpecific() {
       {/* 팀 생성 모달 */}
       <ModalCustom show={showForm} setShow={setShowForm}>
         <h1>팀 생성</h1>
-        <InsertTeamImage teamImage={teamImage} setTeamImage={setTeamImage} />
+        <InsertTeamImage
+          teamImage={teamImage}
+          setTeamImage={setTeamImage}
+          teamImageFile={teamImageFile}
+          setTeamImageFile={setTeamImageFile}
+        />
         <div
           className="teamNameVaild"
           style={{ display: "flex", alignItems: "center" }}
@@ -209,28 +219,28 @@ export default function TeamSpecific() {
       {/* 소속팀  */}
       {!isLeader && (
         <Link href="/team/specific">
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<PersonIcon />}
-          style={{ backgroundColor: "orange" }}
-        >
-          소속팀
-        </Button>
+          <Button
+            component="label"
+            variant="contained"
+            startIcon={<PersonIcon />}
+            style={{ backgroundColor: "orange" }}
+          >
+            소속팀
+          </Button>
         </Link>
       )}
 
       {/* 팀 관리 */}
       {isLeader && (
         <Link href="/team/specific">
-        <Button
-          component="label"
-          variant="contained"
-          startIcon={<GroupsIcon />}
-          style={{ backgroundColor: "green" }}
-        >
-          팀 관리
-        </Button>
+          <Button
+            component="label"
+            variant="contained"
+            startIcon={<GroupsIcon />}
+            style={{ backgroundColor: "green" }}
+          >
+            팀 관리
+          </Button>
         </Link>
       )}
 
