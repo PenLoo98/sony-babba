@@ -52,9 +52,9 @@ export default function GifticonPage({ params }: { params: PageParams }) {
     const response = await fetch("https://withsports.shop:8000/point-service/point", {
       method: "GET",
       headers: {
-        "Credentials": "include",
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Credentials: "include",
+        ContentType: "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     
