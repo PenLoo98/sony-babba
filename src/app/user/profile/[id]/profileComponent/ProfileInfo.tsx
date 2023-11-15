@@ -31,7 +31,7 @@ export default function Profile({ userJSON }: ProfileProps) {
         style={{ display: "flex", justifyContent: "center" }}
       >
         <img
-          src={userData?.imageUrl}
+          src={userData.imageUrl ? userData.imageUrl : "/default-profile.png"}
           alt="profile"
         />
       </div>
