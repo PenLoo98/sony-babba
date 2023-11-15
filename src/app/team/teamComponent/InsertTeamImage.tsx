@@ -1,3 +1,4 @@
+import ImageTag from "next/image";
 import { useDropzone } from "react-dropzone";
 
 type InsertTeamImageProps = {
@@ -25,7 +26,7 @@ export default function InsertTeamImage({teamImage, setTeamImage, teamImageFile,
         }
 
         reader.onload = () => {
-            const img = new Image();
+            const img: HTMLImageElement = new Image();
             img.src = reader.result as string;
             img.onload = () => {
                 const elem = document.createElement('canvas');
@@ -61,7 +62,7 @@ export default function InsertTeamImage({teamImage, setTeamImage, teamImageFile,
 
     return(
         <div className="img_wrap" {...getRootProps()}>
-            <img src={teamImage} alt="팀 이미지" />
+            <ImageTag src={teamImage} alt="팀 이미지" width={200} height={200}/>
             <input {...getInputProps()} multiple={false} name="imageURL"/>
         </div>
     )
