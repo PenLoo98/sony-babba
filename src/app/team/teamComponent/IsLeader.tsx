@@ -11,8 +11,7 @@ type Props = {
 
 /**팀 세부보기에서 팀장인지 확인 */
 export default function IsLeader({teamId, isLeader, setIsLeader, children}: Props) {
-  // TODO: 팀장 여부 확인하기
-  // fetch를 통해 팀장 여부를 확인한다.
+  // FIXME: 팀장 확인 API UnAuthorized 해결하기
   async function getIsLeader() {
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
@@ -25,9 +24,9 @@ export default function IsLeader({teamId, isLeader, setIsLeader, children}: Prop
     const response = await fetch(getIsLeaderAPI, {
       method: "GET",
       headers: {
-        Credentials: "include",
-        ContentType: "application/json",
-        Authorization: `Bearer ${token}`,
+        "Credentials": "include",
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
