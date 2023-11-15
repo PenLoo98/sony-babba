@@ -381,6 +381,7 @@ export default function GifticonPage() {
                 />
               )}
 
+
               {/* 이미지 등록 폼*/}
 
               <label>
