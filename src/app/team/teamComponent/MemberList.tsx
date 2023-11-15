@@ -20,12 +20,14 @@ type TeamMember = {
 };
 
 type MemberListProps = {
+  teamId: number;
   memberJSON: Array<TeamMember> | undefined;
   isLeader: boolean;
   setIsLeader: (isLeader: boolean) => void;
 };
 
 export default function MemberList({
+  teamId,
   memberJSON,
   isLeader,
   setIsLeader,
@@ -76,7 +78,7 @@ export default function MemberList({
 
   return (
     <div>
-      <IsLeader isLeader={isLeader} setIsLeader={setIsLeader}>
+      <IsLeader teamId={teamId} isLeader={isLeader} setIsLeader={setIsLeader}>
         {memberJSON?.map((member: TeamMember) => (
           <div key={member.userId}>
             <p hidden>{member.teamId}</p>

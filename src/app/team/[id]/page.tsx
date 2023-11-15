@@ -486,6 +486,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
             </h2>
             {showMemberList && (
               <MemberList
+                teamId={params.id}
                 isLeader={isLeader}
                 setIsLeader={setIsLeader}
                 memberJSON={data.pageable}
