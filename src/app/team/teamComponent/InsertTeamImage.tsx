@@ -29,6 +29,7 @@ export default function InsertTeamImage({teamImage, setTeamImage, teamImageFile,
             const img: HTMLImageElement = new Image();
             img.src = reader.result as string;
             img.onload = () => {
+                setTeamImage(reader.result as string);
                 const elem = document.createElement('canvas');
                 elem.width = width;
                 elem.height = height;
