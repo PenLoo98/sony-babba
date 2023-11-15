@@ -181,6 +181,7 @@ export default function GifticonPage() {
     setForm(gift);
     setAddModalOpen(false);
     setModalOpen(true);
+    console.log('Image URL:', gift.imageUrl);
   };
 
   const handleUpdate = async () => {
