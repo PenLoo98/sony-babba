@@ -67,18 +67,6 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   // TODO: 테스트 하러 true로 바꿔놓음 -> 끝나면 false로 바꿔놓기
   const [showTeamInfo, setShowTeamInfo] = useState(true);
 
-  // // 팀 정보 더미데이터
-  // const initialData: TeamInfo = {
-  //   id: 2,
-  //   teamName: "asdf",
-  //   introduction: "asdf",
-  //   area: "충청남도",
-  //   sports: "축구",
-  //   imageUrl:
-  //     "https://with-sports-s3.s3.ap-northeast-2.amazonaws.com/static/28972b8c-4f45-408a-88e9-90f3233760d3teamImage.jpg",
-  //   teamMemberCount: 1,
-  // };
-
   // 0-2. 팀 정보 저장할 useState
   let initialData: TeamInfo = {
     id: 0,
@@ -166,13 +154,9 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   const [showDisbandModal, setShowDisbandModal] = useState(false);
   // 1-2 팀 해체 함수
   async function fetchDisbandTeam() {
-    // 테스트 코드
-    // alert("팀 해체 신청이 완료되었습니다.");
-    // setShowDisbandModal(false);
 
     // TODO:팀 아이디 가져오기
-    // teamInfo에서 가져오기
-    const teamId = 1;
+    const teamId = params.id;
 
     // 액세스 토큰 가져오기
     const localStorage: Storage = window.localStorage;
@@ -207,13 +191,9 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   const [showResignModal, setShowResignModal] = useState(false);
   // 2-2. 팀 탈퇴 함수
   async function fetchResignTeam() {
-    // 테스트 코드
-    alert("팀 탈퇴 신청이 완료되었습니다.");
-    setShowResignModal(false);
 
     // TODO:팀 아이디 가져오기
-    // 팀 아이디 가져오기
-    const teamId = 1;
+    const teamId = params.id;
 
     // TODO: 팀 이름 가져오기 (선택사항)
 

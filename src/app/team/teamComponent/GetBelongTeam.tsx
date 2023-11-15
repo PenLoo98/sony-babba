@@ -93,7 +93,14 @@ export default function GetBelongTeam() {
           </Button>
         </Link>
       ) : (
-        <CreateTeamButton />
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<GroupsIcon />}
+          style={{ backgroundColor: "green", color: "black" }}
+        >
+          소속없음
+        </Button>
       )}
 
       <p>풋살</p>
@@ -109,7 +116,14 @@ export default function GetBelongTeam() {
           </Button>
         </Link>
       ) : (
-        <CreateTeamButton />
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<GroupsIcon />}
+          style={{ backgroundColor: "green", color: "black" }}
+        >
+          소속없음
+        </Button>
       )}
 
       <p>농구</p>
@@ -125,7 +139,14 @@ export default function GetBelongTeam() {
           </Button>
         </Link>
       ) : (
-        <CreateTeamButton />
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<GroupsIcon />}
+          style={{ backgroundColor: "green", color: "black" }}
+        >
+          소속없음
+        </Button>
       )}
     </div>
   );

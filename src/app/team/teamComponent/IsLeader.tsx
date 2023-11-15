@@ -32,10 +32,10 @@ export default function IsLeader({teamId, isLeader, setIsLeader, children}: Prop
       .then((data) => {
         console.log("data:");
         console.log(data);
-        if (data.message === "팀장이 아닙니다."){
+        if (data.data.message === "팀장이 아닙니다."){
           setIsLeader(false);
         }
-        else if (data.code === "SUCCESS") {
+        else if (data.data.code === "SUCCESS") {
           setIsLeader(true);
           console.log("팀 리더 확인에 성공했습니다.");
         } else {
