@@ -12,7 +12,7 @@ export default function Dashboard() {
     <Grid container spacing={3}>
         <Grid item xs={4}>
             <Card>          
-            {/* TODO : 회원 수 원형 그래프로 표현 */}
+            {/* TODO : 회원 수 표현 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
                         회원 수 현황
@@ -34,7 +34,7 @@ export default function Dashboard() {
         </Grid>
         <Grid item xs={4}>
             <Card>
-            {/* TODO : 방문자 수 현황 일/월별로 그래프 조회 */}
+            {/* TODO : 방문자 수 현황  조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
                     Visitor (Day/Month)
@@ -56,10 +56,10 @@ export default function Dashboard() {
         </Grid>
         <Grid item xs={4}>
             <Card>
-            {/* TODO : 팀 수 현황 그래프로 조회 */}
+            {/* TODO : 팀 수 현황  조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
-                        Number of Team 
+                        팀 수 현황 
                     </Typography>
                     <Image
                     src="/team.png"
@@ -78,7 +78,7 @@ export default function Dashboard() {
         </Grid>
         <Grid item xs={6}>
             <Card>
-            {/* TODO : 매칭 수 현황 일/월별로 그래프로 조회 */}
+            {/* TODO : 매칭 수 현황 조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Number of Match (Day / Month)
@@ -100,13 +100,13 @@ export default function Dashboard() {
         </Grid>
         <Grid item xs={6}>
             <Card>
-            {/* TODO : 게시글 수 현황 일/월별로 그래프로 조회 */}
+            {/* TODO : 기프티콘 수  조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
-                        Number of Post(Day / Month) 
+                        Number of Gifticon 
                     </Typography>
                     <Image
-                    src="/team.png"
+                    src="/gift.png"
                     width={48}
                     height={48}
                     alt="Icon"
