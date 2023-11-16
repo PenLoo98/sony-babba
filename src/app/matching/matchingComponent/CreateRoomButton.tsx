@@ -39,12 +39,17 @@ export default function CreateRoomButton() {
 
   // 매칭방 생성 fetch
   async function requestCreateRoom() {
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const tokenValue = localStorage.getItem("accessToken");
+    setToken(tokenValue);
+
     // 매칭방 생성 API
     const createRoomURL =
       "https://withsports.shop:8000/matching-service/matching/room";
 
     // 요청 body
-    const bodyJSON: createRoomInfo = {
+    let bodyJSON: createRoomInfo = {
       title: title,
       sports: sports,
       area: area,
@@ -52,10 +57,11 @@ export default function CreateRoomButton() {
     };
 
     const response = await fetch(createRoomURL, {
+      method: "POST",
       headers: {
         "Credentials": "include",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        "Authorization": `Bearer ${tokenValue}`,
       },
       body: JSON.stringify(bodyJSON),
     })
@@ -65,18 +71,12 @@ export default function CreateRoomButton() {
         console.log(data);
         if (data.code === "SUCCESS") {
           console.log("매칭방 생성에 성공했습니다.");
+          setShowForm(false);
         } else {
           console.log("매칭방 생성에 실패했습니다.");
         }
       });
   }
-
-  useEffect(() => {
-    // 액세스 토큰 가져오기
-    const localStorage: Storage = window.localStorage;
-    const tokenValue = localStorage.getItem("accessToken");
-    setToken(tokenValue);
-  }, []);
 
   return (
     <div>
