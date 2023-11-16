@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import EnterRoomButton from "./EnterRoomButton";
 // TODO: 매칭방 목록 가져오기
 
 // TODO: 매칭방 fetch 데이터 형식 정의
@@ -24,11 +25,6 @@ type MatchingRoomList = {
 };
 
 export default function GetRoomList() {
-  // 토큰 상태 저장
-  const [token, setToken] = useState<any>();
-
-  const getRoomInfoURL: string = `https://withsports.shop:8000/matching-service/matchingrooms`;
-
   // 매칭방 정보를 불러왔는지 여부
   const [showRoomInfo, setShowRoomInfo] = useState(true);
 
@@ -56,14 +52,15 @@ export default function GetRoomList() {
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const tokenValue = localStorage.getItem("accessToken");
-    setToken(tokenValue);
+
+    const getRoomInfoURL: string = `https://withsports.shop:8000/matching-service/matchingrooms`;
 
     const response = await fetch(getRoomInfoURL, {
       method: "GET",
       headers: {
-        "Credentials": "include",
+        Credentials: "include",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${tokenValue}`,
+        Authorization: `Bearer ${tokenValue}`,
       },
     })
       .then((res) => res.json())
@@ -76,6 +73,7 @@ export default function GetRoomList() {
           console.log("매칭방 정보를 불러오는데 성공했습니다.");
           setRoomList(data);
           setShowRoomInfo(true);
+          location.reload();
         } else {
           console.log("매칭방 정보를 불러오는데 실패했습니다.");
         }
@@ -119,10 +117,8 @@ export default function GetRoomList() {
                   <td>{room.capacity}</td>
                   <td>{room.userCount}</td>
                   <td>{room.sumRating}</td>
-                  <td>{room.participateStatus}</td>
+                  <td>{room.participateStatus ? "참가 중" : <EnterRoomButton matchingRoomId={room.matchingRoomId}/>}</td>
                   <td>{room.status}</td>
-                  {/* TODO: 매칭 참여버튼 조건에 따라 활성화/비활성화 */}
-                  {/* {!room.participateStatus} */}
                 </tr>
               ))}
             </tbody>

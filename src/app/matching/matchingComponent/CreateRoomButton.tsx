@@ -4,6 +4,7 @@ import { Button, TextField } from "@mui/material";
 import ModalCustom from "@/components/ModalCustom";
 import SelectSports from "@/app/team/teamComponent/SelectSports";
 import SelectArea from "@/app/team/teamComponent/SelectArea";
+import ValidSports from "./ValidSports";
 
 type createRoomInfo = {
   title: string;
@@ -27,6 +28,8 @@ export default function CreateRoomButton() {
 
   // 스포츠 종목
   const [sports, setSports] = useState<string>("");
+  // 스포츠 종목 확인
+  const [validSports, setValidSports] = useState<boolean>(false);
 
   // 경기 지역
   const [area, setArea] = useState<string>("");
@@ -72,6 +75,7 @@ export default function CreateRoomButton() {
         if (data.code === "SUCCESS") {
           console.log("매칭방 생성에 성공했습니다.");
           setShowForm(false);
+          location.reload();
         } else {
           console.log("매칭방 생성에 실패했습니다.");
         }
@@ -99,6 +103,7 @@ export default function CreateRoomButton() {
           style={{ margin: "10px 0 10px 0" }}
         />
         <SelectSports sports={sports} setSports={setSports} />
+        <ValidSports sports={sports} setValidSports={setValidSports} />
         <SelectArea area={area} setArea={setArea} />
         <TextField
           id="outlined-basic"
@@ -108,9 +113,15 @@ export default function CreateRoomButton() {
           onChange={typeCapacity}
           style={{ margin: "10px 0 10px 0" }}
         />
-        <Button variant="contained" onClick={requestCreateRoom}>
-          매칭방 생성 완료
-        </Button>
+        {validSports ? (
+          <Button variant="contained" onClick={requestCreateRoom}>
+            매칭방 생성 완료
+          </Button>
+        ) : (
+          <Button variant="contained" onClick={requestCreateRoom} disabled>
+            매칭방 생성 완료
+          </Button>
+        )}
       </ModalCustom>
     </div>
   );

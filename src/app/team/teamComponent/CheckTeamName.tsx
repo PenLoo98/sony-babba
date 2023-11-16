@@ -33,6 +33,8 @@ export default function CheckTeamName({
         if (res.status === 200) {
           alert("사용 가능한 팀 이름입니다.");
           setValidName(true);
+        } else if (res.status === 401) {
+          alert("다시 로그인해주세요");
         } else {
           alert("이미 사용중인 팀 이름입니다.");
           setValidName(false);
