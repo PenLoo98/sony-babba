@@ -53,9 +53,9 @@ export default function CreateRoomButton() {
 
     const response = await fetch(createRoomURL, {
       headers: {
-        Credentials: "include",
+        "Credentials": "include",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify(bodyJSON),
     })
@@ -80,7 +80,12 @@ export default function CreateRoomButton() {
 
   return (
     <div>
-      <Button variant="contained" onClick={requestCreateRoom}>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setShowForm(!showForm);
+        }}
+      >
         매칭방 생성
       </Button>
       <ModalCustom show={showForm} setShow={setShowForm}>
@@ -103,6 +108,9 @@ export default function CreateRoomButton() {
           onChange={typeCapacity}
           style={{ margin: "10px 0 10px 0" }}
         />
+        <Button variant="contained" onClick={requestCreateRoom}>
+          매칭방 생성 완료
+        </Button>
       </ModalCustom>
     </div>
   );

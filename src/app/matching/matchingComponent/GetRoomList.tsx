@@ -57,19 +57,19 @@ export default function GetRoomList() {
     const response = await fetch(getRoomInfoURL, {
       method: "GET",
       headers: {
-        Credentials: "include",
+        "Credentials": "include",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log("data: ");
+        console.log(data);
+        console.log("data.data: ");
+        console.log(data.data);
         if (data.code === "SUCCESS") {
           console.log("매칭방 정보를 불러오는데 성공했습니다.");
-          console.log("data: ");
-          console.log(data);
-          console.log("data.data: ");
-          console.log(data.data);
           setData(data);
           setShowRoomInfo(true);
         } else {

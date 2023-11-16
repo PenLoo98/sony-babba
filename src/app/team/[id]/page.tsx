@@ -3,14 +3,10 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import IsLeader from "../teamComponent/IsLeader";
 import TypeValid from "@/components/TypeValid";
-import { Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import ModalCustom from "@/components/ModalCustom";
-import InsertTeamImage from "../teamComponent/InsertTeamImage";
-import SelectArea from "../teamComponent/SelectArea";
-import SelectSports from "../teamComponent/SelectSports";
 import MemberList from "../teamComponent/MemberList";
 import HandshakeIcon from "@mui/icons-material/Handshake";
-import EditIcon from "@mui/icons-material/Edit";
 import EditTeamProfile from "../teamComponent/EditTeamProfile";
 
 type PageParams = {
