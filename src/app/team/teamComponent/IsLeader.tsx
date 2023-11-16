@@ -11,7 +11,6 @@ type Props = {
 
 /**팀 세부보기에서 팀장인지 확인 */
 export default function IsLeader({teamId, isLeader, setIsLeader, children}: Props) {
-  // FIXME: 팀장 확인 API UnAuthorized 해결하기
   async function getIsLeader() {
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
@@ -33,10 +32,10 @@ export default function IsLeader({teamId, isLeader, setIsLeader, children}: Prop
       .then((data) => {
         console.log("data:");
         console.log(data);
-        if (data.data.message === "팀장이 아닙니다."){
+        if (data.message === "팀장이 아닙니다."){
           setIsLeader(false);
         }
-        else if (data.data.code === "SUCCESS") {
+        else if (data.code === "SUCCESS") {
           setIsLeader(true);
           console.log("팀 리더 확인에 성공했습니다.");
         } else {
