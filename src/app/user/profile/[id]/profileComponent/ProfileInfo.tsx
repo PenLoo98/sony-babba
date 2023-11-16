@@ -33,6 +33,8 @@ export default function Profile({ userJSON }: ProfileProps) {
         <img
           src={userData.imageUrl ? userData.imageUrl : "/default-profile.png"}
           alt="profile"
+          width={200}
+          height={200}
         />
       </div>
       <div className="userInfo">
@@ -51,13 +53,6 @@ export default function Profile({ userJSON }: ProfileProps) {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <h3>{userData.area}</h3>
-          {/* <Link
-            href={`/team/${userData.teamName}`}
-            style={{ textDecoration: "none" }}
-            target={`/team/${userData.teamName}`}
-          >
-            <h3>{userData.teamName}</h3>
-          </Link> */}
         </div>
         <div
           className="userIntro"
