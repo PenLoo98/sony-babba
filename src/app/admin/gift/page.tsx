@@ -204,6 +204,11 @@ export default function GifticonPage() {
 
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!selectedGift) {
+      console.error("selectedGift is null");
+      return;
+    }
+    
     if (!image || !form.categoryName ||!form.gifticonName || !form.description || !form.price || !form.amount) {
       alert("모든 항목을 입력해주세요.");
       return;
