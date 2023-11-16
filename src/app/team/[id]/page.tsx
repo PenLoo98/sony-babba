@@ -11,6 +11,7 @@ import SelectSports from "../teamComponent/SelectSports";
 import MemberList from "../teamComponent/MemberList";
 import HandshakeIcon from "@mui/icons-material/Handshake";
 import EditIcon from "@mui/icons-material/Edit";
+import EditTeamProfile from "../teamComponent/EditTeamProfile";
 
 type PageParams = {
   id: number;
@@ -178,7 +179,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
           console.log("팀 해체 신청 성공");
           setShowDisbandModal(false);
           alert("팀 해체 신청이 완료되었습니다.");
-          location.reload();
+          location.href = "/team/main";
         } else {
           console.log("팀 해체 신청 실패");
         }
@@ -226,99 +227,9 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
       });
   }
 
-  // 3. 팀 프로필 수정
-  // 3-1. 팀 프로필 수정 Modal
-  const [showEditModal, setShowEditModal] = useState(false);
-  // 3-2. 팀 프로필 수정 값 저장
-  type EditTeamInfo = {
-    teamImage: string;
-    teamName: string;
-    introduction: string;
-    area: string;
-    sports: string;
-  };
+  
 
-  const [editTeamImage, setEditTeamImage] = useState<string>(
-    "/team-default-image.png"
-  );
-  const [editTeamImageFile, setEditTeamImageFile] = useState<File>();
-
-  const [editTeamName, setEditTeamName] = useState<string>("");
-  const [editIntroduction, setEditIntroduction] = useState<string>("");
-  const [editArea, setEditArea] = useState<string>("");
-  const [editSports, setEditSports] = useState<string>("");
-  function handleEditTeamNameChange(e: any) {
-    setEditTeamName(e.target.value);
-  }
-  function handleEditIntroductionChange(e: any) {
-    setEditIntroduction(e.target.value);
-  }
-
-  // TODO: 팀 프로필 수정 구현하기
-  // 3-3. 팀 프로필 수정 Fetch 함수
-  async function fetchEditTeam() {
-    // // 테스트 코드
-    // alert("팀 프로필 수정 신청이 완료되었습니다.");
-    // setShowEditModal(false);
-
-    const teamId = params.id;
-    console.log("editTeamImage: " + editTeamImage);
-    console.log("editTeamName: " + editTeamName);
-    console.log("editIntroduction: " + editIntroduction);
-    console.log("editArea: " + editArea);
-    console.log("Sports: " + data.sports);
-
-    const editTeamURL = `https://withsports.shop:8000/team-service/team/${teamId}`;
-    // 액세스 토큰 가져오기
-    const localStorage: Storage = window.localStorage;
-    const token = localStorage.getItem("accessToken");
-
-    // FormTeamData 생성
-    const EditTeamFormData = new FormData();
-    let UpdateTeamProfileRequest = {
-      teamName: editTeamName,
-      sports: data.sports,
-      area: editArea,
-      introduction: editIntroduction,
-    };
-    // 제출할 팀 이미지
-    EditTeamFormData.append(
-      "UpdateTeamProfileRequest",
-      new Blob([JSON.stringify(UpdateTeamProfileRequest)], {
-        type: "application/json",
-      })
-    );
-    if (editTeamImageFile) {
-      EditTeamFormData.append("image", editTeamImageFile);
-    }
-    fetch(editTeamURL, {
-      method: "PUT",
-      headers: {
-        Credentials: "include",
-        ContentType: "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-      body: EditTeamFormData,
-    })
-      .then((res) => {
-        if (res.ok) {
-          alert("팀 프로필 수정에 성공했습니다.");
-          console.log(res);
-          setShowEditModal(false);
-          window.location.reload();
-        } else {
-          alert("팀 프로필 수정에 실패했습니다.");
-          console.log(res);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        throw new Error("서버 요청 실패!");
-      });
-
-
-
-  }
+  
 
   // 4. 팀원 목록 조회
   // 4-1. 팀원 목록 조회 접기/펼치기
@@ -396,45 +307,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
             {isLeader && (
               <div>
                 {/* 팀 프로필 수정 */}
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    setShowEditModal(!showEditModal);
-                  }}
-                  startIcon={<EditIcon />}
-                >
-                  팀 프로필 수정
-                </Button>
-                <ModalCustom show={showEditModal} setShow={setShowEditModal}>
-                  <div>
-                    <h1>팀 프로필 수정</h1>
-                    <InsertTeamImage
-                      teamImage={editTeamImage}
-                      setTeamImage={setEditTeamImage}
-                      teamImageFile={editTeamImageFile}
-                      setTeamImageFile={setEditTeamImageFile}
-                    />
-                    <TextField
-                      id="outlined-basic"
-                      label="팀 이름"
-                      variant="outlined"
-                      value={editTeamName}
-                      onChange={handleEditTeamNameChange}
-                    />
-                    <TextField
-                      id="outlined-basic"
-                      label="팀 소개"
-                      variant="outlined"
-                      multiline
-                      rows={3}
-                      value={editIntroduction}
-                      onChange={handleEditIntroductionChange}
-                    />
-                    <SelectArea area={editArea} setArea={setEditArea} />
-                    <p>종목: {data.sports} </p>
-                    <Button onClick={fetchEditTeam}>수정 제출</Button>
-                  </div>
-                </ModalCustom>
+                <EditTeamProfile teamId={params.id} sports={data.sports}/>
 
                 {/* 가입 신청 조회 */}
                 <Button
