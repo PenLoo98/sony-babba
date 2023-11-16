@@ -188,8 +188,76 @@ export default function GifticonPage() {
 
   // TODO :  수정 ... (PUT) /gifticon-service/gifticon/{gifticonId}
   // => 기프티콘 등록과 동일한 방식으로 모달창으로 정보 수정
-  const handleUpdate = async () => {
-    setIsEditing(true);
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!image || !form.categoryName || !form.gifticonName || !form.description || !form.price || !form.amount) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
+  
+    // 로컬스토리지 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+  
+    // 토큰이 없으면 홈페이지로 리디렉션
+    if (!token) {
+      alert("권한이 없습니다.");
+      router.push("/admin");
+      return;
+    }
+  
+    try {
+      // 이미지 추가
+      const formData = new FormData();
+      let updateGifticonRequest = {
+        categoryName: form.categoryName,
+        gifticonName: form.gifticonName,
+        description: form.description,
+        price: form.price,
+        amount: form.amount,
+      };
+  
+      formData.append(
+        "updateGifticonRequest",
+        new Blob([JSON.stringify(updateGifticonRequest)], {
+          type: "application/json",
+        })
+      );
+  
+      if (image) {
+        formData.append("image", image);
+      }
+  
+      const response = await fetch(
+        `https://withsports.shop:8000/gifticon-service/gifticon/${selectedGift.gifticonId}`,
+        {
+          method: "PUT",
+          headers: {
+            Credentials: "include",
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
+  
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+  
+      const data = await response.json();
+  
+      if (data.code === "SUCCESS") {
+        alert("성공적으로 수정되었습니다.");
+        window.location.reload();
+      } else {
+        alert("수정에 실패하였습니다.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  
+    setModalOpen(false);
+    setIsEditing(false);
   };
 
   // TODO :  삭제 ... (DELETE) /gifticon-service/gifticon/${gifticonId} => 삭제하시겠습니까? 알림 이후 진행
