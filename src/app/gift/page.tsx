@@ -101,21 +101,23 @@ export default function GifticonPage({ params }: { params: PageParams }) {
   // 선물하기 버튼
   const handleGiftOrder = (e : React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    router.push('/gift/order')
+
+    if (selectedGift) {
+      if (userInfo && userInfo.balance < selectedGift.price) {
+        alert('포인트가 부족합니다!');
+      } else {
+        router.push('/gift/order')
+      }
+    } else {
+      console.error('No gift selected');
+    }
+    
   };
 
   // 내 기프티콘 버튼
   const handleGiftList = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (selectedGift) {
-      if (userInfo && userInfo.balance < selectedGift.price) {
-        alert('포인트가 부족합니다!');
-      } else {
-        router.push('/gift/list');
-      }
-    } else {
-      console.error('No gift selected');
-    }
+    router.push('/gift/list');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
