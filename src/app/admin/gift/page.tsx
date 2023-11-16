@@ -26,7 +26,6 @@ type GiftInfo = {
 
 export default function GifticonPage() {
   // 기프티콘 등록
-  const [gifts, setGifts] = useState<GiftInfo[]>([]);
   const [foodGifts, setFoodGifts] = useState<GiftInfo[]>([]);
   const [sportGifts, setSportGifts] = useState<GiftInfo[]>([]);
 
@@ -191,6 +190,7 @@ export default function GifticonPage() {
     setAddModalOpen(false);
     setModalOpen(true);
     console.log('Image URL:', gift.image);
+    console.log(gift.gifticonId);
   };
 
   const handleUpdate = async () => {
@@ -328,7 +328,7 @@ export default function GifticonPage() {
             ) : (
               foodGifts.map((gift, index) => (
                 <tr key={index} onClick={() => openDetailModal(gift)}>
-                  <td>{gift.categoryName}</td>
+                  <td>식품</td>
                   <td>{gift.gifticonName}</td>
                   <td>{gift.description}</td>
                   <td>{gift.price}</td>
@@ -359,7 +359,7 @@ export default function GifticonPage() {
             ) : (
               sportGifts.map((gift, index) => (
                 <tr key={index} onClick={() => openDetailModal(gift)}>
-                  <td>{gift.categoryName}</td>
+                  <td>운동기구</td>
                   <td>{gift.gifticonName}</td>
                   <td>{gift.description}</td>
                   <td>{gift.price}</td>
@@ -369,7 +369,6 @@ export default function GifticonPage() {
             )}
           </tbody>
         </table>
-
 
 
         {/* 상품 상세 화면 모달창 */}
@@ -415,7 +414,6 @@ export default function GifticonPage() {
 
 
               {/* 이미지 등록 폼*/}
-
               <label>
                 Image
                 <input
