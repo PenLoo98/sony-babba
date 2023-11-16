@@ -73,6 +73,7 @@ export default function ShowTeam({ params }: { params: PageParams }) {
           return data;
         } else if (data.code === "ERROR") {
           console.log("없는 팀 정보입니다.");
+          alert("없는 팀 정보입니다.");
         } else {
           console.log("팀 정보를 불러오는데 실패했습니다.");
         }

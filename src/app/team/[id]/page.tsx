@@ -127,6 +127,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
           return data;
         } else if (data.code === "ERROR") {
           console.log("없는 팀 정보입니다.");
+          alert("없는 팀 정보입니다.");
         } else {
           console.log("팀 정보를 불러오는데 실패했습니다.");
         }
@@ -154,7 +155,6 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   const [showDisbandModal, setShowDisbandModal] = useState(false);
   // 1-2 팀 해체 함수
   async function fetchDisbandTeam() {
-
     // TODO:팀 아이디 가져오기
     const teamId = params.id;
 
@@ -168,15 +168,17 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
     const response = await fetch(teamDisbandAPI, {
       method: "DELETE",
       headers: {
-        "Credentials": "include",
+        Credentials: "include",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => {
         if (res.ok) {
           console.log("팀 해체 신청 성공");
           setShowDisbandModal(false);
+          alert("팀 해체 신청이 완료되었습니다.");
+          location.reload();
         } else {
           console.log("팀 해체 신청 실패");
         }
@@ -191,7 +193,6 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   const [showResignModal, setShowResignModal] = useState(false);
   // 2-2. 팀 탈퇴 함수
   async function fetchResignTeam() {
-
     // TODO:팀 아이디 가져오기
     const teamId = params.id;
 
@@ -242,7 +243,6 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   );
   const [editTeamImageFile, setEditTeamImageFile] = useState<File>();
 
-
   const [editTeamName, setEditTeamName] = useState<string>("");
   const [editIntroduction, setEditIntroduction] = useState<string>("");
   const [editArea, setEditArea] = useState<string>("");
@@ -257,15 +257,67 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   // TODO: 팀 프로필 수정 구현하기
   // 3-3. 팀 프로필 수정 Fetch 함수
   async function fetchEditTeam() {
-    // 테스트 코드
-    alert("팀 프로필 수정 신청이 완료되었습니다.");
+    // // 테스트 코드
+    // alert("팀 프로필 수정 신청이 완료되었습니다.");
+    // setShowEditModal(false);
+
+    const teamId = params.id;
     console.log("editTeamImage: " + editTeamImage);
     console.log("editTeamName: " + editTeamName);
     console.log("editIntroduction: " + editIntroduction);
     console.log("editArea: " + editArea);
-    console.log("editSports: " + editSports);
+    console.log("Sports: " + data.sports);
 
-    setShowEditModal(false);
+    const editTeamURL = `https://withsports.shop:8000/team-service/team/${teamId}`;
+    // 액세스 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
+    // FormTeamData 생성
+    const EditTeamFormData = new FormData();
+    let UpdateTeamProfileRequest = {
+      teamName: editTeamName,
+      sports: data.sports,
+      area: editArea,
+      introduction: editIntroduction,
+    };
+    // 제출할 팀 이미지
+    EditTeamFormData.append(
+      "UpdateTeamProfileRequest",
+      new Blob([JSON.stringify(UpdateTeamProfileRequest)], {
+        type: "application/json",
+      })
+    );
+    if (editTeamImageFile) {
+      EditTeamFormData.append("image", editTeamImageFile);
+    }
+    fetch(editTeamURL, {
+      method: "PUT",
+      headers: {
+        Credentials: "include",
+        ContentType: "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      body: EditTeamFormData,
+    })
+      .then((res) => {
+        if (res.ok) {
+          alert("팀 프로필 수정에 성공했습니다.");
+          console.log(res);
+          setShowEditModal(false);
+          window.location.reload();
+        } else {
+          alert("팀 프로필 수정에 실패했습니다.");
+          console.log(res);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        throw new Error("서버 요청 실패!");
+      });
+
+
+
   }
 
   // 4. 팀원 목록 조회
@@ -319,7 +371,11 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
 
   return (
     <div>
-      <IsLeader teamId={params.id} isLeader={isLeader} setIsLeader={setIsLeader}>
+      <IsLeader
+        teamId={params.id}
+        isLeader={isLeader}
+        setIsLeader={setIsLeader}
+      >
         {!showTeamInfo && <div>팀 정보를 불러오는 중입니다...</div>}
         {showTeamInfo && (
           <div>
@@ -375,10 +431,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                       onChange={handleEditIntroductionChange}
                     />
                     <SelectArea area={editArea} setArea={setEditArea} />
-                    <SelectSports
-                      sports={editSports}
-                      setSports={setEditSports}
-                    />
+                    <p>종목: {data.sports} </p>
                     <Button onClick={fetchEditTeam}>수정 제출</Button>
                   </div>
                 </ModalCustom>
@@ -423,7 +476,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                   <h1>팀 해체</h1>
                   <TypeValid
                     buttonText="팀 해체"
-                    validText="손이바빠/해체한다"
+                    validText={`${data.teamName}/해체한다`}
                     onClick={fetchDisbandTeam}
                   />
                 </ModalCustom>
@@ -448,7 +501,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                   <h1>팀 탈퇴</h1>
                   <TypeValid
                     buttonText="팀 탈퇴"
-                    validText="손이바빠/탈퇴한다"
+                    validText={`${data.teamName}/해체한다`}
                     onClick={fetchResignTeam}
                   />
                 </ModalCustom>
@@ -462,7 +515,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                 setShowMemberList(!showMemberList);
               }}
             >
-             {"->"} 팀원 목록
+              {"->"} 팀원 목록
             </h2>
             {showMemberList && (
               <MemberList
