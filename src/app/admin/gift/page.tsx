@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "../../Home.module.css";
 import Image from "next/image";
 
+
 type GiftInfo = {
   gifticonId ?: number;
   image: string | null; // 기프티콘 이미지 추가
@@ -26,6 +27,9 @@ type GiftInfo = {
 export default function GifticonPage() {
   // 기프티콘 등록
   const [gifts, setGifts] = useState<GiftInfo[]>([]);
+  const [foodGifts, setFoodGifts] = useState<GiftInfo[]>([]);
+  const [sportGifts, setSportGifts] = useState<GiftInfo[]>([]);
+
   // 기프티콘 상세
   const [selectedGift, setSelectedGift] = useState<GiftInfo | null>(null);
   // 기프티콘 수정
@@ -37,7 +41,7 @@ export default function GifticonPage() {
 
   const [form, setForm] = useState<GiftInfo>({
     image: "",
-    categoryName: "",
+    categoryName: "food",
     gifticonName: "",
     description: "",
     price: 0,
@@ -47,7 +51,7 @@ export default function GifticonPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement| HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -140,14 +144,13 @@ export default function GifticonPage() {
     setIsEditing(false);
   };
 
-  const fetchGifts = async () => {
+  const fetchGifts = async (categoryName: string, setGifts: React.Dispatch<React.SetStateAction<GiftInfo[]>>) => {
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
     try {
-      // food의 목록 보여줌(임시)
       const response = await fetch(
-        "https://withsports.shop:8000/gifticon-service/gifticon/category/food",
+        `https://withsports.shop:8000/gifticon-service/gifticon/category/${categoryName}`,
         {
           method: "GET",
           headers: {
@@ -173,7 +176,8 @@ export default function GifticonPage() {
   };
 
   useEffect(() => {
-    fetchGifts();
+    fetchGifts('food', setFoodGifts);
+    fetchGifts('sportequipment', setSportGifts);
   }, []);
 
   // 상세 정보
@@ -198,16 +202,6 @@ export default function GifticonPage() {
 
   return (
     <div style={{ display: "flex", height: "100vh" }}>
-      <div
-        style={{
-          flex: "1",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <img src="/gift.png" alt="gift-image" />
-      </div>
       <div
         style={{
           flex: "1",
@@ -265,11 +259,10 @@ export default function GifticonPage() {
 
               <label>
                 Category
-                <input
-                  type="text"
-                  name="categoryName"
-                  onChange={handleChange}
-                />
+                <select name="categoryName" value={form.categoryName} onChange={handleChange}>
+                  <option value="food">Food</option>
+                  <option value="sportequipment">Sport Equipment</option>
+                </select>
               </label>
               <label>
                 Gifticon
@@ -311,8 +304,9 @@ export default function GifticonPage() {
           </div>
         )}
 
-        {/* 상품 목록 창 */}
-        <table style={{ marginTop: "40px" }}>
+        <h3>식품</h3>
+        {/* food 상품 목록 창 */}
+        <table style={{ marginTop: "10px" }}>
           <thead>
             <tr style={{ backgroundColor: "black" }}>
               <th style={{ color: "white", padding: "10px" }}>카테고리</th>
@@ -323,12 +317,12 @@ export default function GifticonPage() {
             </tr>
           </thead>
           <tbody>
-            {gifts.length === 0 ? (
+            {foodGifts.length === 0 ? (
               <tr>
                 <td colSpan={5}>상품을 등록해주세요!</td>
               </tr>
             ) : (
-              gifts.map((gift, index) => (
+              foodGifts.map((gift, index) => (
                 <tr key={index} onClick={() => openDetailModal(gift)}>
                   <td>{gift.categoryName}</td>
                   <td>{gift.gifticonName}</td>
@@ -340,6 +334,39 @@ export default function GifticonPage() {
             )}
           </tbody>
         </table>
+
+        <h3>스포츠 용품</h3>
+        {/* sportequipment 상품 목록 창 */}
+        <table style={{ marginTop: "10px" }}>
+          <thead>
+            <tr style={{ backgroundColor: "black" }}>
+              <th style={{ color: "white", padding: "10px" }}>카테고리</th>
+              <th style={{ color: "white", padding: "10px" }}>상품명</th>
+              <th style={{ color: "white", padding: "10px" }}>설명</th>
+              <th style={{ color: "white", padding: "10px" }}>가격</th>
+              <th style={{ color: "white", padding: "10px" }}>수량</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sportGifts.length === 0 ? (
+              <tr>
+                <td colSpan={5}>상품을 등록해주세요!</td>
+              </tr>
+            ) : (
+              sportGifts.map((gift, index) => (
+                <tr key={index} onClick={() => openDetailModal(gift)}>
+                  <td>{gift.categoryName}</td>
+                  <td>{gift.gifticonName}</td>
+                  <td>{gift.description}</td>
+                  <td>{gift.price}</td>
+                  <td>{gift.amount}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+
+
 
         {/* 상품 상세 화면 모달창 */}
         {modalOpen && selectedGift && (
@@ -394,16 +421,6 @@ export default function GifticonPage() {
                 />
               </label>
 
-              <input
-                type="text"
-                name="categoryName"
-                value={form.categoryName}
-                onChange={handleChange}
-                placeholder="카테고리"
-                required
-                className={styles["input-box"]}
-                readOnly={!isEditing}
-              />
               <input
                 type="text"
                 name="gifticonName"
