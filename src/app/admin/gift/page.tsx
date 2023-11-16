@@ -5,9 +5,8 @@ import { useRouter } from "next/navigation";
 import styles from "../../Home.module.css";
 import Image from "next/image";
 
-
 type GiftInfo = {
-  gifticonId ?: number;
+  gifticonId?: number;
   image: string | null; // 기프티콘 이미지 추가
   categoryName: string; // 카테고리 이름
   gifticonName: string; // 상품명
@@ -42,7 +41,9 @@ export default function GifticonPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement| HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -55,7 +56,14 @@ export default function GifticonPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!image || !form.categoryName || !form.gifticonName || !form.description || !form.price || !form.amount) {
+    if (
+      !image ||
+      !form.categoryName ||
+      !form.gifticonName ||
+      !form.description ||
+      !form.price ||
+      !form.amount
+    ) {
       alert("모든 항목을 입력해주세요.");
       return;
     }
@@ -139,7 +147,10 @@ export default function GifticonPage() {
     setIsEditing(false);
   };
 
-  const fetchGifts = async (categoryName: string, setGifts: React.Dispatch<React.SetStateAction<GiftInfo[]>>) => {
+  const fetchGifts = async (
+    categoryName: string,
+    setGifts: React.Dispatch<React.SetStateAction<GiftInfo[]>>
+  ) => {
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
@@ -171,8 +182,8 @@ export default function GifticonPage() {
   };
 
   useEffect(() => {
-    fetchGifts('food', setFoodGifts);
-    fetchGifts('sportequipment', setSportGifts);
+    fetchGifts("food", setFoodGifts);
+    fetchGifts("sportequipment", setSportGifts);
   }, []);
 
   // 상세 정보
@@ -181,31 +192,41 @@ export default function GifticonPage() {
     setForm(gift);
     setAddModalOpen(false);
     setModalOpen(true);
-    console.log('Image URL:', gift.image);
+    console.log("Image URL:", gift.image);
     console.log(gift.gifticonId);
   };
 
-
   // TODO :  수정 ... (PUT) /gifticon-service/gifticon/{gifticonId}
   // => 기프티콘 등록과 동일한 방식으로 모달창으로 정보 수정
-  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleUpdate = async () => {
+    setIsEditing(true);
+  };
+
+  const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!image || !form.categoryName || !form.gifticonName || !form.description || !form.price || !form.amount) {
+    if (
+      !image ||
+      !form.categoryName ||
+      !form.gifticonName ||
+      !form.description ||
+      !form.price ||
+      !form.amount
+    ) {
       alert("모든 항목을 입력해주세요.");
       return;
     }
-  
+
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
-  
+
     // 토큰이 없으면 홈페이지로 리디렉션
     if (!token) {
       alert("권한이 없습니다.");
       router.push("/admin");
       return;
     }
-  
+
     try {
       // 이미지 추가
       const formData = new FormData();
@@ -216,18 +237,18 @@ export default function GifticonPage() {
         price: form.price,
         amount: form.amount,
       };
-  
+
       formData.append(
         "updateGifticonRequest",
         new Blob([JSON.stringify(updateGifticonRequest)], {
           type: "application/json",
         })
       );
-  
+
       if (image) {
         formData.append("image", image);
       }
-  
+
       const response = await fetch(
         `https://withsports.shop:8000/gifticon-service/gifticon/${selectedGift.gifticonId}`,
         {
@@ -239,13 +260,13 @@ export default function GifticonPage() {
           body: formData,
         }
       );
-  
+
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-  
+
       const data = await response.json();
-  
+
       if (data.code === "SUCCESS") {
         alert("성공적으로 수정되었습니다.");
         window.location.reload();
@@ -255,7 +276,7 @@ export default function GifticonPage() {
     } catch (error) {
       console.error("Error:", error);
     }
-  
+
     setModalOpen(false);
     setIsEditing(false);
   };
@@ -265,7 +286,7 @@ export default function GifticonPage() {
     if (selectedGift && window.confirm("해당 상품을 삭제하시겠습니까?")) {
       const localStorage: Storage = window.localStorage;
       const token = localStorage.getItem("accessToken");
-  
+
       try {
         const response = await fetch(
           `https://withsports.shop:8000/gifticon-service/gifticon/${selectedGift.gifticonId}`,
@@ -278,13 +299,13 @@ export default function GifticonPage() {
             },
           }
         );
-  
+
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-  
+
         const data = await response.json();
-  
+
         if (data.code === "SUCCESS") {
           alert("성공적으로 삭제되었습니다.");
           window.location.reload();
@@ -347,16 +368,16 @@ export default function GifticonPage() {
               {/* 이미지 등록 폼 */}
               <label>
                 Image
-                <input
-                  type="file"
-                  name="image"
-                  onChange={handleImageChange}
-                />
+                <input type="file" name="image" onChange={handleImageChange} />
               </label>
 
               <label>
                 Category
-                <select name="categoryName" value={form.categoryName} onChange={handleChange}>
+                <select
+                  name="categoryName"
+                  value={form.categoryName}
+                  onChange={handleChange}
+                >
                   <option value="food">Food</option>
                   <option value="sportequipment">Sport Equipment</option>
                 </select>
@@ -463,7 +484,6 @@ export default function GifticonPage() {
           </tbody>
         </table>
 
-
         {/* 상품 상세 화면 모달창 */}
         {modalOpen && selectedGift && (
           <div
@@ -505,15 +525,10 @@ export default function GifticonPage() {
                 />
               )}
 
-
               {/* 이미지 등록 폼*/}
               <label>
                 Image
-                <input
-                  type="file"
-                  name="image"
-                  onChange={handleImageChange}
-                />
+                <input type="file" name="image" onChange={handleImageChange} />
               </label>
 
               <input
@@ -557,32 +572,55 @@ export default function GifticonPage() {
                 readOnly={!isEditing}
               />
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <button
-                  type="button"
-                  onClick={handleUpdate}
-                  className={styles.addButton}
-                  style={{ marginRight: "10px" }}
-                >
-                  정보 수정
-                </button>
-                <button
-                  type="button"
-                  onClick={handleDelete}
-                  className={styles.deletebutton}
-                  style={{ marginRight: "10px" }}
-                >
-                  삭제
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setModalOpen(false);
-                    setIsEditing(false);
-                  }}
-                  className={styles.backbutton}
-                >
-                  취소
-                </button>
+                {isEditing ? (
+                  <>
+                    <button
+                      type="submit"
+                      className={styles.addButton}
+                      style={{ marginRight: "10px" }}
+                    >
+                      수정 완료
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsEditing(false);
+                      }}
+                      className={styles.backbutton}
+                    >
+                      취소
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      onClick={handleUpdate}
+                      className={styles.addButton}
+                      style={{ marginRight: "10px" }}
+                    >
+                      정보 수정
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleDelete}
+                      className={styles.deletebutton}
+                      style={{ marginRight: "10px" }}
+                    >
+                      삭제
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setModalOpen(false);
+                        setIsEditing(false);
+                      }}
+                      className={styles.backbutton}
+                    >
+                      취소
+                    </button>
+                  </>
+                )}
               </div>
             </form>
           </div>
