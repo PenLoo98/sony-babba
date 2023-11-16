@@ -50,10 +50,14 @@ export default function GetRoomList() {
     ],
   };
   // 매칭방 정보
-  const [data, setData] = useState<MatchingRoomList>(initialRoomList);
+  const [roomList, setRoomList] = useState<MatchingRoomList>(initialRoomList);
 
-  // TODO: GET - id에 맞는 사용자 정보 가져오기
   async function getRoomInfo() {
+    // 로컬스토리지 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const tokenValue = localStorage.getItem("accessToken");
+    setToken(tokenValue);
+
     const response = await fetch(getRoomInfoURL, {
       method: "GET",
       headers: {
@@ -70,7 +74,7 @@ export default function GetRoomList() {
         console.log(data.data);
         if (data.code === "SUCCESS") {
           console.log("매칭방 정보를 불러오는데 성공했습니다.");
-          setData(data);
+          setRoomList(data);
           setShowRoomInfo(true);
         } else {
           console.log("매칭방 정보를 불러오는데 실패했습니다.");
@@ -83,11 +87,6 @@ export default function GetRoomList() {
   }
 
   useEffect(() => {
-    // 로컬스토리지 토큰 가져오기
-    const localStorage: Storage = window.localStorage;
-    const tokenValue = localStorage.getItem("accessToken");
-    setToken(tokenValue);
-
     getRoomInfo();
   }, []);
 
@@ -111,7 +110,7 @@ export default function GetRoomList() {
               </tr>
             </thead>
             <tbody>
-              {data.data.map((room: MatchingRoomSpecific) => (
+              {roomList.data.map((room: MatchingRoomSpecific) => (
                 <tr key={room.matchingRoomId}>
                   <td>{room.teamName}</td>
                   <td>{room.roomLeaderNickname}</td>
