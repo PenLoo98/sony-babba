@@ -107,7 +107,15 @@ export default function GifticonPage({ params }: { params: PageParams }) {
   // 내 기프티콘 버튼
   const handleGiftList = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    router.push('/gift/list')
+    if (selectedGift) {
+      if (userInfo && userInfo.balance < selectedGift.price) {
+        alert('포인트가 부족합니다!');
+      } else {
+        router.push('/gift/list');
+      }
+    } else {
+      console.error('No gift selected');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
