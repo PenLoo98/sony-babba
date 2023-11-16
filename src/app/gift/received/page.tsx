@@ -6,7 +6,6 @@ import styles from "../Home.module.css";
 import Image from "next/image";
 
 // 받은 기프티콘 조회 페이지
-// 보낸 사람 (GET) /gifticon-service/order/gifticon/list/sent?page={n}&size={n}
 // 받은 사람 (GET) /gifticon-service/order/gifticon/list/received?page={n}&size={n}
 
 
@@ -28,7 +27,7 @@ type UserInfo = {
 
 
 
-export default function GiftListPage(){
+export default function ReceivedGiftPage(){
 
-    return <>Now Loading...</>;
+    return <>기프티콘 받은 목록</>;
 }

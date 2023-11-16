@@ -32,7 +32,7 @@ type UserInfo = {
 
 
 type GiftInfo = {
-  gifticonId ?: number;
+  gifticonId ?: number; // 기프티콘 id
   image: string | null; // 기프티콘 이미지 추가
   categoryName: string; // 카테고리 이름
   gifticonName: string; // 상품명
@@ -117,11 +117,17 @@ export default function GifticonPage({ params }: { params: PageParams }) {
     
   };
 
-  // 내 기프티콘 버튼
-  const handleGiftList = (e:React.MouseEvent<HTMLButtonElement>) => {
+  // 받은 기프티콘 조회 버튼
+  const handleGiftReceived = (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    router.push('/gift/list');
+    router.push('/gift/received');
   };
+
+  // 보낸 기프티콘 조회 버튼
+  const handleGiftSent = (e:React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push('gift/sent')
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -271,14 +277,21 @@ export default function GifticonPage({ params }: { params: PageParams }) {
         ) : (
           <p>Loading...</p>
         )}
-        <button 
-          type="button"
-          onClick={handleGiftList}
-          className={styles.addButton}
-          style={{ marginRight: "10px" }}>
-          내 기프티콘
-        </button>
-  
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
+          <button 
+            type="button"
+            onClick={handleGiftReceived}
+            className={styles.addButton}
+            style={{ marginRight: "10px" }}>
+            받은 기프티콘
+          </button>
+          <button 
+            type="button"
+            onClick={handleGiftSent}
+            className={styles.modifybutton}>
+            보낸 기프티콘
+          </button>
+        </div>
         <h3>식품</h3>
         {/* food 상품 목록 창 */}
         <table style={{ marginTop: "10px" }}>

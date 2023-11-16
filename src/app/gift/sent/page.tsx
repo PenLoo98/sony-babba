@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import styles from "../Home.module.css";
 import Image from "next/image";
 
-// 기프티콘 구매 주문 요청
-// (POST) /gifticon-service/order/gifticon 
+
+// 보낸 사람 (GET) /gifticon-service/order/gifticon/list/sent?page={n}&size={n}
 
 
 // 주문 정보
@@ -25,9 +25,7 @@ type UserInfo = {
 };
 
 
+export default function SentGiftPage(){
 
-
-export default function GiftOrderPage(){
-
-    return <>기프티콘 주문 화면</>;
+    return <>보낸 기프티콘 목록 확인</>;
 }
