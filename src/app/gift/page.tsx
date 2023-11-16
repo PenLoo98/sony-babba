@@ -98,6 +98,18 @@ export default function GifticonPage({ params }: { params: PageParams }) {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  // 선물하기 버튼
+  const handleGiftOrder = (e : React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push('/gift/order')
+  };
+
+  // 내 기프티콘 버튼
+  const handleGiftList = (e:React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    router.push('/gift/list')
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -227,7 +239,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
 
   return (
     <div>
-      <h2> 포인트 잔액 화면 </h2>
+      <h4> {userInfo?.nickname} 님의 포인트 </h4>
       <div
         style={{
           flex: "1",
@@ -240,12 +252,18 @@ export default function GifticonPage({ params }: { params: PageParams }) {
       >
         {userInfo ? (
           <div>
-            <p>Nickname: {userInfo.nickname}</p>
             <p>Balance: {userInfo.balance}</p>
           </div>
         ) : (
           <p>Loading...</p>
         )}
+        <button 
+          type="button"
+          onClick={handleGiftList}
+          className={styles.addButton}
+          style={{ marginRight: "10px" }}>
+          내 기프티콘
+        </button>
   
         {/* 상품 목록 창 */}
         <table style={{ marginTop: "40px" }}>
@@ -292,7 +310,6 @@ export default function GifticonPage({ params }: { params: PageParams }) {
               backgroundColor: "rgba(0, 0, 0, 0.5)",
             }}
           >
-            {/*  수정폼 */}
 
             <form
               onSubmit={handleSubmit}
@@ -371,7 +388,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <button
                   type="button"
-                  // onClick={handleUpdate}
+                  onClick={handleGiftOrder}
                   className={styles.addButton}
                   style={{ marginRight: "10px" }}
                 >
