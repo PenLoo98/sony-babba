@@ -56,14 +56,7 @@ export default function GifticonPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      !image ||
-      !form.categoryName ||
-      !form.gifticonName ||
-      !form.description ||
-      !form.price ||
-      !form.amount
-    ) {
+    if (!image || !form.categoryName || !form.gifticonName || !form.description || !form.price || !form.amount) {
       alert("모든 항목을 입력해주세요.");
       return;
     }
@@ -208,7 +201,7 @@ export default function GifticonPage() {
       console.error("selectedGift is null");
       return;
     }
-    
+
     if (!image || !form.categoryName ||!form.gifticonName || !form.description || !form.price || !form.amount) {
       alert("모든 항목을 입력해주세요.");
       return;
@@ -523,11 +516,26 @@ export default function GifticonPage() {
                 />
               )}
 
-              {/* 이미지 등록 폼*/}
-              <label>
-                Image
-                <input type="file" name="image" onChange={handleImageChange} />
-              </label>
+              {isEditing ? (
+                <>
+                {/* 이미지 등록 폼*/}
+                  <label>
+                      Image
+                      <input type="file" name="image" onChange={handleImageChange} />
+                  </label>
+                  <label>
+                      Category
+                      <select
+                        name="categoryName"
+                        value={form.categoryName}
+                        onChange={handleChange}
+                      >
+                        <option value="food">Food</option>
+                        <option value="sportequipment">Sport Equipment</option>
+                      </select>
+                  </label>
+                </>
+              ) : null}
 
               <input
                 type="text"
