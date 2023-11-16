@@ -64,6 +64,10 @@ export default function GifticonPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!image || !form.categoryName || !form.gifticonName || !form.description || !form.price || !form.amount) {
+      alert("모든 항목을 입력해주세요.");
+      return;
+    }
 
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
@@ -309,11 +313,11 @@ export default function GifticonPage() {
         <table style={{ marginTop: "10px" }}>
           <thead>
             <tr style={{ backgroundColor: "black" }}>
-              <th style={{ color: "white", padding: "10px" }}>카테고리</th>
-              <th style={{ color: "white", padding: "10px" }}>상품명</th>
-              <th style={{ color: "white", padding: "10px" }}>설명</th>
-              <th style={{ color: "white", padding: "10px" }}>가격</th>
-              <th style={{ color: "white", padding: "10px" }}>수량</th>
+              <th style={{ color: "white", padding: "20px" }}>카테고리</th>
+              <th style={{ color: "white", padding: "20px" }}>상품명</th>
+              <th style={{ color: "white", padding: "20px" }}>설명</th>
+              <th style={{ color: "white", padding: "20px" }}>가격</th>
+              <th style={{ color: "white", padding: "20px" }}>수량</th>
             </tr>
           </thead>
           <tbody>
@@ -340,11 +344,11 @@ export default function GifticonPage() {
         <table style={{ marginTop: "10px" }}>
           <thead>
             <tr style={{ backgroundColor: "black" }}>
-              <th style={{ color: "white", padding: "10px" }}>카테고리</th>
-              <th style={{ color: "white", padding: "10px" }}>상품명</th>
-              <th style={{ color: "white", padding: "10px" }}>설명</th>
-              <th style={{ color: "white", padding: "10px" }}>가격</th>
-              <th style={{ color: "white", padding: "10px" }}>수량</th>
+              <th style={{ color: "white", padding: "20px" }}>카테고리</th>
+              <th style={{ color: "white", padding: "20px" }}>상품명</th>
+              <th style={{ color: "white", padding: "20px" }}>설명</th>
+              <th style={{ color: "white", padding: "20px" }}>가격</th>
+              <th style={{ color: "white", padding: "20px" }}>수량</th>
             </tr>
           </thead>
           <tbody>
