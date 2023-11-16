@@ -204,14 +204,7 @@ export default function GifticonPage() {
 
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (
-      !image ||
-      !form.categoryName ||
-      !form.gifticonName ||
-      !form.description ||
-      !form.price ||
-      !form.amount
-    ) {
+    if (!image || !form.categoryName ||!form.gifticonName || !form.description || !form.price || !form.amount) {
       alert("모든 항목을 입력해주세요.");
       return;
     }
@@ -352,7 +345,7 @@ export default function GifticonPage() {
             }}
           >
             <form
-              onSubmit={handleSubmit}
+              onSubmit={isEditing ? handleUpdateSubmit : handleSubmit}
               className={styles["modal-form"]}
               style={{
                 display: "flex",
