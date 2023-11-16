@@ -49,7 +49,7 @@ export default function CreateRoomButton() {
       "https://withsports.shop:8000/matching-service/matching/room";
 
     // 요청 body
-    const bodyJSON: createRoomInfo = {
+    let bodyJSON: createRoomInfo = {
       title: title,
       sports: sports,
       area: area,
@@ -59,9 +59,9 @@ export default function CreateRoomButton() {
     const response = await fetch(createRoomURL, {
       method: "POST",
       headers: {
-        Credentials: "include",
+        "Credentials": "include",
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer ${tokenValue}`,
       },
       body: JSON.stringify(bodyJSON),
     })

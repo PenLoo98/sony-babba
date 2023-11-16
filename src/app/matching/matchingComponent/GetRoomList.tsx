@@ -63,7 +63,7 @@ export default function GetRoomList() {
       headers: {
         "Credentials": "include",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        "Authorization": `Bearer ${tokenValue}`,
       },
     })
       .then((res) => res.json())
