@@ -302,3 +302,10 @@
 .modal-form button {
   margin-top: 1rem;
 }
+
+
+.formStyle{
+  display: 'flex';
+  flex-direction: 'column';
+  gap: '10px';
+}
