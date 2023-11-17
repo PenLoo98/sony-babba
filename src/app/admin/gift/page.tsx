@@ -201,7 +201,6 @@ export default function GifticonPage() {
     setTimeout(() => {
       setIsEditing(true);
     }, 0);
-    console.log(isEditing);
   };
 
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -279,7 +278,7 @@ export default function GifticonPage() {
     }
 
     setModalOpen(false);
-    // setIsEditing(false);
+    setIsEditing(false);
   };
 
   // TODO :  삭제 ... (DELETE) /gifticon-service/gifticon/${gifticonId} => 삭제하시겠습니까? 알림 이후 진행
