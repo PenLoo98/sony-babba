@@ -197,7 +197,9 @@ export default function GifticonPage() {
       return;
     }
     setForm(selectedGift);
-    setIsEditing(true);
+    setTimeout(() => {
+      setIsEditing(true);
+    }, 0);
   };
 
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
