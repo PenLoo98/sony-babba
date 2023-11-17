@@ -196,6 +196,7 @@ export default function GifticonPage() {
       console.error("selectedGift is null");
       return;
     }
+    setForm(selectedGift);
     setIsEditing(true);
   };
 
