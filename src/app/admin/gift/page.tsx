@@ -192,6 +192,19 @@ export default function GifticonPage() {
   // TODO :  수정 ... (PUT) /gifticon-service/gifticon/{gifticonId}
   // => 기프티콘 등록과 동일한 방식으로 모달창으로 정보 수정
   const handleUpdate = async () => {
+    if (!selectedGift) {
+      console.error("selectedGift is null");
+      return;
+    }
+  
+    setForm({
+      ...form,
+      categoryName: selectedGift.categoryName,
+      gifticonName: selectedGift.gifticonName,
+      description: selectedGift.description,
+      price: selectedGift.price,
+      amount: selectedGift.amount
+    });
     setIsEditing(true);
   };
 
@@ -202,7 +215,7 @@ export default function GifticonPage() {
       return;
     }
 
-    if (isEditing && (!form.categoryName ||!form.gifticonName || !form.description || !form.price || !form.amount)) {
+    if (!form.categoryName ||!form.gifticonName || !form.description || !form.price || !form.amount){
       alert("모든 항목을 입력해주세요.");
       return;
     }
