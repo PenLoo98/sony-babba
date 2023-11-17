@@ -202,7 +202,7 @@ export default function GifticonPage() {
       return;
     }
 
-    if (!form.categoryName ||!form.gifticonName || !form.description || !form.price || !form.amount) {
+    if (isEditing && (!form.categoryName ||!form.gifticonName || !form.description || !form.price || !form.amount)) {
       alert("모든 항목을 입력해주세요.");
       return;
     }
