@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import styles from "../../Home.module.css";
 import Image from "next/image";
 
@@ -10,18 +10,30 @@ import Image from "next/image";
 
 // 주문 정보
 type OrderInfo = {
-  gifticonId: number; // 기프티콘 ID
-  toUserNickName: string; // 기프티콘을 받는 사용자의 닉네임
-  amount: number; // 기프티콘 주문 수량
-  letter: string; // 기프티콘에 담을 편지
+    gifticonId: number; // 기프티콘 ID
+    toUserNickName: string; // 기프티콘을 받는 사용자의 닉네임
+    amount: number; // 기프티콘 주문 수량
+    letter: string; // 기프티콘에 담을 편지
 };
 
 // 주문자 정보
 type UserInfo = {
-userId: number;
-  nickname: string;
-  balance: number;
+    userId: number;
+    nickname: string;
+    balance: number;
 };
+
+// 기프티콘 정보
+type GiftInfo = {
+    gifticonId ?: number; // 기프티콘 id
+    image: string; // 기프티콘 이미지 
+    categoryName: string; // 카테고리 이름
+    gifticonName: string; // 상품명
+    description: string; // 설명
+    price: number; // 가격
+    amount: number; // 수량
+  };
+  
 
 export default function GiftOrderPage() {
   const [orderInfo, setOrderInfo] = useState<OrderInfo>({
@@ -31,8 +43,30 @@ export default function GiftOrderPage() {
     letter: "",
   });
 
+  const [gifticon, setGifticon] = useState<GiftInfo | null>(null);
   const router = useRouter();
+  const params = useSearchParams();
+  const gifticonId = params.get('gifticonId'); // 쿼리 파라미터 'gifticonId' 받아
 
+
+  // 기프티콘 정보 불러옴
+  useEffect(() => {
+    const fetchGifticon = async () => {
+      try {
+        const response = await fetch(`https://withsports.shop:8000/gifticon-service/gifticon/${gifticonId}`);
+        const data = await response.json();
+        setGifticon(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    if (gifticonId) {
+      fetchGifticon();
+    }
+  }, [gifticonId]);
+
+ // 뒤로가기 버튼
   const handleGoBack = () => {
     window.location.href = "/gift";
   };
@@ -75,7 +109,7 @@ export default function GiftOrderPage() {
       if (data.code === "SUCCESS") {
         alert(data.message);
         // 주문 성공 후 원하는 페이지로 이동
-        router.push("/somewhere");
+        router.push("/gift/sent");
       } else {
         alert("주문에 실패하였습니다.");
       }
@@ -99,7 +133,13 @@ export default function GiftOrderPage() {
                 padding: "20px",
                 width: "300px",
               }}>
-        {/* 기프티콘 사진 가져와져야함. */}
+        
+        {gifticon && (
+          <Image
+            src={gifticon.image} // 기프티콘의 이미지 URL을 사용
+            alt={`기프티콘 ${gifticonId}`}
+          />
+        )}
         <div>
         기프티콘 ID: 
         <input

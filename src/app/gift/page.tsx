@@ -74,8 +74,6 @@ export default function GifticonPage({ params }: { params: PageParams }) {
     fetchUserInfo();
   }, []);
 
-  
-
   const [gifts, setGifts] = useState<GiftInfo[]>([]);
   const [foodGifts, setFoodGifts] = useState<GiftInfo[]>([]);
   const [sportGifts, setSportGifts] = useState<GiftInfo[]>([]);
@@ -108,7 +106,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
       if (userInfo && userInfo.balance < selectedGift.price) {
         alert('포인트가 부족합니다!');
       } else {
-        router.push('/gift/order')
+        router.push(`/gift/order?gifticonId=${selectedGift.gifticonId}`);
       }
     } else {
       console.error('No gift selected');
@@ -252,7 +250,6 @@ export default function GifticonPage({ params }: { params: PageParams }) {
     console.log(gift.gifticonId);
   };
 
-
   return (
     <div>
       <h4> {userInfo?.nickname} 님의 포인트 </h4>
@@ -274,8 +271,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
           <p>Loading...</p>
         )}
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
-          <button 
-            type="button"
+          <button type="button"
             onClick={handleGiftReceived}
             className={styles.addButton}
             style={{ marginRight: "10px" }}>
@@ -389,8 +385,6 @@ export default function GifticonPage({ params }: { params: PageParams }) {
                   height={200}
                 />
               )}
-
-
               <input
                 type="text"
                 name="gifticonName"
