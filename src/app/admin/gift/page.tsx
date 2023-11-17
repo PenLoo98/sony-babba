@@ -15,6 +15,9 @@ type GiftInfo = {
   amount: number; // 수량
 };
 
+// 페이지네이션 추가하기
+
+
 export default function GifticonPage() {
   // 기프티콘 등록
   const [foodGifts, setFoodGifts] = useState<GiftInfo[]>([]);
@@ -41,9 +44,7 @@ export default function GifticonPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
