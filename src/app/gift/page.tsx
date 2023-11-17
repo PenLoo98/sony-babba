@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter} from "next/navigation";
 import styles from "../Home.module.css";
 import Image from "next/image";
+import Link from 'next/link';
+
 
 type UserJSON = {
   userId: number;
@@ -265,7 +267,10 @@ export default function GifticonPage({ params }: { params: PageParams }) {
       >
         {userInfo ? (
           <div>
-            <p>Balance: {userInfo.balance}</p>
+            <p>포인트 잔액: {userInfo.balance}</p>
+            <Link href="/point">
+              <a>포인트 내역</a>
+            </Link>
           </div>
         ) : (
           <p>Loading...</p>
