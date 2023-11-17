@@ -11,7 +11,6 @@ import Image from "next/image";
 // 주문 정보
 type OrderInfo = {
   gifticonId: number; // 기프티콘 ID
-  toUserId: number; // 기프티콘을 받는 사용자의 ID
   toUserNickName: string; // 기프티콘을 받는 사용자의 닉네임
   amount: number; // 기프티콘 주문 수량
   letter: string; // 기프티콘에 담을 편지
@@ -19,7 +18,7 @@ type OrderInfo = {
 
 // 주문자 정보
 type UserInfo = {
-  userId: number;
+userId: number;
   nickname: string;
   balance: number;
 };
@@ -27,7 +26,6 @@ type UserInfo = {
 export default function GiftOrderPage() {
   const [orderInfo, setOrderInfo] = useState<OrderInfo>({
     gifticonId: 0,
-    toUserId: 0,
     toUserNickName: "",
     amount: 0,
     letter: "",
@@ -35,11 +33,12 @@ export default function GiftOrderPage() {
 
   const router = useRouter();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setOrderInfo({ ...orderInfo, [e.target.name]: e.target.value });
+  const handleGoBack = () => {
+    window.location.href = "/gift";
   };
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setOrderInfo({ ...orderInfo, [e.target.name]: e.target.value });
+};
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -110,18 +109,7 @@ export default function GiftOrderPage() {
           onChange={handleChange}
           placeholder="기프티콘 ID"
           required
-        />
-        <br />
-        <br />
-        받을 사람 ID: 
-        <input
-          type="number"
-          name="toUserId"
-          value={orderInfo.toUserId}
-          onChange={handleChange}
-          placeholder="기프티콘 받을 사용자의 ID"
-          required
-        />
+        />   
         <br />
         <br />
         받을사람 닉네임 :
@@ -160,7 +148,7 @@ export default function GiftOrderPage() {
         <button type="submit" className={styles.addButton}>
             선물하기
         </button>
-        <button type="button" className={styles.backbutton}> 뒤로가기
+        <button type="button" onClick={handleGoBack} className={styles.backbutton}> 뒤로가기
         </button>
         </form>
     </div>

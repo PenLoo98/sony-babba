@@ -95,7 +95,6 @@ export default function GifticonPage({ params }: { params: PageParams }) {
   });
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [addModalOpen, setAddModalOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -205,8 +204,6 @@ export default function GifticonPage({ params }: { params: PageParams }) {
     } catch (error) {
       console.error("Error:", error);
     }
-
-    setAddModalOpen(false);
     setIsEditing(false);
   };
 
@@ -250,7 +247,6 @@ export default function GifticonPage({ params }: { params: PageParams }) {
   const openDetailModal = (gift: GiftInfo) => {
     setSelectedGift(gift);
     setForm(gift);
-    setAddModalOpen(false);
     setModalOpen(true);
     console.log('Image URL:', gift.image);
     console.log(gift.gifticonId);
