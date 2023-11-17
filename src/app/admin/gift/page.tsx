@@ -201,6 +201,7 @@ export default function GifticonPage() {
     setTimeout(() => {
       setIsEditing(true);
     }, 0);
+    console.log(isEditing);
   };
 
   const handleUpdateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
