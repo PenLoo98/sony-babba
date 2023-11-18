@@ -11,7 +11,7 @@ import Image from "next/image";
 // 주문 정보
 type OrderInfo = {
     gifticonId?: number; // 기프티콘 ID
-    toUserNickname: string; // 기프티콘을 받는 사용자의 닉네임
+    toUserNickName: string; // 기프티콘을 받는 사용자의 닉네임
     amount: number; // 기프티콘 주문 수량
     letter: string; // 기프티콘에 담을 편지
 };
@@ -38,7 +38,7 @@ type GiftInfo = {
 export default function GiftOrderPage() {
   const [orderInfo, setOrderInfo] = useState<OrderInfo>({
     gifticonId: undefined,
-    toUserNickname: "",
+    toUserNickName: "",
     amount: 0,
     letter: "",
   });
@@ -113,7 +113,7 @@ export default function GiftOrderPage() {
           },
           body : JSON.stringify ({
             gifticonId : orderInfo.gifticonId,
-            toUserNickname : orderInfo.toUserNickname,
+            toUserNickname : orderInfo.toUserNickName,
             amount : orderInfo.amount,
             letter : orderInfo.letter,
           }),
@@ -182,7 +182,7 @@ export default function GiftOrderPage() {
         <input
           type="text"
           name="toUserNickName"
-          value={orderInfo.toUserNickname}
+          value={orderInfo.toUserNickName}
           onChange={handleChange}
           placeholder="기프티콘 받을 사용자의 닉네임"
           required

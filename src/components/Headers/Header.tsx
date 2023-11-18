@@ -27,14 +27,16 @@ export default function Header() {
     <div className="header" style={homeButtonStyle}>
       <HomeButton />
       {isLogin ? (
-          <div style={{display:"flex"}}>
+        <div style={{ display: "flex" }}>
           <MenuBar />
-          <LogoutButton isLogin={isLogin} setIsLogin={setIsLogin}/>
+          <LogoutButton isLogin={isLogin} setIsLogin={setIsLogin} />
         </div>
-        ) : (
+      ) : (
+        <div style={{ display: "flex" }}>
+          <MenuBar></MenuBar>
           <LoginButton />
+        </div>
       )}
-      
     </div>
   );
 }
