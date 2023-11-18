@@ -276,6 +276,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
         ) : (
           <p>Loading...</p>
         )}
+        <br />
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px" }}>
           <button type="button"
             onClick={handleGiftReceived}
