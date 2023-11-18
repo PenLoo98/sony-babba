@@ -10,9 +10,9 @@ import Image from "next/image";
 
 // 주문 정보
 type OrderInfo = {
-    gifticonId: string; // 기프티콘 ID
+    gifticonId: number; // 기프티콘 ID
     toUserNickName: string; // 기프티콘을 받는 사용자의 닉네임
-    amount: string; // 기프티콘 주문 수량
+    amount: number; // 기프티콘 주문 수량
     letter: string; // 기프티콘에 담을 편지
 };
 
@@ -37,9 +37,9 @@ type GiftInfo = {
 
 export default function GiftOrderPage() {
   const [orderInfo, setOrderInfo] = useState<OrderInfo>({
-    gifticonId: "",
+    gifticonId: 0,
     toUserNickName: "",
-    amount: "",
+    amount: 0,
     letter: "",
   });
 
@@ -65,9 +65,9 @@ export default function GiftOrderPage() {
             Authorization: `Bearer ${token}`,
           },
           body : JSON.stringify ({
-            gifticonId : String(orderInfo.gifticonId),
+            gifticonId : orderInfo.gifticonId,
             toUserNickName : orderInfo.toUserNickName,
-            amount : String(orderInfo.amount),
+            amount : orderInfo.amount,
             letter : orderInfo.letter,
           }),
         }
