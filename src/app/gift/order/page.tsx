@@ -154,9 +154,10 @@ export default function GiftOrderPage() {
             alt={`기프티콘 ${gifticonId}`}
             width={500}
             height={500}
-          />
+          /> 
         )}
         <div>
+        <a>{gifticon?.gifticonName}</a>
         기프티콘 ID: 
         <input
           type="number"
@@ -165,6 +166,7 @@ export default function GiftOrderPage() {
           onChange={handleChange}
           placeholder="기프티콘 ID"
           required
+          readOnly
         />   
         <br />
         <br />
