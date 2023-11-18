@@ -113,7 +113,7 @@ export default function GiftOrderPage() {
           },
           body : JSON.stringify ({
             gifticonId : orderInfo.gifticonId,
-            toUserNickName : orderInfo.toUserNickName,
+            toUserNickname : orderInfo.toUserNickName,
             amount : orderInfo.amount,
             letter : orderInfo.letter,
           }),
