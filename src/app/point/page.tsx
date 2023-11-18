@@ -117,9 +117,10 @@ export default function PointPage() {
       ) : (
         <p>Loading...</p>
       )}
+      <h4>포인트 내역</h4>
       {/* 포인트 내역 목록 출력하기 */}
       {pointHistory.length > 0 ? (
-        <table>
+        <table className={styles.pointTable}>
           <thead>
             <tr>
               <th>거래 시간</th>

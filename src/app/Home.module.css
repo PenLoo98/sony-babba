@@ -309,3 +309,22 @@
   flex-direction: 'column';
   gap: '10px';
 }
+
+/* 포인트 테이블 */
+
+.pointTable {
+  width: 110%;
+  border-collapse: collapse;
+}
+
+.pointTable th,
+.pointTable td {
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+.pointTable th {
+  background-color: grey;
+  color: black;
+}
