@@ -52,8 +52,19 @@ export default function GiftOrderPage() {
   // 기프티콘 정보 불러옴
   useEffect(() => {
     const fetchGifticon = async () => {
+      const localStorage: Storage = window.localStorage;
+      const token = localStorage.getItem("accessToken");
+
       try {
-        const response = await fetch(`https://withsports.shop:8000/gifticon-service/gifticon/${gifticonId}`);
+        const response = await fetch(`https://withsports.shop:8000/gifticon-service/gifticon/${gifticonId}`,
+        {
+          method:"GET",
+          headers: {
+            Credentials: "include",
+            ContentType: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+      });
         const data = await response.json();
         // 기프티콘 정보 저장
         setGifticon(data.data);
