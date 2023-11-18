@@ -269,7 +269,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
         {userInfo ? (
           <div>
             <p>포인트 잔액: {userInfo.balance}</p>
-            <Link href="/point">
+            <Link href="/point" style={{ color: "black", textDecoration: "none"}}>
               <a>포인트 내역</a>
             </Link>
           </div>
