@@ -99,7 +99,6 @@ export default function PointPage() {
 
   return (
     <div>
-      <h4> {userInfo?.nickname} 님의 포인트 </h4>
       <div
         style={{
           flex: "1",
@@ -107,12 +106,11 @@ export default function PointPage() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          paddingTop: "20px",
         }}
       />
       {userInfo ? (
         <div>
-          <p>포인트 잔액: {userInfo.balance}</p>
+          <p>{userInfo?.nickname} 님의 포인트 잔액: {userInfo.balance}</p>
         </div>
       ) : (
         <p>Loading...</p>

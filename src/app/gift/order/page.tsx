@@ -55,7 +55,10 @@ export default function GiftOrderPage() {
       try {
         const response = await fetch(`https://withsports.shop:8000/gifticon-service/gifticon/${gifticonId}`);
         const data = await response.json();
-        setGifticon(data);
+        // 기프티콘 정보 저장
+        setGifticon(data.data);
+        // 기프티콘 ID 주문 정보에 저장
+        setOrderInfo({ ...orderInfo, gifticonId: data.data.gifticonId });
       } catch (error) {
         console.error("Error:", error);
       }
@@ -138,6 +141,8 @@ export default function GiftOrderPage() {
           <Image
             src={gifticon.image} // 기프티콘의 이미지 URL을 사용
             alt={`기프티콘 ${gifticonId}`}
+            width={500}
+            height={500}
           />
         )}
         <div>

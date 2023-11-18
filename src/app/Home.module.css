@@ -328,3 +328,7 @@
   background-color: grey;
   color: black;
 }
+
+.pointTable tr:nth-child(even) {
+  background-color : #f2f2f2;
+}
