@@ -26,6 +26,7 @@ type PageParams = {
   id: number;
 };
 
+// 사용자 포인트 정보
 type UserInfo = {
   userId: number;
   nickname: string;
