@@ -117,7 +117,6 @@ export default function GiftOrderPage() {
             amount : orderInfo.amount,
             letter : orderInfo.letter,
           }),
-
           //body: JSON.stringify(orderInfo),
         }
       );
