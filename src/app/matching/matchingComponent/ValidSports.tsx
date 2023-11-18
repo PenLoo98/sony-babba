@@ -11,7 +11,7 @@ export default function ValidSports({sports, setValidSports}: ValidSportsProps){
         const localStorage: Storage = window.localStorage;
         const token = localStorage.getItem("accessToken");
         // 매칭방 종목 중복 확인 API
-        const sportsCheckAPI = `https://withsports.shop:8000/matching/teamuser/${sports.replace(" ", "")}`;
+        const sportsCheckAPI = `https://withsports.shop:8000/matching/teamuser/${sports.replace(/"/g, "")}`;
         // fetch
         fetch(sportsCheckAPI, {
             method: "GET",
