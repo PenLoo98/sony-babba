@@ -73,7 +73,6 @@ export default function GetRoomList() {
           console.log("매칭방 정보를 불러오는데 성공했습니다.");
           setRoomList(data);
           setShowRoomInfo(true);
-          location.reload();
         } else {
           console.log("매칭방 정보를 불러오는데 실패했습니다.");
         }
