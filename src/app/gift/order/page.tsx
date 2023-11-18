@@ -157,7 +157,8 @@ export default function GiftOrderPage() {
           /> 
         )}
         <div>
-        <a>{gifticon?.gifticonName}</a>
+        <a>상품명 : {gifticon?.gifticonName}</a>
+        <br/>
         기프티콘 ID: 
         <input
           type="number"
