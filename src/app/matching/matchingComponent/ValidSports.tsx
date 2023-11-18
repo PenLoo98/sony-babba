@@ -11,7 +11,7 @@ export default function ValidSports({sports, setValidSports}: ValidSportsProps){
         const localStorage: Storage = window.localStorage;
         const token = localStorage.getItem("accessToken");
         // 매칭방 종목 중복 확인 API
-        const sportsCheckAPI = `https://withsports.shop:8000/matching/teamuser/${sports.replace(/"/g, "")}`;
+        const sportsCheckAPI = `https://withsports.shop:8000/matching-service/matching/teamuser/${sports.replace(/"/g, "")}`;
         // fetch
         fetch(sportsCheckAPI, {
             method: "GET",
@@ -21,7 +21,7 @@ export default function ValidSports({sports, setValidSports}: ValidSportsProps){
                 Authorization: `Bearer ${token}`,
             },
         }).then((res) => {
-            if (res.status === 200) {
+            if (res.status === 404) {
                 alert("생성가능한 종목입니다.");
                 setValidSports(true);
             } else if (res.status === 401) {
