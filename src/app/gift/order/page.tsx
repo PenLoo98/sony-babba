@@ -64,12 +64,6 @@ export default function GiftOrderPage() {
             ContentType: "application/json",
             Authorization: `Bearer ${token}`,
           },
-          // body : JSON.stringify ({
-          //   gifticonId : orderInfo.gifticonId,
-          //   toUserNickName : orderInfo.toUserNickName,
-          //   amount : orderInfo.amount,
-          //   letter : orderInfo.letter,
-          // }),
         }
       );
         const data = await response.json();
@@ -117,7 +111,14 @@ export default function GiftOrderPage() {
             ContentType: "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(orderInfo),
+          body : JSON.stringify ({
+            gifticonId : orderInfo.gifticonId,
+            toUserNickName : orderInfo.toUserNickName,
+            amount : orderInfo.amount,
+            letter : orderInfo.letter,
+          }),
+
+          //body: JSON.stringify(orderInfo),
         }
       );
 
