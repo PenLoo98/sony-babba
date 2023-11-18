@@ -10,7 +10,7 @@ import Image from "next/image";
 
 // 주문 정보
 type OrderInfo = {
-    gifticonId: number; // 기프티콘 ID
+    gifticonId?: number; // 기프티콘 ID
     toUserNickName: string; // 기프티콘을 받는 사용자의 닉네임
     amount: number; // 기프티콘 주문 수량
     letter: string; // 기프티콘에 담을 편지
@@ -37,7 +37,7 @@ type GiftInfo = {
 
 export default function GiftOrderPage() {
   const [orderInfo, setOrderInfo] = useState<OrderInfo>({
-    gifticonId: 0,
+    gifticonId: undefined,
     toUserNickName: "",
     amount: 0,
     letter: "",
