@@ -10,9 +10,9 @@ import Image from "next/image";
 
 // 주문 정보
 type OrderInfo = {
-    gifticonId: number; // 기프티콘 ID
+    gifticonId: string; // 기프티콘 ID
     toUserNickName: string; // 기프티콘을 받는 사용자의 닉네임
-    amount: number; // 기프티콘 주문 수량
+    amount: string; // 기프티콘 주문 수량
     letter: string; // 기프티콘에 담을 편지
 };
 
@@ -37,9 +37,9 @@ type GiftInfo = {
 
 export default function GiftOrderPage() {
   const [orderInfo, setOrderInfo] = useState<OrderInfo>({
-    gifticonId: 0,
+    gifticonId: "",
     toUserNickName: "",
-    amount: 0,
+    amount: "",
     letter: "",
   });
 
@@ -64,7 +64,14 @@ export default function GiftOrderPage() {
             ContentType: "application/json",
             Authorization: `Bearer ${token}`,
           },
-      });
+          body : JSON.stringify ({
+            gifticonId : String(orderInfo.gifticonId),
+            toUserNickName : orderInfo.toUserNickName,
+            amount : String(orderInfo.amount),
+            letter : orderInfo.letter,
+          }),
+        }
+      );
         const data = await response.json();
         // 기프티콘 정보 저장
         setGifticon(data.data);
@@ -157,7 +164,7 @@ export default function GiftOrderPage() {
           /> 
         )}
         <div>
-        <a>상품명 : {gifticon?.gifticonName}</a>
+        <p>상품명 : {gifticon?.gifticonName}</p>
         <br/>
         기프티콘 ID: 
         <input
@@ -200,6 +207,7 @@ export default function GiftOrderPage() {
           onChange={handleChange}
           placeholder="기프티콘에 담을 편지"
           required
+          style={{width: '100%', height: '200px', fontSize: '16px', padding: '5px', borderRadius:'10px'}} 
         />
         </div>
         <br />
