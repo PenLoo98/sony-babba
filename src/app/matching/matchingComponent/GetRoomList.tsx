@@ -1,6 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import EnterRoomButton from "./EnterRoomButton";
+import DeleteRoomButton from "./DeleteRoomButton";
+import ExitRoomButton from "./ExitRoomButton";
+import StartSearching from "./StartSearching";
+import CancelSearching from "./CancelSearching";
 // TODO: 매칭방 목록 가져오기
 
 // TODO: 매칭방 fetch 데이터 형식 정의
@@ -9,6 +13,7 @@ type MatchingRoomSpecific = {
   matchingRoomName: string;
   teamId: number;
   teamName: string;
+  roomLeaderId: number;
   roomLeaderNickname: string;
   sports: string;
   area: string;
@@ -28,17 +33,20 @@ type MatchingRoomList = {
 export default function GetRoomList() {
   // 매칭방 정보를 불러왔는지 여부
   const [showRoomInfo, setShowRoomInfo] = useState(true);
+  // 매칭방 방장인지 여부 확인을 위한 userId 저장
+  const [connectUserId, setConnectUserId] = useState<number>(0);
 
   let initialRoomList: MatchingRoomList = {
     data: [
       {
         matchingRoomId: 0,
-        matchingRoomName: "방제목",
+        matchingRoomName: "방 제목",
         teamId: 0,
-        teamName: "손이바빠",
-        roomLeaderNickname: "위스",
-        sports: "축구",
-        area: "서울",
+        teamName: "팀 이름",
+        roomLeaderId: 0,
+        roomLeaderNickname: "방장 닉네임",
+        sports: "종목",
+        area: "지역",
         capacity: 5,
         userCount: 5,
         sumRating: 0,
@@ -77,6 +85,7 @@ export default function GetRoomList() {
           setShowRoomInfo(true);
         } else {
           console.log("매칭방 정보를 불러오는데 실패했습니다.");
+          alert("매칭방 정보를 불러오는데 실패했습니다.");
         }
       })
       .catch((error) => {
@@ -87,6 +96,9 @@ export default function GetRoomList() {
 
   useEffect(() => {
     getRoomInfo();
+    const localStorage: Storage = window.localStorage;
+    const userId = localStorage.getItem("userId");
+    setConnectUserId(Number(userId));
   }, []);
 
   return (
@@ -96,17 +108,18 @@ export default function GetRoomList() {
         <div>
           <table style={{ marginTop: "40px" }}>
             <thead>
-              <tr style={{ backgroundColor: "black" }}>
-                <th style={{ color: "white", padding: "10px" }}>팀 이름</th>
-                <th style={{ color: "white", padding: "10px" }}>방 제목</th>
-                <th style={{ color: "white", padding: "10px" }}>방장</th>
-                <th style={{ color: "white", padding: "10px" }}>종목</th>
-                <th style={{ color: "white", padding: "10px" }}>지역</th>
-                <th style={{ color: "white", padding: "10px" }}>정원</th>
-                <th style={{ color: "white", padding: "10px" }}>현재 인원</th>
-                <th style={{ color: "white", padding: "10px" }}>평균레이팅</th>
-                <th style={{ color: "white", padding: "10px" }}>참석 상태</th>
-                <th style={{ color: "white", padding: "10px" }}>매칭방 상태</th>
+              <tr style={{ backgroundColor: "deepskyblue" }}>
+                <th style={{ color: "black", padding: "10px" }}>팀 이름</th>
+                <th style={{ color: "black", padding: "10px" }}>방 제목</th>
+                <th style={{ color: "black", padding: "10px" }}>방장</th>
+                <th style={{ color: "black", padding: "10px" }}>종목</th>
+                <th style={{ color: "black", padding: "10px" }}>지역</th>
+                <th style={{ color: "black", padding: "10px" }}>정원</th>
+                <th style={{ color: "black", padding: "10px" }}>평균레이팅</th>
+                <th style={{ color: "black", padding: "10px" }}>참석 상태</th>
+                <th style={{ color: "black", padding: "10px" }}>매칭방 상태</th>
+                <th style={{ color: "black", padding: "10px" }}>참가</th>
+                <th style={{ color: "black", padding: "10px" }}>매칭</th>
               </tr>
             </thead>
             <tbody>
@@ -117,11 +130,39 @@ export default function GetRoomList() {
                   <td>{room.roomLeaderNickname}</td>
                   <td>{room.sports}</td>
                   <td>{room.area}</td>
-                  <td>{room.capacity}</td>
-                  <td>{room.userCount}</td>
-                  <td>{room.sumRating}</td>
-                  <td>{room.participateStatus ? "참가 중" : <EnterRoomButton matchingRoomId={room.matchingRoomId}/>}</td>
+                  (room.capacity == room.userCount)? (
+                  <td style={{ color: "forestgreen", fontWeight: 800 }}>
+                    {room.userCount}/{room.capacity}
+                  </td>
+                  ) : (
+                  <td style={{ color: "red" }}>
+                    {room.userCount}/{room.capacity}
+                  </td>
+                  )<td>{room.sumRating}</td>
+                  <td>
+                    {room.participateStatus ? (
+                      "참가 중"
+                    ) : (
+                      <EnterRoomButton matchingRoomId={room.matchingRoomId} />
+                    )}
+                  </td>
                   <td>{room.status}</td>
+                  <td>
+                    {/* 방장이면 매칭방 해체, 참가자면 매칭방 나가기 버튼 */}
+                    {connectUserId == room.roomLeaderId ? (
+                      <DeleteRoomButton matchingRoomId={room.matchingRoomId} />
+                    ) : (
+                      <ExitRoomButton matchingRoomId={room.matchingRoomId} />
+                    )}
+                  </td>
+                  <td>
+                    {/* 방장이면 매칭 시작 버튼 */}
+                    {connectUserId == room.roomLeaderId && room.capacity == room.userCount? (
+                      <StartSearching matchingRoomId={room.matchingRoomId} />
+                    ) : (
+                      <CancelSearching matchingRoomId={room.matchingRoomId} />
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

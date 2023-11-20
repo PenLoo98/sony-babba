@@ -16,7 +16,7 @@ export default function EnterRoomButton({
     const token = localStorage.getItem("accessToken");
 
     // 방 입장 API
-    const enterRoomURL = `https://withsports.shop:8000//matching-service/matchingroom/${matchingRoomId}`;
+    const enterRoomURL = `https://withsports.shop:8000/matching-service/matchingroom/${matchingRoomId}`;
 
     fetch(enterRoomURL, {
       method: "POST",
@@ -38,7 +38,7 @@ export default function EnterRoomButton({
 
   return (
     <Button variant="outlined" onClick={enterRoom}>
-      참가하기
+      참가
     </Button>
   );
 }

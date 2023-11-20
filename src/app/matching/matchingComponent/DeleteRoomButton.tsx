@@ -3,20 +3,20 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 
-type ExitRoomButtonProps = {
+type DeleteRoomButtonProps = {
   matchingRoomId: number;
 };
 
-export default function ExitRoomButton({
+export default function DeleteRoomButton({
   matchingRoomId,
-}: ExitRoomButtonProps) {
-  async function exitRoom() {
+}: DeleteRoomButtonProps) {
+  async function deleteRoom() {
     // 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
 
     // 방 퇴장 API
-    const enterRoomURL = `https://withsports.shop:8000/matching-service/matchingroom/${matchingRoomId}`;
+    const enterRoomURL = `https://withsports.shop:8000/matching-service/matching/room/${matchingRoomId}`;
 
     fetch(enterRoomURL, {
       method: "DELETE",
@@ -27,7 +27,7 @@ export default function ExitRoomButton({
       },
     }).then((res) => {
       if (res.ok) {
-        alert("방에서 퇴장했습니다.");
+        alert("매칭방을 삭제했습니다.");
       } else if (res.status === 401) {
         alert("다시 로그인해주세요");
       } else {
@@ -37,6 +37,6 @@ export default function ExitRoomButton({
   }
 
   return (
-    <Button variant='text' onClick={exitRoom}>나가기</Button>
+    <Button variant='text' onClick={deleteRoom}>삭제</Button>
   );
 }

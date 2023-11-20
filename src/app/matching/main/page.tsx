@@ -88,13 +88,13 @@ export default function MatchingPage() {
 //   };
 
   return (
-    <>
+    <div>
       <div
         style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}
       >
         <CreateRoomButton/>
       </div>
       <GetRoomList />
-    </>
+    </div>
   );
 }
