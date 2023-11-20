@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "../Home.module.css";
-import Image from "next/image";
+import styles from "../src/app/Home.module.css";
 
 // 받은 기프티콘 조회 페이지
 // 받은 사람 (GET) /gifticon-service/order/gifticon/list/received?page={n}&size={n}
