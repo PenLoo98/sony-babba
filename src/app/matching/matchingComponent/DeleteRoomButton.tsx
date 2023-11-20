@@ -28,6 +28,7 @@ export default function DeleteRoomButton({
     }).then((res) => {
       if (res.ok) {
         alert("매칭방을 삭제했습니다.");
+        location.reload();
       } else if (res.status === 401) {
         alert("다시 로그인해주세요");
       } else {
