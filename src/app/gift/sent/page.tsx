@@ -136,7 +136,6 @@ export default function SentGiftPage(){
         }}>
             <h5>{selectedGift.gifticonName}</h5>
             <p>받은 사람: {selectedGift.fromUserNickname}</p>
-            <p>Serial Number: {selectedGift.serialNumber}</p>
             <p>메시지 : {selectedGift.letter}</p>
             <p>{selectedGift.used ? "사용완료" : "사용가능"}</p>
             <button type="button" onClick={() => {setModalOpen(false);}} className={styles.backbutton}>닫기</button>
