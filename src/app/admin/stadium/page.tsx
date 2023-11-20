@@ -216,7 +216,7 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
             </thead>
             <tbody>
                 {stadiums.map((stadium, index) => (
-                    <tr key={index}  onClick={() => {setSelectedStadium(stadium); setModalOpen(true)}}>
+                    <tr key={index}>
                         <td>{stadium.stadiumName}</td>
                         <td>{stadium.address}</td>
                         <td>{stadium.detailAddress}</td>
