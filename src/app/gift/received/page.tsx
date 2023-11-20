@@ -131,7 +131,7 @@ export default function ReceivedGiftPage(){
             width: "300px" 
         }}>
             {/* 바코드 표시*/}
-            <img src="/barcode.jpg" width="200" height="50" alt="Barcode" />
+            <img src="/barcode.jpg" width={200} height={50} alt="Barcode" />
             <h2>{selectedGift.gifticonName}</h2>
             <p>보낸 사람: {selectedGift.toUserNickname}</p>
             <p>Serial Number: {selectedGift.serialNumber}</p>
