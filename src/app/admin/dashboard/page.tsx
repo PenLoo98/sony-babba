@@ -1,8 +1,33 @@
+"use client";
+
+import { useEffect, useState } from 'react';
 import { Card, CardContent, Typography, Button, Grid, Box } from '@mui/material';
 import Image from 'next/image';
 
 export default function Dashboard() {
-    <h1>Dashboard</h1>
+
+    const [matchingPoolCount, setMatchingPoolCount] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const localStorage: Storage = window.localStorage;
+            const token = localStorage.getItem("accessToken");
+            
+            const response = await fetch('https://withsports.shop:8000/matching-service/matching/pool', {
+                method: 'GET',
+                headers: {
+                    Credentials: "include",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            const data = await response.json();
+            setMatchingPoolCount(data.data);
+        };
+
+        fetchData();
+    }, []);
+    
     return (
     <>
     <Box sx={{ flexGrow: 1 }}>
@@ -76,21 +101,21 @@ export default function Dashboard() {
                 </CardContent>
             </Card>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
             <Card>
-            {/* TODO : 매칭 수 현황 조회 */}
+            {/* TODO : 매칭 탐색 개수 현황 조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
-                        Number of Match (Day / Month)
+                        매칭 탐색 개수
                     </Typography>
                     <Image
-                    src="/team.png"
+                    src="/match.png"
                     width={48}
                     height={48}
                     alt="Icon"
                     />
                     <Typography variant="h3">
-                        45
+                        {matchingPoolCount}
                     </Typography>            
                 </CardContent>
                 <Button variant="contained" color="primary" fullWidth>
@@ -98,7 +123,29 @@ export default function Dashboard() {
                 </Button>
             </Card>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
+            <Card>
+            {/* TODO : 매칭방 상태 조회 */}
+                <CardContent>
+                    <Typography variant="h5" component="div">
+                        매칭방 개수
+                    </Typography>
+                    <Image
+                    src="/stadium.png"
+                    width={48}
+                    height={48}
+                    alt="Icon"
+                    />
+                    <Typography variant="h3">
+                        300 
+                    </Typography>
+                    <Button variant="contained" color="primary" fullWidth>
+                        View Post List
+                    </Button>            
+                </CardContent>
+            </Card>
+        </Grid>
+        <Grid item xs={4}>
             <Card>
             {/* TODO : 기프티콘 수  조회 */}
                 <CardContent>
