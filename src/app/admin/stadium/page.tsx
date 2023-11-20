@@ -183,9 +183,26 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
                 </form>
             )}
             {/* 경기장 목록 표시 */}
-            {/* {stadiums.map((stadium, index) => (
-                // TODO: 경기장 정보 표시
-            ))} */}
+            <table>
+            <thead>
+                <tr>
+                    <th>경기장 이름</th>
+                    <th>주소</th>
+                    <th>상세 주소</th>
+                    <th>전화번호</th>
+                </tr>
+            </thead>
+            <tbody>
+                {stadiums.map((stadium, index) => (
+                    <tr key={index}>
+                        <td>{stadium.stadiumName}</td>
+                        <td>{stadium.address}</td>
+                        <td>{stadium.detailAddress}</td>
+                        <td>{stadium.phoneNumber}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
         </div>
     );
 }
