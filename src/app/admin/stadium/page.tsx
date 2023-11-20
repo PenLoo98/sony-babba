@@ -75,7 +75,7 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
                 method: 'POST',
                 headers: {
                     Credentials: "include",
-                    ContentType: "multipart/form-data;",
+                    ContentType: "application/json;",
                     Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(form),
