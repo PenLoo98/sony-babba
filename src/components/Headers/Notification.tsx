@@ -21,6 +21,12 @@ type Notification = {
   createdAt: string; //생성 날짜
 };
 
+type NotificationCountResponse = {
+  code: string;
+  message: string;
+  data: number;
+};
+
 // TODO: 알림 기능 구현
 export default function Notification() {
   // 알림 갯수 state
@@ -52,10 +58,43 @@ export default function Notification() {
       .then((res) => res.json())
       .then((data: NotificationResponse) => {
         if (data.code === "SUCCESS") {
-          console.log("data:");
+          console.log("알림 목록 data:");
           console.log(data);
-          setNotificationCount(data.data.notifications.length);
           setNotificationList(data.data.notifications);
+        }
+        // TODO: 토큰 만료되었을 때 예외처리하기
+        else {
+          console.log("알림 정보를 가져오는데 실패했습니다.");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  // TODO: 알림 갯수 fetch
+  async function countNotification() {
+    // 토큰 가져오기
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
+    // 알림 가져오기 API
+    const countNotificationURL = `https://withsports.shop:8000/notification-service/notification/counts`;
+
+    const response = await fetch(countNotificationURL, {
+      method: "GET",
+      headers: {
+        Credentials: "include",
+        ContentType: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data: NotificationCountResponse) => {
+        if (data.code === "SUCCESS") {
+          console.log("알림 개수 응답 data:");
+          console.log(data);
+          setNotificationCount(data.data);
         }
         // TODO: 토큰 만료되었을 때 예외처리하기
         else {
@@ -69,6 +108,7 @@ export default function Notification() {
 
   useEffect(() => {
     getNotification();
+    countNotification();
   }, []);
 
   // TODO: 알림 읽음 fetch
@@ -94,15 +134,19 @@ export default function Notification() {
               <th>제목</th>
               <th>메시지</th>
               <th>날짜</th>
+              <th>읽음 처리</th>
             </tr>
           </thead>
           <tbody>
             {notificationList.map((notification) => (
               <tr key={notification.id}>
+                <td>{notification.id}</td>
                 <td>{notification.title}</td>
                 <td>{notification.message}</td>
                 <td>{notification.createdAt}</td>
-                <td><ReadNotification notificationId={notification.id}/></td>
+                <td>
+                  <ReadNotification notificationId={notification.id} />
+                </td>
               </tr>
             ))}
           </tbody>
