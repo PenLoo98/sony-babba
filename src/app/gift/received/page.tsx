@@ -39,8 +39,8 @@ type GiftInfo = {
 type ReceivedGiftInfo = {
     gifticonId: number;         // 기프티콘 ID
     gifticonName: string;       // 기프티콘 이름
-    fromUserNickname: string;   // 받은 사람 닉네임
-    toUserNickname: string;     // 준 사람 닉네임
+    fromUserNickname: string;   // 준 사람 닉네임
+    toUserNickname: string;     // 받은 사람 닉네임
     serialNumber: string;       // 기프티콘 시리얼 넘버
     letter: string;             // 기프티콘 편지
     used: boolean;              // 기프티콘 사용 여부
@@ -133,12 +133,12 @@ export default function ReceivedGiftPage(){
             {/* 바코드 표시*/}
             <Image  
                 src="/barcode.jpg"
-                width={200}
-                height={50}
+                width={300}
+                height={100}
                 alt ="Barcode"
             />
             <h5>{selectedGift.gifticonName}</h5>
-            <p>보낸 사람: {selectedGift.toUserNickname}</p>
+            <p>보낸 사람: {selectedGift.fromUserNickname}</p>
             <p>Serial Number: {selectedGift.serialNumber}</p>
             <p>메시지 : {selectedGift.letter}</p>
             <p>{selectedGift.used ? "사용완료" : "사용가능"}</p>

@@ -39,7 +39,7 @@ type GiftInfo = {
 type SentGiftInfo = {
     gifticonId: number;         // 기프티콘 ID
     gifticonName: string;       // 기프티콘 이름
-    fromUserNickname: string;   // 보낸 사람 닉네임
+    fromUserNickname: string;   // 준 사람 닉네임
     toUserNickname: string;     // 받은 사람 닉네임
     serialNumber: string;       // 기프티콘 시리얼 넘버
     letter: string;             // 기프티콘 편지
