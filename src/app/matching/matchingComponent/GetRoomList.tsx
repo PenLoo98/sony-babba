@@ -6,6 +6,7 @@ import EnterRoomButton from "./EnterRoomButton";
 // TODO: 매칭방 fetch 데이터 형식 정의
 type MatchingRoomSpecific = {
   matchingRoomId: number;
+  matchingRoomName: string;
   teamId: number;
   teamName: string;
   roomLeaderNickname: string;
@@ -32,6 +33,7 @@ export default function GetRoomList() {
     data: [
       {
         matchingRoomId: 0,
+        matchingRoomName: "방제목",
         teamId: 0,
         teamName: "손이바빠",
         roomLeaderNickname: "위스",
@@ -96,6 +98,7 @@ export default function GetRoomList() {
             <thead>
               <tr style={{ backgroundColor: "black" }}>
                 <th style={{ color: "white", padding: "10px" }}>팀 이름</th>
+                <th style={{ color: "white", padding: "10px" }}>방 제목</th>
                 <th style={{ color: "white", padding: "10px" }}>방장</th>
                 <th style={{ color: "white", padding: "10px" }}>종목</th>
                 <th style={{ color: "white", padding: "10px" }}>지역</th>
@@ -110,6 +113,7 @@ export default function GetRoomList() {
               {roomList.data.map((room: MatchingRoomSpecific) => (
                 <tr key={room.matchingRoomId}>
                   <td>{room.teamName}</td>
+                  <td>{room.matchingRoomName}</td>
                   <td>{room.roomLeaderNickname}</td>
                   <td>{room.sports}</td>
                   <td>{room.area}</td>

@@ -11,7 +11,7 @@ export default function ValidSports({sports, setValidSports}: ValidSportsProps){
         const localStorage: Storage = window.localStorage;
         const token = localStorage.getItem("accessToken");
         // 매칭방 종목 중복 확인 API
-        const sportsCheckAPI = `https://withsports.shop:8000/matching-service/matching/teamuser/${sports.replace(/"/g, "")}`;
+        const sportsCheckAPI = `https://withsports.shop:8000/team-service/matching/teamuser/${sports.replace(/"/g, "")}`;
         // fetch
         fetch(sportsCheckAPI, {
             method: "GET",
@@ -21,14 +21,16 @@ export default function ValidSports({sports, setValidSports}: ValidSportsProps){
                 Authorization: `Bearer ${token}`,
             },
         }).then((res) => {
-            if (res.status === 404) {
+            if (res.status === 200) {
                 alert("생성가능한 종목입니다.");
                 setValidSports(true);
-            } else if (res.status === 401) {
-                alert("다시 로그인해주세요");
-            } else {
-                alert("이미 소속된 팀이 있는 종목입니다.");
+            } 
+            else if (res.status === 404) {
+                alert("해당 종목에 소속된 팀이 없습니다.");
             }
+            else if (res.status === 401) {
+                alert("다시 로그인해주세요.");
+            } 
         }).catch((error) => {
             console.log(error);
             throw new Error("서버 요청 실패!");
