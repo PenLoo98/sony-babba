@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "../src/app/Home.module.css";
+import styles from "../../Home.module.css";
+import Image from "next/image";
 
 // 받은 기프티콘 조회 페이지
 // 받은 사람 (GET) /gifticon-service/order/gifticon/list/received?page={n}&size={n}
@@ -130,7 +131,13 @@ export default function ReceivedGiftPage(){
             width: "300px" 
         }}>
             {/* 바코드 표시*/}
-            <img src="/barcode.jpg" width={200} height={50} alt="Barcode" />
+            <Image  
+    src="/barcode.jpg"
+    width={200}
+    height={50}
+    alt ="Barcode"
+/>
+
             <h2>{selectedGift.gifticonName}</h2>
             <p>보낸 사람: {selectedGift.toUserNickname}</p>
             <p>Serial Number: {selectedGift.serialNumber}</p>
