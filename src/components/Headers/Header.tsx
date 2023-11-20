@@ -32,7 +32,10 @@ export default function Header() {
           <LogoutButton isLogin={isLogin} setIsLogin={setIsLogin} />
         </div>
       ) : (
+        <div style={{ display: "flex" }}>
+          <MenuBar></MenuBar>
           <LoginButton />
+        </div>
       )}
     </div>
   );
