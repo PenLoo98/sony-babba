@@ -192,7 +192,7 @@ const fetchStadiumDetail = async (stadiumId: number) => {
                 <option value="광주">광주</option>
                 <option value="제주도">제주도</option>
             </select>
-            <button onClick={() => setAddModalOpen(true)}>경기장 등록</button>
+            <button onClick={() => setAddModalOpen(true)} className={styles.addButton}>경기장 등록</button>
             {addModalOpen && (
                 <div
                     style={{
@@ -233,7 +233,8 @@ const fetchStadiumDetail = async (stadiumId: number) => {
                         PhoneNumber
                         <input type="text" name="phoneNumber" onChange={handleChange} />
                     </label>
-                    <button type="submit">등록</button>
+                    <button type="submit" className={styles.addButton} style={{marginRight:"10px"}}>등록</button>
+                    <button type="button" onClick={()=>setAddModalOpen(false)} className={styles.deletebutton}>뒤로 가기</button>
                 </form>
             </div>
             )}
@@ -285,7 +286,7 @@ const fetchStadiumDetail = async (stadiumId: number) => {
             <p>주소: {selectedStadium.address}</p>
             <p>상세주소: {selectedStadium.detailAddress}</p>
             <p>전화번호: {selectedStadium.phoneNumber}</p>
-            <button onClick={() => setModalOpen(false)}>닫기</button>
+            <button onClick={() => setModalOpen(false)} className={styles.deletebutton}>닫기</button>
         </div>
     </div>
     )}
