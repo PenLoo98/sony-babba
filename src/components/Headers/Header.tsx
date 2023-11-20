@@ -33,7 +33,7 @@ export default function Header() {
         </div>
       ) : (
         <div style={{ display: "flex" }}>
-          <MenuBar></MenuBar>
+          {/* <MenuBar></MenuBar> */}
           <LoginButton />
         </div>
       )}
