@@ -75,7 +75,7 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
                 method: 'POST',
                 headers: {
                     Credentials: "include",
-                    ContentType: "application/json",
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
             });
@@ -104,6 +104,7 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
         });
     };
 
+    
     const fetchStadiums = async (area: string) => {
         const localStorage: Storage = window.localStorage;
         const token = localStorage.getItem("accessToken");
