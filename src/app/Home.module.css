@@ -332,3 +332,27 @@
 .pointTable tr:nth-child(even) {
   background-color : #f2f2f2;
 }
+
+/* 경기장 목록 테이블 */
+
+
+.stadiumListTable {
+  width: 110%;
+  border-collapse: collapse;
+}
+
+.stadiumListTable th,
+.stadiumListTable td {
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+.stadiumListTable th {
+  background-color: grey;
+  color: black;
+}
+
+.stadiumListTable tr:nth-child(even) {
+  background-color : #f2f2f2;
+}

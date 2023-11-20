@@ -136,7 +136,7 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
     };
 
     useEffect(() => {
-        fetchStadiums(selectedRegion); // 임시로 서울 설정
+        fetchStadiums(selectedRegion); 
     }, [selectedRegion]);
 
     return (
@@ -160,8 +160,29 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
                 <option value="제주도">제주도</option>
             </select>
             <button onClick={() => setModalOpen(true)}>경기장 등록</button>
-            {modalOpen && (
-                <form onSubmit={handleSubmit}>
+            {addModalOpen && (
+                <div
+                    style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "fixed",
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                }}>
+                <form onSubmit={handleSubmit} style={{ 
+                    display: "flex", 
+                    flexDirection: "column", 
+                    alignItems: "center", 
+                    justifyContent: "center", 
+                    backgroundColor: "white", 
+                    borderRadius: "10px", 
+                    padding: "20px", 
+                    width: "300px" 
+                }}>
                     {/* 경기장 등록 폼 */}
                     <label>
                         StadiumName
@@ -181,9 +202,10 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
                     </label>
                     <button type="submit">등록</button>
                 </form>
+            </div>
             )}
             {/* 경기장 목록 표시 */}
-            <table>
+            <table className={styles.stadiumListTable}>
             <thead>
                 <tr>
                     <th>경기장 이름</th>
@@ -194,7 +216,7 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
             </thead>
             <tbody>
                 {stadiums.map((stadium, index) => (
-                    <tr key={index}>
+                    <tr key={index}  onClick={() => {setSelectedStadium(stadium); setModalOpen(true)}}>
                         <td>{stadium.stadiumName}</td>
                         <td>{stadium.address}</td>
                         <td>{stadium.detailAddress}</td>
@@ -203,6 +225,37 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
                 ))}
             </tbody>
         </table>
+        {modalOpen && selectedStadium && (
+        <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "fixed",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            }}
+        >
+        <div style={{ 
+            display: "flex", 
+            flexDirection: "column", 
+            alignItems: "center", 
+            justifyContent: "center", 
+            backgroundColor: "white", 
+            borderRadius: "10px", 
+            padding: "20px", 
+            width: "300px" 
+        }}>
+            <h3>{selectedStadium.stadiumName}</h3>
+            <p>주소: {selectedStadium.address}</p>
+            <p>상세주소: {selectedStadium.detailAddress}</p>
+            <p>전화번호: {selectedStadium.phoneNumber}</p>
+            <button onClick={() => setModalOpen(false)}>닫기</button>
+        </div>
+    </div>
+    )}
         </div>
     );
 }

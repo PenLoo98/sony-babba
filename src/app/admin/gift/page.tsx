@@ -211,11 +211,6 @@ export default function GifticonPage() {
       return;
     }
 
-    // if (!form.categoryName ||!form.gifticonName || !form.description || !form.price || !form.amount){
-    //   alert("모든 항목을 입력해주세요.");
-    //   return;
-    // }
-
     // 로컬스토리지 토큰 가져오기
     const localStorage: Storage = window.localStorage;
     const token = localStorage.getItem("accessToken");
