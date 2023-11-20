@@ -7,6 +7,7 @@ import Image from "next/image";
 
 // 등록할 구장 정보
 type StadiumInfo = {
+    stadiumId ?: number;
     stadiumName : string;   // 구장 이름
     address : string;       // 구장 주소
     detailAddress : string; // 구장 상세 주소
@@ -139,6 +140,38 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
         fetchStadiums(selectedRegion); 
     }, [selectedRegion]);
 
+
+    // 경기장 상세 정보 조회
+const fetchStadiumDetail = async (stadiumId: number) => {
+    const localStorage: Storage = window.localStorage;
+    const token = localStorage.getItem("accessToken");
+
+    try {
+        const response = await fetch(`https://withsports.shop:8000/booking-service/stadium/one/${stadiumId}`,
+        {
+            method: "GET",
+            headers: {
+                Credentials: "include",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const data = await response.json();
+
+        if (data.code === 'SUCCESS') {
+            setSelectedStadium(data.data);  // 선택된 경기장의 상세 정보를 상태에 저장
+            setModalOpen(true);  // 모달 창을 열어줌
+        } else {
+            alert('경기장 상세 정보 조회에 실패했습니다.');
+        }
+    } catch (error) {
+        console.error('경기장 상세 정보 조회 중 오류 발생:', error);
+        alert('경기장 상세 정보 조회 중 오류가 발생했습니다.');
+    }
+};
+
+
     return (
         <div>
             <select value={selectedRegion} onChange={(e) => setSelectedRegion(e.target.value)}>
@@ -216,7 +249,7 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
             </thead>
             <tbody>
                 {stadiums.map((stadium, index) => (
-                    <tr key={index}>
+                    <tr key={index} onClick={() => stadium.stadiumId && fetchStadiumDetail(stadium.stadiumId)}>
                         <td>{stadium.stadiumName}</td>
                         <td>{stadium.address}</td>
                         <td>{stadium.detailAddress}</td>
