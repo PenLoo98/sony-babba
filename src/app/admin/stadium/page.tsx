@@ -106,8 +106,20 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
     };
 
     const fetchStadiums = async (area: string) => {
+        const localStorage: Storage = window.localStorage;
+        const token = localStorage.getItem("accessToken");
+        
         try {
-            const response = await fetch(`https://withsports.shop:8000/booking-service/stadium/${area}`);
+            const response = await fetch(`https://withsports.shop:8000/booking-service/stadium/${area}`,
+            {
+                method: "GET",
+                headers: {
+                    Credentials: "include",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            
             const data = await response.json();
     
             if (data.code === 'SUCCESS') {
