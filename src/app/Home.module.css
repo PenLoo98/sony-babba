@@ -356,3 +356,26 @@
 .stadiumListTable tr:nth-child(even) {
   background-color : #f2f2f2;
 }
+
+/* 받은& 준 기프티콘 목록  */
+
+.giftListTable {
+  width: 110%;
+  border-collapse: collapse;
+}
+
+.giftListTable th,
+.giftListTable td {
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  padding: 8px;
+}
+
+.giftListTable th {
+  background-color: grey;
+  color: black;
+}
+
+.giftListTable tr:nth-child(even) {
+  background-color : #f2f2f2;
+}

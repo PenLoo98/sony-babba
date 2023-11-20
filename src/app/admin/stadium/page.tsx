@@ -192,6 +192,8 @@ const fetchStadiumDetail = async (stadiumId: number) => {
                 <option value="광주">광주</option>
                 <option value="제주도">제주도</option>
             </select>
+            <br/>
+            <br/>
             <button onClick={() => setAddModalOpen(true)} className={styles.addButton}>경기장 등록</button>
             {addModalOpen && (
                 <div

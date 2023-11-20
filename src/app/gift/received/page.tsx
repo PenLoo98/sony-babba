@@ -87,8 +87,8 @@ export default function ReceivedGiftPage(){
   
     return (
       <div>
-        <h1>받은 기프티콘</h1>
-        <table>
+        <h4>받은 기프티콘</h4>
+        <table  className={styles.giftListTable}>
           <thead>
             <tr>
               <th>기프티콘</th>
@@ -132,17 +132,16 @@ export default function ReceivedGiftPage(){
         }}>
             {/* 바코드 표시*/}
             <Image  
-    src="/barcode.jpg"
-    width={200}
-    height={50}
-    alt ="Barcode"
-/>
-
-            <h2>{selectedGift.gifticonName}</h2>
+                src="/barcode.jpg"
+                width={200}
+                height={50}
+                alt ="Barcode"
+            />
+            <h5>{selectedGift.gifticonName}</h5>
             <p>보낸 사람: {selectedGift.toUserNickname}</p>
             <p>Serial Number: {selectedGift.serialNumber}</p>
             <p>메시지 : {selectedGift.letter}</p>
-            <p>사용 여부 {selectedGift.used ? "사용완료" : "사용가능"}</p>
+            <p>{selectedGift.used ? "사용완료" : "사용가능"}</p>
             <button type="button" onClick={() => {setModalOpen(false);}} className={styles.backbutton}>닫기</button>
           </div>
           </div>
