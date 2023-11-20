@@ -159,7 +159,7 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
                 <option value="광주">광주</option>
                 <option value="제주도">제주도</option>
             </select>
-            <button onClick={() => setModalOpen(true)}>경기장 등록</button>
+            <button onClick={() => setAddModalOpen(true)}>경기장 등록</button>
             {addModalOpen && (
                 <div
                     style={{
