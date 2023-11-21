@@ -6,13 +6,14 @@ import Image from 'next/image';
 
 export default function Dashboard() {
 
+    // 매칭방 
     const [matchingPoolCount, setMatchingPoolCount] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             const localStorage: Storage = window.localStorage;
             const token = localStorage.getItem("accessToken");
-            
+
             const response = await fetch('https://withsports.shop:8000/matching-service/matching/pool', {
                 method: 'GET',
                 headers: {
@@ -137,10 +138,10 @@ export default function Dashboard() {
                     alt="Icon"
                     />
                     <Typography variant="h3">
-                        300 
+                        {/* 매칭방 상태에 맞는 값 출력 */}
                     </Typography>
                     <Button variant="contained" color="primary" fullWidth>
-                        View Post List
+                        View MatchingRoom List
                     </Button>            
                 </CardContent>
             </Card>

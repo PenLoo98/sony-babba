@@ -22,7 +22,7 @@ export default function InsertProfileImage({profileImage, setProfileImage}: Inse
         // 이미지 파일을 읽어 setImage로 저장
         if(file){
             reader.readAsDataURL(file[0]);
-            setProfileImage(file[0]);
+            //setProfileImage(file[0]);
         }
 
         // onDrop되면 preview를 보여줌, 기존 이미지 url을 지움
