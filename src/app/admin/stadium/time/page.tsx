@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import styles from "../../Home.module.css";
+import styles from "../../../Home.module.css";
 
 
 // 등록할 구장 정보
