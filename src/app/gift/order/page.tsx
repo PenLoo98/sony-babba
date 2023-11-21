@@ -85,9 +85,9 @@ export default function GiftOrderPage() {
   const handleGoBack = () => {
     window.location.href = "/gift";
   };
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setOrderInfo({ ...orderInfo, [e.target.name]: e.target.value });
-};
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -117,7 +117,6 @@ export default function GiftOrderPage() {
             amount : orderInfo.amount,
             letter : orderInfo.letter,
           }),
-          //body: JSON.stringify(orderInfo),
         }
       );
 

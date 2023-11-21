@@ -288,7 +288,9 @@ const fetchStadiumDetail = async (stadiumId: number) => {
             <p>주소: {selectedStadium.address}</p>
             <p>상세주소: {selectedStadium.detailAddress}</p>
             <p>전화번호: {selectedStadium.phoneNumber}</p>
+            <button onClick={() => router.push(`/stadium/time?stadiumId=${selectedStadium.stadiumId}`)} className={styles.addButton} style={{marginRight : "10px"}} > 시간 등록</button>
             <button onClick={() => setModalOpen(false)} className={styles.deletebutton}>닫기</button>
+            
         </div>
     </div>
     )}
