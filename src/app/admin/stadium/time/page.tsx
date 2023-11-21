@@ -179,29 +179,35 @@ export default function StadiumTimeRegistrationPage() {
                     
                     <form onSubmit={handleSubmit}>
                     <div style={{ display: 'flex', flexDirection: 'column' }}> 
-                        <select name="year" value={registerInfo.year} onChange={handleChange}>
+                        <select name="year" value={registerInfo.year} onChange={handleChange} style={{ height: '20px' }}>
                             {Array.from({length: 3}, (_, i) => i + 2023).map((year) => 
                                 <option key={year} value={year}>{year}년</option>
                             )}
                         </select>
-                        <select name="month" value={registerInfo.month} onChange={handleMonthChange}>
+                        <br/>
+                        <select name="month" value={registerInfo.month} onChange={handleMonthChange} style={{ height: '20px' }}>
                             {Array.from({length: 12}, (_, i) => i + 1).map((month) => 
                                 <option key={month} value={month}>{month}월</option>
                             )}
                         </select>
-                        <select name="day" value={registerInfo.day} onChange={handleChange}>
+                        <br/>
+                        <select name="day" value={registerInfo.day} onChange={handleChange} style={{ height: '20px' }}>
                             {Array.from({length: dayCount}, (_, i) => i + 1).map((day) => 
                                 <option key={day} value={day}>{day}일</option>
                             )}
                         </select>
-                        <select name="hour" value={registerInfo.hour} onChange={handleChange}>
+                        <br/>
+                        <select name="hour" value={registerInfo.hour} onChange={handleChange} style={{ height: '20px' }}>
                             {Array.from({length: 24}, (_, i) => i).map((hour) => 
                                 <option key={hour} value={hour}>{hour}시</option>
                             )}
                         </select>
+                        <br/>
                         <input name="capacity" type="number" value={registerInfo.capacity} onChange={handleChange} />
                     </div>
                     </form>
+                    <br/>
+                    <br/>
                     <button type="submit" className={styles.addButton} style={{marginRight: "10px"}}>제출</button>
                     <button onClick={handleGoBack} className={styles.backbutton}>뒤로 가기</button>
                 </div>
