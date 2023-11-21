@@ -224,9 +224,6 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   }
 
   
-
-  
-
   // 4. 팀원 목록 조회
   // 4-1. 팀원 목록 조회 접기/펼치기
   const [showMemberList, setShowMemberList] = useState(false);

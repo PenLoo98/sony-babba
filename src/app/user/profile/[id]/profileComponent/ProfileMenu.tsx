@@ -51,9 +51,7 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
 
   // 프로필 이미지 상태관리
   const [profileImage, setProfileImage] = useState(userData.imageUrl);
-  
-  // 프로필 이미지 파일 상태 관리
-  const [profileFile, setProfileFile] = useState<File | null>(null);
+  const [profileImageFile, setProfileImageFile] = useState<File | undefined>();
 
   // 닉네임 입력 상태관리
   const [typeNickname, setNickname] = useState("");
@@ -93,16 +91,6 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
       area: area,
     };
 
-    // 프로필 이미지 파일 생성
-    // let editImageFile: File = new File([profileImage], "profileImage.png");
-    let editImageFile: File | null;
-    if (profileImage !== null) {
-      //editImageFile = new File([profileImage as BlobPart], "profileImage.png");
-      editImageFile = profileFile;
-    } else {
-      editImageFile = new File([""], "profileImage.png");
-    }
-
     // FormEditData에 데이터 추가
     UserEditFormData.append(
       "updateProfile",
@@ -110,12 +98,10 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
         type: "application/json",
       })
     );
-
-    if(editImageFile !== null){
-        console.log(editImageFile);
-        UserEditFormData.append("image", editImageFile);
+    if (profileImageFile) {
+      UserEditFormData.append("image", profileImageFile);
     }
-    
+
     // 프로필 수정 제출 fetch
     fetch(editProfileURL, {
       method: "PUT",
@@ -301,7 +287,8 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
                 <InsertProfileImage
                   profileImage={profileImage}
                   setProfileImage={setProfileImage}
-                  setProfileFile={setProfileFile}
+                  profileImageFile={profileImageFile}
+                  setProfileImageFile={setProfileImageFile}
                 />
                 <TextField
                   label="닉네임"
