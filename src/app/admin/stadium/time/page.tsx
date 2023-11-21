@@ -14,7 +14,6 @@ type StadiumInfo = {
     phoneNumber : string;   // 구장 전화번호
 }
 
-
 // 경기장 상세 정보
 type StadiumDetail = {
     stadiumId : number;     // 구장 ID
@@ -30,6 +29,7 @@ type PageParams = {
 };
 
 type RegisterStadiumInfo = {
+    stadiumId : number; // 경기장 ID
     month : number;     // 1 ~ 12월
     day : number;       // 1 ~ 31일
     hour : number;      // 0 ~ 23시
@@ -42,19 +42,18 @@ type RegisterStadiumInfo = {
 export default function StadiumTimeRegistrationPage() {
     
 
-
-    const [stadium, setStadium] = useState<StadiumDetail | null>(null);
-    const router = useRouter();
-    const params = useSearchParams();
-    const stadiumId = params.get('stadiumId');
-
-
     const [registerInfo, setRegisterInfo] = useState<RegisterStadiumInfo>({
+        stadiumId: 0,
         month: 1,
         day: 1,
         hour: 0,
         capacity: 0
     });
+
+    const [stadium, setStadium] = useState<StadiumDetail | null>(null);
+    const router = useRouter();
+    const params = useSearchParams();
+    const stadiumId = params.get('stadiumId'); // 쿼리 파라미터 'stadiumId' 가져옴
 
     // 경기장 정보 가져옴
     useEffect(() => {
@@ -84,7 +83,6 @@ export default function StadiumTimeRegistrationPage() {
                 // 경기장 정보 저장
                 setStadium(data.data);
 
-
                 if (data.code === 'SUCCESS') {
                     setStadium(data.data);  // 선택된 경기장의 상세 정보를 상태에 저장
                 } else {
@@ -110,7 +108,7 @@ export default function StadiumTimeRegistrationPage() {
         setRegisterInfo({ ...registerInfo, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         // 로컬스토리지 토큰 가져오기
