@@ -111,9 +111,11 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
       })
     );
 
-    if(editImageFile !== null)
+    if(editImageFile !== null){
+        console.log(editImageFile);
         UserEditFormData.append("image", editImageFile);
-
+    }
+    
     // 프로필 수정 제출 fetch
     fetch(editProfileURL, {
       method: "PUT",
