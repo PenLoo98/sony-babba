@@ -204,11 +204,13 @@ export default function StadiumTimeRegistrationPage() {
                         </select>
                         <br/>
                         <input name="capacity" type="number" value={registerInfo.capacity} onChange={handleChange} />
+                        <br/>
+                        <button type="submit" className={styles.addButton}>제출</button>
                     </div>
                     </form>
                     <br/>
                     <br/>
-                    <button type="submit" className={styles.addButton} style={{marginRight: "10px"}}>제출</button>
+                    
                     <button onClick={handleGoBack} className={styles.backbutton}>뒤로 가기</button>
                 </div>
             )}
