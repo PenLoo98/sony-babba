@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 type InsertProfileImage = {
     profileImage: string | null;
     setProfileImage: (profileImage: string) => void;
+    setProfileFile: (profileFile: File | null) => void;
 }
 
 export default function InsertProfileImage({profileImage, setProfileImage}: InsertProfileImage) {
@@ -17,12 +18,12 @@ export default function InsertProfileImage({profileImage, setProfileImage}: Inse
 
     function onDrop(acceptedFiles: any) {
         const reader = new FileReader();
-        const file = acceptedFiles;
+        const file = acceptedFiles[0];
 
         // 이미지 파일을 읽어 setImage로 저장
         if(file){
-            reader.readAsDataURL(file[0]);
-            //setProfileImage(file[0]);
+            reader.readAsDataURL(file);
+            setProfileImage(file);
         }
 
         // onDrop되면 preview를 보여줌, 기존 이미지 url을 지움
