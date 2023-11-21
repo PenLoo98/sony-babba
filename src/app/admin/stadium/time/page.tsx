@@ -30,6 +30,7 @@ type PageParams = {
 
 type RegisterStadiumInfo = {
     stadiumId : number; // 경기장 ID
+    year : number;      // 2023 ~ 2025년
     month : number;     // 1 ~ 12월
     day : number;       // 1 ~ 31일
     hour : number;      // 0 ~ 23시
@@ -44,6 +45,7 @@ export default function StadiumTimeRegistrationPage() {
 
     const [registerInfo, setRegisterInfo] = useState<RegisterStadiumInfo>({
         stadiumId: 0,
+        year : 2023,
         month: 1,
         day: 1,
         hour: 0,
@@ -155,6 +157,11 @@ export default function StadiumTimeRegistrationPage() {
                     <p>전화번호: {stadium.phoneNumber}</p>
                     
                     <form onSubmit={handleSubmit}>
+                        <select name="year" value={registerInfo.year} onChange={handleChange}>
+                            {Array.from({length: 3}, (_, i) => i + 2023).map((year) => 
+                                <option key={year} value={year}>{year}년</option>
+                            )}
+                        </select>
                         <select name="month" value={registerInfo.month} onChange={handleChange}>
                             {Array.from({length: 12}, (_, i) => i + 1).map((month) => 
                                 <option key={month} value={month}>{month}월</option>
