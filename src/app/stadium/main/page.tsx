@@ -28,7 +28,7 @@ type PageParams = {
 };
 
 
-export default function StadiumManagePage({ params }: { params: PageParams }){
+export default function StadiumListPage({ params }: { params: PageParams }){
 
     const [stadiums, setStadiums] = useState<StadiumDetail[]>([]);
     const [selectedStadium, setSelectedStadium] = useState<StadiumDetail | null>(null);
@@ -173,9 +173,9 @@ export default function StadiumManagePage({ params }: { params: PageParams }){
             <p>상세주소: {selectedStadium.detailAddress}</p>
             <p>전화번호: {selectedStadium.phoneNumber}</p>
             {/* 수정 필요 */}
-            <button onClick={() => router.push(`/admin/stadium/time?stadiumId=${selectedStadium.stadiumId}`)} className={styles.addButton} style={{marginRight : "10px"}}> 예약하기 </button>
+            <button onClick={() => router.push(`/stadium/book?stadiumId=${selectedStadium.stadiumId}`)} className={styles.addButton}> 예약하기 </button>
+            <br/>
             <button onClick={() => setModalOpen(false)} className={styles.deletebutton}>닫기</button>
-            
         </div>
     </div>
     )}
