@@ -14,6 +14,16 @@ export default function MenuBar() {
           style={{margin: "0 20px"}}
         />
       </Link>
+      {/* 변경 필요함 */}
+      <Link href="http://3.37.181.58:3000/" style={{ textDecoration: "none" }}>
+        <Image
+          src="/vote.png"
+          width={70}
+          height={70}
+          alt="vote-image"
+          style={{ margin: "0 20px" }}
+        />
+      </Link>
       <Link href="/gift" style={{ textDecoration: "none"}}>
         <Image
           src="/gift.png"
@@ -23,12 +33,12 @@ export default function MenuBar() {
           style={{margin: "0 20px"}}
         />
       </Link>
-      <Link href="http://3.37.181.58:3000/" style={{ textDecoration: "none" }}>
+      <Link href="/stadium" style={{ textDecoration: "none" }}>
         <Image
-          src="/vote.png"
+          src="/stadium.png"
           width={70}
           height={70}
-          alt="vote-image"
+          alt="stadium-image"
           style={{ margin: "0 20px" }}
         />
       </Link>
