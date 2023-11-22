@@ -1,5 +1,4 @@
 "use client";
-import ValidToken from "@/components/Auth/ValidToken";
 import { Button } from "@mui/material";
 
 type CheckTeamNameProps = {

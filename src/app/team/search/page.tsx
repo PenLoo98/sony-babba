@@ -23,21 +23,6 @@ type TeamSpecificProps = {
 };
 
 export default function TeamSpecific() {
-  // TODO: 팀 가입 API 테스트 (API 미구현)
-  // TODO: 팀 가입 API 테스트 (성공 응답 테스트만 하기))
-
-  // 팀 메인 페이지 그리드 스타일
-  const teamMainStyle = {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr",
-    gridTemplateRows: "1fr 0.5fr",
-    gap: "10px 10px",
-    gridTemplateAreas: `
-      ". . . ."
-      ". . . ."
-      `,
-  };
-
   // 2. 검색할 팀명
   const [searchTeam, setSearchTeam] = useState("");
   const typeTeamName = (e: any) => {
@@ -108,7 +93,7 @@ export default function TeamSpecific() {
 
   return (
     <div className="teamSpecific">
-      <div className="teamMain" style={teamMainStyle}>
+      <div className="teamMain">
         <Image src="/team-main.png" alt="team" width={180} height={180} />
         {/* 팀 검색 결과 */}
         <div
@@ -136,49 +121,53 @@ export default function TeamSpecific() {
             }}
           />
         </div>
-        {/* 팀 검색 결과 보여주기 */}
-        {showTeamResult && (
-          <div>
-            <table style={{ marginTop: "40px" }}>
-              <thead>
-                <tr style={{ backgroundColor: "deepskyblue" }}>
-                  <th style={{ color: "black", padding: "10px" }}>팀 이미지</th>
-                  <th style={{ color: "black", padding: "10px" }}>팀 이름</th>
-                  <th style={{ color: "black", padding: "10px" }}>팀장</th>
-                  <th style={{ color: "black", padding: "10px" }}>팀 소개</th>
-                  <th style={{ color: "black", padding: "10px" }}>지역</th>
-                  <th style={{ color: "black", padding: "10px" }}>종목</th>
-                  <th style={{ color: "black", padding: "10px" }}>멤버 수</th>
-                  <th style={{ color: "black", padding: "10px" }}>가입</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {searchTeamResult.data.map((team: TeamSpecificProps) => (
-                  <tr key={team.id}>
-                    <td>
-                      <img
-                        src={team.imageUrl}
-                        alt={team.teamName}
-                        width={40}
-                        height={40}
-                      />
-                    </td>
-                    <td>{team.teamName}</td>
-                    <td>{team.leaderName}</td>
-                    <td>{team.introduction}</td>
-                    <td>{team.area}</td>
-                    <td>{team.sports}</td>
-                    <td>{team.teamMemberCount}</td>
-                    <td>
-                      <ApplyTeam teamId={team.id} />
-                    </td>
+        <div className="search_result">
+          {/* 팀 검색 결과 보여주기 */}
+          {showTeamResult && (
+            <div>
+              <table style={{ marginTop: "40px" }}>
+                <thead>
+                  <tr style={{ backgroundColor: "deepskyblue" }}>
+                    <th style={{ color: "black", padding: "10px" }}>
+                      팀 이미지
+                    </th>
+                    <th style={{ color: "black", padding: "10px" }}>팀 이름</th>
+                    <th style={{ color: "black", padding: "10px" }}>팀장</th>
+                    <th style={{ color: "black", padding: "10px" }}>팀 소개</th>
+                    <th style={{ color: "black", padding: "10px" }}>지역</th>
+                    <th style={{ color: "black", padding: "10px" }}>종목</th>
+                    <th style={{ color: "black", padding: "10px" }}>멤버 수</th>
+                    <th style={{ color: "black", padding: "10px" }}>가입</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                </thead>
+
+                <tbody>
+                  {searchTeamResult.data.map((team: TeamSpecificProps) => (
+                    <tr key={team.id}>
+                      <td>
+                        <img
+                          src={team.imageUrl}
+                          alt={team.teamName}
+                          width={40}
+                          height={40}
+                        />
+                      </td>
+                      <td>{team.teamName}</td>
+                      <td>{team.leaderName}</td>
+                      <td>{team.introduction}</td>
+                      <td>{team.area}</td>
+                      <td>{team.sports}</td>
+                      <td>{team.teamMemberCount}</td>
+                      <td>
+                        <ApplyTeam teamId={team.id} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -6,8 +6,8 @@ import TypeValid from "@/components/TypeValid";
 import { Button } from "@mui/material";
 import ModalCustom from "@/components/ModalCustom";
 import MemberList from "../teamComponent/MemberList";
-import HandshakeIcon from "@mui/icons-material/Handshake";
 import EditTeamProfile from "../teamComponent/EditTeamProfile";
+import ShowApplyList from "../teamComponent/showApplyList";
 
 type PageParams = {
   id: number;
@@ -228,21 +228,6 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
   // 4-1. 팀원 목록 조회 접기/펼치기
   const [showMemberList, setShowMemberList] = useState(false);
 
-  // 5. 팀원 제명
-  // MemberList.tsx에서 구현함
-
-  // 6. 팀원 신청 목록 조회
-  // 6-1. 팀원 신청 목록 조회 Modal
-  const [showApplyListModal, setShowApplyListModal] = useState(false);
-  // 6-2. 팀원 신청 목록 조회 값 저장
-
-  // 6-3. 팀원 신청 목록 조회 fetch 함수
-  async function fetchApplyList() {
-    // 테스트 코드
-    alert("팀원 신청 목록 조회가 완료되었습니다.");
-    // setShowApplyListModal(true);
-  }
-
   // 7. 팀원 신청 수락
   // 7-1. 팀원 신청 정보 저장
   const [applyUserId, setApplyUserId] = useState<number>(0);
@@ -303,27 +288,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                 <EditTeamProfile teamId={params.id} sports={data.sports}/>
 
                 {/* 가입 신청 조회 */}
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    setShowApplyListModal(!showApplyListModal);
-                  }}
-                  startIcon={<HandshakeIcon />}
-                  style={{ backgroundColor: "#7CE24B", color: "black" }}
-                >
-                  가입 신청 조회
-                </Button>
-                <ModalCustom
-                  show={showApplyListModal}
-                  setShow={setShowApplyListModal}
-                >
-                  <div>
-                    <h1>팀 가입 신청 목록</h1>
-                    {/* TODO:팀 가입 신청 목록 fetch */}
-                    {/* TODO:팀 가입 신청 목록 데이터 표시 */}
-                    {/* TODO:팀 가입 신청 목록 신청/수락 처리 */}
-                  </div>
-                </ModalCustom>
+                <ShowApplyList teamId={params.id} />
 
                 {/* 팀 해체 */}
                 <Button
