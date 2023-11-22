@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function Dashboard() {
 
-    // 매칭방 
+    // 매칭 탐색 개수
     const [matchingPoolCount, setMatchingPoolCount] = useState(null);
 
     useEffect(() => {
@@ -29,6 +29,35 @@ export default function Dashboard() {
         fetchData();
     }, []);
     
+    // 매칭방 상태에 따른 갯수
+    const [roomStatus, setRoomStatus] = useState({
+        beforeBooking: null,
+        doneBooking: null,
+        startGame: null,
+        endGame: null
+    });
+
+    useEffect(() => {
+        const fetchRoomStatus = async () => {
+            const localStorage: Storage = window.localStorage;
+            const token = localStorage.getItem("accessToken");
+
+            const response = await fetch('https://withsports.shop:8000/matching-service/matching/rooms/status', {
+                method: 'GET',
+                headers: {
+                    Credentials: "include",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                }
+            });
+            const data = await response.json();
+            setRoomStatus(data);
+        };
+
+        fetchRoomStatus();
+    }, []);
+
+
     return (
     <>
     <Box sx={{ flexGrow: 1 }}>
@@ -50,7 +79,7 @@ export default function Dashboard() {
                         alt="Icon"
                     />
                     <Typography variant="h3">
-                        10,000
+                        20 명
                     </Typography>
                     <Button variant="contained" color="primary" fullWidth>
                         View Member List
@@ -72,7 +101,7 @@ export default function Dashboard() {
                     alt="Icon"
                     />
                     <Typography variant="h3">
-                        23 / 400 
+                        23
                     </Typography>
                     <Button variant="contained" color="primary" fullWidth>
                         View more
@@ -138,7 +167,7 @@ export default function Dashboard() {
                     alt="Icon"
                     />
                     <Typography variant="h3">
-                        {/* 매칭방 상태에 맞는 값 출력 */}
+                        {roomStatus?.beforeBooking},{roomStatus?.doneBooking}, {roomStatus?.startGame}, {roomStatus?.endGame}
                     </Typography>
                     <Button variant="contained" color="primary" fullWidth>
                         View MatchingRoom List

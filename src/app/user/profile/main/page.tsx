@@ -13,7 +13,7 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <h1>유저 프로필 메인 페이지</h1>
+      <h3>프로필 정보를 불러오고 있습니다. 잠시만 기다려 주십시오...</h3>
     </div>
   );
 }
