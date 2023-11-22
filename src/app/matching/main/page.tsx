@@ -33,60 +33,6 @@ export default function MatchingPage() {
 
   // 매칭 탐색 취소 ... (POST) /matching-service/matching/{matchingRoomId}/cancel
 
-//   // 더미 데이터
-//   const [matchingRooms, setMatchingRooms] = useState<MatchingList[]>([
-//     {
-//       matchingRoomId: 1,
-//       teamId: 101,
-//       teamName: "Team A",
-//       roomLeaderNickname: "Leader A",
-//       sports: "Football",
-//       area: "Seoul",
-//       capacity: 10,
-//       userCount: 5,
-//       sumRating: 4.5,
-//       participateStatus: false,
-//       status: "기본",
-//     },
-//   ]);
-
-//   useEffect(() => {
-//     getMatchingRooms();
-//   }, []);
-
-//   const getMatchingRooms = async () => {
-//     const response = await fetch("/matching-service/matchingrooms");
-//     const data = await response.json();
-//     setMatchingRooms(data);
-//   };
-
-//   const createMatchingRoom = async () => {
-//     const response = await fetch("/matching-service/matching/room", {
-//       method: "POST",
-//     });
-//     if (response.status === 200) {
-//       getMatchingRooms();
-//     }
-//   };
-
-//   const enterMatchingRoom = async (roomId: number) => {
-//     const response = await fetch(`/matching-service/matchingroom/${roomId}`, {
-//       method: "POST",
-//     });
-//     if (response.status === 200) {
-//       getMatchingRooms();
-//     }
-//   };
-
-//   const leaveMatchingRoom = async (roomId: number) => {
-//     const response = await fetch(`/matching-service/matchingroom/${roomId}`, {
-//       method: "DELETE",
-//     });
-//     if (response.status === 200) {
-//       getMatchingRooms();
-//     }
-//   };
-
   return (
     <div>
       <div
