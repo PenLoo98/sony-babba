@@ -324,7 +324,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
 
         <h3>스포츠 용품</h3>
         {/* sportequipment 상품 목록 창 */}
-        <table style={{ marginTop: "10px" }}>
+        <table className={styles.giftListTable} style={{ marginTop: "10px" }}>
           <thead>
             <tr style={{ backgroundColor: "black" }}>
               <th style={{ color: "white", padding: "20px" }}>카테고리</th>
