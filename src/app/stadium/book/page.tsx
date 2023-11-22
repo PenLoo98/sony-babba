@@ -4,26 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from "../../Home.module.css";
 
-
-// // 등록할 구장 정보
-// type StadiumInfo = {
-//     stadiumId ?: number;
-//     stadiumName : string;   // 구장 이름
-//     address : string;       // 구장 주소
-//     detailAddress : string; // 구장 상세 주소
-//     phoneNumber : string;   // 구장 전화번호
-// }
-
-// // 경기장 상세 정보
-// type StadiumDetail = {
-//     stadiumId : number;     // 구장 ID
-//     stadiumName : string;   // 구장 이름
-//     address : string;       // 구장 주소
-//     detailAddress : string; // 구장 상세 주소
-//     phoneNumber : string;   // 구장 전화번호
-//     adminId : number;       // 등록한 관리자의 ID
-// }
-
 type PageParams = {
     id: number;
 };
@@ -97,7 +77,7 @@ export default function StadiumBookPage() {
     return (
         <div>
             {/* 경기장별 시간 목록 표시 */}
-            <table className={styles.stadiumTimeListTable}>
+            <table className={styles.stadiumListTable}>
             <thead>
                 <tr>
                     <th>년도</th>
