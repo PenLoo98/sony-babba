@@ -62,9 +62,9 @@ export default function CreateRoomButton() {
     const response = await fetch(createRoomURL, {
       method: "POST",
       headers: {
-        "Credentials": "include",
+        Credentials: "include",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${tokenValue}`,
+        Authorization: `Bearer ${tokenValue}`,
       },
       body: JSON.stringify(bodyJSON),
     })
@@ -114,13 +114,17 @@ export default function CreateRoomButton() {
           style={{ margin: "10px 0 10px 0" }}
         />
         {validSports ? (
-          <Button variant="contained" onClick={requestCreateRoom}>
-            매칭방 생성 완료
-          </Button>
+          <div>
+            <Button variant="contained" onClick={requestCreateRoom}>
+              매칭방 생성 완료
+            </Button>
+          </div>
         ) : (
-          <Button variant="contained" onClick={requestCreateRoom} disabled>
-            매칭방 생성 완료
-          </Button>
+          <div>
+            <Button variant="contained" onClick={requestCreateRoom} disabled>
+              매칭방 생성 완료
+            </Button>
+          </div>
         )}
       </ModalCustom>
     </div>

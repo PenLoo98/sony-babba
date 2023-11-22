@@ -43,7 +43,7 @@ export default function GetRoomList() {
         teamId: 0,
         teamName: "팀 이름",
         roomLeaderId: 0,
-        roomLeaderNickname: "방장 닉네임",
+        roomLeaderNickname: "닉네임",
         sports: "종목",
         area: "지역",
         capacity: 5,

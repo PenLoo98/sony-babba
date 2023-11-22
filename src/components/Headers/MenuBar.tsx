@@ -4,14 +4,14 @@ import Notification from "./Notification";
 
 export default function MenuBar() {
   return (
-    <div className="menuBar" style={{ display: "flex" }}>
-      <Link href="/admin" style={{ textDecoration: "none"}}>
+    <div className="menuBar" style={{ display: "flex", alignItems: "center" }}>
+      <Link href="/admin" style={{ textDecoration: "none" }}>
         <Image
           src="/admin.png"
           width={70}
           height={70}
           alt="admin-image"
-          style={{margin: "0 20px"}}
+          style={{ margin: "0 20px" }}
         />
       </Link>
       {/* 변경 필요함 */}
@@ -24,13 +24,13 @@ export default function MenuBar() {
           style={{ margin: "0 20px" }}
         />
       </Link>
-      <Link href="/gift" style={{ textDecoration: "none"}}>
+      <Link href="/gift" style={{ textDecoration: "none" }}>
         <Image
           src="/gift.png"
           width={70}
           height={70}
           alt="gift-image"
-          style={{margin: "0 20px"}}
+          style={{ margin: "0 20px" }}
         />
       </Link>
       <Link href="/stadium" style={{ textDecoration: "none" }}>
@@ -78,10 +78,10 @@ export default function MenuBar() {
           style={{ margin: "0 20px" }}
         />
       </Link>
-      
+
       {/* 알람 */}
       <Notification />
-      
+
       <Link href="/user/profile/main" style={{ textDecoration: "none" }}>
         <Image
           src="/profileBtn.png"

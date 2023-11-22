@@ -28,6 +28,7 @@ export default function EnterRoomButton({
     }).then((res) => {
       if (res.ok) {
         alert("방에 입장하였습니다.");
+        location.reload();
       } else if (res.status === 401) {
         alert("다시 로그인해주세요");
       } else {

@@ -5,6 +5,12 @@ type AcceptApplyProps = {
   userId: number;
 };
 
+type AcceptApplyResponse = {
+  code: string;
+  message: string;
+  data?: string | null;
+};
+
 /**팀 가입 신청 수락 컴포넌트 */
 export default function AcceptApply({ teamId, userId }: AcceptApplyProps) {
   // 팀 가입신청 수락 fetch
@@ -25,9 +31,13 @@ export default function AcceptApply({ teamId, userId }: AcceptApplyProps) {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
+      .then((data:AcceptApplyResponse) => {
         console.log("acceptApplyResponse: ");
         console.log(data);
+        if(data.code === "SUCCESS") {
+          alert("팀 가입 신청을 수락하였습니다.");
+          location.reload();
+        }
       });
   }
 

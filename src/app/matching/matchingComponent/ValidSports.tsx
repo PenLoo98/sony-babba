@@ -38,6 +38,6 @@ export default function ValidSports({sports, setValidSports}: ValidSportsProps){
 
     }
     return(
-        <Button variant="outlined" onClick={checkSports}>중복 확인</Button> 
+        <Button variant="outlined" onClick={checkSports} style={{ margin: "0 0 20px 0" }}>중복 확인</Button> 
     )
 }
