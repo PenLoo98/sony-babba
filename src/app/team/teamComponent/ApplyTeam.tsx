@@ -51,6 +51,7 @@ export default function ApplyTeam({ teamId }: applyTeamProps) {
         if (res.status == 200) {
           alert("팀 가입 신청에 성공했습니다.");
           setTypeIntro("");
+          setShowJoinModal(false);
           console.log(res);
         } else if (res.status == 409) {
           alert("없는 팀입니다.");

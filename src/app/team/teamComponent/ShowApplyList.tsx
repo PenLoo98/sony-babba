@@ -77,7 +77,7 @@ export default function ShowApplyList({ teamId }: applyTeamProps) {
       <Button
         variant="contained"
         onClick={() => {
-          getApplyList;
+          getApplyList();
           setApplyListModal(!applyListModal);
         }}
         startIcon={<HandshakeIcon />}
@@ -93,8 +93,6 @@ export default function ShowApplyList({ teamId }: applyTeamProps) {
               <tr style={{ backgroundColor: "deepskyblue" }}>
                 <th style={{ color: "black", padding: "10px" }}>팀 아이디</th>
                 <th style={{ color: "black", padding: "10px" }}>유저 아이디</th>
-                <th style={{ color: "black", padding: "10px" }}>자기소개</th>
-                <th style={{ color: "black", padding: "10px" }}>경과 시간</th>
                 <th style={{ color: "black", padding: "10px" }}>수락</th>
                 <th style={{ color: "black", padding: "10px" }}>거절</th>
               </tr>
@@ -104,8 +102,6 @@ export default function ShowApplyList({ teamId }: applyTeamProps) {
                 <tr key={applyInfo.elapsedTime}>
                   <td>{applyInfo.teamId}</td>
                   <td>{applyInfo.userId}</td>
-                  <td>{applyInfo.introduction}</td>
-                  <td>{applyInfo.elapsedTime}</td>
                   <td>
                     <AcceptApply
                       teamId={applyInfo.teamId}
