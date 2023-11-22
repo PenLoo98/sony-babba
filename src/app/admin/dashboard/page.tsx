@@ -167,7 +167,8 @@ export default function Dashboard() {
                     alt="Icon"
                     />
                     <Typography variant="h3">
-                        {roomStatus?.beforeBooking},{roomStatus?.doneBooking}, {roomStatus?.startGame}, {roomStatus?.endGame}
+                        예약 전 : {roomStatus?.beforeBooking || 0 }  예약 후 : {roomStatus?.doneBooking || 0 }  
+                        경기 중 : {roomStatus?.startGame || 0 }  경기 종료 : {roomStatus?.endGame || 0 } 
                     </Typography>
                     <Button variant="contained" color="primary" fullWidth>
                         View MatchingRoom List
