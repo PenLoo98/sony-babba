@@ -76,6 +76,7 @@ export default function StadiumBookPage() {
 
     return (
         <div>
+            <h3>예약 가능한 시간대</h3>
             {/* 경기장별 시간 목록 표시 */}
             <table className={styles.stadiumListTable}>
             <thead>
