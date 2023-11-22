@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import ModalCustom from "@/components/ModalCustom";
 import MemberList from "../teamComponent/MemberList";
 import EditTeamProfile from "../teamComponent/EditTeamProfile";
-import ShowApplyList from "../teamComponent/showApplyList";
+import ShowApplyList from "../teamComponent/ShowApplyList";
 
 type PageParams = {
   id: number;
