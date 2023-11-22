@@ -5,9 +5,9 @@ import IsLeader from "../teamComponent/IsLeader";
 import TypeValid from "@/components/TypeValid";
 import { Button } from "@mui/material";
 import ModalCustom from "@/components/ModalCustom";
-import MemberList from "../teamComponent/MemberList";
 import EditTeamProfile from "../teamComponent/EditTeamProfile";
 import ShowApplyList from "../teamComponent/ShowApplyList";
+import ShowMemberList from "../teamComponent/ShowMemberList";
 
 type PageParams = {
   id: number;
@@ -223,11 +223,6 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
       });
   }
 
-  
-  // 4. 팀원 목록 조회
-  // 4-1. 팀원 목록 조회 접기/펼치기
-  const [showMemberList, setShowMemberList] = useState(false);
-
   // 7. 팀원 신청 수락
   // 7-1. 팀원 신청 정보 저장
   const [applyUserId, setApplyUserId] = useState<number>(0);
@@ -285,7 +280,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
             {isLeader && (
               <div>
                 {/* 팀 프로필 수정 */}
-                <EditTeamProfile teamId={params.id} sports={data.sports}/>
+                <EditTeamProfile teamId={params.id} sports={data.sports} />
 
                 {/* 가입 신청 조회 */}
                 <ShowApplyList teamId={params.id} />
@@ -340,22 +335,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
             )}
 
             {/* 팀원 목록 조회 */}
-            {/* TODO: 팀원의 프로필+이미지만 보여주고 누르면 자세한 정보 보여주도록 구현 */}
-            <h2
-              onClick={() => {
-                setShowMemberList(!showMemberList);
-              }}
-            >
-              {"->"} 팀원 목록
-            </h2>
-            {showMemberList && (
-              <MemberList
-                teamId={params.id}
-                isLeader={isLeader}
-                setIsLeader={setIsLeader}
-                memberJSON={data.pageable}
-              />
-            )}
+            <ShowMemberList teamId={params.id} isLeader={isLeader} />
           </div>
         )}
       </IsLeader>

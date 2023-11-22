@@ -7,6 +7,7 @@ type applyTeamProps = {
   teamId: number;
 };
 
+/** 팀 가입신청 컴포넌트 */
 export default function ApplyTeam({ teamId }: applyTeamProps) {
   const [showJoinModal, setShowJoinModal] = useState(false);
   const [intro, setTypeIntro] = useState("");
@@ -54,7 +55,7 @@ export default function ApplyTeam({ teamId }: applyTeamProps) {
           setShowJoinModal(false);
           console.log(res);
         } else if (res.status == 409) {
-          alert("없는 팀입니다.");
+          alert("이미 소속된 팀입니다.");
           console.log(res);
         } else {
           alert("팀 가입 신청에 실패했습니다.");

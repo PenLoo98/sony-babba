@@ -37,7 +37,6 @@ export default function TeamSpecific() {
   const [teamName, setTeamName] = useState("");
   const changeTeamName = (e: any) => {
     setTeamName(e.target.value);
-    console.log(teamName);
   };
   // 팀 이름 확인
   const [validName, setValidName] = useState(false);
