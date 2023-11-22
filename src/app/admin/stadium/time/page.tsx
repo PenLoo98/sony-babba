@@ -33,7 +33,7 @@ type RegisterStadiumInfo = {
     year : number;      // 2023 ~ 2025년
     month : number;     // 1 ~ 12월
     day : number;       // 1 ~ 31일
-    hour : number;      // 0 ~ 23시
+    hour : number;      // 9 ~ 21시
     capacity : number;  // 해당 시간의 수용 인원
 }
 
@@ -48,7 +48,7 @@ export default function StadiumTimeRegistrationPage() {
         year : 2023,
         month: 1,
         day: 1,
-        hour: 0,
+        hour: 9,
         capacity: 0
     });
 
@@ -198,7 +198,7 @@ export default function StadiumTimeRegistrationPage() {
                         </select>
                         <br/>
                         <select name="hour" value={registerInfo.hour} onChange={handleChange} style={{ height: '20px' }}>
-                            {Array.from({length: 24}, (_, i) => i).map((hour) => 
+                            {Array.from({length: 13}, (_, i) => i + 9).map((hour) => 
                                 <option key={hour} value={hour}>{hour}시</option>
                             )}
                         </select>
@@ -206,12 +206,12 @@ export default function StadiumTimeRegistrationPage() {
                         <input name="capacity" type="number" value={registerInfo.capacity} onChange={handleChange} />
                         <br/>
                         <button type="submit" className={styles.addButton}>제출</button>
+                        <br/>
+                        <button onClick={handleGoBack} className={styles.backbutton}>뒤로 가기</button>
+
                     </div>
                     </form>
                     <br/>
-                    <br/>
-                    
-                    <button onClick={handleGoBack} className={styles.backbutton}>뒤로 가기</button>
                 </div>
             )}
         </div>
