@@ -118,12 +118,13 @@ export default function Notification() {
       <Badge badgeContent={notificationCount} color="error">
         <Image
           src="/bell.png"
-          width={70}
-          height={70}
+          width={50}
+          height={50}
           alt="bell-image"
-          style={{ margin: "0 20px" }}
+          style={{ margin: "0 10px" }}
           onClick={() => setShowNotification(true)}
         />
+        <p>알림</p>
       </Badge>
       <ModalCustom show={showNotification} setShow={setShowNotification}>
         <h1>알림</h1>
