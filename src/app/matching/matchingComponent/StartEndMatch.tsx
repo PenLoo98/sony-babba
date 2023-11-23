@@ -95,12 +95,12 @@ export default function StartEndMatch({ matchingRoomId }: IsMatchingProps) {
 
   return (
     <>
-      {isMatched && !isEnded && (
+      {(isMatched && !isEnded) && (
         <Button variant="outlined" onClick={startMatch}>
           매치 시작
         </Button>
       )}
-      {!isMatched && !isEnded &&(
+      {(!isMatched && !isEnded) &&(
         <Button variant="outlined" onClick={endMatch}>
           매치 종료
         </Button>
