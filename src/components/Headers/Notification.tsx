@@ -115,7 +115,7 @@ export default function Notification() {
 
   return (
     <>
-      <Badge badgeContent={notificationCount} color="error">
+      <Badge badgeContent={notificationCount} color="error" style={{display: "block"}}>
         <div>
           <Image
             src="/bell.png"
