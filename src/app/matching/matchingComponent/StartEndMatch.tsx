@@ -62,7 +62,7 @@ export default function StartEndMatch({ matchingRoomId }: IsMatchingProps) {
 
     // TODO: 매치 결과 동적으로 입력받는 거 구현하기
     // 매치 결과 JSON 
-    let matchResult = {
+    let EndGameResultRequest = {
       score: 2,
       opponentScore: 1,
       result: "승리",
@@ -76,7 +76,7 @@ export default function StartEndMatch({ matchingRoomId }: IsMatchingProps) {
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(matchResult),
+      body: JSON.stringify(EndGameResultRequest),
     })
       .then((res) => res.json())
       .then((data : startEndMatchResponse) => {
