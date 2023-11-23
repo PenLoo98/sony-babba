@@ -12,7 +12,3 @@
 img {
     animation: slideUp 1s ease-in-out;
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
