@@ -4,6 +4,7 @@ import EnterRoomButton from "./EnterRoomButton";
 import DeleteRoomButton from "./DeleteRoomButton";
 import ExitRoomButton from "./ExitRoomButton";
 import SearchingButton from "./SearchingButton";
+import IsMatching from "./IsMatching";
 // TODO: 매칭방 목록 가져오기
 
 // TODO: 매칭방 fetch 데이터 형식 정의
@@ -105,7 +106,7 @@ export default function GetRoomList() {
       {!showRoomInfo && <div>매칭방 정보를 불러오는 중입니다...</div>}
       {showRoomInfo && (
         <div>
-          <table style={{ marginTop: "40px" }}>
+          <table style={{ marginTop: "40px", textAlign: "center" }}>
             <thead>
               <tr style={{ backgroundColor: "deepskyblue" }}>
                 <th style={{ color: "black", padding: "10px" }}>팀 이름</th>
@@ -116,11 +117,10 @@ export default function GetRoomList() {
                 <th style={{ color: "black", padding: "10px" }}>정원</th>
                 <th style={{ color: "black", padding: "10px" }}>평균레이팅</th>
                 <th style={{ color: "black", padding: "10px" }}>참석 상태</th>
-                <th style={{ color: "black", padding: "10px" }}>매칭방 상태</th>
+                <th style={{ color: "black", padding: "10px" }}>모집</th>
                 <th style={{ color: "black", padding: "10px" }}>참가</th>
-                <th style={{ color: "black", padding: "10px" }}>
-                  매칭 가능 여부
-                </th>
+                <th style={{ color: "black", padding: "10px" }}>탐색</th>
+                <th style={{ color: "black", padding: "10px" }}>매치</th>
               </tr>
             </thead>
             <tbody>
@@ -165,8 +165,12 @@ export default function GetRoomList() {
                     room.capacity == room.userCount ? (
                       <SearchingButton matchingRoomId={room.matchingRoomId} />
                     ) : (
-                      <p>모집중</p>
+                      <p>인원 모집중</p>
                     )}
+                  </td>
+                  <td>
+                    {/* 매칭 탐색 후 매칭 완료 여부 확인 */}
+                    <IsMatching matchingRoomId={room.matchingRoomId} />
                   </td>
                 </tr>
               ))}
