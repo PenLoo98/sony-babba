@@ -4,7 +4,8 @@ import EnterRoomButton from "./EnterRoomButton";
 import DeleteRoomButton from "./DeleteRoomButton";
 import ExitRoomButton from "./ExitRoomButton";
 import SearchingButton from "./SearchingButton";
-import IsMatching from "./IsMatching";
+import IsMatching from "./StartEndMatch";
+import StartEndMatch from "./StartEndMatch";
 // TODO: 매칭방 목록 가져오기
 
 // TODO: 매칭방 fetch 데이터 형식 정의
@@ -150,6 +151,7 @@ export default function GetRoomList() {
                       <EnterRoomButton matchingRoomId={room.matchingRoomId} />
                     )}
                   </td>
+                  {/* room.status : "매칭방 인원 모집 중" | "매칭 완료" */}
                   <td>{room.status}</td>
                   <td>
                     {/* 방장이면 매칭방 해체, 참가자면 매칭방 나가기 버튼 */}
@@ -169,8 +171,8 @@ export default function GetRoomList() {
                     )}
                   </td>
                   <td>
-                    {/* 매칭 탐색 후 매칭 완료 여부 확인 */}
-                    <IsMatching matchingRoomId={room.matchingRoomId} />
+                    {/* 매칭 완료시 매치 시작/종료 */}
+                    {room.status == "매칭 완료" ? (<StartEndMatch matchingRoomId={room.matchingRoomId}/>):(null)}
                   </td>
                 </tr>
               ))}
