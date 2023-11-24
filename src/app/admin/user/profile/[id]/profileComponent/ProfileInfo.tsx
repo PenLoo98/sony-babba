@@ -1,24 +1,25 @@
-import Image from "next/image";
-import Link from "next/link";
-
 type UserJSON = {
   userId: number;
   nickname: string;
-  introduction: string;
+  introduction: string | null;
   area: string;
-  imageUrl: string;
-  tier: string;
+  imageUrl: string | null | undefined;
+  tier?: string;
+  rating?: number;
   win: number;
   lose: number;
   draw: number;
-  winRate: number;
-  mvpCount: number;
-  teamName?: string;
+  winRate: number | undefined | null;
 };
 
-export default function Profile(userJSON: { userJSON: UserJSON }) {
+type ProfileProps = {
+  userJSON: UserJSON;
+};
+
+export default function Profile({ userJSON }: ProfileProps) {
+  console.log("userJSON:");
   console.log(userJSON);
-  const userData = userJSON.userJSON;
+  let userData = userJSON;
 
   return (
     <div
@@ -29,12 +30,11 @@ export default function Profile(userJSON: { userJSON: UserJSON }) {
         className="profileImage"
         style={{ display: "flex", justifyContent: "center" }}
       >
-        <Image
-          src={userData.imageUrl}
+        <img
+          src={userData.imageUrl ? userData.imageUrl : "/default-profile.png"}
           alt="profile"
-          width={190}
-          height={190}
-          defaultValue={"/default-profile.png"}
+          width={200}
+          height={200}
         />
       </div>
       <div className="userInfo">
@@ -53,17 +53,14 @@ export default function Profile(userJSON: { userJSON: UserJSON }) {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <h3>{userData.area}</h3>
-          <Link
-            href={`/team/${userData.teamName}`}
-            style={{ textDecoration: "none" }}
-            target={`/team/${userData.teamName}`}
-          >
-            <h3>{userData.teamName}</h3>
-          </Link>
         </div>
         <div
           className="userIntro"
-          style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: 20,
+          }}
         >
           {userData.introduction}
         </div>
