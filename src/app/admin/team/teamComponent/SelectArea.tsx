@@ -6,12 +6,12 @@ import { MenuItem } from "@mui/material";
 
 interface SelectAreaProps {
     area: string;
-    onAreaChange: (selectedArea: string) => void;
+    setArea: (area: string) => void;
   }
 
-export default function SelectArea({ area, onAreaChange }: SelectAreaProps) {
+export default function SelectArea({ area, setArea }: SelectAreaProps) {
   const handleChange = (event: any) => {
-    onAreaChange(event.target.value as string);
+    setArea(event.target.value as string);
   };
   return (
     <div className="selectArea" style={{ width: "300px" }}>

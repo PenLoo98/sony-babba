@@ -32,6 +32,8 @@ export default function CheckSports({
         if (res.status === 200) {
           alert("생성가능한 종목입니다.");
           setValidSports(true);
+        } else if (res.status === 401) {
+          alert("다시 로그인해주세요");
         } else {
           alert("이미 소속된 팀이 있는 종목입니다.");
           setValidSports(false);
