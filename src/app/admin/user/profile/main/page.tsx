@@ -6,7 +6,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const localStorage = window.localStorage;
     const userId = localStorage.getItem("userId");
-    location.href = `/user/profile/${userId}`;
+    location.href = `/admin/user/profile/${userId}`;
   }, []);
 
  
