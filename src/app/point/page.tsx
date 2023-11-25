@@ -97,6 +97,10 @@ export default function PointPage() {
 
   const router = useRouter();
 
+  const handleGoBack = () => {
+    window.location.href = "/gift";
+  };
+
   return (
     <div>
       <div
@@ -115,6 +119,9 @@ export default function PointPage() {
       ) : (
         <p>Loading...</p>
       )}
+      <button onClick={handleGoBack} className={styles.backbutton}>
+            뒤로가기
+      </button>
       <h4>포인트 내역</h4>
       {/* 포인트 내역 목록 출력하기 */}
       {pointHistory.length > 0 ? (
