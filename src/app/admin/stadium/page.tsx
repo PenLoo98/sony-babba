@@ -195,6 +195,7 @@ const fetchStadiumDetail = async (stadiumId: number) => {
             <br/>
             <br/>
             <button onClick={() => setAddModalOpen(true)} className={styles.addButton}>경기장 등록</button>
+            <br/>
             {addModalOpen && (
                 <div
                     style={{
@@ -208,16 +209,18 @@ const fetchStadiumDetail = async (stadiumId: number) => {
                     left: 0,
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
                 }}>
-                <form onSubmit={handleSubmit} style={{ 
-                    display: "flex", 
-                    flexDirection: "column", 
-                    alignItems: "center", 
-                    justifyContent: "center", 
-                    backgroundColor: "white", 
-                    borderRadius: "10px", 
-                    padding: "20px", 
-                    width: "300px" 
-                }}>
+                <form onSubmit={handleSubmit} 
+                    className={styles["modal-form"]}
+                    style={{ 
+                        display: "flex", 
+                        flexDirection: "column", 
+                        alignItems: "center", 
+                        justifyContent: "center", 
+                        backgroundColor: "white", 
+                        borderRadius: "10px", 
+                        padding: "20px", 
+                        width: "300px" 
+                    }}>
                     {/* 경기장 등록 폼 */}
                     <label>
                         StadiumName
@@ -241,6 +244,7 @@ const fetchStadiumDetail = async (stadiumId: number) => {
             </div>
             )}
             {/* 경기장 목록 표시 */}
+            <br/>
             <table className={styles.stadiumListTable}>
             <thead>
                 <tr>
