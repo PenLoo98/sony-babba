@@ -63,7 +63,7 @@ export default function ModifyPost(props: ReadProps) {
   
       if (responseData.code === '0') {
         alert("게시글이 성공적으로 수정되었습니다.");
-        window.location.href = `/post/detail/${props.params.id}`;
+        window.location.href = `/admin/post/detail/${props.params.id}`;
       } else {
         alert("게시글 수정에 실패하였습니다.");
       }
@@ -111,7 +111,7 @@ export default function ModifyPost(props: ReadProps) {
       <button type="submit" className={styles.addButton} style={{ marginRight: "10px" }}>게시글 수정</button>
       <button
         type="button"
-        onClick={() => router.push(`/post/detail/${props.params.id}`)}
+        onClick={() => router.push(`/admin/post/detail/${props.params.id}`)}
         className={styles.backbutton}
       >
         수정 취소

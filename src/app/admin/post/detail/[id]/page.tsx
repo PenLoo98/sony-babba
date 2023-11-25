@@ -262,7 +262,7 @@ export default function PostDetail(props: ReadProps) {
   // 게시글 목록으로 이동
   const handleGoBack = (e: React.MouseEvent) => {
     e.preventDefault(); // 댓글 폼 제출 막기
-    window.location.href = "/post/list";
+    window.location.href = "/admin/post/list";
   };
 
   useEffect(() => {
@@ -277,7 +277,6 @@ export default function PostDetail(props: ReadProps) {
   return (
     <div>
       <h3 style={{ marginBottom: "1px" }}>{post.subject}</h3>
-      {loggedInUsername === post.author!.username && (
         <span style={{ display: "flex", justifyContent: "flex-end" }}>
           <button
             onClick={handleModifyPost}
@@ -290,7 +289,6 @@ export default function PostDetail(props: ReadProps) {
             삭제
           </button>
         </span>
-      )}
       <div style={{ textAlign: "right" }}>
         <span style={{ fontSize: "0.8em" }}>
           작성자 : {post.author!.username} &nbsp;&nbsp;&nbsp;&nbsp;

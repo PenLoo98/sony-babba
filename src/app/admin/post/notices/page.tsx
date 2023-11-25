@@ -20,7 +20,7 @@ export default function PostNotice() {
   const [page, setPage] = useState(1);
   
   const handleGoBack = () => {
-    window.location.href = "/post/list";
+    window.location.href = "/admin/post/list";
   };
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function PostNotice() {
               <td>
                 <h5>
                   <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
-                  <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
+                  <a href={`/admin/post/detail/${notice.id}`}>{notice.subject}</a>
                 </h5>
               </td>
             <td>{notice.author}</td>

@@ -19,7 +19,7 @@ export default function SignUp() {
     const router = useRouter();
 
     const handleGoBack = () => {
-      window.location.href = "/post/list";
+      window.location.href = "/admin/post/list";
     };
   
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,7 +60,7 @@ export default function SignUp() {
 
         // 회원가입 성공 시, 로그인 페이지로 이동
         alert("회원가입이 완료되었습니다.");
-        router.push("/post/login");
+        router.push("/admin/post/login");
       } catch (error) {
         alert("이미 존재하는 회원입니다.")
         console.error("There was an error!", error);

@@ -151,10 +151,10 @@ export default function PostList() {
         </button>
       ) : (
         <>
-          <Link href="/post/login">
+          <Link href="/admin/post/login">
             <button className={styles.loginButton} style={{ marginRight: "10px" }}>Login</button>
           </Link>
-          <Link href="/post/signup">
+          <Link href="/admin/post/signup">
             <button className={styles.signupButton}>Signup</button>
           </Link>
         </>
@@ -162,7 +162,7 @@ export default function PostList() {
       <br />
       <br />
       <div className={styles.boardContainer}>
-        <Link href="/post/create">
+        <Link href="/admin/post/create">
           <button className={styles.addButton}>게시글 등록하기</button>
         </Link>
         <div>
@@ -180,7 +180,7 @@ export default function PostList() {
       </div>
       <ul className={styles.noticeList}>
         <Link
-          href="/post/notices"
+          href="/admin/post/notices"
           style={{ color: "black", textDecoration: "none", fontSize: "Large" }}
         >
           공지사항
@@ -189,7 +189,7 @@ export default function PostList() {
           <div key={notice.id}>
             <h5>
               <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
-              <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
+              <a href={`/admin/post/detail/${notice.id}`}>{notice.subject}</a>
             </h5>
             <small style={{ textAlign: "right" }}>
               작성일자: {notice.createDate}
@@ -204,7 +204,7 @@ export default function PostList() {
         {popularPosts.map((post) => (
           <div key={post.id} className={styles.popularPostItem}>
             <style jsx>{`a{ color : black; text-decoration:none; flex-grow: 1;}`}</style>
-            <a href={`/post/detail/${post.id}`} className={styles.popularPostLink}>{post.subject}</a>
+            <a href={`/admin/post/detail/${post.id}`} className={styles.popularPostLink}>{post.subject}</a>
             <span>추천 수: {post.voter.length}</span>
           </div>
           
@@ -231,7 +231,7 @@ export default function PostList() {
                       text-decoration: none;
                     }
                   `}</style>
-                  <a href={`/post/detail/${post.id}`}>{post.subject}</a>
+                  <a href={`/admin/post/detail/${post.id}`}>{post.subject}</a>
                 </h5>
               </td>
               <td>{post.author}</td>

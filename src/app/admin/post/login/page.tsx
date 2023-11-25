@@ -16,7 +16,7 @@ export default function Login() {
   const router = useRouter();
 
   const handleGoBack = () => {
-    window.location.href = "/post/list";
+    window.location.href = "/admin/post/list";
   };
 
 
@@ -55,7 +55,7 @@ export default function Login() {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('username', username);
         alert("로그인이 완료되었습니다.");
-        router.push("/post/list");
+        router.push("/admin/post/list");
       } else {
         throw new Error("Login request failed");
       }
