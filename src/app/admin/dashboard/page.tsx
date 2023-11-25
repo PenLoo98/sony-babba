@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
+import Link from "next/link";
 import { Card, CardContent, Typography, Button, Grid, Box } from '@mui/material';
 import Image from 'next/image';
 
@@ -81,15 +82,17 @@ export default function Dashboard() {
                     <Typography variant="h3">
                         20 명
                     </Typography>
-                    <Button variant="contained" color="primary" fullWidth>
-                        View Member List
-                    </Button>
+                    <Link href="/admin/user" passHref>
+                        <Button variant="contained" color="primary" fullWidth>
+                            회원 관리 화면으로 이동
+                        </Button>
+                    </Link>  
                 </CardContent>
             </Card>
         </Grid>
-        <Grid item xs={4}>
+        {/* TODO : 방문자 수 현황  조회 */}
+        {/* <Grid item xs={4}>
             <Card>
-            {/* TODO : 방문자 수 현황  조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
                     Visitor (Day/Month)
@@ -108,10 +111,10 @@ export default function Dashboard() {
                     </Button>  
                 </CardContent>
             </Card>
-        </Grid>
+        </Grid> */}
+         {/* TODO : 팀 수 현황  조회 */}
         <Grid item xs={4}>
             <Card>
-            {/* TODO : 팀 수 현황  조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
                         팀 수 현황 
@@ -125,15 +128,17 @@ export default function Dashboard() {
                     <Typography variant="h3">
                         100 
                     </Typography>
-                    <Button variant="contained" color="primary" fullWidth>
-                        View Team List
-                    </Button>            
+                    <Link href="/admin/team/main" passHref>
+                        <Button variant="contained" color="primary" fullWidth>
+                            팀 관리 화면으로 이동
+                        </Button>
+                    </Link>   
                 </CardContent>
             </Card>
         </Grid>
+        {/* TODO : 매칭 탐색 개수 현황 조회 */}
         <Grid item xs={4}>
             <Card>
-            {/* TODO : 매칭 탐색 개수 현황 조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
                         매칭 탐색 개수
@@ -148,14 +153,16 @@ export default function Dashboard() {
                         {matchingPoolCount}
                     </Typography>            
                 </CardContent>
-                <Button variant="contained" color="primary" fullWidth>
-                    View Match List
-                </Button>
+                <Link href="/matching/main" passHref>
+                    <Button variant="contained" color="primary" fullWidth>
+                        매칭방 목록화면으로 이동
+                    </Button>
+                </Link>   
             </Card>
         </Grid>
+        {/* TODO : 매칭방 상태 조회 */}
         <Grid item xs={4}>
             <Card>
-            {/* TODO : 매칭방 상태 조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
                         매칭방 개수
@@ -166,19 +173,21 @@ export default function Dashboard() {
                     height={48}
                     alt="Icon"
                     />
-                    <Typography variant="h3">
+                    <Typography variant="h5">
                         예약 전 : {roomStatus?.beforeBooking || 0 }  예약 후 : {roomStatus?.doneBooking || 0 }  
                         경기 중 : {roomStatus?.startGame || 0 }  경기 종료 : {roomStatus?.endGame || 0 } 
                     </Typography>
-                    <Button variant="contained" color="primary" fullWidth>
-                        View MatchingRoom List
-                    </Button>            
+                    <Link href="/matching/main" passHref>
+                        <Button variant="contained" color="primary" fullWidth>
+                            매칭방 목록화면으로 이동
+                        </Button>
+                    </Link>   
                 </CardContent>
             </Card>
         </Grid>
+        {/* TODO : 기프티콘 수  조회 */}
         <Grid item xs={4}>
             <Card>
-            {/* TODO : 기프티콘 수  조회 */}
                 <CardContent>
                     <Typography variant="h5" component="div">
                         Number of Gifticon 
@@ -192,9 +201,11 @@ export default function Dashboard() {
                     <Typography variant="h3">
                         300 
                     </Typography>
-                    <Button variant="contained" color="primary" fullWidth>
-                        View Post List
-                    </Button>            
+                    <Link href="/admin/gift" passHref>
+                        <Button variant="contained" color="primary" fullWidth>
+                            기프티콘 등록 페이지로 이동
+                        </Button>
+                    </Link>            
                 </CardContent>
             </Card>
         </Grid>
