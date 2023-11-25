@@ -81,16 +81,16 @@ export default function CreatePost() {
           style={{width: '100%', height: '30px', fontSize: '16px', padding: '5px',  borderRadius:'10px'}}
         />
       </h4>
-      <input
+      {/* <input
         type="checkbox"
         checked={isNotice}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setIsNotice(e.target.checked)
         }
       />{" "}
-      공지글
-      <br />
-      <br />
+      공지글 */}
+      {/* <br /> */}
+      {/* <br /> */}
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}

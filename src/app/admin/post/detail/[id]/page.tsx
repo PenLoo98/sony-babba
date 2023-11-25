@@ -60,7 +60,7 @@ export default function PostDetail(props: ReadProps) {
   // // 댓글 수정 폼 표시 여부 + 댓글 ID 저장
   const [isEditing, setIsEditing] = useState(false);
   const [editCommentId, setEditCommentId] = useState(0);
-
+  const [showModal, setShowModal] = useState(false);
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setComment(event.target.value);
@@ -156,7 +156,63 @@ export default function PostDetail(props: ReadProps) {
     }
   };
 
-  // TODO : 댓글 수정
+  // TODO : 댓글 수정 <= 모달 창 방식
+
+  const handleEditContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEditContent(event.target.value);
+  };
+
+  const handleOpenModal = (commentId: number) => {
+    setIsEditing(true);
+    setEditCommentId(commentId);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsEditing(false);
+    setEditCommentId(0);
+    setEditContent('');
+    setShowModal(false);
+  };
+
+  const handleCommentUpdate = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!editContent.trim()) {
+      alert('댓글 내용을 입력해주세요.');
+      return;
+    }
+
+    if (loggedInUsername) {
+      fetch(`https://withsports.site/comment/modify/${editCommentId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: editContent,
+          name: loggedInUsername,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.code === "0") {
+            // 요청이 성공 시, 댓글 입력창 초기화, 게시글 데이터 업데이트
+            setEditContent("");
+            setIsEditing(false);
+            setEditCommentId(0);
+            setShowModal(false);
+            fetch(`https://withsports.site/post/detail/${props.params.id}`)
+              .then((response) => response.json())
+              .then((data) => setPost(data.data.post))
+              .catch((error) => console.log("Error : ", error));
+          } else {
+            throw new Error("댓글 수정 실패");
+          }
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  };
 
 
   // 댓글 삭제
@@ -206,7 +262,7 @@ export default function PostDetail(props: ReadProps) {
   // 게시글 목록으로 이동
   const handleGoBack = (e: React.MouseEvent) => {
     e.preventDefault(); // 댓글 폼 제출 막기
-    window.location.href = "/admin/post/list";
+    window.location.href = "/post/list";
   };
 
   useEffect(() => {
@@ -221,6 +277,7 @@ export default function PostDetail(props: ReadProps) {
   return (
     <div>
       <h3 style={{ marginBottom: "1px" }}>{post.subject}</h3>
+      {loggedInUsername === post.author!.username && (
         <span style={{ display: "flex", justifyContent: "flex-end" }}>
           <button
             onClick={handleModifyPost}
@@ -233,6 +290,7 @@ export default function PostDetail(props: ReadProps) {
             삭제
           </button>
         </span>
+      )}
       <div style={{ textAlign: "right" }}>
         <span style={{ fontSize: "0.8em" }}>
           작성자 : {post.author!.username} &nbsp;&nbsp;&nbsp;&nbsp;
@@ -266,10 +324,13 @@ export default function PostDetail(props: ReadProps) {
         <div key={comment.id}>
           <p>{comment.content}</p>
           <button onClick={() => handleCommentVote(comment.id)} className={styles.likebutton} style={{ marginRight: "10px" }}>👍</button>
-         
+          {loggedInUsername === comment.author!.username && (
+          <>
               {/* TODO : 댓글 수정 버튼 추가 */}
-          <button onClick={() => handleCommentDelete(comment.id)} className={styles.deletebutton}>삭제</button>
-         
+              <button onClick={() => handleOpenModal(comment.id)} className={styles.addButton} style={{marginRight: "10px"}}>수정</button>
+              <button onClick={() => handleCommentDelete(comment.id)} className={styles.deletebutton}>삭제</button>
+          </>
+          )}
           <div style={{ textAlign: "right" }}>
             <span style={{ fontSize: "0.8em" }}>
               작성자: {comment.author.username} &nbsp;&nbsp;&nbsp;&nbsp;
@@ -306,6 +367,7 @@ export default function PostDetail(props: ReadProps) {
           placeholder="댓글을 작성하세요."
           style={{ width: "100%", height: "100px", borderRadius: "10px" }}
         />
+        <br/>
         <div
           style={{
             width: "100%",
@@ -321,7 +383,31 @@ export default function PostDetail(props: ReadProps) {
             댓글 등록
           </button>
         </div>
+        <br/>
       </form>
+       {showModal && (
+        <div style={{ 
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',  
+          padding: '20px',
+          width: '300px',  
+          height: '200px', 
+          borderRadius: '10px',  
+          boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)' 
+          }}>
+            
+          <form onSubmit={handleCommentUpdate}  style={{ width: '100%', marginBottom: '20px' }}>
+            <input type="text" value={editContent} onChange={handleEditContentChange}  style={{ width: "100%", height: "100px", borderRadius: "10px" }} />
+          </form>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+          <button type="submit"  onClick={handleCommentUpdate}  className ={styles.addButton} style={{marginRight: "10px"}}>수정 완료</button>
+          <button onClick={handleCloseModal}  className={styles.deletebutton}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

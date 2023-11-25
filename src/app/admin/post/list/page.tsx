@@ -10,28 +10,105 @@ type Post = {
   isNotice: boolean;
   author: string;
   createDate: string;
+  voter: string[];
 };
-
 
 export default function PostList() {
   const [notices, setNotices] = useState<Post[]>([]);
   const [posts, setPosts] = useState<Post[]>([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 관리
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 관리
+  const [keyword, setKeyword] = useState(""); // 검색 엔진
+  const [popularPosts, setPopularPosts] = useState<Post[]>([]); // 인기 게시글
+
+  // 페이지 번호를 관리
+  const [page, setPage] = useState(0);
+
+  // 검색어 입력 처리
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(e.target.value);
+  };
+
+  // 검색 처리
+  const handleSearch = async () => {
+    const response = await fetch(
+      `https://withsports.site/post/list?keyword=${keyword}`
+    );
+    const data = await response.json();
+
+    const fetchedNotices: Post[] = data.data.notices.map((notice: any) => ({
+      id: notice.id,
+      subject: notice.subject,
+      isNotice: notice.isNotice,
+      author: notice.author.username,
+      createDate: new Date(notice.createDate).toLocaleString(),
+    }));
+
+    const fetchedPosts: Post[] = data.data.paging.content.map((post: any) => ({
+      id: post.id,
+      subject: post.subject,
+      isNotice: post.isNotice,
+      author: post.author.username,
+      createDate: new Date(post.createDate).toLocaleString(),
+    }));
+
+    setNotices(fetchedNotices);
+    setPosts(fetchedPosts);
+    setTotalPages(data.data.paging.totalPages);
+  };
+
+  // 페이지 이동 처리 함수
+  const handlePageChange = (pageNumber: number) => {
+    setPage(pageNumber);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("https://withsports.site/post/list");
+    const fetchPopularPosts = async () => {
+      let response = await fetch(`https://withsports.site/post/list?page=0`);
+      let data = await response.json();
+
+      let allPosts = [...data.data.paging.content]; // 첫 페이지 게시글 저장
+      let totalPages = data.data.paging.totalPages; // 전체 페이지 수
+
+      // 2번째 페이지부터 마지막 페이지까지 순회
+      for (let i = 1; i < totalPages; i++) {
+        response = await fetch(`https://withsports.site/post/list?page=${i}`);
+        data = await response.json();
+        allPosts = [...allPosts, ...data.data.paging.content]; // 각 페이지의 게시글을 allPosts에 추가
+      }
+
+      // 인기 게시글 정보 가공
+      const fetchedPopularPosts: Post[] = allPosts
+        .filter((post: any) => post.voter.length >= 2) // 추천 수가 5 이상인 게시글만 선택
+        .map((post: any) => ({
+          id: post.id,
+          subject: post.subject,
+          isNotice: post.isNotice,
+          author: post.author.username,
+          createDate: new Date(post.createDate).toLocaleString(),
+          voter: post.voter,
+        })).slice(0, 3);
+
+      setPopularPosts(fetchedPopularPosts);
+    };
+
+    const fetchPosts = async () => {
+      const response = await fetch(
+        `https://withsports.site/post/list?page=${page}`
+      );
       const data = await response.json();
 
       // 공지 게시글 정보 가공
-      const fetchedNotices: Post[] = data.data.notices.map((notice: any) => ({
-        id: notice.id,
-        subject: notice.subject,
-        isNotice: notice.isNotice,
-        author: notice.author.username,
-        createDate: new Date(notice.createDate).toLocaleString(),
-      }));
+      const fetchedNotices: Post[] = data.data.notices
+        .map((notice: any) => ({
+          id: notice.id,
+          subject: notice.subject,
+          isNotice: notice.isNotice,
+          author: notice.author.username,
+          createDate: new Date(notice.createDate).toLocaleString(),
+        }))
+        .sort((a: Post, b: Post) => b.createDate.localeCompare(a.createDate))
+        .slice(0, 3);
 
       // 일반 게시글 정보 가공
       const fetchedPosts: Post[] = data.data.paging.content.map(
@@ -53,12 +130,13 @@ export default function PostList() {
       setIsLoggedIn(savedLoginState === "true");
     };
 
-    fetchData();
-  }, []);
+    fetchPopularPosts();
+    fetchPosts();
+  }, [page]);
 
   // 로그아웃 함수
   const handleLogout = () => {
-    alert("로그아웃 되었습니다.")
+    alert("로그아웃 되었습니다.");
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("username");
     setIsLoggedIn(false);
@@ -66,6 +144,22 @@ export default function PostList() {
 
   return (
     <div>
+      <br />
+      {isLoggedIn ? (
+        <button onClick={handleLogout} className={styles.loginButton} style={{ marginRight: "10px" }}>
+          logout
+        </button>
+      ) : (
+        <>
+          <Link href="/post/login">
+            <button className={styles.loginButton} style={{ marginRight: "10px" }}>Login</button>
+          </Link>
+          <Link href="/post/signup">
+            <button className={styles.signupButton}>Signup</button>
+          </Link>
+        </>
+      )}
+      <br />
       <br />
       <div className={styles.boardContainer}>
         <Link href="/post/create">
@@ -76,8 +170,12 @@ export default function PostList() {
             className={styles.searchBox}
             type="text"
             placeholder="검색어를 입력하세요"
+            value={keyword}
+            onChange={handleKeywordChange}
           />
-          <button className={styles.searchButton}>search</button>
+          <button className={styles.searchButton} onClick={handleSearch} style={{ marginLeft: "10px" }}>
+            search
+          </button>
         </div>
       </div>
       <ul className={styles.noticeList}>
@@ -90,12 +188,7 @@ export default function PostList() {
         {notices.map((notice) => (
           <div key={notice.id}>
             <h5>
-              <style jsx>{`
-                a {
-                  color: inherit;
-                  text-decoration: none;
-                }
-              `}</style>
+              <style jsx>{`a { color: inherit; text-decoration: none;}`}</style>
               <a href={`/post/detail/${notice.id}`}>{notice.subject}</a>
             </h5>
             <small style={{ textAlign: "right" }}>
@@ -105,6 +198,19 @@ export default function PostList() {
           </div>
         ))}
       </ul>
+
+      <h3>인기 게시물</h3>
+      <div className={styles.popularList}>
+        {popularPosts.map((post) => (
+          <div key={post.id} className={styles.popularPostItem}>
+            <style jsx>{`a{ color : black; text-decoration:none; flex-grow: 1;}`}</style>
+            <a href={`/post/detail/${post.id}`} className={styles.popularPostLink}>{post.subject}</a>
+            <span>추천 수: {post.voter.length}</span>
+          </div>
+          
+        ))}
+      </div>
+
       <h3>일반 게시물</h3>
       <table className={styles.postTable}>
         <thead>
@@ -135,15 +241,23 @@ export default function PostList() {
         </tbody>
       </table>
       
-      {/* 페이지네이션 */}
-      <div>
+      <div className={styles.paginationContainer}>
+        <button
+          onClick={() => handlePageChange(page - 1)}
+          disabled={page === 0}
+        >이전
+        </button>
         {Array.from({ length: totalPages }, (_, i) => (
-          <Link key={i} href={`/post/list?page=${i}`}>
+          <button key={i} onClick={() => handlePageChange(i)} className={styles.pageButton}>
             {i + 1}
-          </Link>
+          </button>
         ))}
+        <button
+          onClick={() => handlePageChange(page + 1)}
+          disabled={page === totalPages - 1}
+        >다음
+        </button>
       </div>
     </div>
   );
 }
-
