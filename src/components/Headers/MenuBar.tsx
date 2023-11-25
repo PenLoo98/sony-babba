@@ -76,17 +76,6 @@ export default function MenuBar() {
         />
         <p>팀</p>
       </Link>
-      <Link href="/chat/main" style={{ textDecoration: "none" }}>
-        <Image
-          src="/chatBtn.png"
-          width={50}
-          height={50}
-          alt="chat-image"
-          style={{ margin: "0 10px" }}
-        />
-        <p>채팅</p>
-      </Link>
-
       {/* 알람 */}
       <Notification />
 
