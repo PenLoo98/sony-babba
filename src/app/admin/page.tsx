@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 
 export default function Admin() {
     const buttons = [
-        { name: 'Dashboard', imgSrc: '/dashboard.png' },
         { name: 'User', imgSrc: '/member.png' },
         { name: 'Team', imgSrc: '/team.png' },
         { name: 'Stadium', imgSrc: '/stadium.png' },
@@ -21,7 +20,7 @@ export default function Admin() {
             gridTemplateColumns:{
             xs:"repeat(1, 1fr)",
             sm:"repeat(2, 1fr)",
-            md:"repeat(4, 1fr)"
+            md:"repeat(3, 1fr)"
             }
         }}>
         {
