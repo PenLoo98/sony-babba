@@ -498,7 +498,7 @@ export default function GifticonPage() {
             {/*  수정폼 */}
 
             <form
-              onSubmit={handleSubmit}
+              onSubmit={isEditing ? handleUpdateSubmit : handleSubmit}
               className={styles["modal-form"]}
               style={{
                 display: "flex",
