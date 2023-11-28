@@ -20,6 +20,11 @@ export default function ReadNotification({
 
     // 읽음 요청 API
     const readURL = `https://withsports.shop:8000/notification-service/notification/${notificationId}`;
+   
+    type ReadBody = {
+      read: boolean;
+    };
+    const bodyContent:ReadBody = {read:true};
 
     const response = await fetch(readURL, {
       method: "PUT",
@@ -28,7 +33,7 @@ export default function ReadNotification({
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: "{'read': true}",
+      body: JSON.stringify(bodyContent),
     })
       .then((res) => res.json())
       .then((data) => {
