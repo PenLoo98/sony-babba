@@ -318,7 +318,7 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
             </div>
 
             {/* 회원 탈퇴*/}
-
+{/* 
             <div className="delete-account" style={{ marginTop: "5px" }}>
               <Button
                 variant="outlined"
@@ -367,7 +367,7 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
                   </Button>
                 )}
               </div>
-            </ModalCustom>
+            </ModalCustom> */}
           </div>
         ) : (
           <div className="another-profile">
@@ -381,7 +381,7 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
                 팀원 신청
               </Button>
             </div>
-            <div className="report-button" style={{ marginTop: "5px" }}>
+            {/* <div className="report-button" style={{ marginTop: "5px" }}>
               <Button
                 variant="outlined"
                 startIcon={<ReportIcon />}
@@ -415,7 +415,7 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
                   사용자 신고
                 </Button>
               </ModalCustom>
-            </div>
+            </div> */}
           </div>
         )}
       </div>
