@@ -179,31 +179,31 @@ export default function StadiumTimeRegistrationPage() {
                     
                     <form onSubmit={handleSubmit}>
                     <div style={{ display: 'flex', flexDirection: 'column' }}> 
-                        <select name="year" value={registerInfo.year} onChange={handleChange} style={{ height: '20px' }}>
+                        년 : <select name="year" value={registerInfo.year} onChange={handleChange} style={{ height: '20px' }}>
                             {Array.from({length: 3}, (_, i) => i + 2023).map((year) => 
                                 <option key={year} value={year}>{year}년</option>
                             )}
                         </select>
                         <br/>
-                        <select name="month" value={registerInfo.month} onChange={handleMonthChange} style={{ height: '20px' }}>
+                        월 : <select name="month" value={registerInfo.month} onChange={handleMonthChange} style={{ height: '20px' }}>
                             {Array.from({length: 12}, (_, i) => i + 1).map((month) => 
                                 <option key={month} value={month}>{month}월</option>
                             )}
                         </select>
                         <br/>
-                        <select name="day" value={registerInfo.day} onChange={handleChange} style={{ height: '20px' }}>
+                        일 : <select name="day" value={registerInfo.day} onChange={handleChange} style={{ height: '20px' }}>
                             {Array.from({length: dayCount}, (_, i) => i + 1).map((day) => 
                                 <option key={day} value={day}>{day}일</option>
                             )}
                         </select>
                         <br/>
-                        <select name="hour" value={registerInfo.hour} onChange={handleChange} style={{ height: '20px' }}>
+                        시 : <select name="hour" value={registerInfo.hour} onChange={handleChange} style={{ height: '20px' }}>
                             {Array.from({length: 13}, (_, i) => i + 9).map((hour) => 
                                 <option key={hour} value={hour}>{hour}시</option>
                             )}
                         </select>
                         <br/>
-                        <input name="capacity" type="number" value={registerInfo.capacity} onChange={handleChange} />
+                        수용인원 : <input name="capacity" type="number" value={registerInfo.capacity} onChange={handleChange} />
                         <br/>
                         <button type="submit" className={styles.addButton}>제출</button>
                         <br/>
