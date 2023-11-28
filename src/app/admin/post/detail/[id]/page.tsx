@@ -278,13 +278,13 @@ export default function PostDetail(props: ReadProps) {
     <div>
       <h3 style={{ marginBottom: "1px" }}>{post.subject}</h3>
         <span style={{ display: "flex", justifyContent: "flex-end" }}>
-          <button
+          {/* <button
             onClick={handleModifyPost}
             className={styles.modifybutton}
             style={{ marginRight: "10px" }}
           >
             수정
-          </button>
+          </button> */}
           <button onClick={handleDeletePost} className={styles.deletebutton}>
             삭제
           </button>
@@ -325,7 +325,7 @@ export default function PostDetail(props: ReadProps) {
           {loggedInUsername === comment.author!.username && (
           <>
               {/* TODO : 댓글 수정 버튼 추가 */}
-              <button onClick={() => handleOpenModal(comment.id)} className={styles.addButton} style={{marginRight: "10px"}}>수정</button>
+              {/* <button onClick={() => handleOpenModal(comment.id)} className={styles.addButton} style={{marginRight: "10px"}}>수정</button> */}
               <button onClick={() => handleCommentDelete(comment.id)} className={styles.deletebutton}>삭제</button>
           </>
           )}
