@@ -213,6 +213,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
       .then((res) => {
         if (res.ok) {
           console.log("팀 탈퇴 신청 성공");
+          alert("팀 탈퇴 신청이 완료되었습니다.");
           setShowResignModal(false);
         } else {
           console.log("팀 탈퇴 신청 실패");
@@ -327,7 +328,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                   <h1>팀 탈퇴</h1>
                   <TypeValid
                     buttonText="팀 탈퇴"
-                    validText={`${data.teamName}/해체한다`}
+                    validText={`${data.teamName}/탈퇴한다`}
                     onClick={fetchResignTeam}
                   />
                 </ModalCustom>

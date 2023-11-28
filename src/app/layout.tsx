@@ -72,7 +72,7 @@ export default function RootLayout({ children }: Props) {
           <div className="contentWrapper" style={contentWrapper}>
             <div
               className="content"
-              style={{ backgroundColor: "white", margin: "10px", padding: "10px" }}
+              style={{ backgroundColor: "white", margin: "40px", padding: "10px" }}
             >
               {children}
             </div>

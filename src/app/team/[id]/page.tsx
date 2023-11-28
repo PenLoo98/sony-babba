@@ -272,9 +272,11 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
             <h2>{data.teamName} 팀</h2>
             <h2>{data.leaderNickname} 팀장</h2>
             <p>소개: {data.introduction}</p>
-            <h3>{data.area}</h3>
-            <h3>{data.sports}</h3>
-            <h3>{data.teamMemberCount}명</h3>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <h3>{data.area}</h3>
+              <h3>{data.sports}</h3>
+              <h3>{data.teamMemberCount}명</h3>
+            </div>
 
             {isLeader && (
               <div>
@@ -326,7 +328,7 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
                   <h1>팀 탈퇴</h1>
                   <TypeValid
                     buttonText="팀 탈퇴"
-                    validText={`${data.teamName}/해체한다`}
+                    validText={`${data.teamName}/탈퇴한다`}
                     onClick={fetchResignTeam}
                   />
                 </ModalCustom>
