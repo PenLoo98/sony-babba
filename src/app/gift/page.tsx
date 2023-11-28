@@ -295,6 +295,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
         </div>
         <h3>식품</h3>
         {/* food 상품 목록 창 */}
+        <div>
         <table className={styles.giftListTable} style={{ marginTop: "10px" }}>
           <thead>
             <tr style={{ backgroundColor: "black" }}>
@@ -323,9 +324,11 @@ export default function GifticonPage({ params }: { params: PageParams }) {
             )}
           </tbody>
         </table>
+        </div>
 
         <h3>스포츠 용품</h3>
         {/* sportequipment 상품 목록 창 */}
+        <div style={{margin: "10px"}}>
         <table className={styles.giftListTable} style={{ marginTop: "10px" }}>
           <thead>
             <tr style={{ backgroundColor: "black" }}>
@@ -354,6 +357,7 @@ export default function GifticonPage({ params }: { params: PageParams }) {
             )}
           </tbody>
         </table>
+        </div>
 
 
         {/* 상품 상세 화면 모달창 */}

@@ -4,10 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import SmsIcon from "@mui/icons-material/Sms";
-import HandshakeIcon from "@mui/icons-material/Handshake";
-import ReportIcon from "@mui/icons-material/Report";
 import ModalCustom from "@/components/ModalCustom";
 import CheckNickButton from "@/app/auth/AuthComponent/CheckNickButton";
 import SelectArea from "@/app/auth/AuthComponent/SelectArea";
@@ -133,39 +129,7 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
       });
   }
 
-  // 회원 탈퇴 모달
-  const [showExit, setShowExit] = useState(false);
-  const deleteProfile = () => {
-    setShowExit(true);
-  };
-  // 회원 탈퇴 양식입력
-  const [checkType, setCheckType] = useState("");
-  const handleTypeChange = (event: any) => {
-    setCheckType(event.target.value);
-  };
-  // 회원 탈퇴 서버요청
-  const postDeleteProfile = () => {
-    alert("회원 탈퇴 신청이 완료되었습니다.");
-    setShowExit(false);
-    setCheckType("");
-  };
-
-  // 회원 신고 모달
-  const [showReport, setShowReport] = useState(false);
-  const reportProfile = () => {
-    setShowReport(true);
-  };
-  // 회원 신고 양식입력
-  const [checkReport, setCheckReport] = useState("");
-  const handleReportChange = (event: any) => {
-    setCheckReport(event.target.value);
-  };
-  // 회원 신고 서버요청
-  const postReportProfile = () => {
-    alert("회원 신고가 완료되었습니다.");
-    setShowReport(false);
-    setCheckReport("");
-  };
+  
 
   // 사용자 닉네임 검색
   // 사용자 닉네임 검색결과 저장
@@ -262,7 +226,7 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
         style={{ flexDirection: "column", marginTop: "15px" }}
       >
         {/* 본인, 타인 프로필 테스트 버튼 */}
-        <Button variant="outlined" onClick={switchYours}>
+        <Button variant="outlined">
           {isYourProfile ? "내 프로필" : "다른 프로필"}
         </Button>
         <IsYours
@@ -316,105 +280,9 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
                 )}
               </ModalCustom>
             </div>
-
-            {/* 회원 탈퇴*/}
-            {/* <div className="delete-account" style={{ marginTop: "5px" }}>
-              <Button
-                variant="outlined"
-                startIcon={<DeleteForeverIcon />}
-                style={{ color: "red" }}
-                onClick={deleteProfile}
-              >
-                회원 탈퇴
-              </Button>
-            </div>
-            <ModalCustom show={showExit} setShow={setShowExit}>
-              <Image
-                src="/warning.png"
-                alt="warning"
-                width={79}
-                height={79}
-                style={{ alignItems: "center" }}
-              />
-              <h3>
-                회원 탈퇴는 하는 경우
-                <br />
-                모든 회원 정보가 삭제되며
-                <br />
-                되돌릴 수 없습니다.
-                <br />
-                삭제하시겠습니까?
-                <br />
-                <br />
-                {userData.nickname}
-                {"/탈퇴한다"}를 입력해주세요
-              </h3>
-              <div className="delete-account">
-                <TextField
-                  label="닉네임/탈퇴한다"
-                  variant="outlined"
-                  value={checkType}
-                  onChange={handleTypeChange}
-                />
-                {checkType === userData.nickname + "/탈퇴한다" ? (
-                  <Button variant="outlined" onClick={postDeleteProfile}>
-                    회원탈퇴
-                  </Button>
-                ) : (
-                  <Button variant="outlined" disabled>
-                    회원탈퇴
-                  </Button>
-                )}
-              </div>
-            </ModalCustom> */}
           </div>
         ) : (
           <div className="another-profile">
-            {/* <div className="message-button" style={{ marginTop: "5px" }}>
-              <Button variant="outlined" startIcon={<SmsIcon />}>
-                메시지
-              </Button>
-            </div> */}
-            <div className="invite-button" style={{ marginTop: "5px" }}>
-              <Button variant="outlined" startIcon={<HandshakeIcon />}>
-                팀원 신청
-              </Button>
-            </div>
-            {/* <div className="report-button" style={{ marginTop: "5px" }}>
-              <Button
-                variant="outlined"
-                startIcon={<ReportIcon />}
-                style={{ color: "red" }}
-                onClick={reportProfile}
-              >
-                사용자 신고
-              </Button>
-              <ModalCustom show={showReport} setShow={setShowReport}>
-                <Image
-                  src="/warning.png"
-                  alt="warning"
-                  width={79}
-                  height={79}
-                  style={{ alignItems: "center" }}
-                />
-                <h3>
-                  신고 사용을 작성해주세요.
-                  <br />
-                  <br />
-                </h3>
-                <div className="delete-account">
-                  <TextField
-                    label="신고사유"
-                    variant="outlined"
-                    value={checkReport}
-                    onChange={handleReportChange}
-                  />
-                </div>
-                <Button variant="outlined" onClick={postReportProfile}>
-                  사용자 신고
-                </Button>
-              </ModalCustom>
-            </div> */}
           </div>
         )}
       </div>

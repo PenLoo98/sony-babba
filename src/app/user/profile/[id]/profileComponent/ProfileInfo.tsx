@@ -48,10 +48,7 @@ export default function Profile({ userJSON }: ProfileProps) {
         >
           <h1>{userData.nickname}</h1>
         </div>
-        <div
-          className="teamInfo"
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
+        <div className="teamInfo">
           <h3>{userData.area}</h3>
         </div>
         <div

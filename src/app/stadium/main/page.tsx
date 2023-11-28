@@ -125,6 +125,7 @@ export default function StadiumListPage({ params }: { params: PageParams }){
             <br/>
             <br/>
             {/* 경기장 목록 표시 */}
+            <div>
             <table className={styles.stadiumListTable}>
             <thead>
                 <tr>
@@ -144,7 +145,8 @@ export default function StadiumListPage({ params }: { params: PageParams }){
                     </tr>
                 ))}
             </tbody>
-        </table>
+            </table>
+            </div>
         {modalOpen && selectedStadium && (
         <div style={{
             display: "flex",
