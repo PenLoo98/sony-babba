@@ -37,7 +37,7 @@ export default function Profile({ userJSON }: ProfileProps) {
           height={200}
         />
       </div>
-      <div className="userInfo">
+      <div className="userInfo" style={{textAlign: "center"}}>
         <div
           className="userNickname"
           style={{
