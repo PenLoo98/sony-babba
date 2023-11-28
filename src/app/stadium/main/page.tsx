@@ -125,7 +125,7 @@ export default function StadiumListPage({ params }: { params: PageParams }){
             <br/>
             <br/>
             {/* 경기장 목록 표시 */}
-            <div>
+            <div style={{margin: "10px"}}>
             <table className={styles.stadiumListTable}>
             <thead>
                 <tr>

@@ -241,7 +241,7 @@
 
 /* 게시글 목록 */
 .postTable {
-  width: 110%;
+  width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
@@ -313,7 +313,7 @@
 /* 포인트 테이블 */
 
 .pointTable {
-  width: 110%;
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -337,7 +337,7 @@
 
 
 .stadiumListTable {
-  width: 110%;
+  width: 100%;
   border-collapse: collapse;
 }
 
@@ -346,6 +346,7 @@
   border-bottom: 1px solid #ddd;
   text-align: center;
   padding: 8px;
+  word-break: break-all;
 }
 
 .stadiumListTable th {
@@ -360,8 +361,9 @@
 /* 기프티콘 목록  */
 
 .giftListTable {
-  width: 110%;
+  width: 100%;
   border-collapse: collapse;
+  word-break: break-all;
 }
 
 .giftListTable th,

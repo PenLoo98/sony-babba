@@ -21,18 +21,6 @@ export default function MatchingPage() {
   // 매칭방 목록에서 매칭방을 선택하면 해당 매칭방으로 입장함.
   // 매칭방 생성자(방장)는 매칭방 삭제 버튼, 그 외 구성원은 나가기 버튼
 
-  // 매칭방 목록 ... (GET) /matching-service/matchingrooms
-
-  // 매칭방 생성 ... (POST) /matching-service/matching/room
-
-  // 매칭방 입장 ... (POST) /matching-service/matchingroom
-
-  // 매칭방 나가기 ... (DELETE) /matching-service/matchingroom/{matchingRoomId}
-
-  // 매칭 탐색 ... (POST) /matching-service/matching/{mathcingRoomId}/start
-
-  // 매칭 탐색 취소 ... (POST) /matching-service/matching/{matchingRoomId}/cancel
-
   return (
     <div>
       <div
