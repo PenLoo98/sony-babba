@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import Header from "@/components/Headers/Header";
 import Footer from "@/components/Footer";
 import ValidToken from "@/components/Auth/ValidToken";
-import NextTopLoader from 'nextjs-toploader';
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,17 +51,35 @@ export default function RootLayout({ children }: Props) {
         />
         <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
       </head>
-        <body className={inter.className}>
-        <NextTopLoader color="green" initialPosition={0.08} crawlSpeed={200} height={3} crawl={true} showSpinner={true} easing="ease" speed={200} shadow="0 0 10px #2299DD,0 0 5px #2299DD" />
-          <div className="wrapper" style={wrapper}>
-            <ValidToken />
-            <Header />
-            <div className="contentWrapper" style={contentWrapper}>
+      <body
+        className={inter.className}
+        style={{ backgroundImage: "main-page.png" }}
+      >
+        <NextTopLoader
+          color="green"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={true}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+        />
+        <div className="wrapper" style={wrapper}>
+          <ValidToken />
+          <Header />
+          <div className="contentWrapper" style={contentWrapper}>
+            <div
+              className="content"
+              style={{ backgroundColor: "white", margin: "10px", padding: "10px" }}
+            >
               {children}
             </div>
-            <Footer />
           </div>
-        </body>
+          <Footer />
+        </div>
+      </body>
     </html>
   );
 }
