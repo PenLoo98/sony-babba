@@ -14,18 +14,6 @@ import CheckTeamName from "../teamComponent/CheckTeamName";
 import CheckSports from "../teamComponent/CheckSports";
 
 export default function TeamSpecific() {
-  // 팀 메인 페이지 그리드 스타일
-  const teamMainStyle = {
-    display: "grid",
-    gridTemplateColumns: "1fr 2fr 0.5fr",
-    gridTemplateRows: "1fr 0.5fr",
-    gap: "10px 10px",
-    gridTemplateAreas: `
-      ". . . ."
-      ". . . ."
-      `,
-  };
-
   // 팀장인지 아닌지 확인
   const [isLeader, setIsLeader] = useState(false);
   // 팀 생성 모달
@@ -108,12 +96,10 @@ export default function TeamSpecific() {
       });
   }
 
-
   return (
     <div className="teamMain">
-      <div style={teamMainStyle}>
-        <Image src="/team-main.png" alt="team" width={180} height={180} />
-
+      <Image src="/team-main.png" alt="team" width={180} height={180} />
+      <div>
         {/* 팀 검색 */}
         <Link href="/team/search">
           <Button
@@ -144,61 +130,60 @@ export default function TeamSpecific() {
           setTeamImageFile={setTeamImageFile}
         />
         <div
-        className="teamNameVaild"
-        style={{ display: "flex", alignItems: "center" }}
-      >
+          className="teamNameVaild"
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <TextField
+            id="outlined-basic"
+            label="팀 이름"
+            variant="outlined"
+            value={teamName}
+            onChange={changeTeamName}
+            style={{ margin: "10px 0 10px 0" }}
+          />
+          <CheckTeamName teamname={teamName} setValidName={setValidName} />
+        </div>
+        <div
+          className="teamSports"
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <SelectSports sports={sports} setSports={setSports} />
+          <CheckSports sports={sports} setValidSports={setValidSports} />
+        </div>
+        <br />
+        <SelectArea area={area} setArea={setArea} />
         <TextField
           id="outlined-basic"
-          label="팀 이름"
+          label="팀 소개"
           variant="outlined"
-          value={teamName}
-          onChange={changeTeamName}
+          value={teamIntro}
+          onChange={changeTeamIntro}
+          multiline
+          rows={4}
           style={{ margin: "10px 0 10px 0" }}
         />
-        <CheckTeamName teamname={teamName} setValidName={setValidName} />
-      </div>
-      <div
-        className="teamSports"
-        style={{ display: "flex", alignItems: "center" }}
-      >
-        <SelectSports sports={sports} setSports={setSports} />
-        <CheckSports sports={sports} setValidSports={setValidSports} />
-      </div>
-      <br />
-      <SelectArea area={area} setArea={setArea} />
-      <TextField
-        id="outlined-basic"
-        label="팀 소개"
-        variant="outlined"
-        value={teamIntro}
-        onChange={changeTeamIntro}
-        multiline
-        rows={4}
-        style={{ margin: "10px 0 10px 0" }}
-      />
-      {validName && validSports ? (
-        <Button
-          variant="outlined"
-          onClick={postTeamInfo}
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          팀 생성하기
-        </Button>
-      ) : (
-        <Button
-          variant="outlined"
-          onClick={postTeamInfo}
-          style={{ display: "flex", alignItems: "center" }}
-          disabled
-        >
-          팀 생성하기
-        </Button>
-      )}
-    </ModalCustom>
-
+        {validName && validSports ? (
+          <Button
+            variant="outlined"
+            onClick={postTeamInfo}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            팀 생성하기
+          </Button>
+        ) : (
+          <Button
+            variant="outlined"
+            onClick={postTeamInfo}
+            style={{ display: "flex", alignItems: "center" }}
+            disabled
+          >
+            팀 생성하기
+          </Button>
+        )}
+      </ModalCustom>
 
       {/* 소속 팀 */}
-      <GetBelongTeam/>  
+      <GetBelongTeam />
     </div>
   );
 }
