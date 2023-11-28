@@ -87,13 +87,13 @@ export default function ModifyPost(props: ReadProps) {
           }}
         />
       </h4>
-      <input
+      {/* <input
         type="checkbox"
         checked={isNotice}
         onChange={(e) => setIsNotice(e.target.checked)}
       />{" "}
       공지글
-      <br />
+      <br /> */}
       <br />
       <textarea
         value={content}
