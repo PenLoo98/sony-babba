@@ -19,7 +19,7 @@ export default function ReadNotification({
     const token = localStorage.getItem("accessToken");
 
     // 읽음 요청 API
-    const readURL = `https://withsports.shop:8000/notification-service/notifications/${notificationId}`;
+    const readURL = `https://withsports.shop:8000/notification-service/notification/${notificationId}`;
 
     const response = await fetch(readURL, {
       method: "PUT",
@@ -28,7 +28,7 @@ export default function ReadNotification({
         ContentType: "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ read: true }),
+      body: "{'read': true}",
     })
       .then((res) => res.json())
       .then((data) => {

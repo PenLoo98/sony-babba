@@ -111,8 +111,6 @@ export default function Notification() {
     countNotification();
   }, []);
 
-  // TODO: 알림 읽음 fetch
-
   return (
     <>
       <Badge badgeContent={notificationCount} color="error" style={{display: "block"}}>

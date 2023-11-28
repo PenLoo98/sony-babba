@@ -28,6 +28,7 @@ export default function ExitRoomButton({
     }).then((res) => {
       if (res.ok) {
         alert("방에서 퇴장했습니다.");
+        location.reload();
       } else if (res.status === 401) {
         alert("다시 로그인해주세요");
       } else {
