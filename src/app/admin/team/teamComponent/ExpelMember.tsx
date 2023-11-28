@@ -34,6 +34,7 @@ export default function ExpelMember({
     }).then((res) => {
       if (res.ok) {
         console.log("팀원 제명 요청이 완료되었습니다.");
+        alert("팀원 제명이 완료되었습니다.");
       } else {
         console.log("팀원 제명 요청이 실패하였습니다.");
       }

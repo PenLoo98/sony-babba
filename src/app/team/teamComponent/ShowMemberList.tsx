@@ -79,7 +79,6 @@ export default function ShowMemberList({ teamId, isLeader }: MemberListProps) {
               <th>승률</th>
               <th>티어</th>
               <th>MVP</th>
-              <th>제명</th>
             </tr>
           </thead>
           <tbody>
@@ -100,15 +99,6 @@ export default function ShowMemberList({ teamId, isLeader }: MemberListProps) {
                 <th>{member.winRate}%</th>
                 <th>{member.tier} 티어</th>
                 <th>MVP: {member.mvpCount}회</th>
-                <th>
-                  {isLeader ? (
-                    <ExpelMember
-                      teamId={member.teamId}
-                      memberId={member.userId}
-                      memberName={member.nickname}
-                    />
-                  ) : null}
-                </th>
               </tr>
             ))}
           </tbody>

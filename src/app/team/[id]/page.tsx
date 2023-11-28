@@ -38,17 +38,6 @@ type TeamMember = {
   mvpCount: number;
 };
 
-// TODO: 팀 해체 - 팀 해체버튼 API 테스트
-// TODO: 팀 탈퇴 - 팀 탈퇴버튼 API 테스트
-// TODO: 팀 프로필 수정 - 팀 프로필 수정 API 테스트
-// TODO: 팀원 제명 구현 - 팀원 제명 API 테스트
-// TODO: 팀원 목록 조회 - API 테스트
-
-// 여기부터 시작하기!!
-// TODO: 팀원 신청 목록 조회 구현
-// TODO: 팀원 신청 수락/거절 구현
-// TODO: 팀 매칭 일정 보기 구현
-
 export default function ShowTeamPage({ params }: { params: PageParams }) {
   // 로컬스토리지 토큰 가져오기
   const localStorage: Storage = window.localStorage;
@@ -212,8 +201,9 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
     })
       .then((res) => {
         if (res.ok) {
-          console.log("팀 탈퇴 신청 성공");
+          alert("팀 탈퇴 신청이 완료되었습니다.");
           setShowResignModal(false);
+          location.reload();
         } else {
           console.log("팀 탈퇴 신청 실패");
         }
