@@ -208,7 +208,7 @@
 
 /* 공지글 목록 */
 .noticeList {
-  width: 100%;
+  width: 90%;
   background-color: white;
   padding: 20px;
   border-radius: 10px;
@@ -227,7 +227,7 @@
 
 /* 인기글 목록 */
 .popularList {
-  width : 100%;
+  width : 90%;
   border: 1px solid #000;
   padding: 10px;
   margin: 10px 0;
