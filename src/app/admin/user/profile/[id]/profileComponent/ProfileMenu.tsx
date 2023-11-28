@@ -371,11 +371,11 @@ export default function ProfileMenu({ pageId, userJSON }: ProfileProps) {
           </div>
         ) : (
           <div className="another-profile">
-            <div className="message-button" style={{ marginTop: "5px" }}>
+            {/* <div className="message-button" style={{ marginTop: "5px" }}>
               <Button variant="outlined" startIcon={<SmsIcon />}>
                 메시지
               </Button>
-            </div>
+            </div> */}
             <div className="invite-button" style={{ marginTop: "5px" }}>
               <Button variant="outlined" startIcon={<HandshakeIcon />}>
                 팀원 신청
