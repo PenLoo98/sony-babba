@@ -78,7 +78,6 @@ export default function ShowMemberList({ teamId, isLeader }: MemberListProps) {
               <th>지역</th>
               <th>승률</th>
               <th>티어</th>
-              <th>MVP</th>
             </tr>
           </thead>
           <tbody>
@@ -98,7 +97,6 @@ export default function ShowMemberList({ teamId, isLeader }: MemberListProps) {
                 <th>{member.area}</th>
                 <th>{member.winRate}%</th>
                 <th>{member.tier} 티어</th>
-                <th>MVP: {member.mvpCount}회</th>
               </tr>
             ))}
           </tbody>
