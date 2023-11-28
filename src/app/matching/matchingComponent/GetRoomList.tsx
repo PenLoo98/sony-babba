@@ -154,12 +154,18 @@ export default function GetRoomList() {
                   {/* room.status : "매칭방 인원 모집 중" | "매칭 완료" */}
                   <td>{room.status}</td>
                   <td>
-                    {/* 방장이면 매칭방 해체, 참가자면 매칭방 나가기 버튼 */}
-                    {connectUserId == room.roomLeaderId ? (
-                      <DeleteRoomButton matchingRoomId={room.matchingRoomId} />
-                    ) : (
-                      <ExitRoomButton matchingRoomId={room.matchingRoomId} />
-                    )}
+                    {!room.participateStatus && null}
+                    {/* 참가 중이면서 방장이면 매칭방 해체, 참가자면 매칭방 나가기 버튼 */}
+                    {room.participateStatus &&
+                      connectUserId == room.roomLeaderId && (
+                        <DeleteRoomButton
+                          matchingRoomId={room.matchingRoomId}
+                        />
+                      )}
+                    {room.participateStatus &&
+                      connectUserId != room.roomLeaderId && (
+                        <ExitRoomButton matchingRoomId={room.matchingRoomId} />
+                      )}
                   </td>
                   <td>
                     {/* 방장이면서 인원이 다 차면 매칭 시작 버튼 활성화 */}
@@ -172,7 +178,9 @@ export default function GetRoomList() {
                   </td>
                   <td>
                     {/* 매칭 완료시 매치 시작/종료 */}
-                    {room.status == "매칭 완료" ? (<StartEndMatch matchingRoomId={room.matchingRoomId}/>):(null)}
+                    {room.status == "매칭 완료" ? (
+                      <StartEndMatch matchingRoomId={room.matchingRoomId} />
+                    ) : null}
                   </td>
                 </tr>
               ))}
