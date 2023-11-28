@@ -135,7 +135,6 @@ export default function Notification() {
               <th>제목</th>
               <th>메시지</th>
               <th>날짜</th>
-              <th>읽음 처리</th>
             </tr>
           </thead>
           <tbody>
@@ -145,9 +144,6 @@ export default function Notification() {
                 <td>{notification.title}</td>
                 <td>{notification.message}</td>
                 <td>{notification.createdAt}</td>
-                <td>
-                  <ReadNotification notificationId={notification.id} />
-                </td>
               </tr>
             ))}
           </tbody>
