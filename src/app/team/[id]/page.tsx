@@ -269,13 +269,12 @@ export default function ShowTeamPage({ params }: { params: PageParams }) {
               width={200}
               height={200}
             />
-            <h1>팀 페이지</h1>
-            <h2>팀 이름: {data.teamName}</h2>
-            <h2>팀장 이름: {data.leaderNickname}</h2>
-            <h2>팀 소개: {data.introduction}</h2>
-            <h2>팀 지역: {data.area}</h2>
-            <h2>팀 종목: {data.sports}</h2>
-            <h2>팀 인원 수: {data.teamMemberCount}</h2>
+            <h2>{data.teamName} 팀</h2>
+            <h2>{data.leaderNickname} 팀장</h2>
+            <p>소개: {data.introduction}</p>
+            <h3>{data.area}</h3>
+            <h3>{data.sports}</h3>
+            <h3>{data.teamMemberCount}명</h3>
 
             {isLeader && (
               <div>
