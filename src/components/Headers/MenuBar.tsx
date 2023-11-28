@@ -4,7 +4,15 @@ import Notification from "./Notification";
 
 export default function MenuBar() {
   return (
-    <div className="menuBar" style={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+    <div
+      className="menuBar"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        textAlign: "center",
+        marginTop: "15px",
+      }}
+    >
       <Link href="/admin" style={{ textDecoration: "none" }}>
         <Image
           src="/admin.png"
