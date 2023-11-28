@@ -4,6 +4,7 @@ import ModalCustom from "@/components/ModalCustom";
 import InsertTeamImage from "./InsertTeamImage";
 import SelectArea from "./SelectArea";
 import EditIcon from "@mui/icons-material/Edit";
+import CheckTeamName from "./CheckTeamName";
 
 type EditTeamProfileProps = {
     teamId: number;
@@ -27,7 +28,7 @@ export default function EditTeamProfile({teamId, sports}: EditTeamProfileProps) 
     "/team-default-image.png"
   );
   const [editTeamImageFile, setEditTeamImageFile] = useState<File>();
-
+  const [validName, setValidName] = useState<boolean>(false);
   const [editTeamName, setEditTeamName] = useState<string>("");
   const [editIntroduction, setEditIntroduction] = useState<string>("");
   const [editArea, setEditArea] = useState<string>("");
@@ -116,13 +117,26 @@ export default function EditTeamProfile({teamId, sports}: EditTeamProfileProps) 
             teamImageFile={editTeamImageFile}
             setTeamImageFile={setEditTeamImageFile}
           />
-          <TextField
+          {/* <TextField
             id="outlined-basic"
             label="팀 이름"
             variant="outlined"
             value={editTeamName}
             onChange={handleEditTeamNameChange}
-          />
+          /> */}
+           <div className="teamNameVaild" style={{ display: "flex" }}>
+            <TextField
+              id="outlined-basic"
+              label="팀 이름"
+              variant="outlined"
+              value={editTeamName}
+              onChange={handleEditTeamNameChange}
+            />
+            <CheckTeamName
+              teamname={editTeamName}
+              setValidName={setValidName}
+            />
+          </div>
           <TextField
             id="outlined-basic"
             label="팀 소개"
@@ -134,7 +148,15 @@ export default function EditTeamProfile({teamId, sports}: EditTeamProfileProps) 
           />
           <SelectArea area={editArea} setArea={setEditArea} />
           <p>종목: {sports} </p>
-          <Button onClick={fetchEditTeam}>수정 제출</Button>
+          {validName ? (
+            <Button variant="contained" onClick={fetchEditTeam}>
+              수정 제출
+            </Button>
+          ) : (
+            <Button variant="contained" onClick={fetchEditTeam} disabled>
+              수정 제출
+            </Button>
+          )}
         </div>
       </ModalCustom>
     </div>

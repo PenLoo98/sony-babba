@@ -14,17 +14,7 @@ import CheckTeamName from "../teamComponent/CheckTeamName";
 import CheckSports from "../teamComponent/CheckSports";
 
 export default function TeamSpecific() {
-  // 팀 메인 페이지 그리드 스타일
-  const teamMainStyle = {
-    display: "grid",
-    gridTemplateColumns: "1fr 2fr 0.5fr",
-    gridTemplateRows: "1fr 0.5fr",
-    gap: "10px 10px",
-    gridTemplateAreas: `
-      ". . . ."
-      ". . . ."
-      `,
-  };
+  
 
   // 팀장인지 아닌지 확인
   const [isLeader, setIsLeader] = useState(false);
@@ -111,9 +101,8 @@ export default function TeamSpecific() {
 
   return (
     <div className="teamMain">
-      <div style={teamMainStyle}>
-        <Image src="/team-main.png" alt="team" width={180} height={180} />
-
+      <Image src="/team-main.png" alt="team" width={180} height={180} />
+      <div>
         {/* 팀 검색 */}
         <Link href="/team/search">
           <Button
@@ -198,7 +187,7 @@ export default function TeamSpecific() {
 
 
       {/* 소속 팀 */}
-      <GetBelongTeam/>  
+      <GetBelongTeam />  
     </div>
   );
 }
