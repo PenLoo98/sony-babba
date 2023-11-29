@@ -21,27 +21,18 @@ export default function ShowSearchList(searchNameResult: SearchNameProps) {
     <div>
       <h1>검색결과</h1>
       <p>프로필 이미지를 누르면 해당 프로필로 이동합니다.</p>
-      <table align="center">
-        <tr>
-          <p>
-            <td>검색 결과</td>
-          </p>
-        </tr>
-        <tr>
-          <td>사진 </td>
-          <td>이름</td>
-          <td>지역</td>
-        </tr>
-        {searchNameResult.searchNameResult.data.map((user) => (
-          <div key={user.id}>
-            <tr
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                padding: "15px",
-                alignItems: "center",
-              }}
-            >
+      <table style={{ marginTop: "40px", textAlign: "center" }}>
+        <thead>
+          <tr style={{ backgroundColor: "deepskyblue" }}>
+            <td style={{ color: "black", padding: "10px" }}>사진 </td>
+            <td style={{ color: "black", padding: "10px" }}>이름</td>
+            <td style={{ color: "black", padding: "10px" }}>지역</td>
+          </tr>
+        </thead>
+
+        <tbody>
+          {searchNameResult.searchNameResult.data.map((user) => (
+            <tr key={user.id}>
               <td>
                 <Image
                   src={user.profileImage || "/default-profile.png"}
@@ -55,14 +46,12 @@ export default function ShowSearchList(searchNameResult: SearchNameProps) {
                 />
               </td>
               <td>
-                <h3 style={{ margin: "0 10px" }}>{user.nickname}</h3>
+                <h3>{user.nickname}</h3>
               </td>
-              <td>
-                <p style={{ margin: "0 10px" }}>{user.area}</p>
-              </td>
+              <td>{user.area}</td>
             </tr>
-          </div>
-        ))}
+          ))}
+        </tbody>
       </table>
     </div>
   );
